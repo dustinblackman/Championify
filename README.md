@@ -7,6 +7,8 @@ Note this application is still in development, as far as I've tested it's worked
 
 This application is inspired by [ebildude123](https://github.com/ebildude123/champion.gg-item-set-creator) item set creator done in PHP.
 
+---
+
 ## FAQ
 ### Be more descriptive, what does this actually do?
 Well it's easy really. Here's a link for [Teemo's most popular build in top lane](http://champion.gg/champion/Teemo) that Champion.gg has tracked. We take this information and save it in a way that League of Legends likes so you can have the exact builds in game!
@@ -59,7 +61,7 @@ Well damn, you must be pretty impatient if you think that's slow... The script i
 
 
 ### My version is outdated and the app wont run?
-Yes, I force a version check on run that connects to my package file here on Github. This is to prevent issues if something changes with League or Champion.GG. Wouldn't want you getting in to a game with broken/no builds. You can pickup a new version [here](http://) on the downloads page.
+Yes, I force a version check on run that connects to my package file here on Github. This is to prevent issues if something changes with League or Champion.GG. Wouldn't want you getting in to a game with broken/no builds. You can pickup a new version [here](https://github.com/dustinblackman/Championify/releases) on the downloads page.
 
 
 ### Why is the file size so big?

@@ -1,4 +1,5 @@
 http = require 'http'
+https = require 'https'
 
 module.exports = {
   # Merge two objects
@@ -19,12 +20,35 @@ module.exports = {
       path: url
     }, (response) ->
       body = ''
+
+      response.on 'error', (err) ->
+        console.log err
+
       response.on 'data', (d) ->
         body += d
 
       response.on 'end', ->
         cb body
 
+  httpsRequest: (host, url, cb) ->
+    https.get {
+      host: host
+      path: url
+      port: 443
+      headers: {
+        'accept': '*/*'
+      }
+    }, (response) ->
+      body = ''
+
+      response.on 'error', (err) ->
+        console.log err
+
+      response.on 'data', (d) ->
+        body += d
+
+      response.on 'end', ->
+        cb body
 
   # Converts the arrays from Cheerio output to LoL Blocks
   # Kinda lazy, but works like a charm.
