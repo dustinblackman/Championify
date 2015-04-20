@@ -77,6 +77,8 @@ checkVer = (cb) ->
     data = JSON.parse(data)
     if data.version != pkg.version
       cl 'This seems to be an old version, let me open the download page for you to get an update!', 'yellow'
+      cl "If a new window doesn't open for you, get the latest here.", 'yellow'
+      cl "https://github.com/dustinblackman/Championify/releases/latest", 'yellow'
       open('https://github.com/dustinblackman/Championify/releases/latest')
       enterToExit()
     else
