@@ -67,7 +67,7 @@ Well damn, you must be pretty impatient if you think that's slow... The script i
 
 
 ### My version is outdated and the app wont run?
-Yes, I force a version check on run that connects to my package file here on Github. This is to prevent issues if something changes with League or Champion.GG. Wouldn't want you getting in to a game with broken/no builds. You can pickup a new version [here](https://github.com/dustinblackman/Championify/releases/latest) on the downloads page.
+Yes, I force a version check on run that connects to my package file here on Github. This is to prevent issues if something changes with League or Champion.GG. Wouldn't want you getting in to a game with broken/no builds. You can pickup the new version [here](https://github.com/dustinblackman/Championify/releases/latest) on the downloads page.
 
 
 ### Why is the file size so big?
