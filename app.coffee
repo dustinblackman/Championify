@@ -12,7 +12,7 @@ open = require 'open'
 hlp = require './helpers'
 pkg = require './package.json'
 
-# Mini JSON files to keep track of CSS paths and a default object for Builds.
+# Mini JSON files to keep track of CSS paths, schemas, default builds, and manaless champs.
 defaultSchema = require './data/default.json'
 csspaths = require './data/csspaths.json'
 prebuilts = require './data/prebuilts.json'
@@ -42,7 +42,6 @@ cl = (text, color) ->
   console.log(m)
 
 
-# Called when something has gone wrong.
 # Gives the user a chance to read the output before closing the window.
 enterToExit = ->
   cl 'Press enter to close.', 'yellow'
@@ -152,7 +151,7 @@ getChamps = (cb) ->
 
 # This executes the scraper for ChampionGG
 # We scrape ChampionGG 5 at a time, this prevents high load on ChampionGGs side, as we don't want to cause issues
-# their servers.
+# with their servers.
 processChamps = (champs, cb) ->
   async.eachLimit champs, 5, (champ, acb) ->
     requestPage {champ: champ}, () ->
@@ -173,7 +172,7 @@ deleteOldBuilds = (cb) ->
       cb null
 
 
-# Save all builds we created to file in the correct directory.
+# Save all builds we created to file in the correct directories.
 saveToFile = (cb) ->
   cl '--Saving Builds to File'
   async.each Object.keys(GLOBAL.champData), (champ, acb) ->
