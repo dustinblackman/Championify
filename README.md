@@ -9,6 +9,12 @@ This application is inspired by [ebildude123](https://github.com/ebildude123/cha
 
 ---
 
+## Downloads
+Found [here](https://github.com/dustinblackman/Championify/releases)
+
+---
+
+
 ## FAQ
 ### Be more descriptive, what does this actually do?
 Well it's easy really. Here's a link for [Teemo's most popular build in top lane](http://champion.gg/champion/Teemo) that Champion.gg has tracked. We take this information and save it in a way that League of Legends likes so you can have the exact builds in game!
