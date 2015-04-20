@@ -1,0 +1,15 @@
+{
+    "map": "any",
+    "isGlobalForChampions": false,
+    "blocks": [
+    ],
+    "associatedChampions": [],
+    "title": "",
+    "priority": false,
+    "mode": "any",
+    "isGlobalForMaps": true,
+    "associatedMaps": [],
+    "type": "custom",
+    "sortrank": 1,
+    "champion": ""
+}
