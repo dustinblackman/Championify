@@ -25,7 +25,8 @@ Run Championify, and a white window will come up (by default). Championify will 
 
 ### Wow buddy, what's this black/white box?
 Don't worry, that's what it's supposed to look like. I haven't the time to write up an interface for Championify, so it's supposed to look like this.
-!(Terminal Image)[http://i.imgur.com/sA6CyHT.png]
+
+![Terminal Image](http://i.imgur.com/sA6CyHT.png)
 
 
 ### AAHHHH! SOMETHING BROKE! IT'S ALL MESSED UP!
