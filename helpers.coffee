@@ -21,6 +21,9 @@ module.exports = {
     }, (response) ->
       body = ''
 
+      response.on 'socket', (socket) ->
+        socket.setTimeout(60)
+
       response.on 'error', (err) ->
         console.log err
 
@@ -40,6 +43,9 @@ module.exports = {
       }
     }, (response) ->
       body = ''
+
+      response.on 'socket', (socket) ->
+        socket.setTimeout(60)
 
       response.on 'error', (err) ->
         console.log err
