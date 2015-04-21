@@ -102,6 +102,7 @@ module.exports = {
           if $(s).hasClass('selected')
             skillOrder[s_idx] = keys[idx-1]
 
+    skillOrder = skillOrder.join('.')
     return skillOrder
 
 }
