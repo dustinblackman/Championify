@@ -118,6 +118,11 @@ getInstallPath = (cb) ->
     if fs.existsSync(process.cwd() + '/lol.launcher.exe')
       GLOBAL.lolInstallPath = process.cwd() + '/Config/Champions/'
       cb null
+      
+    # Also check League of Legends.exe in case it's a Garena installation.
+    else if fs.existsSync(process.cwd() + '/League of Legends.exe')
+      GLOBAL.lolInstallPath = process.cwd() + '/Config/Champions/'
+      cb null
 
     else if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
       GLOBAL.lolInstallPath = 'C:/Riot Games/League Of Legends/Config/Champions/'
