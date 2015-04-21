@@ -80,6 +80,8 @@ Well that's great! Put up an Issue or send me a message on reddit [/u/dustinhero
 ---
 ## Future Plans
 - Replace Terminal Window with a GUI
+- Enable/Disable specific item sets you don't want.
+- Error Handler.
 - Automatically elevate when required instead of making the user do it.
 - Verify if local champ builds are the same version as remote.
 - Self updater.
