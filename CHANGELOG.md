@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="0.0.3" />
+### 0.0.3 (April 22st, 2015)
+
+#### Bug Fixes
+- Garena patch.
+
 <a name="0.0.2" />
 ### 0.0.2 (April 21st, 2015)
 #### Features

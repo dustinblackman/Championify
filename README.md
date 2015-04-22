@@ -15,6 +15,12 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 ---
 
 ## [Change Log](CHANGELOG.md)
+<a name="0.0.3" />
+### 0.0.3 (April 22st, 2015)
+
+#### Bug Fixes
+- Garena patch.
+
 ### 0.0.2 (April 21st, 2015)
 #### Features
 - Swapped position of Trinkets and Consumables.
