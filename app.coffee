@@ -76,7 +76,8 @@ checkVer = (cb) ->
   hlp.httpsRequest host, url, (data) ->
     data = JSON.parse(data)
     if data.version != pkg.version
-      cl 'This seems to be an old version, let me open the download page for you to get an update!', 'yellow'
+      cl 'This seems to be an old version, your version is '+pkg.version+' while the latest is '+data.version+'.', 'yellow'
+      cl 'Let me open the download page for you to get an update!', 'yellow'
       cl "If a new window doesn't open for you, get the latest here.", 'yellow'
       cl "https://github.com/dustinblackman/Championify/releases/latest", 'yellow'
       open('https://github.com/dustinblackman/Championify/releases/latest')
@@ -115,6 +116,7 @@ getInstallPath = (cb) ->
           enterToExit()
 
   else
+    # Same Directory
     if fs.existsSync(process.cwd() + '/lol.launcher.exe')
       GLOBAL.lolInstallPath = process.cwd() + '/Config/Champions/'
       cb null
@@ -124,6 +126,12 @@ getInstallPath = (cb) ->
       GLOBAL.lolInstallPath = process.cwd() + '/Config/Champions/'
       cb null
 
+    # Garena Installation Check 1
+    else if fs.existsSync(process.cwd() + '/LoLLauncher.exe')
+      GLOBAL.lolInstallPath = process.cwd() + '/GameData/Apps/LoL/Game/Config/Champions'
+      cb null
+
+    # Default Install
     else if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
       GLOBAL.lolInstallPath = 'C:/Riot Games/League Of Legends/Config/Champions/'
       cb null
@@ -229,6 +237,9 @@ requestPage = (obj, cb) ->
     highestStartWins = $(csspaths.highestStart.wins).text()
     highestStartGames = $(csspaths.highestStart.games).text()
 
+    skillsMostFreq = hlp.getSkills($, csspaths.skills.mostFreq)
+    skillsHighestWin = hlp.getSkills($, csspaths.skills.highestWin)
+
     # Check what role were currently grabbing, and what other roles exist.
     positions = []
     currentPosition = ''
@@ -243,21 +254,50 @@ requestPage = (obj, cb) ->
 
     # Create Builds (Blocks)
     builds = []
+
+    build_freqStart = hlp.arrayToBuilds(freqStart).concat(prebuilts.trinkets)
+    build_highestStart = hlp.arrayToBuilds(highestStart).concat(prebuilts.trinkets)
+    build_freqCore = hlp.arrayToBuilds(freqCore)
+    build_highestCore = hlp.arrayToBuilds(highestCore)
+
+    # If freqStart and highestStart are the same, only push once.
+    if JSON.stringify(build_freqStart) == JSON.stringify(build_highestStart)
+      builds.push {
+        items: build_freqStart
+        type: 'Frequent/Highest Start ('+freqStartWins+' wins - '+freqStartGames+ ' games)'
+      }
+
+    else
+      builds.push {
+        items: build_freqStart
+        type: 'Most Frequent Starters ('+freqStartWins+' wins - '+freqStartGames+ ' games)'
+      }
+      builds.push {
+        items: build_highestStart
+        type: 'Highest Win % Starters ('+highestStartWins+' wins - '+highestStartGames+ ' games)'
+      }
+
+    # If freqCore and highestCore are the same, only push once.
+    if JSON.stringify(build_freqCore) == JSON.stringify(build_highestCore)
+      builds.push {
+        items: build_freqCore
+        type: 'Frequent/Highest Core ('+freqCoreWins+' wins - '+freqCoreGames+ ' games)'
+      }
+
+    else
+      builds.push {
+        items: build_freqCore
+        type: 'Most Frequent Core Build ('+freqCoreWins+' wins - '+freqCoreGames+ ' games)'
+      }
+      builds.push {
+        items: build_highestCore
+        type: 'Highest Win % Core Build ('+highestCoreWins+' wins - '+highestCoreGames+ ' games)'
+      }
+
+    # Trinkets
     builds.push {
-      items: hlp.arrayToBuilds(freqStart).concat(prebuilts.trinkets)
-      type: 'Most Frequent Starters ('+freqStartWins+' wins - '+freqStartGames+ ' games)'
-    }
-    builds.push {
-      items: hlp.arrayToBuilds(highestStart).concat(prebuilts.trinkets)
-      type: 'Highest Win % Starters ('+highestStartWins+' wins - '+highestStartGames+ ' games)'
-    }
-    builds.push {
-      items: hlp.arrayToBuilds(freqCore)
-      type: 'Most Frequent Core Build ('+freqCoreWins+' wins - '+freqCoreGames+ ' games)'
-    }
-    builds.push {
-      items: hlp.arrayToBuilds(highestCore)
-      type: 'Highest Win % Core Build ('+highestCoreWins+' wins - '+highestCoreGames+ ' games)'
+      items: prebuilts.trinketUpgrades
+      type: 'Trinkets | Frequent: '+skillsMostFreq
     }
 
     # If champ has no mana, remove mana pot from consumables
@@ -267,11 +307,7 @@ requestPage = (obj, cb) ->
 
     builds.push {
       items: consumables
-      type: "Consumables"
-    }
-    builds.push {
-      items: prebuilts.trinketUpgrades
-      type: "Trinket Upgrades"
+      type: 'Consumables | Wins: '+skillsHighestWin
     }
 
     # Save data to Global object for saving to disk later.

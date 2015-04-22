@@ -21,6 +21,9 @@ module.exports = {
     }, (response) ->
       body = ''
 
+      response.on 'socket', (socket) ->
+        socket.setTimeout(60)
+
       response.on 'error', (err) ->
         console.log err
 
@@ -40,6 +43,9 @@ module.exports = {
       }
     }, (response) ->
       body = ''
+
+      response.on 'socket', (socket) ->
+        socket.setTimeout(60)
 
       response.on 'error', (err) ->
         console.log err
@@ -82,5 +88,21 @@ module.exports = {
       return item
 
     return c.get()
+
+  # Process the skills table and return an array in order.
+  getSkills: ($, selector) ->
+    keys = ['Q', 'W', 'E', 'R']
+    skillOrder = []
+
+    data = $(selector).find('.skill')
+
+    data.get().forEach (e, idx) ->
+      if idx != 0
+        $(e).find('.skill-selections').children().get().forEach (s, s_idx) ->
+          if $(s).hasClass('selected')
+            skillOrder[s_idx] = keys[idx-1]
+
+    skillOrder = skillOrder.join('.')
+    return skillOrder
 
 }

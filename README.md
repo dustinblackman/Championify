@@ -67,7 +67,7 @@ Well damn, you must be pretty impatient if you think that's slow... The script i
 
 
 ### My version is outdated and the app wont run?
-Yes, I force a version check on run that connects to my package file here on Github. This is to prevent issues if something changes with League or Champion.GG. Wouldn't want you getting in to a game with broken/no builds. You can pickup a new version [here](https://github.com/dustinblackman/Championify/releases/latest) on the downloads page.
+Yes, I force a version check on run that connects to my package file here on Github. This is to prevent issues if something changes with League or Champion.GG. Wouldn't want you getting in to a game with broken/no builds. You can pickup the new version [here](https://github.com/dustinblackman/Championify/releases/latest) on the downloads page.
 
 
 ### Why is the file size so big?
@@ -80,6 +80,8 @@ Well that's great! Put up an Issue or send me a message on reddit [/u/dustinhero
 ---
 ## Future Plans
 - Replace Terminal Window with a GUI
+- Enable/Disable specific item sets you don't want.
+- Error Handler.
 - Automatically elevate when required instead of making the user do it.
 - Verify if local champ builds are the same version as remote.
 - Self updater.
@@ -102,8 +104,16 @@ You'll find a compiled executable in the build folder.
 
 ---
 
-## Change Log
-- 0.0.1: Initial
+## [Change Log](CHANGELOG.md)
+### 0.0.2 (April ?th, 2015)
+#### Features
+- Swapped position of Trinkets and Consumables.
+- Added Skills priorities to Trinket and Consumables titles. [Image](http://i.imgur.com/GpHtwKt.png)
+- If Frequent and Highest builds are the same, they only show up once. [Twisted Fate 5.7.2](http://champion.gg/champion/TwistedFate). [Image](http://i.imgur.com/2ULTImE.png)
+- **Garena support** that checks for two different directories. Thanks to [secretdataz](https://github.com/secretdataz) for one of them.
+
+#### Bug Fixes
+- HTTP Requests have a timeout of 60.
 
 ---
 
