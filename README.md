@@ -1,7 +1,7 @@
 # Championify
 _Champion-If-Ayyy_
 
-Championify is a little program that downloads all the recent builds from Champion.gg and imports them in to your League of Legends to use within game! No hassle. Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.1. Check out some screenshots [here](https://imgur.com/umDkx5j,scpQPBH,ajSXcOB)!
+Championify is a little program that downloads all the recent builds from Champion.gg and imports them in to your League of Legends to use within game! No hassle. Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.1. Check out some screenshots [here](https://imgur.com/umDkx5j,scpQPBH,GpHtwKt#0)!
 
 Note this application is still in development, as far as I've tested it's worked great, but don't get overly surprised if you find a bug or two.
 
