@@ -16,7 +16,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 <a name="0.0.3" />
-### 0.0.3 (April 22st, 2015)
+### 0.0.3 (April 22nd, 2015)
 
 #### Bug Fixes
 - Garena patch.
