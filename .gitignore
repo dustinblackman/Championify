@@ -1,6 +1,6 @@
 node_modules/
 champs/
 build/
-app.js
-helpers.js
 *.log
+dev/
+bower_components/

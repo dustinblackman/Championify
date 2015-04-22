@@ -10,13 +10,13 @@ exec = require('child_process').exec
 open = require 'open'
 
 hlp = require './helpers'
-pkg = require './package.json'
+pkg = require '../package.json'
 
 # Mini JSON files to keep track of CSS paths, schemas, default builds, and manaless champs.
-defaultSchema = require './data/default.json'
-csspaths = require './data/csspaths.json'
-prebuilts = require './data/prebuilts.json'
-manaless = require './data/manaless.json'
+defaultSchema = require '../data/default.json'
+csspaths = require '../data/csspaths.json'
+prebuilts = require '../data/prebuilts.json'
+manaless = require '../data/manaless.json'
 
 # Set Defaults
 GLOBAL.champData = {}
