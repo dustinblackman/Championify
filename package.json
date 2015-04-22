@@ -1,6 +1,6 @@
 {
   "name": "Championify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Downloads all the current builds from Champion.gg and imports them in to League of Legends.",
   "main": "app.coffee",
   "scripts": {
