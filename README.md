@@ -14,7 +14,20 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ---
 
+## [Change Log](CHANGELOG.md)
+### 0.0.2 (April 21st, 2015)
+#### Features
+- Swapped position of Trinkets and Consumables.
+- Added Skills priorities to Trinket and Consumables titles. [Image](http://i.imgur.com/GpHtwKt.png)
+- If Frequent and Highest builds are the same, they only show up once. [Image](http://i.imgur.com/2ULTImE.png)
+- **Garena support** that checks for two different directories. Thanks to [secretdataz](https://github.com/secretdataz) for one of them.
 
+#### Bug Fixes
+- HTTP Requests have a timeout of 60.
+
+---
+
+<a name="faq" />
 ## FAQ
 ### Be more descriptive, what does this actually do?
 Well it's easy really. Here's a link for [Teemo's most popular build in top lane](http://champion.gg/champion/Teemo) that Champion.gg has tracked. We take this information and save it in a way that League of Legends likes so you can have the exact builds in game!
@@ -101,19 +114,6 @@ npm run build
 ```
 
 You'll find a compiled executable in the build folder.
-
----
-
-## [Change Log](CHANGELOG.md)
-### 0.0.2 (April 21st, 2015)
-#### Features
-- Swapped position of Trinkets and Consumables.
-- Added Skills priorities to Trinket and Consumables titles. [Image](http://i.imgur.com/GpHtwKt.png)
-- If Frequent and Highest builds are the same, they only show up once. [Image](http://i.imgur.com/2ULTImE.png)
-- **Garena support** that checks for two different directories. Thanks to [secretdataz](https://github.com/secretdataz) for one of them.
-
-#### Bug Fixes
-- HTTP Requests have a timeout of 60.
 
 ---
 
