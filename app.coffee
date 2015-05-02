@@ -54,17 +54,17 @@ enterToExit = ->
 #      MAIN
 #################
 
-# We check if were running on a Windows system.
-# If so, check for admin. If no admin, warn and close.
+# We check if we can write to directory.
+# If no admin and is required, warn and close.
 isWindowsAdmin = (cb) ->
   if process.platform != 'darwin'
-    exec 'NET SESSION', (err, std, ste) ->
-      if ste.length != 0
+    fs.writeFile GLOBAL.lolInstallPath + '/test.txt', 'Testing Write', (err) ->
+      if err or !fs.existsSync(GLOBAL.lolInstallPath + '/test.txt')
         cl 'Whoops! You need to run me as an admin. Right click on my file and hit "Run as Administrator"', 'yellow'
         enterToExit()
       else
+        fs.unlinkSync(GLOBAL.lolInstallPath + '/test.txt')
         cb null
-
   else
     cb null
 
@@ -342,10 +342,10 @@ requestPage = (obj, cb) ->
 
 
 async.waterfall [
-  isWindowsAdmin
   checkVer
   getInstallPath
   clInstallPath
+  isWindowsAdmin
   getRiotVer
   getChamps
   processChamps
