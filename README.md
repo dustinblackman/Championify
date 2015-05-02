@@ -63,6 +63,10 @@ Delete all the folders, and be done with it! However you will lose any other bui
 Go in each folder one by one and delete all files starting with _CGG._
 
 
+### Why does the app just randomly stop?
+It's a connection problem. It's an issue I'm planning to fix but haven't had time as it'll take some testing. Just restart the app again and you should be fine.
+
+
 ### Should I be running this everyday?
 Oh no not at all, that's the last thing you want to do. The best time to run Championify is 3-4 day after a major patch comes out. Only got to do it once.
 
