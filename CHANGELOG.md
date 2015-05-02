@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="0.0.4" />
+### 0.0.4 (May 2nd, 2015)
+
+#### Bug Fixes
+- On Windows: Write a test file to LoL directly instead of forcing to run as admin. Warn if write is not possible.
+
 <a name="0.0.3" />
 ### 0.0.3 (April 22nd, 2015)
 
