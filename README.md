@@ -37,6 +37,10 @@ Well it's easy really. Here's a link for [Teemo's most popular build in top lane
 Yep it's safe! Were not modifying League of Legends at all, so no rules broken there. And my code is clean and free to browse, so no smelly virus' or surprises. If you still don't trust my executables, have a tech buddy look over my code themselves and you can build from [source](#source).
 
 
+### Why do I not see the item sets in the launcher?
+Due to Riot restrictions, you can only see the item sets in game, you won't see them in the launcher.
+
+
 ### How do I make this work on Windows?
 If you have your League of Legends installed in the default folder _(C:\Riot Games\League of Legends)_, then just run Championify and you're good to go. However, if you have it somewhere else, copy Championify to your League of Legends folder and stick it right next to **lol.launcher.exe** and run Championify.
 
@@ -94,7 +98,8 @@ Well that's great! Put up an Issue or send me a message on reddit [/u/dustinhero
 ## Future Plans
 - Replace Terminal Window with a GUI
 - Enable/Disable specific item sets you don't want.
-- Error Handler.
+- Allow you to change skill priorties layout.
+- Error Handler, such as timeouts and undefined builds.
 - Automatically elevate when required instead of making the user do it.
 - Verify if local champ builds are the same version as remote.
 - Self updater.
