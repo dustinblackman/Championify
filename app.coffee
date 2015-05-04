@@ -131,7 +131,7 @@ getInstallPath = (cb) ->
     else if fs.existsSync(process.cwd() + '/LoLLauncher.exe')
       glob './GameData/Apps/*/', (err, paths) ->
         path = paths[0].replace('./', '/')
-        GLOBAL.lolInstallPath = process.cwd() + path + 'Game/Config/Champions'
+        GLOBAL.lolInstallPath = process.cwd() + path + 'Game/Config/Champions/'
         cb null
 
     # Default Install
