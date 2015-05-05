@@ -12,6 +12,8 @@ glob = require 'glob'
 exec = require('child_process').exec
 nib = require 'nib'
 stylus = require 'gulp-stylus'
+browserify = require 'browserify'
+coffeeify = require 'coffeeify'
 pkg = require './package.json'
 
 GLOBAL.buildFileName = 'championify'
@@ -47,6 +49,14 @@ gulp.task 'stylus', ->
   gulp.src('./stylesheets/*.styl')
   .pipe(stylus({use: nib(), compress: true}))
   .pipe gulp.dest('./dev/css')
+
+
+gulp.task 'browserify', (cb) ->
+    browserify({
+      transform: [coffeeify]
+      entries: ['./functions/main.coffee']
+    })
+    .bundle()
 
 
 gulp.task 'run-watch', (cb) ->
