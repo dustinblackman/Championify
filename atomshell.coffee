@@ -15,9 +15,15 @@ app.on 'window-all-closed', ->
 # initialization and ready for creating browser windows.
 app.on 'ready', ->
   # Create the browser window.
-  mainWindow = new BrowserWindow(
+  mainWindow = new BrowserWindow({
     frame: true
-    fullscreen: false)
+    fullscreen: false
+    width: 370
+    height: 600
+    center: true
+    resizable: false
+
+  })
 
   # and load the index.html of the app.
   mainWindow.loadUrl 'file://'+process.cwd()+'/index.html'

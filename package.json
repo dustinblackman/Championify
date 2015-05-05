@@ -19,7 +19,7 @@
   "dependencies": {
     "async": "^0.9.0",
     "cheerio": "^0.19.0",
-    "colors": "^1.0.3",
+    "colors": "^1.1.0",
     "glob": "^5.0.5",
     "mkdirp": "^0.5.0",
     "moment": "^2.10.2",
@@ -27,21 +27,21 @@
   },
   "devDependencies": {
     "bower": "^1.4.1",
-    "browserify": "^9.0.8",
+    "browserify": "^10.1.0",
     "coffee-script": "^1.9.2",
-    "coffeeify": "^1.0.0",
-    "electron-prebuilt": "^0.24.0",
+    "coffeeify": "^1.1.0",
+    "electron-prebuilt": "^0.25.2",
     "fs-extra": "^0.18.2",
     "gulp": "^3.8.11",
-    "gulp-atom-shell": "^0.6.0",
+    "gulp-atom-shell": "^0.9.0",
     "gulp-clean": "^0.3.1",
     "gulp-coffee": "^2.3.1",
+    "gulp-stylus": "^2.0.1",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
     "gulp-watch": "^4.2.4",
     "nib": "^1.1.0",
     "preen": "^1.2.0",
-    "run-sequence": "^1.0.2",
-    "stylus": "^0.50.0"
+    "run-sequence": "^1.1.0"
   }
 }

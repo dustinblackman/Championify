@@ -10,6 +10,8 @@ mkdirp = require 'mkdirp'
 runSequence = require 'run-sequence'
 glob = require 'glob'
 exec = require('child_process').exec
+nib = require 'nib'
+stylus = require 'gulp-stylus'
 pkg = require './package.json'
 
 GLOBAL.buildFileName = 'championify'
@@ -41,6 +43,25 @@ gulp.task 'coffee', ->
     .pipe gulp.dest('./dev')
 
 
+gulp.task 'stylus', ->
+  gulp.src('./stylesheets/*.styl')
+  .pipe(stylus({use: nib(), compress: true}))
+  .pipe gulp.dest('./dev/css')
+
+
+gulp.task 'run-watch', (cb) ->
+  gulp.watch './stylesheets/*.styl', ['stylus']
+
+  cmd = '../node_modules/.bin/electron .'
+  console.log cmd
+  exec cmd, {'cwd': './dev'},(err, std, ste) ->
+    console.log err if err
+    # console.log std
+    # console.log ste
+    # cb()
+    process.exit(0)
+
+
 # gulp.task 'clean', ->
 #   gulp.src(['./app.js', './helpers.js'])
 #     .pipe(clean(force: true))
@@ -56,8 +77,6 @@ gulp.task 'coffee', ->
 #     .pipe(uglify())
 #     .pipe gulp.dest('./')
 
-# gulp.task 'build', () ->
-#   runSequence('clean', 'clean-build', 'mkdir', 'coffee', 'compile', 'package', 'clean')
 
 gulp.task 'dev', ->
-  runSequence('mkdir', 'symlink', 'coffee')
+  runSequence('mkdir', 'symlink', 'coffee', 'stylus', 'run-watch')
