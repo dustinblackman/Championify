@@ -22,6 +22,7 @@ pkg = require './package.json'
 
 GLOBAL.buildFileName = 'championify'
 
+
 gulp.task 'bower', ->
   return bower()
 
@@ -61,11 +62,19 @@ gulp.task 'symlink', (cb) ->
     , () ->
       cb()
 
-gulp.task 'coffee', ->
+gulp.task 'atomshell-settings', ->
   gulp.src(['./atomshell.coffee'], {base: './'})
     .pipe(coffee(bare: true).on('error', gutil.log))
     # .pipe(uglify())
     .pipe gulp.dest('./dev')
+
+
+gulp.task 'coffee', ->
+  gulp.src(['./functions/browser.coffee'], {base: './'})
+    .pipe(coffee(bare: true).on('error', gutil.log))
+    # .pipe(uglify())
+    .pipe(flatten())
+    .pipe gulp.dest('./dev/js/')
 
 
 gulp.task 'stylus', ->
@@ -77,17 +86,19 @@ gulp.task 'stylus', ->
 gulp.task 'browserify', (cb) ->
   browserify({
     transform: [coffeeify]
-    entries: ['./functions/main.coffee']
-    ignore: ['http', 'https']
+    entries: ['./functions/championify.coffee']
   })
+  # .ignore('fs')
   .bundle()
   .pipe(source('main.js'))
   .pipe(gulp.dest('./dev/js/'))
 
 
 gulp.task 'run-watch', (cb) ->
+  fs.writeFileSync('./dev/dev_enabled', 'dev enabled', 'utf8')
   gulp.watch './stylesheets/*.styl', ['stylus']
-  gulp.watch './functions/*.coffee', ['browserify']
+  gulp.watch './functions/browser.coffee', ['coffee']
+  gulp.watch ['./functions/championify.coffee', './functions/helpers.coffee'], ['browserify']
 
   cmd = '../node_modules/.bin/electron .'
   console.log cmd
@@ -108,15 +119,10 @@ gulp.task 'run-watch', (cb) ->
 #     .pipe(clean(force: true))
 #
 #
-# gulp.task 'coffee', ->
-#   gulp.src(['./app.coffee', './helpers.coffee'], {base: './'})
-#     .pipe(coffee(bare: true).on('error', gutil.log))
-#     .pipe(uglify())
-#     .pipe gulp.dest('./')
 
 
 gulp.task 'dev', ->
-  runSequence('mkdir', 'bower_copy', 'symlink', 'coffee', 'stylus', 'browserify', 'run-watch')
+  runSequence('mkdir', 'bower_copy', 'symlink', 'atomshell-settings', 'browserify', 'coffee', 'stylus', 'run-watch')
 
 gulp.task 'setup', ->
   runSequence('bower', 'preen', 'dev')

@@ -1,6 +1,3 @@
-http = require 'http'
-https = require 'https'
-
 module.exports = {
   # Merge two objects
   mergeObj: (obj1, obj2) ->
@@ -12,48 +9,11 @@ module.exports = {
     obj3
 
 
-  # Usually I'd use the request module, but it and browserify don't get along.
-  # This was a nice and easy alternative that did what I wanted.
-  httpRequest: (host, url, cb) ->
-    http.get {
-      host: host
-      path: url
-    }, (response) ->
-      body = ''
-
-      response.on 'socket', (socket) ->
-        socket.setTimeout(60)
-
-      response.on 'error', (err) ->
+  httpRequest: (url, cb) ->
+    $.ajax(url)
+      .fail (err) ->
         console.log err
-
-      response.on 'data', (d) ->
-        body += d
-
-      response.on 'end', ->
-        cb body
-
-  httpsRequest: (host, url, cb) ->
-    https.get {
-      host: host
-      path: url
-      port: 443
-      headers: {
-        'accept': '*/*'
-      }
-    }, (response) ->
-      body = ''
-
-      response.on 'socket', (socket) ->
-        socket.setTimeout(60)
-
-      response.on 'error', (err) ->
-        console.log err
-
-      response.on 'data', (d) ->
-        body += d
-
-      response.on 'end', ->
+      .done (body) ->
         cb body
 
   # Converts the arrays from Cheerio output to LoL Blocks
@@ -81,25 +41,25 @@ module.exports = {
     return build
 
   # Processes the build images to grab each ID
-  getItems: ($, selector) ->
-    c = $(selector).find('img').map (i, e) ->
-      item = $(e).attr('src').split('/')
+  getItems: (cheer, selector) ->
+    c = cheer(selector).find('img').map (i, e) ->
+      item = cheer(e).attr('src').split('/')
       item = item[item.length - 1].split('.')[0]
       return item
 
     return c.get()
 
   # Process the skills table and return an array in order.
-  getSkills: ($, selector) ->
+  getSkills: (cheer, selector) ->
     keys = ['Q', 'W', 'E', 'R']
     skillOrder = []
 
-    data = $(selector).find('.skill')
+    data = cheer(selector).find('.skill')
 
     data.get().forEach (e, idx) ->
       if idx != 0
-        $(e).find('.skill-selections').children().get().forEach (s, s_idx) ->
-          if $(s).hasClass('selected')
+        cheer(e).find('.skill-selections').children().get().forEach (s, s_idx) ->
+          if cheer(s).hasClass('selected')
             skillOrder[s_idx] = keys[idx-1]
 
     skillOrder = skillOrder.join('.')

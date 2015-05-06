@@ -1,12 +1,10 @@
+# fs = require 'fs'  # Doing require in browser.coffee, cause Browserify doesn't like my ignores...
+
 cheerio = require 'cheerio'
 async = require 'async'
-colors = require 'colors'
 moment = require 'moment'
-fs = require 'fs'
-prompt = require 'prompt'
 glob = require 'glob'
 mkdirp = require 'mkdirp'
-exec = require('child_process').exec
 open = require 'open'
 
 hlp = require './helpers.coffee'
@@ -19,9 +17,9 @@ prebuilts = require '../data/prebuilts.json'
 manaless = require '../data/manaless.json'
 
 # Set Defaults
-GLOBAL.champData = {}
-GLOBAL.riotVer = '5.7'  # This will change
-GLOBAL.lolInstallPath = null
+window.champData = {}
+window.riotVer = '5.7'  # This will change
+window.lolInstallPath = null
 
 
 #################
@@ -29,25 +27,18 @@ GLOBAL.lolInstallPath = null
 #################
 
 # Pretty Console Log
-cl = (text, color) ->
-  color = color or 'white'
-
+cl = (text) ->
   m = moment().format('HH:mm:ss')
-  m = ('['+m+']').bold.cyan + " | "
-  if process.platform == 'darwin' and color == 'white'  # GG crappy OSX default white terminal.
-    m = m + text
-  else
-    m = m + (text).bold[color]
-
+  m = ('['+m+'] | ') + text
   console.log(m)
 
 
 # Gives the user a chance to read the output before closing the window.
 enterToExit = ->
   cl 'Press enter to close.', 'yellow'
-  prompt.start()
-  prompt.get ['enter'], ->
-    process.exit(1)
+  # prompt.start()
+  # prompt.get ['enter'], ->
+  #   process.exit(1)
 
 
 #################
@@ -58,12 +49,12 @@ enterToExit = ->
 # If no admin and is required, warn and close.
 isWindowsAdmin = (cb) ->
   if process.platform != 'darwin'
-    fs.writeFile GLOBAL.lolInstallPath + '/test.txt', 'Testing Write', (err) ->
-      if err or !fs.existsSync(GLOBAL.lolInstallPath + '/test.txt')
-        cl 'Whoops! You need to run me as an admin. Right click on my file and hit "Run as Administrator"', 'yellow'
+    fs.writeFile window.lolInstallPath + '/test.txt', 'Testing Write', (err) ->
+      if err or !fs.existsSync(window.lolInstallPath + '/test.txt')
+        cl 'Whoops! You need to run me as an admin. Right click on my file and hit "Run as Administrator"'
         enterToExit()
       else
-        fs.unlinkSync(GLOBAL.lolInstallPath + '/test.txt')
+        fs.unlinkSync(window.lolInstallPath + '/test.txt')
         cb null
   else
     cb null
@@ -71,19 +62,18 @@ isWindowsAdmin = (cb) ->
 
 # Check if this is the latest version of the application. Otherwise prompt to download new.
 checkVer = (cb) ->
-  host = 'raw.githubusercontent.com'
-  url = '/dustinblackman/Championify/master/package.json'
-  hlp.httpsRequest host, url, (data) ->
+  url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
+  hlp.httpRequest url, (data) ->
     data = JSON.parse(data)
     if data.version != pkg.version
-      cl 'This seems to be an old version, your version is '+pkg.version+' while the latest is '+data.version+'.', 'yellow'
-      cl 'Let me open the download page for you to get an update!', 'yellow'
-      cl "If a new window doesn't open for you, get the latest here.", 'yellow'
-      cl "https://github.com/dustinblackman/Championify/releases/latest", 'yellow'
+      cl 'This seems to be an old version, your version is '+pkg.version+' while the latest is '+data.version+'.'
+      cl 'Let me open the download page for you to get an update!'
+      cl "If a new window doesn't open for you, get the latest here."
+      cl "https://github.com/dustinblackman/Championify/releases/latest"
       open('https://github.com/dustinblackman/Championify/releases/latest')
       enterToExit()
     else
-      cl 'Your version of Championify is up to date!', 'green'
+      cl 'Your version of Championify is up to date!'
       cb null
 
 
@@ -97,72 +87,58 @@ checkVer = (cb) ->
 getInstallPath = (cb) ->
   if process.platform == 'darwin'
     if fs.existsSync('/Applications/League of Legends.app')
-      GLOBAL.lolInstallPath = '/Applications/League of Legends.app/Contents/LoL/Config/Champions/'
+      window.lolInstallPath = '/Applications/League of Legends.app/Contents/LoL/Config/Champions/'
+      # window.lolInstallPath = path + '/Contents/LoL/Config/Champions/'
       cb null
-
     else
-      cl 'Please drag your League Of Legends.app in to this window and hit enter!'
-      prompt.start()
-      prompt.get ['lol'], (err, results) ->
-        path = results.lol
-        path = path.trim()
-        path = path.replace(/\\/g, '')
-        GLOBAL.lolInstallPath = path + '/Contents/LoL/Config/Champions/'
-
-        if fs.existsSync(GLOBAL.lolInstallPath)
-          cb null
-        else
-          cl "Whoops, that doesn't seem to be the League of Legends.app. Restart me and try again.", 'yellow'
-          enterToExit()
+      cb 'Not Found'
 
   else
     # Same Directory
     if fs.existsSync(process.cwd() + '/lol.launcher.exe')
-      GLOBAL.lolInstallPath = process.cwd() + '/Config/Champions/'
+      window.lolInstallPath = process.cwd() + '/Config/Champions/'
       cb null
 
     # Garena Installation Check 1
     else if fs.existsSync(process.cwd() + '/LoLLauncher.exe')
-      GLOBAL.lolInstallPath = process.cwd() + '/GameData/Apps/LoL/Game/Config/Champions/'
+      window.lolInstallPath = process.cwd() + '/GameData/Apps/LoL/Game/Config/Champions/'
       cb null
 
     # Garena Installation Check 2
     else if fs.existsSync(process.cwd() + '/League of Legends.exe')
-      GLOBAL.lolInstallPath = process.cwd() + '/Config/Champions/'
+      window.lolInstallPath = process.cwd() + '/Config/Champions/'
       cb null
 
     # Default Install
     else if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
-      GLOBAL.lolInstallPath = 'C:/Riot Games/League Of Legends/Config/Champions/'
+      window.lolInstallPath = 'C:/Riot Games/League Of Legends/Config/Champions/'
       cb null
 
     else
-      cl "Whoops, I can't seem to find your League folder! Copy me in to your League folder and run me again.", 'yellow'
-      enterToExit()
+      cb 'Not Found'
 
 
 # Console log what install path were using after getInstallPath closes.
 # Also create the folders through if need.
 clInstallPath = (cb) ->
-  cl 'Using League Installation in: ' +GLOBAL.lolInstallPath, 'green'
-  mkdirp GLOBAL.lolInstallPath, (err) ->
+  cl 'Using League Installation in: ' +window.lolInstallPath
+  mkdirp window.lolInstallPath, (err) ->
     cb null
 
 
 # Get latest Riot Version
 getRiotVer = (cb) ->
   cl '--Getting Latest LoL Version Number'
-  hlp.httpRequest 'ddragon.leagueoflegends.com', '/api/versions.json', (body) ->
-    data = JSON.parse(body)
-    GLOBAL.riotVer = data[0]
+  hlp.httpRequest 'http://ddragon.leagueoflegends.com/api/versions.json', (body) ->
+    window.riotVer = body[0]
     cb null
 
 
 # Download all the champs from riot (saves making requests to ChampionGG)
 getChamps = (cb) ->
   cl '--Downloading Champs from Riot'
-  hlp.httpRequest 'ddragon.leagueoflegends.com', '/cdn/'+GLOBAL.riotVer+'/data/en_US/champion.json', (body) ->
-    champs = Object.keys(JSON.parse(body).data)
+  hlp.httpRequest 'http://ddragon.leagueoflegends.com/cdn/'+window.riotVer+'/data/en_US/champion.json', (body) ->
+    champs = Object.keys(body.data)
     cb null, champs
 
 
@@ -174,13 +150,14 @@ processChamps = (champs, cb) ->
     requestPage {champ: champ}, () ->
       acb null
   , () ->
+    console.log(window.champData)
     cb null
 
 
 # Delete all the previous ChampionGG builds.
 deleteOldBuilds = (cb) ->
   cl '--Deleting Old Builds'
-  glob GLOBAL.lolInstallPath+'**/CGG_*.json', (err, files) ->
+  glob window.lolInstallPath+'**/CGG_*.json', (err, files) ->
     async.each files, (item, ecb) ->
       fs.unlink item, (err) ->
         console.log err if err
@@ -192,12 +169,12 @@ deleteOldBuilds = (cb) ->
 # Save all builds we created to file in the correct directories.
 saveToFile = (cb) ->
   cl '--Saving Builds to File'
-  async.each Object.keys(GLOBAL.champData), (champ, acb) ->
-    async.each Object.keys(GLOBAL.champData[champ]), (position, pcb) ->
-      toFileData = JSON.stringify(GLOBAL.champData[champ][position], null, 4)
+  async.each Object.keys(window.champData), (champ, acb) ->
+    async.each Object.keys(window.champData[champ]), (position, pcb) ->
+      toFileData = JSON.stringify(window.champData[champ][position], null, 4)
 
-      mkdirp GLOBAL.lolInstallPath+champ+'/Recommended/', (err) ->
-        fileName = GLOBAL.lolInstallPath+champ+'/Recommended/CGG_'+champ+'_'+position+'.json'
+      mkdirp window.lolInstallPath+champ+'/Recommended/', (err) ->
+        fileName = window.lolInstallPath+champ+'/Recommended/CGG_'+champ+'_'+position+'.json'
         fs.writeFile fileName, toFileData, (err) ->
           console.log err if err
           pcb null
@@ -212,44 +189,44 @@ saveToFile = (cb) ->
 # Makes request to Champion.gg
 requestPage = (obj, cb) ->
   champ = obj.champ
-  url = '/champion/'+champ
+  url = 'http://champion.gg/champion/'+champ
 
   if obj.position
     url = url + '/' + obj.position
   else
     cl 'Processing: '+obj.champ
 
-  hlp.httpRequest 'champion.gg', url, (body) ->
-    $ = cheerio.load(body)
+  hlp.httpRequest url, (body) ->
+    cheer = cheerio.load(body)
 
     # Using CSS Selectors, grab each piece of information we need from the page
-    freqCore = hlp.getItems($, csspaths.freqCore.build)
-    freqCoreWins = $(csspaths.freqCore.wins).text()
-    freqCoreGames = $(csspaths.freqCore.games).text()
+    freqCore = hlp.getItems(cheer, csspaths.freqCore.build)
+    freqCoreWins = cheer(csspaths.freqCore.wins).text()
+    freqCoreGames = cheer(csspaths.freqCore.games).text()
 
-    freqStart = hlp.getItems($, csspaths.freqStart.build)
-    freqStartWins = $(csspaths.freqStart.wins).text()
-    freqStartGames = $(csspaths.freqStart.games).text()
+    freqStart = hlp.getItems(cheer, csspaths.freqStart.build)
+    freqStartWins = cheer(csspaths.freqStart.wins).text()
+    freqStartGames = cheer(csspaths.freqStart.games).text()
 
-    highestCore = hlp.getItems($, csspaths.highestCore.build)
-    highestCoreWins = $(csspaths.highestCore.wins).text()
-    highestCoreGames = $(csspaths.highestCore.games).text()
+    highestCore = hlp.getItems(cheer, csspaths.highestCore.build)
+    highestCoreWins = cheer(csspaths.highestCore.wins).text()
+    highestCoreGames = cheer(csspaths.highestCore.games).text()
 
-    highestStart = hlp.getItems($, csspaths.highestStart.build)
-    highestStartWins = $(csspaths.highestStart.wins).text()
-    highestStartGames = $(csspaths.highestStart.games).text()
+    highestStart = hlp.getItems(cheer, csspaths.highestStart.build)
+    highestStartWins = cheer(csspaths.highestStart.wins).text()
+    highestStartGames = cheer(csspaths.highestStart.games).text()
 
-    skillsMostFreq = hlp.getSkills($, csspaths.skills.mostFreq)
-    skillsHighestWin = hlp.getSkills($, csspaths.skills.highestWin)
+    skillsMostFreq = hlp.getSkills(cheer, csspaths.skills.mostFreq)
+    skillsHighestWin = hlp.getSkills(cheer, csspaths.skills.highestWin)
 
     # Check what role were currently grabbing, and what other roles exist.
     positions = []
     currentPosition = ''
 
-    $(csspaths.positions).find('a').each (i, e) ->
-      position = $(e).attr('href').split('/')
+    cheer(csspaths.positions).find('a').each (i, e) ->
+      position = cheer(e).attr('href').split('/')
       position = position[position.length - 1]
-      if $(e).parent().hasClass('selected-role')
+      if cheer(e).parent().hasClass('selected-role')
         currentPosition = position
       else
         positions.push position
@@ -314,16 +291,16 @@ requestPage = (obj, cb) ->
 
     # Save data to Global object for saving to disk later.
     # We do this incase people cancel the function half way though.
-    if !GLOBAL.champData[champ]
-      GLOBAL.champData[champ] = {}
+    if !window.champData[champ]
+      window.champData[champ] = {}
 
     newObj = {
       champion: champ,
-      title: currentPosition+' '+GLOBAL.riotVer,
+      title: currentPosition+' '+window.riotVer,
       blocks: builds
     }
 
-    GLOBAL.champData[champ][currentPosition] = hlp.mergeObj(defaultSchema, newObj)
+    window.champData[champ][currentPosition] = hlp.mergeObj(defaultSchema, newObj)
 
     # Now we execute for the other positions for the champs, if there are any.
     if !obj.position and positions.length > 0
@@ -340,18 +317,22 @@ requestPage = (obj, cb) ->
       cb()
 
 
-async.waterfall [
-  checkVer
-  getInstallPath
-  clInstallPath
-  isWindowsAdmin
-  getRiotVer
-  getChamps
-  processChamps
-  deleteOldBuilds
-  saveToFile
-], () ->
-  cl 'Looks like were all done. Login and enjoy!', 'green'
-  prompt.start()
-  prompt.get ['enter'], () ->
-    process.exit(0)
+downloadItemSets = (cb) ->
+  async.waterfall [
+    # isWindowsAdmin
+    getRiotVer
+    getChamps
+    processChamps
+    # deleteOldBuilds
+    # saveToFile
+  ], (err) ->
+    console.log(err) if err
+    cl 'Looks like were all done. Login and enjoy!'
+    cb()
+
+
+window.Championify = {
+  run: downloadItemSets
+  getInstallPath: getInstallPath
+  checkVersion: checkVer
+}

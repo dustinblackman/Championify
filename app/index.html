@@ -24,9 +24,9 @@
 
           <div class="row">
             <div class="input-group lolDirInput">
-              <input type="text" class="form-control">
+              <input id="installPath" type="text" class="form-control">
               <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Browse</button>
+                <button id="browse" class="btn btn-default" type="button">Browse</button>
               </span>
             </div>
           </div>
@@ -48,15 +48,16 @@
           </div>
 
           <div class="row">
-            <div>
-              <a href="#" class="btn btn-success">Success</a>
+            <div class="submitBtn">
+              <a href="#" class="btn btn-success">Import</a>
             </div>
           </div>
 
         </div>
 
-        <script src="vendor/js/jquery.min.js"></script>
+        <script>window.$ = window.jQuery = require('./vendor/js/jquery.min.js');</script>
         <script src="js/main.js"></script>
+        <script src="js/browser.js"></script>
         <!-- Need to have this remove when compiling. -->
         <script src="http://localhost:35729/livereload.js"></script>
     </body>

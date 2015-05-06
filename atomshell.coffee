@@ -1,4 +1,5 @@
-app = require('app')
+app = require 'app'
+fs = require 'fs'
 BrowserWindow = require('browser-window')
 require('crash-reporter').start()
 
@@ -8,8 +9,7 @@ mainWindow = null
 
 # Quit when all windows are closed.
 app.on 'window-all-closed', ->
-  if process.platform != 'darwin'
-    app.quit()
+  app.quit()
 
 # This method will be called when atom-shell has done everything
 # initialization and ready for creating browser windows.
@@ -28,6 +28,11 @@ app.on 'ready', ->
   # and load the index.html of the app.
   mainWindow.loadUrl 'file://'+process.cwd()+'/index.html'
   # Emitted when the window is closed.
+
+  # Enable dev stuff if needed.
+  if fs.existsSync('./dev_enabled')
+    mainWindow.openDevTools()
+
   mainWindow.on 'closed', ->
     # Dereference the window object, usually you would store windows
     # in an array if your app supports multi windows, this is the time
