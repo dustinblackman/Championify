@@ -14,9 +14,32 @@ nib = require 'nib'
 stylus = require 'gulp-stylus'
 browserify = require 'browserify'
 coffeeify = require 'coffeeify'
+source = require 'vinyl-source-stream'
+bower = require 'gulp-bower'
+preen = require 'preen'
+flatten = require 'gulp-flatten'
 pkg = require './package.json'
 
 GLOBAL.buildFileName = 'championify'
+
+gulp.task 'bower', ->
+  return bower()
+
+gulp.task 'preen', (cb) ->
+  preen.preen {}, cb
+
+gulp.task 'bower_copy', ->
+  gulp.src('./bower_components/**/*.js')
+    .pipe(flatten())
+    .pipe gulp.dest('./dev/vendor/js/')
+
+  gulp.src('./bower_components/**/*.map')
+    .pipe(flatten())
+    .pipe gulp.dest('./dev/vendor/js/')
+
+  gulp.src(['./bower_components/**/*.css', '!./bower_components/iCheck/**'])
+    .pipe(flatten())
+    .pipe gulp.dest('./dev/vendor/css/')
 
 
 gulp.task 'mkdir', (cb) ->
@@ -52,15 +75,19 @@ gulp.task 'stylus', ->
 
 
 gulp.task 'browserify', (cb) ->
-    browserify({
-      transform: [coffeeify]
-      entries: ['./functions/main.coffee']
-    })
-    .bundle()
+  browserify({
+    transform: [coffeeify]
+    entries: ['./functions/main.coffee']
+    ignore: ['http', 'https']
+  })
+  .bundle()
+  .pipe(source('main.js'))
+  .pipe(gulp.dest('./dev/js/'))
 
 
 gulp.task 'run-watch', (cb) ->
   gulp.watch './stylesheets/*.styl', ['stylus']
+  gulp.watch './functions/*.coffee', ['browserify']
 
   cmd = '../node_modules/.bin/electron .'
   console.log cmd
@@ -89,4 +116,7 @@ gulp.task 'run-watch', (cb) ->
 
 
 gulp.task 'dev', ->
-  runSequence('mkdir', 'symlink', 'coffee', 'stylus', 'run-watch')
+  runSequence('mkdir', 'bower_copy', 'symlink', 'coffee', 'stylus', 'browserify', 'run-watch')
+
+gulp.task 'setup', ->
+  runSequence('bower', 'preen', 'dev')

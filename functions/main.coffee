@@ -9,7 +9,7 @@ mkdirp = require 'mkdirp'
 exec = require('child_process').exec
 open = require 'open'
 
-hlp = require './helpers'
+hlp = require './helpers.coffee'
 pkg = require '../package.json'
 
 # Mini JSON files to keep track of CSS paths, schemas, default builds, and manaless champs.
