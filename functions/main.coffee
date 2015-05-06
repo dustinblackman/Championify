@@ -142,9 +142,11 @@ getInstallPath = (cb) ->
 
 
 # Console log what install path were using after getInstallPath closes.
+# Also create the folders through if need.
 clInstallPath = (cb) ->
   cl 'Using League Installation in: ' +GLOBAL.lolInstallPath, 'green'
-  cb null
+  mkdirp GLOBAL.lolInstallPath, (err) ->
+    cb null
 
 
 # Get latest Riot Version
