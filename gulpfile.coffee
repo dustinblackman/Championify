@@ -70,7 +70,7 @@ gulp.task 'atomshell-settings', ->
 
 
 gulp.task 'coffee', ->
-  gulp.src(['./functions/browser.coffee'], {base: './'})
+  gulp.src(['./functions/browser.coffee', './functions/deps.coffee'], {base: './'})
     .pipe(coffee(bare: true).on('error', gutil.log))
     # .pipe(uglify())
     .pipe(flatten())
@@ -110,19 +110,30 @@ gulp.task 'run-watch', (cb) ->
     process.exit(0)
 
 
-# gulp.task 'clean', ->
-#   gulp.src(['./app.js', './helpers.js'])
-#     .pipe(clean(force: true))
-#
-# gulp.task 'clean-build', ->
-#   gulp.src(['./build'])
-#     .pipe(clean(force: true))
-#
-#
+gulp.task 'delete-dev', ->
+  gulp.src(['./dev'])
+    .pipe(clean(force: true))
 
+
+gulp.task 'electron-deps', (cb) ->
+  installItems = []
+  pkg.electron-deps.forEach (item) ->
+    installItems.push(item+'@'+pkg.dependencies[item])
+
+  cmd = 'npm install ' + installItems.join(' ')
+  exec cmd, {'cwd': './dev'},(err, std, ste) ->
+    cb()
+
+
+
+gulp.task 'main', ->
+  runSequence('mkdir', 'bower_copy', 'atomshell-settings', 'browserify', 'coffee', 'stylus')
 
 gulp.task 'dev', ->
-  runSequence('mkdir', 'bower_copy', 'symlink', 'atomshell-settings', 'browserify', 'coffee', 'stylus', 'run-watch')
+  runSequence('mkdir', 'bower_copy', 'atomshell-settings', 'browserify', 'coffee', 'stylus', 'symlink', 'run-watch')
 
 gulp.task 'setup', ->
   runSequence('bower', 'preen', 'dev')
+
+gulp.task 'build', ->
+  runSequence('delete-dev', 'electron-deps', 'mkdir', 'main')

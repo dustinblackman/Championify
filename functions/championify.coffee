@@ -1,12 +1,6 @@
-# Doing require in browser.coffee, cause Browserify doesn't like my ignores...
-
-# fs = require 'fs'
-# mkdirp = require 'mkdirp'
-
 cheerio = require 'cheerio'
 async = require 'async'
 moment = require 'moment'
-glob = require 'glob'
 open = require 'open'
 
 hlp = require './helpers.coffee'
@@ -62,13 +56,6 @@ checkVer = (cb) ->
     else
       cl 'Your version of Championify is up to date!'
       cb null
-
-
-# Console log what install path were using after getInstallPath closes.
-# Also create the folders through if need.
-createInstallPath = (cb) ->
-  mkdirp window.lolChampPath, (err) ->
-    cb null
 
 
 # Get latest Riot Version
@@ -266,7 +253,6 @@ downloadItemSets = (cb) ->
   async.waterfall [
     getRiotVer
     getChamps
-    # createInstallPath   # TODO: Fix this.
     processChamps
     deleteOldBuilds
     saveToFile

@@ -1,7 +1,6 @@
 remote = require 'remote'
 dialog = remote.require 'dialog'
 fs = require 'fs'
-mkdirp = require 'mkdirp'
 
 
 # We check if we can write to directory.
@@ -37,8 +36,8 @@ checkInstallPath = (path) ->
     if fs.existsSync(path + 'Contents/LoL/')
       setInstallPath null, path, 'Contents/LoL/Config/Champions/'
 
-    else if fs.existsSync(path + 'League of Legends.app/Contents/LoL/')
-      setInstallPath null, path+'League of Legends.app/', 'Contents/LoL/Config/Champions/'
+    else if fs.existsSync(path + 'League of Legends.app')
+      setInstallPath null, path+'League of Legends.app/Contents/LoL/', 'Contents/LoL/Config/Champions/'
 
     else
       setInstallPath 'Not Found', path
