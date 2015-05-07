@@ -1,12 +1,30 @@
 vendor-prefixes ?= webkit official
 @import 'nib'
 
+elemWidth = 95%
+
+body
+  overflow hidden
+  overflow-y hidden
+
 .banner
   text-align center
 
 .lolDirInput
   margin auto
-  width 95%
+  width elemWidth
+
+.lolDirInputMsg
+  text-align center
+  margin-top -15px
+  height 12px
+  width elemWidth
+
+  .yellow
+    color yellow
+
+  .green
+    color #0ce3ac
 
 .options
   position relative
@@ -14,4 +32,4 @@ vendor-prefixes ?= webkit official
 
 .submitBtn
   text-align center
-  margin-top 15px
+  margin-top 20px

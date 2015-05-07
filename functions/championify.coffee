@@ -1,10 +1,12 @@
-# fs = require 'fs'  # Doing require in browser.coffee, cause Browserify doesn't like my ignores...
+# Doing require in browser.coffee, cause Browserify doesn't like my ignores...
+
+# fs = require 'fs'
+# mkdirp = require 'mkdirp'
 
 cheerio = require 'cheerio'
 async = require 'async'
 moment = require 'moment'
 glob = require 'glob'
-mkdirp = require 'mkdirp'
 open = require 'open'
 
 hlp = require './helpers.coffee'
@@ -19,7 +21,6 @@ manaless = require '../data/manaless.json'
 # Set Defaults
 window.champData = {}
 window.riotVer = '5.7'  # This will change
-window.lolInstallPath = null
 
 
 #################
@@ -45,20 +46,6 @@ enterToExit = ->
 #      MAIN
 #################
 
-# We check if we can write to directory.
-# If no admin and is required, warn and close.
-isWindowsAdmin = (cb) ->
-  if process.platform != 'darwin'
-    fs.writeFile window.lolInstallPath + '/test.txt', 'Testing Write', (err) ->
-      if err or !fs.existsSync(window.lolInstallPath + '/test.txt')
-        cl 'Whoops! You need to run me as an admin. Right click on my file and hit "Run as Administrator"'
-        enterToExit()
-      else
-        fs.unlinkSync(window.lolInstallPath + '/test.txt')
-        cb null
-  else
-    cb null
-
 
 # Check if this is the latest version of the application. Otherwise prompt to download new.
 checkVer = (cb) ->
@@ -77,52 +64,10 @@ checkVer = (cb) ->
       cb null
 
 
-# Get the install path of League of Legends
-# On OSX, we check if League is installed in /Applications.
-# If not we ask the user to drag their League Of Legends.app in to the terminal window and take it from there.
-
-# On Windows, we check if the application is being run next to lol.launcher.exe.
-# If it isn't, we check the default install path (C:/Riot Games).
-# And if not that, we ask the user to run the application again from within the install directory.
-getInstallPath = (cb) ->
-  if process.platform == 'darwin'
-    if fs.existsSync('/Applications/League of Legends.app')
-      window.lolInstallPath = '/Applications/League of Legends.app/Contents/LoL/Config/Champions/'
-      # window.lolInstallPath = path + '/Contents/LoL/Config/Champions/'
-      cb null
-    else
-      cb 'Not Found'
-
-  else
-    # Same Directory
-    if fs.existsSync(process.cwd() + '/lol.launcher.exe')
-      window.lolInstallPath = process.cwd() + '/Config/Champions/'
-      cb null
-
-    # Garena Installation Check 1
-    else if fs.existsSync(process.cwd() + '/LoLLauncher.exe')
-      window.lolInstallPath = process.cwd() + '/GameData/Apps/LoL/Game/Config/Champions/'
-      cb null
-
-    # Garena Installation Check 2
-    else if fs.existsSync(process.cwd() + '/League of Legends.exe')
-      window.lolInstallPath = process.cwd() + '/Config/Champions/'
-      cb null
-
-    # Default Install
-    else if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
-      window.lolInstallPath = 'C:/Riot Games/League Of Legends/Config/Champions/'
-      cb null
-
-    else
-      cb 'Not Found'
-
-
 # Console log what install path were using after getInstallPath closes.
 # Also create the folders through if need.
-clInstallPath = (cb) ->
-  cl 'Using League Installation in: ' +window.lolInstallPath
-  mkdirp window.lolInstallPath, (err) ->
+createInstallPath = (cb) ->
+  mkdirp window.lolChampPath, (err) ->
     cb null
 
 
@@ -157,7 +102,7 @@ processChamps = (champs, cb) ->
 # Delete all the previous ChampionGG builds.
 deleteOldBuilds = (cb) ->
   cl '--Deleting Old Builds'
-  glob window.lolInstallPath+'**/CGG_*.json', (err, files) ->
+  glob window.lolChampPath+'**/CGG_*.json', (err, files) ->
     async.each files, (item, ecb) ->
       fs.unlink item, (err) ->
         console.log err if err
@@ -173,8 +118,8 @@ saveToFile = (cb) ->
     async.each Object.keys(window.champData[champ]), (position, pcb) ->
       toFileData = JSON.stringify(window.champData[champ][position], null, 4)
 
-      mkdirp window.lolInstallPath+champ+'/Recommended/', (err) ->
-        fileName = window.lolInstallPath+champ+'/Recommended/CGG_'+champ+'_'+position+'.json'
+      mkdirp window.lolChampPath+champ+'/Recommended/', (err) ->
+        fileName = window.lolChampPath+champ+'/Recommended/CGG_'+champ+'_'+position+'.json'
         fs.writeFile fileName, toFileData, (err) ->
           console.log err if err
           pcb null
@@ -319,12 +264,12 @@ requestPage = (obj, cb) ->
 
 downloadItemSets = (cb) ->
   async.waterfall [
-    # isWindowsAdmin
     getRiotVer
     getChamps
+    # createInstallPath   # TODO: Fix this.
     processChamps
-    # deleteOldBuilds
-    # saveToFile
+    deleteOldBuilds
+    saveToFile
   ], (err) ->
     console.log(err) if err
     cl 'Looks like were all done. Login and enjoy!'
@@ -333,6 +278,5 @@ downloadItemSets = (cb) ->
 
 window.Championify = {
   run: downloadItemSets
-  getInstallPath: getInstallPath
   checkVersion: checkVer
 }

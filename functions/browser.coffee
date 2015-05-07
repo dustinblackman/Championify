@@ -1,18 +1,129 @@
 remote = require 'remote'
 dialog = remote.require 'dialog'
-fs = require 'fs' # Cheat code, stupid Browserify.
+fs = require 'fs'
+mkdirp = require 'mkdirp'
 
-# Browser prototype for Championify
-window.Championify.browser = {
-  openFolder: ->
-    dialog.showOpenDialog {
-      properties: ['openDirectory']
-      title: 'Open League of Legends directory'
-    }, (path) ->
-      window.lolInstallPath = path
-      $('#installPath').attr('value', path)
-}
+
+# We check if we can write to directory.
+# If no admin and is required, warn.
+isWindowsAdmin = (cb) ->
+  if process.platform != 'darwin'
+    fs.writeFile window.lolChampPath + '/test.txt', 'Testing Write', (err) ->
+      if err or !fs.existsSync(window.lolChampPath + '/test.txt')
+        cb 'err'
+      else
+        fs.unlinkSync(window.lolChampPath + '/test.txt')
+        cb null
+  else
+    cb null
+
+
+findInstallPath = ->
+  if process.platform == 'darwin'
+    if fs.existsSync('/Applications/League of Legends.app')
+      setInstallPath null, '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
+
+    else if fs.existsSync('~/Applications/League of Legends.app')
+      setInstallPath null, '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
+
+  else
+    if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
+      setInstallPath null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/'
+
+
+checkInstallPath = (path) ->
+  # TODO Change these two to check for LoL binary instead of folder path.
+  if process.platform == 'darwin'
+    if fs.existsSync(path + 'Contents/LoL/')
+      setInstallPath null, path, 'Contents/LoL/Config/Champions/'
+
+    else if fs.existsSync(path + 'League of Legends.app/Contents/LoL/')
+      setInstallPath null, path+'League of Legends.app/', 'Contents/LoL/Config/Champions/'
+
+    else
+      setInstallPath 'Not Found', path
+
+  else
+    # Default install, Garena Check 2
+    if fs.existsSync(path + 'lol.launcher.exe') or fs.existsSync(path + 'League of Legends.exe')
+      setInstallPath null, path, 'Config/Champions/'
+
+    # Garena Installation Check 1
+    else if fs.existsSync(path + 'LoLLauncher.exe')
+      setInstallPath null, path, 'GameData/Apps/LoL/Game/Config/Champions/'
+
+    else
+      setInstallPath 'Not Found', path
+
+
+setInstallPath = (pathErr, installPath, champPath) ->
+  $('#inputMsg').removeAttr('class')
+  $('#inputMsg').text('')
+
+  if !champPath
+    if process.platform == 'darwin'
+      champPath = 'Contents/LoL/Config/Champions/'
+    else
+      champPath = 'Config/Champions/'
+
+  window.lolInstallPath = installPath
+  window.lolChampPath = installPath + champPath
+  console.log window.lolChampPath
+  $('#installPath').attr('value', installPath)
+
+  isWindowsAdmin (err) ->
+    if err
+      $('#inputMsg').addClass('yellow')
+      $('#inputMsg').text('Whoops! You need to run me as an admin. Right click on my file and hit "Run as Administrator"')
+
+    else if pathErr
+      $('#inputMsg').addClass('yellow')
+      $('#inputMsg').text('You sure that\'s League?')
+      $('#submitBtn').removeClass('disabled')
+
+    else
+      $('#inputMsg').addClass('green')
+      $('#inputMsg').text('Looks Good!')
+      $('#submitBtn').removeClass('disabled')
+
+
+openFolder = ->
+  if process.platform == 'darwin'
+    title = 'Select League of Legends.app'
+  else
+    title = 'Open League of Legends directory'
+
+  dialog.showOpenDialog {
+    properties: ['openDirectory']
+    title: title
+  }, (path) ->
+    if path.slice(-1) != '/' and path.slice(-1) != '\\'
+      if process.platform == 'darwin'
+        path = path+'/'
+      else
+        path = path+'\\'
+
+    checkInstallPath(path)
+
+
 
 # Watchers
 $('#browse').click (e) ->
   window.Championify.browser.openFolder()
+
+$('#submitBtn').click (e) ->
+  if !window.lolInstallPath
+    $('#inputMsg').addClass('yellow')
+    $('#inputMsg').text('You need to select your folder first!')
+  else
+    window.Championify.run()
+
+# On load
+$(document).ready ->
+  findInstallPath()
+
+# Browser prototype for Championify
+window.Championify.browser = {
+  openFolder: openFolder
+
+}
