@@ -127,10 +127,25 @@ gulp.task 'electron-deps', (cb) ->
 
 
 gulp.task 'main', ->
-  runSequence('mkdir', 'bower_copy', 'atomshell-settings', 'browserify', 'coffee', 'stylus')
+  runSequence(
+    'mkdir',
+    'bower_copy',
+    'atomshell-settings',
+    'browserify',
+    'coffee',
+    'stylus'
+  )
 
 gulp.task 'dev', ->
-  runSequence('mkdir', 'bower_copy', 'atomshell-settings', 'browserify', 'coffee', 'stylus', 'symlink', 'run-watch')
+  runSequence(
+    'mkdir',
+    'bower_copy',
+    'atomshell-settings',
+    'browserify',
+    'coffee',
+    'stylus',
+    'symlink',
+    'run-watch')
 
 gulp.task 'setup', ->
   runSequence('bower', 'preen', 'dev')
