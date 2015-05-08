@@ -122,7 +122,8 @@ gulp.task 'electrondeps', (cb) ->
     installItems.push(item+'@'+pkg.dependencies[item])
 
   cmd = 'npm install ' + installItems.join(' ')
-  exec cmd, {'cwd': './dev'}, (err, std, ste) ->
+  cmd = cmd + ' --prefix ' + process.cwd() + '/dev'
+  exec cmd, (err, std, ste) ->
     console.log(err) if err
     console.log(std)
     console.log(ste) if ste
