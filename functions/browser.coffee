@@ -111,7 +111,6 @@ $('#browse').click (e) ->
 
 $('.github > a').click (e) ->
   e.preventDefault()
-  console.log('Called')
   open('https://github.com/dustinblackman/Championify')
 
 # Import

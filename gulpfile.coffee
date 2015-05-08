@@ -18,7 +18,7 @@ source = require 'vinyl-source-stream'
 bower = require 'gulp-bower'
 preen = require 'preen'
 flatten = require 'gulp-flatten'
-atomshell = require('gulp-atom-shell')
+atomshell = require 'gulp-atom-shell'
 pkg = require './package.json'
 
 GLOBAL.buildFileName = 'championify'
@@ -132,11 +132,11 @@ gulp.task 'electrondeps', (cb) ->
 
 gulp.task 'compile:mac', ->
   gulp.src('dev/**')
-  .pipe(atomshell({
-    version: pkg.devDependencies['electron-prebuilt'].replace(/^/g, '')
-    platform: 'darwin'
-  }))
-  .pipe atomshell.zfsdest('app.zip')
+    .pipe(atomshell({
+      version: pkg.devDependencies['electron-prebuilt'].replace(/\^/g, '')
+      platform: 'darwin'
+    }))
+    .pipe atomshell.zfsdest('app.zip')
 
 
 # Main Tasks
@@ -164,5 +164,6 @@ gulp.task 'build', ->
     'atomshell-settings',
     'browserify',
     'coffee',
-    'stylus'
+    'stylus',
+    'compile:mac'
   )
