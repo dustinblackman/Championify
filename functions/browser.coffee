@@ -126,6 +126,7 @@ $('#submitBtn').click (e) ->
 
 # On load
 $(document).ready ->
+  $('.options [data-toggle="tooltip"]').tooltip()
   window.Championify.setVersion()
   findInstallPath()
 

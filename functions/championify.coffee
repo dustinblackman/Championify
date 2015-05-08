@@ -13,6 +13,7 @@ manaless = require '../data/manaless.json'
 
 # Set Defaults
 window.champData = {}
+window.cSettings = {}
 window.riotVer = '5.7'  # This will change
 
 
@@ -33,18 +34,9 @@ setVersion = ->
   $('.version > span').text('v'+pkg.version)
 
 
-# Gives the user a chance to read the output before closing the window.
-enterToExit = ->
-  cl 'Press enter to close.', 'yellow'
-  # prompt.start()
-  # prompt.get ['enter'], ->
-  #   process.exit(1)
-
-
 #################
 #      MAIN
 #################
-
 
 # Check if this is the latest version of the application. Otherwise prompt to download new.
 checkVer = (cb) ->
@@ -57,10 +49,20 @@ checkVer = (cb) ->
       cl "If a new window doesn't open for you, get the latest here."
       cl "https://github.com/dustinblackman/Championify/releases/latest"
       open('https://github.com/dustinblackman/Championify/releases/latest')
-      enterToExit()
+      cb 'Not latest version'
     else
       cl 'Your version of Championify is up to date!'
       cb null
+
+
+getSettings = (cb) ->
+  window.cSettings = {
+    splititems: $('#options_splititems').is(':checked')
+    skillsformat: $('#options_skillsformat').is(':checked')
+    trinkets: $('#options_trinkets').is(':checked')
+    consumables: $('#options_consumables').is(':checked')
+  }
+  cb null
 
 
 # Get latest Riot Version
@@ -78,7 +80,6 @@ getChamps = (cb) ->
     champs = Object.keys(body.data)
     cb null, champs
 
-
 # This executes the scraper for ChampionGG
 # We scrape ChampionGG 5 at a time, this prevents high load on ChampionGGs side, as we don't want to cause issues
 # with their servers.
@@ -87,7 +88,6 @@ processChamps = (champs, cb) ->
     requestPage {champ: champ}, () ->
       acb null
   , () ->
-    console.log(window.champData)
     cb null
 
 
@@ -168,76 +168,136 @@ requestPage = (obj, cb) ->
       else
         positions.push position
 
-    # Create Builds (Blocks)
-    builds = []
-
     build_freqStart = hlp.arrayToBuilds(freqStart).concat(prebuilts.trinkets)
     build_highestStart = hlp.arrayToBuilds(highestStart).concat(prebuilts.trinkets)
     build_freqCore = hlp.arrayToBuilds(freqCore)
     build_highestCore = hlp.arrayToBuilds(highestCore)
 
-    # If freqStart and highestStart are the same, only push once.
-    if JSON.stringify(build_freqStart) == JSON.stringify(build_highestStart)
-      builds.push {
-        items: build_freqStart
-        type: 'Frequent/Highest Start ('+freqStartWins+' wins - '+freqStartGames+ ' games)'
-      }
 
-    else
-      builds.push {
+    # Reusable function for generating Trainkets and Consumables.
+    trinksCon = (builds) ->
+      # Trinkets
+      if window.cSettings.trinkets
+        builds.push {
+          items: prebuilts.trinketUpgrades
+          type: 'Trinkets | Frequent: '+skillsMostFreq
+        }
+
+      if window.cSettings.consumables
+        # If champ has no mana, remove mana pot from consumables
+        consumables = prebuilts.consumables.concat([])  # Lazy fix for pointer issue.
+        if manaless.indexOf(champ) > -1
+          consumables.splice(1, 1)
+
+        builds.push {
+          items: consumables
+          type: 'Consumables | Wins: '+skillsHighestWin
+        }
+
+      return builds
+
+
+    normalItemSets = () ->
+      builds = []
+
+      # If freqStart and highestStart are the same, only push once.
+      if JSON.stringify(build_freqStart) == JSON.stringify(build_highestStart)
+        builds.push {
+          items: build_freqStart
+          type: 'Frequent/Highest Start ('+freqStartWins+' wins - '+freqStartGames+ ' games)'
+        }
+
+      else
+        builds.push {
+          items: build_freqStart
+          type: 'Most Frequent Starters ('+freqStartWins+' wins - '+freqStartGames+ ' games)'
+        }
+        builds.push {
+          items: build_highestStart
+          type: 'Highest Win % Starters ('+highestStartWins+' wins - '+highestStartGames+ ' games)'
+        }
+
+      # If freqCore and highestCore are the same, only push once.
+      if JSON.stringify(build_freqCore) == JSON.stringify(build_highestCore)
+        builds.push {
+          items: build_freqCore
+          type: 'Frequent/Highest Core ('+freqCoreWins+' wins - '+freqCoreGames+ ' games)'
+        }
+
+      else
+        builds.push {
+          items: build_freqCore
+          type: 'Most Frequent Core Build ('+freqCoreWins+' wins - '+freqCoreGames+ ' games)'
+        }
+        builds.push {
+          items: build_highestCore
+          type: 'Highest Win % Core Build ('+highestCoreWins+' wins - '+highestCoreGames+ ' games)'
+        }
+
+      # Add trinkets and consumables, if enabled.
+      builds = trinksCon(builds)
+
+      return builds
+
+
+    splitItemSets = () ->
+      mfBuild = []
+      hwBuild = []
+
+      mfBuild.push {
         items: build_freqStart
         type: 'Most Frequent Starters ('+freqStartWins+' wins - '+freqStartGames+ ' games)'
       }
-      builds.push {
-        items: build_highestStart
-        type: 'Highest Win % Starters ('+highestStartWins+' wins - '+highestStartGames+ ' games)'
-      }
-
-    # If freqCore and highestCore are the same, only push once.
-    if JSON.stringify(build_freqCore) == JSON.stringify(build_highestCore)
-      builds.push {
-        items: build_freqCore
-        type: 'Frequent/Highest Core ('+freqCoreWins+' wins - '+freqCoreGames+ ' games)'
-      }
-
-    else
-      builds.push {
+      mfBuild.push {
         items: build_freqCore
         type: 'Most Frequent Core Build ('+freqCoreWins+' wins - '+freqCoreGames+ ' games)'
       }
-      builds.push {
+
+      hwBuild.push {
+        items: build_highestStart
+        type: 'Highest Win % Starters ('+highestStartWins+' wins - '+highestStartGames+ ' games)'
+      }
+      hwBuild.push {
         items: build_highestCore
         type: 'Highest Win % Core Build ('+highestCoreWins+' wins - '+highestCoreGames+ ' games)'
       }
 
-    # Trinkets
-    builds.push {
-      items: prebuilts.trinketUpgrades
-      type: 'Trinkets | Frequent: '+skillsMostFreq
-    }
+      mfBuild = trinksCon(mfBuild)
+      hwBuild = trinksCon(hwBuild)
 
-    # If champ has no mana, remove mana pot from consumables
-    consumables = prebuilts.consumables.concat([])  # Lazy fix for pointer issue.
-    if manaless.indexOf(champ) > -1
-      consumables.splice(1, 1)
+      return [mfBuild, hwBuild]
 
-    builds.push {
-      items: consumables
-      type: 'Consumables | Wins: '+skillsHighestWin
-    }
+
+    pushChampData = (champ, position, build) ->
+      positionForFile = position.replace(/ /g, '_').toLowerCase()
+      newObj = {
+        champion: champ,
+        title: position+' '+window.riotVer,
+        blocks: build
+      }
+
+      window.champData[champ][positionForFile] = hlp.mergeObj(defaultSchema, newObj)
+
 
     # Save data to Global object for saving to disk later.
     # We do this incase people cancel the function half way though.
     if !window.champData[champ]
       window.champData[champ] = {}
 
-    newObj = {
-      champion: champ,
-      title: currentPosition+' '+window.riotVer,
-      blocks: builds
-    }
 
-    window.champData[champ][currentPosition] = hlp.mergeObj(defaultSchema, newObj)
+    # If split item sets
+    if window.cSettings.splititems
+      builds = splitItemSets()
+      mfBuild = builds[0]
+      hwBuild = builds[1]
+
+      pushChampData(champ, currentPosition+' MF', mfBuild)
+      pushChampData(champ, currentPosition+' HW', hwBuild)
+
+    # If normal item sets
+    else
+      builds = normalItemSets()
+      pushChampData(champ, currentPosition, builds)
 
     # Now we execute for the other positions for the champs, if there are any.
     if !obj.position and positions.length > 0
@@ -256,6 +316,7 @@ requestPage = (obj, cb) ->
 
 downloadItemSets = (cb) ->
   async.waterfall [
+    getSettings
     getRiotVer
     getChamps
     processChamps

@@ -18,6 +18,7 @@ source = require 'vinyl-source-stream'
 bower = require 'gulp-bower'
 preen = require 'preen'
 flatten = require 'gulp-flatten'
+atomshell = require('gulp-atom-shell')
 pkg = require './package.json'
 
 GLOBAL.buildFileName = 'championify'
@@ -115,29 +116,32 @@ gulp.task 'delete-dev', ->
     .pipe(clean(force: true))
 
 
-gulp.task 'electron-deps', (cb) ->
+gulp.task 'electrondeps', (cb) ->
   installItems = []
-  pkg.electron-deps.forEach (item) ->
+  pkg['electron-deps'].forEach (item) ->
     installItems.push(item+'@'+pkg.dependencies[item])
 
   cmd = 'npm install ' + installItems.join(' ')
-  exec cmd, {'cwd': './dev'},(err, std, ste) ->
+  exec cmd, {'cwd': './dev'}, (err, std, ste) ->
+    console.log(err) if err
+    console.log(std)
+    console.log(ste) if ste
+
     cb()
 
+gulp.task 'compile:mac', ->
+  gulp.src('dev/**')
+  .pipe(atomshell({
+    version: pkg.devDependencies['electron-prebuilt'].replace(/^/g, '')
+    platform: 'darwin'
+  }))
+  .pipe atomshell.zfsdest('app.zip')
 
 
-gulp.task 'main', ->
-  runSequence(
-    'mkdir',
-    'bower_copy',
-    'atomshell-settings',
-    'browserify',
-    'coffee',
-    'stylus'
-  )
-
+# Main Tasks
 gulp.task 'dev', ->
   runSequence(
+    'delete-dev',
     'mkdir',
     'bower_copy',
     'atomshell-settings',
@@ -151,4 +155,13 @@ gulp.task 'setup', ->
   runSequence('bower', 'preen', 'dev')
 
 gulp.task 'build', ->
-  runSequence('delete-dev', 'electron-deps', 'mkdir', 'main')
+  runSequence(
+    'delete-dev',
+    'mkdir',
+    'electrondeps',
+    'bower_copy',
+    'atomshell-settings',
+    'browserify',
+    'coffee',
+    'stylus'
+  )

@@ -105,6 +105,7 @@ Well that's great! Put up an Issue or send me a message on reddit [/u/dustinhero
 - Self updater.
 - OSX package that doesn't exit until terminal exits.
 - Automate generating the resource information for the Windows executable.
+- Take better advantage of lodash.
 
 ---
 

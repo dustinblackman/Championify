@@ -1,3 +1,5 @@
+_ = require 'lodash'
+
 module.exports = {
   # Merge two objects
   mergeObj: (obj1, obj2) ->
@@ -62,7 +64,22 @@ module.exports = {
           if cheer(s).hasClass('selected')
             skillOrder[s_idx] = keys[idx-1]
 
-    skillOrder = skillOrder.join('.')
+    if window.cSettings.skillsformat
+      arr = _.countBy(skillOrder.slice(0, 9), _.identity)
+      delete arr['R']
+      arr = _.invert(arr)
+
+      keys = _.keys(arr)
+      keys.sort()
+      keys.reverse()
+
+      skillOrder = _.map keys, (key) ->
+        return arr[key]
+
+      skillOrder = skillOrder.join('>')
+    else
+      skillOrder = skillOrder.join('.')
+
     return skillOrder
-  
+
 }

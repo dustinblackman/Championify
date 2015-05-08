@@ -7,7 +7,6 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Place favicon.ico in the root directory -->
         <link rel="stylesheet" href="vendor/css/animate.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css">
@@ -40,13 +39,16 @@
 
           <div class="row">
             <div class="options">
-              <input type="checkbox" value="None" name="check"/>
+              <input type="checkbox" value="None" id="options_splititems"/>
               <span>Split Item Sets Between Most and Wins</span><br />
 
-              <input type="checkbox" value="None" name="check" checked />
+              <input type="checkbox" value="None" id="options_skillsformat" />
+              <span>Use short Skill Prorities (Q>W>E)</span><br />
+
+              <input type="checkbox" value="None" id="options_trinkets" data-toggle="tooltip" data-placement="top" title="" data-original-title="By disabling Trinkets you'll lose Most Frequient Skill priorities" checked  />
               <span>Enable Trinkets</span><br />
 
-              <input type="checkbox" value="None" name="check" checked />
+              <input type="checkbox" value="None" id="options_consumables" data-toggle="tooltip" data-placement="top" title="" data-original-title="By disabling Consumables you'll lose Highest Win Skill priorities" checked />
               <span>Enable Consumables</span><br />
             </div>
           </div>
@@ -77,9 +79,11 @@
         </footer>
 
         <script>window.$ = window.jQuery = require('./vendor/js/jquery.min.js');</script>
+        <script src="vendor/js/bootstrap.min.js"></script>
         <script src="js/deps.js"></script>
         <script src="js/main.js"></script>
         <script src="js/browser.js"></script>
+
         <!-- Need to have this remove when compiling. -->
         <script src="http://localhost:35729/livereload.js"></script>
     </body>
