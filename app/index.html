@@ -41,7 +41,7 @@
           <div class="row">
             <div class="options">
               <input type="checkbox" value="None" name="check"/>
-              <span>Split Item Builds</span><br />
+              <span>Split Item Sets Between Most and Wins</span><br />
 
               <input type="checkbox" value="None" name="check" checked />
               <span>Enable Trinkets</span><br />
@@ -56,8 +56,25 @@
             <div class="submitBtn">
               <button id="submitBtn" class="btn btn-success disabled">Import</button>
             </div>
+
+            <div class="status hidden">
+              <span><h3>Status</h3></span>
+              <div id="progress">
+
+              </div>
+            </div>
           </div>
         </div>
+
+        <footer>
+          <div class="github">
+            <a>Github/DustinBlackman</a>
+          </div>
+          <div class="version">
+            <!-- Make this Dynamic -->
+            <span></span>
+          </div>
+        </footer>
 
         <script>window.$ = window.jQuery = require('./vendor/js/jquery.min.js');</script>
         <script src="js/deps.js"></script>

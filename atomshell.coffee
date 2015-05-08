@@ -22,6 +22,7 @@ app.on 'ready', ->
     height: 600
     center: true
     resizable: false
+    title: 'Championify'
 
   })
 

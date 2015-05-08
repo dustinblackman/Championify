@@ -64,5 +64,5 @@ module.exports = {
 
     skillOrder = skillOrder.join('.')
     return skillOrder
-
+  
 }

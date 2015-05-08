@@ -3,10 +3,17 @@ vendor-prefixes ?= webkit official
 
 elemWidth = 95%
 
+// Defaults
 body
   overflow hidden
-  overflow-y hidden
+  user-select none
 
+// Helpers
+.hidden
+  display none
+
+
+// Main
 .banner
   text-align center
 
@@ -17,7 +24,7 @@ body
 .lolDirInputMsg
   text-align center
   margin-top -15px
-  height 12px
+  height 25px
   width elemWidth
 
   .yellow
@@ -33,3 +40,22 @@ body
 .submitBtn
   text-align center
   margin-top 20px
+
+.status
+  text-align center
+
+#progress
+  height 200px
+  overflow hidden
+
+
+// Footer
+.github
+  bottom 2px
+  left 10px
+  position absolute
+
+.version
+  bottom 2px
+  right 10px
+  position absolute

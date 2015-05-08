@@ -37,7 +37,7 @@ checkInstallPath = (path) ->
       setInstallPath null, path, 'Contents/LoL/Config/Champions/'
 
     else if fs.existsSync(path + 'League of Legends.app')
-      setInstallPath null, path+'League of Legends.app/Contents/LoL/', 'Contents/LoL/Config/Champions/'
+      setInstallPath null, path+'League of Legends.app/', 'Contents/LoL/Config/Champions/'
 
     else
       setInstallPath 'Not Found', path
@@ -105,24 +105,31 @@ openFolder = ->
     checkInstallPath(path)
 
 
-
 # Watchers
 $('#browse').click (e) ->
   window.Championify.browser.openFolder()
 
+$('.github > a').click (e) ->
+  e.preventDefault()
+  console.log('Called')
+  open('https://github.com/dustinblackman/Championify')
+
+# Import
 $('#submitBtn').click (e) ->
   if !window.lolInstallPath
     $('#inputMsg').addClass('yellow')
     $('#inputMsg').text('You need to select your folder first!')
   else
+    $('.submitBtn').addClass('hidden')
+    $('.status').removeClass('hidden')
     window.Championify.run()
 
 # On load
 $(document).ready ->
+  window.Championify.setVersion()
   findInstallPath()
 
 # Browser prototype for Championify
 window.Championify.browser = {
   openFolder: openFolder
-
 }

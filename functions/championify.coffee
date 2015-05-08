@@ -1,7 +1,6 @@
 cheerio = require 'cheerio'
 async = require 'async'
 moment = require 'moment'
-open = require 'open'
 
 hlp = require './helpers.coffee'
 pkg = require '../package.json'
@@ -26,6 +25,12 @@ cl = (text) ->
   m = moment().format('HH:mm:ss')
   m = ('['+m+'] | ') + text
   console.log(m)
+  $('#progress').prepend('<span>'+text+'</span><br />')
+
+
+# Sets version on interface. Have it here cause I need access to package.json, should be in browser, but whatever.
+setVersion = ->
+  $('.version > span').text('v'+pkg.version)
 
 
 # Gives the user a chance to read the output before closing the window.
@@ -60,7 +65,7 @@ checkVer = (cb) ->
 
 # Get latest Riot Version
 getRiotVer = (cb) ->
-  cl '--Getting Latest LoL Version Number'
+  cl 'Getting Latest LoL Version Number'
   hlp.httpRequest 'http://ddragon.leagueoflegends.com/api/versions.json', (body) ->
     window.riotVer = body[0]
     cb null
@@ -68,7 +73,7 @@ getRiotVer = (cb) ->
 
 # Download all the champs from riot (saves making requests to ChampionGG)
 getChamps = (cb) ->
-  cl '--Downloading Champs from Riot'
+  cl 'Downloading Champs from Riot'
   hlp.httpRequest 'http://ddragon.leagueoflegends.com/cdn/'+window.riotVer+'/data/en_US/champion.json', (body) ->
     champs = Object.keys(body.data)
     cb null, champs
@@ -88,7 +93,7 @@ processChamps = (champs, cb) ->
 
 # Delete all the previous ChampionGG builds.
 deleteOldBuilds = (cb) ->
-  cl '--Deleting Old Builds'
+  cl 'Deleting Old Builds'
   glob window.lolChampPath+'**/CGG_*.json', (err, files) ->
     async.each files, (item, ecb) ->
       fs.unlink item, (err) ->
@@ -100,7 +105,7 @@ deleteOldBuilds = (cb) ->
 
 # Save all builds we created to file in the correct directories.
 saveToFile = (cb) ->
-  cl '--Saving Builds to File'
+  cl 'Saving Builds to File'
   async.each Object.keys(window.champData), (champ, acb) ->
     async.each Object.keys(window.champData[champ]), (position, pcb) ->
       toFileData = JSON.stringify(window.champData[champ][position], null, 4)
@@ -265,4 +270,5 @@ downloadItemSets = (cb) ->
 window.Championify = {
   run: downloadItemSets
   checkVersion: checkVer
+  setVersion: setVersion
 }
