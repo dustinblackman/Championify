@@ -131,12 +131,13 @@ gulp.task 'electrondeps', (cb) ->
     cb()
 
 gulp.task 'compile:mac', ->
-  gulp.src('dev/**')
-    .pipe(atomshell({
+  gulp.src('./dev/**')
+    .pipe atomshell({
       version: pkg.devDependencies['electron-prebuilt'].replace(/\^/g, '')
       platform: 'darwin'
-    }))
+    })
     .pipe atomshell.zfsdest('app.zip')
+    .pipe gulp.dest('')
 
 
 # Main Tasks
@@ -165,5 +166,6 @@ gulp.task 'build', ->
     'browserify',
     'coffee',
     'stylus',
-    'compile:mac'
+    'compile:mac',
+    'delete-dev'
   )
