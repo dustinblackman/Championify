@@ -129,7 +129,7 @@ $('#browse').click (e) ->
 
 $('.github > a').click (e) ->
   e.preventDefault()
-  open('https://github.com/dustinblackman/Championify')
+  open('https://github.com/dustinblackman/Championify#faq')
 
 # Import
 $('#submitBtn').click (e) ->
