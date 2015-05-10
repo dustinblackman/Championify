@@ -2,9 +2,6 @@ remote = require 'remote'
 dialog = remote.require 'dialog'
 fs = require 'fs'
 
-# Helpers
-_getUserHome = ->
-  return process.env.HOME || process.env.USERPROFILE
 
 # We check if we can write to directory.
 # If no admin and is required, warn.
