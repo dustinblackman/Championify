@@ -19,7 +19,6 @@ nib         = require 'nib'
 preen       = require 'preen'
 runSequence = require 'run-sequence'
 source      = require 'vinyl-source-stream'
-sourcemaps  = require 'gulp-sourcemaps'
 stylus      = require 'gulp-stylus'
 uglify      = require 'gulp-uglify'
 
@@ -68,7 +67,7 @@ gulp.task 'mkdir', (cb) ->
 
 
 gulp.task 'copy', (cb) ->
-  glob './app/**' , (err, files) ->
+  glob './app/**' , {nodir: true}, (err, files) ->
     async.each files, (file, acb) ->
       newfile = file.replace('./app', './dev')
       fs.copy file, newfile, (err) ->
@@ -162,15 +161,30 @@ gulp.task 'asar', ->
     .pipe(gulp.dest('tmp'))
 
 
-gulp.task 'compile:mac', ->
-  gulp.src(['./dev/package.json', './tmp/app.asar'])
-    .pipe atomshell({
-      version: pkg.devDependencies['electron-prebuilt'].replace(/\^/g, '')
+gulp.task 'compile', ->
+  version = pkg.devDependencies['electron-prebuilt'].replace(/\^/g, '')
+  if process.platform == 'darwin'
+    buildCfg = {
+      version: version
       platform: 'darwin'
       darwinIcon: './resources/osx/Championify.icns'
       asar: true
-    })
+    }
+
+  else
+    buildCfg = {
+      version: version
+      platform: 'win32'
+      winIcon: './resources/win/Championify.ico'
+      companyName: pkg.author
+      copyright: [pkg.license, pkg.author, '2015'].join(' ')
+      asar: true
+    }
+
+  gulp.src(['./dev/package.json', './tmp/app.asar'])
+    .pipe atomshell(buildCfg)
     .pipe atomshell.zfsdest(GLOBAL.releaseFile)
+
 
 
 # Dev
@@ -202,7 +216,7 @@ gulp.task 'dev', ->
     'run-watch')
 
 gulp.task 'setup', ->
-  runSequence('bower', 'preen', 'dev')
+  runSequence('bower', 'preen')
 
 gulp.task 'build', ->
   runSequence(
@@ -217,6 +231,6 @@ gulp.task 'build', ->
     'browserify',
     'copy',
     'asar',
-    'compile:mac',
+    'compile',
     'delete-dev'
   )
