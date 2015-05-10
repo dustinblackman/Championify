@@ -1,25 +1,29 @@
-gulp = require 'gulp'
-async = require 'async'
-fs = require 'fs'
-coffee = require 'gulp-coffee'
-uglify = require 'gulp-uglify'
-gutil = require 'gulp-util'
-clean = require 'gulp-clean'
-fs = require 'fs-extra'
-mkdirp = require 'mkdirp'
+async       = require 'async'
+atomshell   = require 'gulp-atom-shell'
+bower       = require 'gulp-bower'
+buffer      = require 'vinyl-buffer'
+browserify  = require 'browserify'
+clean       = require 'gulp-clean'
+coffee      = require 'gulp-coffee'
+coffeeify   = require 'coffeeify'
+exec        = require('child_process').exec
+flatten     = require 'gulp-flatten'
+fs          = require 'fs-extra'
+glob        = require 'glob'
+gulp        = require 'gulp'
+gulpAsar    = require 'gulp-asar'
+gulpif      = require 'gulp-if'
+gutil       = require 'gulp-util'
+mkdirp      = require 'mkdirp'
+nib         = require 'nib'
+preen       = require 'preen'
 runSequence = require 'run-sequence'
-glob = require 'glob'
-exec = require('child_process').exec
-nib = require 'nib'
-stylus = require 'gulp-stylus'
-browserify = require 'browserify'
-coffeeify = require 'coffeeify'
-source = require 'vinyl-source-stream'
-bower = require 'gulp-bower'
-preen = require 'preen'
-flatten = require 'gulp-flatten'
-atomshell = require 'gulp-atom-shell'
-pkg = require './package.json'
+source      = require 'vinyl-source-stream'
+sourcemaps  = require 'gulp-sourcemaps'
+stylus      = require 'gulp-stylus'
+uglify      = require 'gulp-uglify'
+
+pkg         = require './package.json'
 
 # Setup some globals
 fileVersion = pkg.version.replace(/\./g, '-')
@@ -29,8 +33,9 @@ else
   platform = 'WIN'
 
 GLOBAL.releaseFile = './releases/Championify.'+platform+'.'+fileVersion+'.zip'
+GLOBAL.ifBuild = (process.argv.indexOf('build') > -1)
 
-
+# BOWER
 gulp.task 'bower', ->
   return bower()
 
@@ -51,6 +56,7 @@ gulp.task 'bower_copy', ->
     .pipe gulp.dest('./dev/vendor/css/')
 
 
+# Dirs, Copy, Delete, Mk
 gulp.task 'mkdir', (cb) ->
   glob './app/**/' , (err, paths) ->
     async.each paths, (path, acb) ->
@@ -82,17 +88,17 @@ gulp.task 'symlink', (cb) ->
     , () ->
       cb()
 
-gulp.task 'atomshell-settings', ->
-  gulp.src(['./atomshell.coffee'], {base: './'})
-    .pipe(coffee(bare: true).on('error', gutil.log))
-    # .pipe(uglify())
-    .pipe gulp.dest('./dev')
+
+gulp.task 'delete-dev', ->
+  gulp.src(['./dev', './tmp'])
+    .pipe(clean(force: true))
 
 
+# Coffee, Stylus, Browserify
 gulp.task 'coffee', ->
   gulp.src(['./functions/browser.coffee', './functions/deps.coffee'], {base: './'})
     .pipe(coffee(bare: true).on('error', gutil.log))
-    # .pipe(uglify())
+    .pipe(gulpif(GLOBAL.ifBuild, uglify()))
     .pipe(flatten())
     .pipe gulp.dest('./dev/js/')
 
@@ -108,18 +114,15 @@ gulp.task 'browserify', (cb) ->
     transform: [coffeeify]
     entries: ['./functions/championify.coffee']
   })
-  # .ignore('fs')
   .bundle()
   .pipe(source('main.js'))
+  .pipe(gulpif(GLOBAL.ifBuild, buffer()))
+  .pipe(gulpif(GLOBAL.ifBuild, uglify()))
   .pipe(gulp.dest('./dev/js/'))
 
 
-gulp.task 'delete-dev', ->
-  gulp.src(['./dev'])
-    .pipe(clean(force: true))
-
-
-gulp.task 'electrondeps', (cb) ->
+# Electron Settings
+gulp.task 'electron:deps', (cb) ->
   installItems = []
   pkg['electron-deps'].forEach (item) ->
     installItems.push(item+'@'+pkg.dependencies[item])
@@ -133,17 +136,44 @@ gulp.task 'electrondeps', (cb) ->
 
     cb()
 
+gulp.task 'electron:settings', ->
+  gulp.src(['./electron.coffee'], {base: './'})
+    .pipe(coffee(bare: true).on('error', gutil.log))
+    .pipe(gulpif(GLOBAL.ifBuild, uglify()))
+    .pipe gulp.dest('./dev')
+
+
+gulp.task 'electron:packagejson', (cb) ->
+  packagejson = {
+    name: pkg.name
+    version: pkg.version
+    main: 'electron.js'
+  }
+  json = JSON.stringify(packagejson, null, 2)
+  fs.writeFile './dev/package.json', json, 'utf8', (err) ->
+    console.log err if err
+    cb()
+
+
+# Build
+gulp.task 'asar', ->
+  gulp.src('./dev/**', {base: './dev/'})
+    .pipe(gulpAsar('app.asar'))
+    .pipe(gulp.dest('tmp'))
+
+
 gulp.task 'compile:mac', ->
-  gulp.src('./dev/**')
+  gulp.src(['./dev/package.json', './tmp/app.asar'])
     .pipe atomshell({
       version: pkg.devDependencies['electron-prebuilt'].replace(/\^/g, '')
       platform: 'darwin'
       darwinIcon: './resources/osx/Championify.icns'
-      asar: './app.asar'
+      asar: true
     })
     .pipe atomshell.zfsdest(GLOBAL.releaseFile)
 
 
+# Dev
 gulp.task 'run-watch', (cb) ->
   fs.writeFileSync('./dev/dev_enabled', 'dev enabled', 'utf8')
   gulp.watch './stylesheets/*.styl', ['stylus']
@@ -154,9 +184,6 @@ gulp.task 'run-watch', (cb) ->
   console.log cmd
   exec cmd, {'cwd': './dev'},(err, std, ste) ->
     console.log err if err
-    # console.log std
-    # console.log ste
-    # cb()
     process.exit(0)
 
 
@@ -166,7 +193,8 @@ gulp.task 'dev', ->
     'delete-dev',
     'mkdir',
     'bower_copy',
-    'atomshell-settings',
+    'electron:packagejson'
+    'electron:settings',
     'browserify',
     'coffee',
     'stylus',
@@ -180,13 +208,15 @@ gulp.task 'build', ->
   runSequence(
     'delete-dev',
     'mkdir',
-    'electrondeps',
+    'electron:deps',
+    'electron:packagejson'
+    'electron:settings',
     'bower_copy',
-    'atomshell-settings',
-    'browserify',
     'coffee',
     'stylus',
+    'browserify',
     'copy',
+    'asar',
     'compile:mac',
-    # 'delete-dev'
+    'delete-dev'
   )

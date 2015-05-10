@@ -26,6 +26,7 @@
     "cheerio": "^0.19.0",
     "colors": "^1.1.0",
     "glob": "^5.0.5",
+    "gulp-asar": "0.0.2",
     "lodash": "^3.8.0",
     "mkdirp": "^0.5.0",
     "moment": "^2.10.2",
@@ -44,6 +45,7 @@
     "gulp-clean": "^0.3.1",
     "gulp-coffee": "^2.3.1",
     "gulp-flatten": "0.0.4",
+    "gulp-if": "^1.2.5",
     "gulp-stylus": "^2.0.1",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
@@ -51,6 +53,7 @@
     "nib": "^1.1.0",
     "preen": "^1.2.0",
     "run-sequence": "^1.1.0",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
 }
