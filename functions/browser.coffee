@@ -2,6 +2,20 @@ remote = require 'remote'
 dialog = remote.require 'dialog'
 fs = require 'fs'
 
+reload = ->
+  currentWindow = remote.getCurrentWindow()
+  currentWindow.webContents.reloadIgnoringCache()
+
+
+runUpdates = ->
+  window.Championify.checkVer (needUpdate, version) ->
+    if needUpdate
+      $('#mainContainer').hide()
+      $('#updateContainer').show()
+
+      window.Championify.updateVer version, ->
+        reload()
+
 
 # We check if we can write to directory.
 # If no admin and is required, warn.
@@ -69,8 +83,7 @@ setInstallPath = (pathErr, installPath, champPath) ->
 
   window.lolInstallPath = installPath
   window.lolChampPath = installPath + champPath
-  console.log window.lolChampPath
-  $('#installPath').attr('value', installPath)
+  $('#installPath').val(installPath)
 
   isWindowsAdmin (err) ->
     if err
@@ -130,11 +143,14 @@ $('#submitBtn').click (e) ->
 
 # On load
 $(document).ready ->
-  $('.options [data-toggle="tooltip"]').tooltip()
+  # runUpdates()
   window.Championify.setVersion()
+  $('.options [data-toggle="tooltip"]').tooltip()
   findInstallPath()
 
 # Browser prototype for Championify
 window.Championify.browser = {
   openFolder: openFolder
+  dirName: __dirname
+  reload: reload
 }

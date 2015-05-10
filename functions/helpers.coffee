@@ -11,12 +11,21 @@ module.exports = {
     obj3
 
 
-  httpRequest: (url, cb) ->
+  ajaxRequest: (url, cb) ->
     $.ajax(url)
       .fail (err) ->
         console.log err
       .done (body) ->
         cb body
+
+  downloadFile: (url, dest, cb) ->
+    file = fs.createWriteStream(dest)
+    http.get url, (res) ->
+      res.setEncoding('binary')
+      res.pipe(file)
+      file.on 'finish', ->
+        file.close(cb)
+
 
   # Converts the arrays from Cheerio output to LoL Blocks
   # Kinda lazy, but works like a charm.

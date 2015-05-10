@@ -6,6 +6,7 @@ browserify  = require 'browserify'
 clean       = require 'gulp-clean'
 coffee      = require 'gulp-coffee'
 coffeeify   = require 'coffeeify'
+deleteLines = require 'gulp-delete-lines'
 exec        = require('child_process').exec
 flatten     = require 'gulp-flatten'
 fs          = require 'fs-extra'
@@ -16,6 +17,7 @@ gulpif      = require 'gulp-if'
 gutil       = require 'gulp-util'
 mkdirp      = require 'mkdirp'
 nib         = require 'nib'
+path        = require 'path'
 preen       = require 'preen'
 runSequence = require 'run-sequence'
 source      = require 'vinyl-source-stream'
@@ -93,6 +95,16 @@ gulp.task 'delete-dev', ->
     .pipe(clean(force: true))
 
 
+gulp.task 'removelivereload', ->
+  gulp.src('./dev/index.html')
+    .pipe deleteLines({
+      filters: [
+        '<script src="http:\/\/localhost:35729\/livereload\.js"><\/script>'
+      ]
+    })
+    .pipe(gulp.dest('./dev'))
+
+
 # Coffee, Stylus, Browserify
 gulp.task 'coffee', ->
   gulp.src(['./functions/browser.coffee', './functions/deps.coffee'], {base: './'})
@@ -128,6 +140,7 @@ gulp.task 'electron:deps', (cb) ->
 
   cmd = 'npm install ' + installItems.join(' ')
   cmd = cmd + ' --prefix ' + process.cwd() + '/dev'
+
   exec cmd, (err, std, ste) ->
     console.log(err) if err
     console.log(std)
@@ -184,6 +197,7 @@ gulp.task 'compile', ->
   gulp.src(['./dev/package.json', './tmp/app.asar'])
     .pipe atomshell(buildCfg)
     .pipe atomshell.zfsdest(GLOBAL.releaseFile)
+    # .pipe gulp.dest('./releases')
 
 
 
@@ -194,7 +208,11 @@ gulp.task 'run-watch', (cb) ->
   gulp.watch './functions/browser.coffee', ['coffee']
   gulp.watch ['./functions/championify.coffee', './functions/helpers.coffee'], ['browserify']
 
-  cmd = '../node_modules/.bin/electron .'
+  cmd = path.normalize('../node_modules/.bin/electron')
+  cmd = cmd + ' .'
+  if process.platform != 'darwin'
+    cmd = 'START ' + cmd
+
   console.log cmd
   exec cmd, {'cwd': './dev'},(err, std, ste) ->
     console.log err if err
@@ -202,16 +220,24 @@ gulp.task 'run-watch', (cb) ->
 
 
 # Main Tasks
-gulp.task 'dev', ->
+gulp.task 'main', (cb) ->
   runSequence(
     'delete-dev',
     'mkdir',
-    'bower_copy',
-    'electron:packagejson'
+
+    ['electron:packagejson'
     'electron:settings',
-    'browserify',
+    'bower_copy',
     'coffee',
     'stylus',
+    'browserify'],
+    cb
+  )
+
+
+gulp.task 'dev', ->
+  runSequence(
+    'main'
     'symlink',
     'run-watch')
 
@@ -220,17 +246,11 @@ gulp.task 'setup', ->
 
 gulp.task 'build', ->
   runSequence(
-    'delete-dev',
-    'mkdir',
+    'main'
     'electron:deps',
-    'electron:packagejson'
-    'electron:settings',
-    'bower_copy',
-    'coffee',
-    'stylus',
-    'browserify',
     'copy',
+    'removelivereload'
     'asar',
     'compile',
-    'delete-dev'
+    # 'delete-dev'
   )

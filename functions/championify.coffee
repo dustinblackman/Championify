@@ -38,21 +38,32 @@ setVersion = ->
 #      MAIN
 #################
 
-# Check if this is the latest version of the application. Otherwise prompt to download new.
+# Check if this is the latest version of the application.
 checkVer = (cb) ->
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
-  hlp.httpRequest url, (data) ->
+  hlp.ajaxRequest url, (data) ->
     data = JSON.parse(data)
+    # data.version = '100'  # TODO REMOVE
     if data.version != pkg.version
-      cl 'This seems to be an old version, your version is '+pkg.version+' while the latest is '+data.version+'.'
-      cl 'Let me open the download page for you to get an update!'
-      cl "If a new window doesn't open for you, get the latest here."
-      cl "https://github.com/dustinblackman/Championify/releases/latest"
-      open('https://github.com/dustinblackman/Championify/releases/latest')
-      cb 'Not latest version'
+      cb true, data.version
     else
-      cl 'Your version of Championify is up to date!'
-      cb null
+      cb false
+
+
+updateVer = (version, cb) ->
+  dirName = window.Championify.browser.dirName
+  url = 'http://localhost:8080/update.asar'
+  dest = dirName.replace(/app.asar/g, '') + 'update-asar'
+
+  console.log url
+  console.log dest
+  console.log dirName
+
+  hlp.downloadFile url, dest, ->
+    fs.unlink dirName, () ->
+      fs.rename dest, dirName, () ->
+        cb()
+
 
 
 getSettings = (cb) ->
@@ -68,7 +79,7 @@ getSettings = (cb) ->
 # Get latest Riot Version
 getRiotVer = (cb) ->
   cl 'Getting Latest LoL Version Number'
-  hlp.httpRequest 'http://ddragon.leagueoflegends.com/api/versions.json', (body) ->
+  hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/api/versions.json', (body) ->
     window.riotVer = body[0]
     cb null
 
@@ -76,7 +87,7 @@ getRiotVer = (cb) ->
 # Download all the champs from riot (saves making requests to ChampionGG)
 getChamps = (cb) ->
   cl 'Downloading Champs from Riot'
-  hlp.httpRequest 'http://ddragon.leagueoflegends.com/cdn/'+window.riotVer+'/data/en_US/champion.json', (body) ->
+  hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/cdn/'+window.riotVer+'/data/en_US/champion.json', (body) ->
     champs = Object.keys(body.data)
     cb null, champs
 
@@ -133,7 +144,7 @@ requestPage = (obj, cb) ->
   else
     cl 'Processing: '+obj.champ
 
-  hlp.httpRequest url, (body) ->
+  hlp.ajaxRequest url, (body) ->
     cheer = cheerio.load(body)
 
     # Using CSS Selectors, grab each piece of information we need from the page
@@ -330,6 +341,7 @@ downloadItemSets = (cb) ->
 
 window.Championify = {
   run: downloadItemSets
-  checkVersion: checkVer
+  checkVer: checkVer
+  updateVer: updateVer
   setVersion: setVersion
 }
