@@ -2,6 +2,9 @@ remote = require 'remote'
 dialog = remote.require 'dialog'
 fs = require 'fs'
 
+# Helpers
+_getUserHome = ->
+  return process.env.HOME || process.env.USERPROFILE
 
 # We check if we can write to directory.
 # If no admin and is required, warn.
@@ -18,12 +21,14 @@ isWindowsAdmin = (cb) ->
 
 
 findInstallPath = ->
+  userHome = process.env.HOME || process.env.USERPROFILE
+
   if process.platform == 'darwin'
     if fs.existsSync('/Applications/League of Legends.app')
       setInstallPath null, '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
 
-    else if fs.existsSync('~/Applications/League of Legends.app')
-      setInstallPath null, '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
+    else if fs.existsSync(userHome + '/Applications/League of Legends.app')
+      setInstallPath null, userHome + '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
 
   else
     if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
@@ -89,11 +94,14 @@ setInstallPath = (pathErr, installPath, champPath) ->
 openFolder = ->
   if process.platform == 'darwin'
     title = 'Select League of Legends.app'
+    properties = ['openFile']
   else
     title = 'Open League of Legends directory'
+    properties = ['openDirectory']
+
 
   dialog.showOpenDialog {
-    properties: ['openDirectory']
+    properties: properties
     title: title
   }, (path) ->
     if path.slice(-1) != '/' and path.slice(-1) != '\\'
