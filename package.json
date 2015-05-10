@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "github"
+    "url": "git://github.com/dustinblackman/Championify.git"
   },
   "engines": {
     "node": ">=0.12.2"
@@ -39,7 +39,7 @@
     "electron-prebuilt": "^0.25.3",
     "fs-extra": "^0.18.3",
     "gulp": "^3.8.11",
-    "gulp-atom-shell": "^0.9.0",
+    "gulp-atom-shell": "git://github.com/dustinblackman/gulp-atom-shell.git#master",
     "gulp-bower": "0.0.10",
     "gulp-clean": "^0.3.1",
     "gulp-coffee": "^2.3.1",

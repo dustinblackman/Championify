@@ -22,17 +22,22 @@ app.on 'ready', ->
     height: 600
     center: true
     resizable: false
+    show: false
     title: 'Championify'
 
   })
 
   # and load the index.html of the app.
-  mainWindow.loadUrl 'file://'+process.cwd()+'/index.html'
+  mainWindow.loadUrl 'file://'+__dirname+'/index.html'
   # Emitted when the window is closed.
 
   # Enable dev stuff if needed.
   if fs.existsSync('./dev_enabled')
     mainWindow.openDevTools()
+
+  # Avoid white page on load.
+  mainWindow.webContents.on 'did-finish-load', ->
+    mainWindow.show()
 
   mainWindow.on 'closed', ->
     # Dereference the window object, usually you would store windows

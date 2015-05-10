@@ -1,6 +1,10 @@
 node_modules/
 champs/
-build/
+releases/
 *.log
 dev/
 bower_components/
+
+*.asar
+
+test.coffee

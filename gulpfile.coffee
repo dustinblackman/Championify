@@ -21,7 +21,14 @@ flatten = require 'gulp-flatten'
 atomshell = require 'gulp-atom-shell'
 pkg = require './package.json'
 
-GLOBAL.buildFileName = 'championify'
+# Setup some globals
+fileVersion = pkg.version.replace(/\./g, '-')
+if process.platform == 'darwin'
+  platform = 'MAC'
+else
+  platform = 'WIN'
+
+GLOBAL.releaseFile = './releases/Championify.'+platform+'.'+fileVersion+'.zip'
 
 
 gulp.task 'bower', ->
@@ -52,6 +59,18 @@ gulp.task 'mkdir', (cb) ->
         acb()
     , ->
       cb()
+
+
+gulp.task 'copy', (cb) ->
+  glob './app/**' , (err, files) ->
+    async.each files, (file, acb) ->
+      newfile = file.replace('./app', './dev')
+      fs.copy file, newfile, (err) ->
+        console.log err if err
+        acb()
+    , ->
+      cb()
+
 
 gulp.task 'symlink', (cb) ->
   glob './app/**', {nodir: true} , (err, paths) ->
@@ -95,22 +114,6 @@ gulp.task 'browserify', (cb) ->
   .pipe(gulp.dest('./dev/js/'))
 
 
-gulp.task 'run-watch', (cb) ->
-  fs.writeFileSync('./dev/dev_enabled', 'dev enabled', 'utf8')
-  gulp.watch './stylesheets/*.styl', ['stylus']
-  gulp.watch './functions/browser.coffee', ['coffee']
-  gulp.watch ['./functions/championify.coffee', './functions/helpers.coffee'], ['browserify']
-
-  cmd = '../node_modules/.bin/electron .'
-  console.log cmd
-  exec cmd, {'cwd': './dev'},(err, std, ste) ->
-    console.log err if err
-    # console.log std
-    # console.log ste
-    # cb()
-    process.exit(0)
-
-
 gulp.task 'delete-dev', ->
   gulp.src(['./dev'])
     .pipe(clean(force: true))
@@ -135,9 +138,26 @@ gulp.task 'compile:mac', ->
     .pipe atomshell({
       version: pkg.devDependencies['electron-prebuilt'].replace(/\^/g, '')
       platform: 'darwin'
+      darwinIcon: './resources/osx/Championify.icns'
+      asar: './app.asar'
     })
-    .pipe atomshell.zfsdest('app.zip')
-    .pipe gulp.dest('')
+    .pipe atomshell.zfsdest(GLOBAL.releaseFile)
+
+
+gulp.task 'run-watch', (cb) ->
+  fs.writeFileSync('./dev/dev_enabled', 'dev enabled', 'utf8')
+  gulp.watch './stylesheets/*.styl', ['stylus']
+  gulp.watch './functions/browser.coffee', ['coffee']
+  gulp.watch ['./functions/championify.coffee', './functions/helpers.coffee'], ['browserify']
+
+  cmd = '../node_modules/.bin/electron .'
+  console.log cmd
+  exec cmd, {'cwd': './dev'},(err, std, ste) ->
+    console.log err if err
+    # console.log std
+    # console.log ste
+    # cb()
+    process.exit(0)
 
 
 # Main Tasks
@@ -166,6 +186,7 @@ gulp.task 'build', ->
     'browserify',
     'coffee',
     'stylus',
+    'copy',
     'compile:mac',
-    'delete-dev'
+    # 'delete-dev'
   )
