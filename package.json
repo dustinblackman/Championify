@@ -38,6 +38,7 @@
     "coffeeify": "^1.1.0",
     "electron-prebuilt": "^0.25.3",
     "fs-extra": "^0.18.3",
+    "github": "^0.2.4",
     "gulp": "^3.8.11",
     "gulp-asar": "0.0.2",
     "gulp-atom-shell": "git://github.com/dustinblackman/gulp-atom-shell.git#master",
@@ -55,6 +56,7 @@
     "preen": "^1.2.0",
     "run-sequence": "^1.1.0",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "virustotal.js": "^0.3.1"
   }
 }
