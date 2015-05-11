@@ -21,11 +21,12 @@ runUpdates = ->
 # If no admin and is required, warn.
 isWindowsAdmin = (cb) ->
   if process.platform != 'darwin'
-    fs.writeFile window.lolChampPath + '/test.txt', 'Testing Write', (err) ->
-      if err or !fs.existsSync(window.lolChampPath + '/test.txt')
+    fs.writeFile window.lolInstallPath + '/test.txt', 'Testing Write', (err) ->
+      console.log err if err
+      if err or !fs.existsSync(window.lolInstallPath + '/test.txt')
         cb 'err'
       else
-        fs.unlinkSync(window.lolChampPath + '/test.txt')
+        fs.unlinkSync(window.lolInstallPath + '/test.txt')
         cb null
   else
     cb null

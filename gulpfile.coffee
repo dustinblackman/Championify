@@ -208,10 +208,7 @@ gulp.task 'run-watch', (cb) ->
   gulp.watch './functions/browser.coffee', ['coffee']
   gulp.watch ['./functions/championify.coffee', './functions/helpers.coffee'], ['browserify']
 
-  cmd = path.normalize('../node_modules/.bin/electron')
-  cmd = cmd + ' .'
-  if process.platform != 'darwin'
-    cmd = 'START ' + cmd
+  cmd = path.normalize('../node_modules/.bin/electron') + ' .'
 
   console.log cmd
   exec cmd, {'cwd': './dev'},(err, std, ste) ->
@@ -234,11 +231,12 @@ gulp.task 'main', (cb) ->
     cb
   )
 
-
+# TODO Symlink doesn't work for Windows.
 gulp.task 'dev', ->
   runSequence(
     'main'
     'symlink',
+    # 'copy'
     'run-watch')
 
 gulp.task 'setup', ->
