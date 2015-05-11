@@ -43,8 +43,7 @@ checkVer = (cb) ->
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
   hlp.ajaxRequest url, (data) ->
     data = JSON.parse(data)
-    # data.version = '100'  # TODO REMOVE
-    if data.version != pkg.version
+    if hlp.versionCompare(data.version, pkg.version) == 1
       cb true, data.version
     else
       cb false
@@ -52,12 +51,8 @@ checkVer = (cb) ->
 
 updateVer = (version, cb) ->
   dirName = window.Championify.browser.dirName
-  url = 'http://localhost:8080/update.asar'
+  url = 'https://github.com/dustinblackman/Championify/releases/download/'+version+'/update.asar'
   dest = dirName.replace(/app.asar/g, '') + 'update-asar'
-
-  console.log url
-  console.log dest
-  console.log dirName
 
   hlp.downloadFile url, dest, ->
     fs.unlink dirName, () ->

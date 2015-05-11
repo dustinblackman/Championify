@@ -18,13 +18,32 @@ module.exports = {
       .done (body) ->
         cb body
 
+
   downloadFile: (url, dest, cb) ->
     file = fs.createWriteStream(dest)
-    http.get url, (res) ->
-      res.setEncoding('binary')
-      res.pipe(file)
+    https.get url, (res) ->
+      res.pipe file
       file.on 'finish', ->
-        file.close(cb)
+        file.close cb
+
+
+  versionCompare: (left, right) ->
+    if typeof left + typeof right != 'stringstring'
+      return false
+
+    a = left.split('.')
+    b = right.split('.')
+    i = 0
+    len = Math.max(a.length, b.length)
+
+    while i < len
+      if a[i] and !b[i] and parseInt(a[i]) > 0 or parseInt(a[i]) > parseInt(b[i])
+        return 1
+      else if b[i] and !a[i] and parseInt(b[i]) > 0 or parseInt(a[i]) < parseInt(b[i])
+        return -1
+      i++
+
+    return 0
 
 
   # Converts the arrays from Cheerio output to LoL Blocks

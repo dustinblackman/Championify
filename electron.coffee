@@ -32,8 +32,8 @@ app.on 'ready', ->
   # Emitted when the window is closed.
 
   # Enable dev stuff if needed.
-  # if fs.existsSync('./dev_enabled')
-  mainWindow.openDevTools()
+  if fs.existsSync('./dev_enabled')
+    mainWindow.openDevTools()
 
   # Avoid white page on load.
   mainWindow.webContents.on 'did-finish-load', ->

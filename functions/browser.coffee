@@ -2,10 +2,6 @@ remote = require 'remote'
 dialog = remote.require 'dialog'
 fs = require 'fs'
 
-reload = ->
-  currentWindow = remote.getCurrentWindow()
-  currentWindow.webContents.reloadIgnoringCache()
-
 
 runUpdates = ->
   window.Championify.checkVer (needUpdate, version) ->
@@ -14,11 +10,12 @@ runUpdates = ->
       $('#updateContainer').show()
 
       window.Championify.updateVer version, ->
-        reload()
+        $('#update_inprogress').hide()
+        $('#update_done').show()
 
 
 # We check if we can write to directory.
-# If no admin and is required, warn.
+# If no admin and is required, warn. Disable import button incase of any random errors.
 isWindowsAdmin = (cb) ->
   if process.platform != 'darwin'
     fs.writeFile window.lolInstallPath + '/test.txt', 'Testing Write', (err) ->
@@ -48,7 +45,6 @@ findInstallPath = ->
 
 
 checkInstallPath = (path) ->
-  # TODO Change these two to check for LoL binary instead of folder path.
   if process.platform == 'darwin'
     if fs.existsSync(path + 'Contents/LoL/')
       setInstallPath null, path, 'Contents/LoL/Config/Champions/'
@@ -144,7 +140,7 @@ $('#submitBtn').click (e) ->
 
 # On load
 $(document).ready ->
-  # runUpdates()
+  runUpdates()
   window.Championify.setVersion()
   $('.options [data-toggle="tooltip"]').tooltip()
   findInstallPath()
@@ -153,5 +149,4 @@ $(document).ready ->
 window.Championify.browser = {
   openFolder: openFolder
   dirName: __dirname
-  reload: reload
 }

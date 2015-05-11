@@ -52,9 +52,13 @@ gulp.task 'bower_copy', ->
     .pipe(flatten())
     .pipe gulp.dest('./dev/vendor/js/')
 
-  gulp.src(['./bower_components/**/*.css', '!./bower_components/iCheck/**'])
+  gulp.src('./bower_components/**/*.css')
     .pipe(flatten())
     .pipe gulp.dest('./dev/vendor/css/')
+
+  gulp.src('./bower_components/font-awesome/fonts/**')
+    .pipe(flatten())
+    .pipe gulp.dest('./dev/vendor/fonts/')
 
 
 # Dirs, Copy, Delete, Mk
