@@ -36,7 +36,7 @@
     "browserify": "^10.1.3",
     "coffee-script": "^1.9.2",
     "coffeeify": "^1.1.0",
-    "electron-prebuilt": "^0.25.3",
+    "electron-prebuilt": "got://github.com/dustinblackman/electron-prebuilt#master",
     "fs-extra": "^0.18.3",
     "github": "^0.2.4",
     "gulp": "^3.8.11",
