@@ -49,18 +49,6 @@ checkVer = (cb) ->
       cb false
 
 
-updateVer = (version, cb) ->
-  dirName = window.Championify.browser.dirName
-  url = 'https://github.com/dustinblackman/Championify/releases/download/'+version+'/update.asar'
-  dest = dirName.replace(/app.asar/g, '') + 'update-asar'
-
-  hlp.downloadFile url, dest, ->
-    fs.unlink dirName, () ->
-      fs.rename dest, dirName, () ->
-        cb()
-
-
-
 getSettings = (cb) ->
   window.cSettings = {
     splititems: $('#options_splititems').is(':checked')
@@ -336,7 +324,6 @@ downloadItemSets = (cb) ->
 
 window.Championify = {
   run: downloadItemSets
-  checkVer: checkVer
-  updateVer: updateVer
   setVersion: setVersion
+  checkVer: checkVer
 }

@@ -19,14 +19,6 @@ module.exports = {
         cb body
 
 
-  downloadFile: (url, dest, cb) ->
-    file = fs.createWriteStream(dest)
-    https.get url, (res) ->
-      res.pipe file
-      file.on 'finish', ->
-        file.close cb
-
-
   versionCompare: (left, right) ->
     if typeof left + typeof right != 'stringstring'
       return false

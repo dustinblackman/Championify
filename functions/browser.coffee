@@ -1,17 +1,65 @@
 remote = require 'remote'
 dialog = remote.require 'dialog'
 fs = require 'fs'
+exec = require('child_process').exec
+https = require 'https'
+open = require 'open'
 
 
+_downloadFile = (url, dest, cb) ->
+  file = fs.createWriteStream(dest)
+  https.get url, (res) ->
+    res.pipe file
+    file.on 'finish', ->
+      file.close cb
+
+
+# TODO: This doesn't need to be here.
+_ajaxRequest = (url, cb) ->
+  $.ajax(url)
+    .fail (err) ->
+      console.log err
+    .done (body) ->
+      cb body
+
+
+# Reloads Championify for update.
+reloadUpdate = (appAsar, updateAsar) ->
+  app = remote.require('app')
+
+  if process.platform == 'darwin'
+    fs.unlink appAsar, (err) ->
+      fs.rename updateAsar, appAsar, (err) ->
+        appPath = __dirname.replace('/Contents/Resources/app.asar', '')
+        exec 'open -n ' + appPath
+        app.quit()
+
+  else
+    cmdArgs = [
+      '@echo off'
+      'ping 1.1.1.1 -n 1 -w 3000 > nul',
+      'del "'+appAsar+'"',
+      'ren "'+updateAsar+'" app.asar',
+      'start "" "'+process.execPath+'"',
+      'exit']
+
+    fs.writeFile 'update.bat', cmdArgs.join('\n'), 'utf8', () ->
+      exec 'START update.bat'
+      app.quit()
+
+
+# Runs Updates
 runUpdates = ->
   window.Championify.checkVer (needUpdate, version) ->
     if needUpdate
       $('#mainContainer').hide()
       $('#updateContainer').show()
 
-      window.Championify.updateVer version, ->
-        $('#update_inprogress').hide()
-        $('#update_done').show()
+      url = 'https://github.com/dustinblackman/Championify/releases/download/'+version+'/update.asar'
+      dest = __dirname.replace(/app.asar/g, '') + 'update-asar'
+
+      _downloadFile url, dest, ->
+        reloadUpdate(__dirname, dest)
 
 
 # We check if we can write to directory.
@@ -148,5 +196,5 @@ $(document).ready ->
 # Browser prototype for Championify
 window.Championify.browser = {
   openFolder: openFolder
-  dirName: __dirname
+  remote: remote
 }
