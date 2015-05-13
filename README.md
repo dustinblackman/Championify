@@ -1,7 +1,9 @@
 # Championify
 _Champion-If-Ayyy_
 
-Championify is a little program that downloads all the recent builds from Champion.gg and imports them in to your League of Legends to use within game! No hassle. Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.1. Check out some screenshots [here](https://imgur.com/umDkx5j,scpQPBH,GpHtwKt#0)!
+Championify is a little program that downloads all the recent builds from Champion.gg and imports them in to your League of Legends to use within game! No hassle. Now with support customization settings and a GUI!
+
+Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.1. Check out some screenshots [here](https://imgur.com/umDkx5j,scpQPBH,GpHtwKt#0)!
 
 Note this application is still in development, as far as I've tested it's worked great, but don't get overly surprised if you find a bug or two.
 
@@ -34,7 +36,7 @@ Well it's easy really. Here's a link for [Teemo's most popular build in top lane
 
 
 ### Is it safe?
-Yep it's safe! Were not modifying League of Legends at all, so no rules broken there. And my code is clean and free to browse, so no smelly virus' or surprises. If you still don't trust my executables, have a tech buddy look over my code themselves and you can build from [source](#source).
+Yep it's safe! Were not modifying League of Legends at all, so no rules broken there. And my code is clean and free to browse, so no smelly virus' or surprises. I've added VirusTotal report to all my recent releases just to be sure. If you still don't trust my executables, have a tech buddy look over my code themselves and you can build from [source](#source).
 
 
 ### Why do I not see the item sets in the launcher?
@@ -42,16 +44,11 @@ Due to Riot restrictions, you can only see the item sets in game, you won't see 
 
 
 ### How do I make this work on Windows?
-If you have your League of Legends installed in the default folder _(C:\Riot Games\League of Legends)_, then just run Championify and you're good to go. However, if you have it somewhere else, copy Championify to your League of Legends folder and stick it right next to **lol.launcher.exe** and run Championify.
+Run Championify.exe, the app will try and look for your League of Legends folder for you. If the app can't find it, browse to your League of Legends folder where lol.launcher.exe is saved (LoLLauncher.exe for Garena installations).
 
 
 ### How do I make this work on Mac?
-Run Championify, and a white window will come up (by default). Championify will see if it can find your League client in /Applications. If it can't, drag your League Of Legends.app in to the white window and hit enter! It'll do the rest.
-
-### Wow buddy, what's this black/white box?
-Don't worry, that's what it's supposed to look like. I haven't the time to write up an interface for Championify, so it's supposed to look like this.
-
-![Terminal Image](http://i.imgur.com/sA6CyHT.png)
+Run Championify, the app will try and look for your League of Legends.app for you. If the app can't find it, browse and select your League of Legends.app.
 
 
 ### AAHHHH! SOMETHING BROKE! IT'S ALL MESSED UP!
@@ -83,12 +80,8 @@ Well for a few reasons. [ebildude123](https://github.com/ebildude123/champion.gg
 Well damn, you must be pretty impatient if you think that's slow... The script is slowed on purpose so users don't spam Champion.gg's servers. They're doing great great stuff over there and the last thing I'd want to do is cause them trouble. However if it's REALLY slow, then you should consider upgrading your dial up connection.
 
 
-### My version is outdated and the app wont run?
-Yes, I force a version check on run that connects to my package file here on Github. This is to prevent issues if something changes with League or Champion.GG. Wouldn't want you getting in to a game with broken/no builds. You can pickup the new version [here](https://github.com/dustinblackman/Championify/releases/latest) on the downloads page.
-
-
 ### Why is the file size so big?
-EncloseJS modifies a NodeJS binary to include Championify so we have all of Node included, plus some of the modules used are a bit big as well. I rather things just work then worry about size.
+I use Electron to wrap my GUI, and unfortunately it's a bit big. I'd rather the App just work then worry about size.
 
 
 ### BUT WAIT! I have a suggestion!
@@ -96,16 +89,14 @@ Well that's great! Put up an Issue or send me a message on reddit [/u/dustinhero
 
 ---
 ## Future Plans
-- Replace Terminal Window with a GUI
-- Enable/Disable specific item sets you don't want.
-- Allow you to change skill priorties layout.
 - Error Handler, such as timeouts and undefined builds.
 - Automatically elevate when required instead of making the user do it.
-- Verify if local champ builds are the same version as remote.
-- Self updater.
-- OSX package that doesn't exit until terminal exits.
-- Automate generating the resource information for the Windows executable.
+- Get my own Championify Icon.
+
+
+##### Nerdy Future Plans
 - Take better advantage of lodash.
+- Gulp task to auto generate Github Releases with VirusTotal reports and Changelog.
 
 ---
 
@@ -119,7 +110,7 @@ npm install -g gulp
 npm run build
 ```
 
-You'll find a compiled executable in the build folder.
+You'll find a compiled executable zipped in the releases folder.
 
 ---
 
