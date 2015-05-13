@@ -299,8 +299,13 @@ requestPage = (obj, cb) ->
         return {champ: champ, position: e}
 
       async.each positions, (item, ecb) ->
-        requestPage item, () ->
+        # TODO Get rid of Try Catch, handle undefined builds correctly.
+        try
+          requestPage item, () ->
+            ecb null
+        catch e
           ecb null
+
       , () ->
         cb()
 

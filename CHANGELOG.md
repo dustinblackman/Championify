@@ -19,6 +19,9 @@
 - Windows write tests writes to LoL root directory instead of Champion directory. #12
 - LoL directory check is no longer forced, only warnings.
 
+#### Known Bugs
+- Error when dealing with Undefined Builds (usually happens right after a new patch)
+
 <a name="0.0.4" />
 ### 0.0.4 (May 2nd, 2015)
 
