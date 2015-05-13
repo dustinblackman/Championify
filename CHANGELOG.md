@@ -21,6 +21,7 @@
 
 #### Known Bugs
 - Error when dealing with Undefined Builds (usually happens right after a new patch)
+- Can't use 'gulp dev' on Windows.
 
 <a name="0.0.4" />
 ### 0.0.4 (May 2nd, 2015)
