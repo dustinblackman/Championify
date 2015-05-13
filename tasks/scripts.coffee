@@ -15,7 +15,7 @@ source      = require 'vinyl-source-stream'
 gulp.task 'coffee', ->
   gulp.src(['./functions/browser.coffee', './functions/deps.coffee'], {base: './'})
     .pipe(coffee(bare: true).on('error', gutil.log))
-    .pipe(gulpif(GLOBAL.ifBuild, uglify()))
+    .pipe(gulpif(GLOBAL.ifBuild, uglify({mangle: false})))
     .pipe(flatten())
     .pipe gulp.dest('./dev/js/')
 
@@ -34,5 +34,5 @@ gulp.task 'browserify', (cb) ->
   .bundle()
   .pipe(source('main.js'))
   .pipe(gulpif(GLOBAL.ifBuild, buffer()))
-  .pipe(gulpif(GLOBAL.ifBuild, uglify()))
+  .pipe(gulpif(GLOBAL.ifBuild, uglify({mangle: false})))
   .pipe(gulp.dest('./dev/js/'))

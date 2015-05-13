@@ -1,6 +1,6 @@
-gulp        	= require 'gulp'
-request 		= require 'request'
-async 			= require 'async'
+gulp      = require 'gulp'
+request 	= require 'request'
+async 		= require 'async'
 path 			= require 'path'
 glob 			= require 'glob'
 fs 				= require 'fs-extra'
@@ -46,6 +46,3 @@ gulp.task 'virustotal', (cb) ->
 				acb null
 		, () ->
 			cb()
-
-
-
