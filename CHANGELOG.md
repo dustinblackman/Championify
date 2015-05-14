@@ -11,13 +11,13 @@
 - Enable/Disable Trinkets and Consumables. [#6](https://github.com/dustinblackman/Championify/issues/6)
 - Switch between full skill priorities (Q.W.E.Q.W.R.Q ect) and shortened priorities (Q>E>W). [#8](https://github.com/dustinblackman/Championify/issues/8)
 - Hover over checkbox settings to see tooltips explaining which each setting does.
-- Better LoL Installation Auto Discovery. [#9](https://github.com/dustinblackman/Championify/issues/)
+- Better LoL Installation Auto Discovery. [#9](https://github.com/dustinblackman/Championify/issues/9)
 - Allow user to select install directory.
-- Auto Updater. [#7](https://github.com/dustinblackman/Championify/issues/)
+- Auto Updater. [#7](https://github.com/dustinblackman/Championify/issues/7)
 - Virus Total reports included in all future releases.
 
 #### Bug Fixes
-- Windows write tests writes to LoL root directory instead of Champion directory. [#12](https://github.com/dustinblackman/Championify/issues/)
+- Windows write tests writes to LoL root directory instead of Champion directory. [#12](https://github.com/dustinblackman/Championify/issues/12)
 - LoL directory check is no longer forced, only warnings.
 - Swapped out scraping CSS paths to using available JSON data.
 - Scrape 2 pages at a time instead of 5, because 5 got way too fast.
