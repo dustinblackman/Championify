@@ -10,7 +10,7 @@
 - Split item sets between Most Frequent and Highest Wins. [#2](https://github.com/dustinblackman/Championify/issues/2)
 - Enable/Disable Trinkets and Consumables. [#6](https://github.com/dustinblackman/Championify/issues/6)
 - Switch between full skill priorities (Q.W.E.Q.W.R.Q ect) and shortened priorities (Q>E>W). [#8](https://github.com/dustinblackman/Championify/issues/8)
-- Hover over checkbox settings to see tooltips explaining which each setting does.
+- Hover over checkbox settings to see tooltips explaining what each setting does.
 - Better LoL Installation Auto Discovery. [#9](https://github.com/dustinblackman/Championify/issues/9)
 - Allow user to select install directory.
 - Auto Updater. [#7](https://github.com/dustinblackman/Championify/issues/7)
