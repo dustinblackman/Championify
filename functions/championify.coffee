@@ -1,6 +1,7 @@
 cheerio = require 'cheerio'
 async = require 'async'
 moment = require 'moment'
+_ = require 'lodash'
 
 hlp = require './helpers.coffee'
 pkg = require '../package.json'
@@ -15,6 +16,7 @@ manaless = require '../data/manaless.json'
 window.champData = {}
 window.cSettings = {}
 window.riotVer = '5.7'  # This will change
+window.undefinedBuilds = []
 
 
 #################
@@ -25,7 +27,7 @@ window.riotVer = '5.7'  # This will change
 cl = (text) ->
   m = moment().format('HH:mm:ss')
   m = ('['+m+'] | ') + text
-  console.log(m)
+  # console.log(m)
   $('#progress').prepend('<span>'+text+'</span><br />')
 
 
@@ -74,13 +76,15 @@ getChamps = (cb) ->
     champs = Object.keys(body.data)
     cb null, champs
 
+
 # This executes the scraper for ChampionGG
-# We scrape ChampionGG 5 at a time, this prevents high load on ChampionGGs side, as we don't want to cause issues
+# We scrape ChampionGG 2 at a time, this prevents high load on ChampionGGs side, as we don't want to cause issues
 # with their servers.
 processChamps = (champs, cb) ->
-  async.eachLimit champs, 5, (champ, acb) ->
+  async.eachLimit champs, 2, (champ, acb) ->
     requestPage {champ: champ}, () ->
       acb null
+
   , () ->
     cb null
 
@@ -117,7 +121,7 @@ saveToFile = (cb) ->
     cb null
 
 
-# Makes request to Champion.gg
+# Makes request to Champion.gg. Retry limit 3. Timeout is set in Helpers.
 requestPage = (obj, cb) ->
   champ = obj.champ
   url = 'http://champion.gg/champion/'+champ
@@ -127,190 +131,235 @@ requestPage = (obj, cb) ->
   else
     cl 'Processing: '+obj.champ
 
-  hlp.ajaxRequest url, (body) ->
-    cheer = cheerio.load(body)
+  async.retry 3, (_cb) ->
+    hlp.ajaxRequest url, (body) ->
+      _cb null, body
 
-    # Using CSS Selectors, grab each piece of information we need from the page
-    freqCore = hlp.getItems(cheer, csspaths.freqCore.build)
-    freqCoreWins = cheer(csspaths.freqCore.wins).text()
-    freqCoreGames = cheer(csspaths.freqCore.games).text()
-
-    freqStart = hlp.getItems(cheer, csspaths.freqStart.build)
-    freqStartWins = cheer(csspaths.freqStart.wins).text()
-    freqStartGames = cheer(csspaths.freqStart.games).text()
-
-    highestCore = hlp.getItems(cheer, csspaths.highestCore.build)
-    highestCoreWins = cheer(csspaths.highestCore.wins).text()
-    highestCoreGames = cheer(csspaths.highestCore.games).text()
-
-    highestStart = hlp.getItems(cheer, csspaths.highestStart.build)
-    highestStartWins = cheer(csspaths.highestStart.wins).text()
-    highestStartGames = cheer(csspaths.highestStart.games).text()
-
-    skillsMostFreq = hlp.getSkills(cheer, csspaths.skills.mostFreq)
-    skillsHighestWin = hlp.getSkills(cheer, csspaths.skills.highestWin)
-
-    # Check what role were currently grabbing, and what other roles exist.
-    positions = []
-    currentPosition = ''
-
-    cheer(csspaths.positions).find('a').each (i, e) ->
-      position = cheer(e).attr('href').split('/')
-      position = position[position.length - 1]
-      if cheer(e).parent().hasClass('selected-role')
-        currentPosition = position
-      else
-        positions.push position
-
-    build_freqStart = hlp.arrayToBuilds(freqStart).concat(prebuilts.trinkets)
-    build_highestStart = hlp.arrayToBuilds(highestStart).concat(prebuilts.trinkets)
-    build_freqCore = hlp.arrayToBuilds(freqCore)
-    build_highestCore = hlp.arrayToBuilds(highestCore)
+  , (err, body) ->
+    if err
+      window.undefinedBuilds.push(champ)
+      return cb()
+    processChamp(obj, body, cb)
 
 
-    # Reusable function for generating Trainkets and Consumables.
-    trinksCon = (builds) ->
-      # Trinkets
-      if window.cSettings.trinkets
-        builds.push {
-          items: prebuilts.trinketUpgrades
-          type: 'Trinkets | Frequent: '+skillsMostFreq
-        }
+# Processes page from Champion.GG
+processChamp = (obj, body, cb) ->
+  champ = obj.champ
 
-      if window.cSettings.consumables
-        # If champ has no mana, remove mana pot from consumables
-        consumables = prebuilts.consumables.concat([])  # Lazy fix for pointer issue.
-        if manaless.indexOf(champ) > -1
-          consumables.splice(1, 1)
+  $c = cheerio.load(body)
+  gg = hlp.compileGGData($c)
 
-        builds.push {
-          items: consumables
-          type: 'Consumables | Wins: '+skillsHighestWin
-        }
+  # Check what role were currently grabbing, and what other roles exist.
+  currentPosition = ''
 
-      return builds
+  $c(csspaths.positions).find('a').each (i, e) ->
+    position = $c(e).attr('href').split('/')
+    position = position[position.length - 1]
+    if $c(e).parent().hasClass('selected-role')
+      currentPosition = position.toLowerCase()
 
+  positions = _.map gg.champion.roles, (e) ->
+    return e.title.toLowerCase()
+  positions = _.filter positions, (e) ->
+    return e != currentPosition
 
-    normalItemSets = () ->
-      builds = []
+  # Check if these builds aren't defined yet.
+  undefArray = [
+    !gg.championData.items.mostGames.winPercent
+    !gg.championData.firstItems.mostGames.winPercent
+    !gg.championData.items.highestWinPercent.winPercent
+    !gg.championData.firstItems.highestWinPercent.winPercent
+  ]
 
-      # If freqStart and highestStart are the same, only push once.
-      if JSON.stringify(build_freqStart) == JSON.stringify(build_highestStart)
-        builds.push {
-          items: build_freqStart
-          type: 'Frequent/Highest Start ('+freqStartWins+' wins - '+freqStartGames+ ' games)'
-        }
-
-      else
-        builds.push {
-          items: build_freqStart
-          type: 'Most Frequent Starters ('+freqStartWins+' wins - '+freqStartGames+ ' games)'
-        }
-        builds.push {
-          items: build_highestStart
-          type: 'Highest Win % Starters ('+highestStartWins+' wins - '+highestStartGames+ ' games)'
-        }
-
-      # If freqCore and highestCore are the same, only push once.
-      if JSON.stringify(build_freqCore) == JSON.stringify(build_highestCore)
-        builds.push {
-          items: build_freqCore
-          type: 'Frequent/Highest Core ('+freqCoreWins+' wins - '+freqCoreGames+ ' games)'
-        }
-
-      else
-        builds.push {
-          items: build_freqCore
-          type: 'Most Frequent Core Build ('+freqCoreWins+' wins - '+freqCoreGames+ ' games)'
-        }
-        builds.push {
-          items: build_highestCore
-          type: 'Highest Win % Core Build ('+highestCoreWins+' wins - '+highestCoreGames+ ' games)'
-        }
-
-      # Add trinkets and consumables, if enabled.
-      builds = trinksCon(builds)
-
-      return builds
+  if undefArray.indexOf(true) > -1
+    window.undefinedBuilds.push(champ + ' ' + _.capitalize(currentPosition))
+    return cb()
 
 
-    splitItemSets = () ->
-      mfBuild = []
-      hwBuild = []
+  freqCore = {
+    items: gg.championData.items.mostGames.items
+    wins: hlp.wins(gg.championData.items.mostGames.winPercent)
+    games: gg.championData.items.mostGames.games
+  }
 
-      mfBuild.push {
-        items: build_freqStart
-        type: 'Most Frequent Starters ('+freqStartWins+' wins - '+freqStartGames+ ' games)'
-      }
-      mfBuild.push {
-        items: build_freqCore
-        type: 'Most Frequent Core Build ('+freqCoreWins+' wins - '+freqCoreGames+ ' games)'
+  freqStart = {
+    items: gg.championData.firstItems.mostGames.items
+    wins: hlp.wins(gg.championData.firstItems.mostGames.winPercent)
+    games: gg.championData.firstItems.mostGames.games
+  }
+
+  highestCore = {
+    items: gg.championData.items.highestWinPercent.items
+    wins: hlp.wins(gg.championData.items.highestWinPercent.winPercent)
+    games: gg.championData.items.highestWinPercent.games
+  }
+
+  highestStart = {
+    items: gg.championData.firstItems.highestWinPercent.items
+    wins: hlp.wins(gg.championData.firstItems.highestWinPercent.winPercent)
+    games: gg.championData.firstItems.highestWinPercent.games
+  }
+
+
+  skills = {
+    mostFreq: hlp.processSkills(gg.championData.skills.mostGames.order)
+    highestWin: hlp.processSkills(gg.championData.skills.highestWinPercent.order)
+  }
+
+
+  # Convert ChampionGG data to Championify
+  freqStart.build = hlp.arrayToBuilds(freqStart.items).concat(prebuilts.trinkets)
+  highestStart.build = hlp.arrayToBuilds(highestStart.items).concat(prebuilts.trinkets)
+  freqCore.build = hlp.arrayToBuilds(freqCore.items)
+  highestCore.build = hlp.arrayToBuilds(highestCore.items)
+
+
+  # Reusable function for generating Trainkets and Consumables.
+  trinksCon = (builds) ->
+    # Trinkets
+    if window.cSettings.trinkets
+      builds.push {
+        items: prebuilts.trinketUpgrades
+        type: 'Trinkets | Frequent: '+skills.mostFreq
       }
 
-      hwBuild.push {
-        items: build_highestStart
-        type: 'Highest Win % Starters ('+highestStartWins+' wins - '+highestStartGames+ ' games)'
-      }
-      hwBuild.push {
-        items: build_highestCore
-        type: 'Highest Win % Core Build ('+highestCoreWins+' wins - '+highestCoreGames+ ' games)'
-      }
+    if window.cSettings.consumables
+      # If champ has no mana, remove mana pot from consumables
+      consumables = prebuilts.consumables.concat([])  # Lazy fix for pointer issue.
+      if manaless.indexOf(champ) > -1
+        consumables.splice(1, 1)
 
-      mfBuild = trinksCon(mfBuild)
-      hwBuild = trinksCon(hwBuild)
-
-      return [mfBuild, hwBuild]
-
-
-    pushChampData = (champ, position, build) ->
-      positionForFile = position.replace(/ /g, '_').toLowerCase()
-      newObj = {
-        champion: champ,
-        title: position+' '+window.riotVer,
-        blocks: build
+      builds.push {
+        items: consumables
+        type: 'Consumables | Wins: '+skills.highestWin
       }
 
-      window.champData[champ][positionForFile] = hlp.mergeObj(defaultSchema, newObj)
+    return builds
 
 
-    # Save data to Global object for saving to disk later.
-    # We do this incase people cancel the function half way though.
-    if !window.champData[champ]
-      window.champData[champ] = {}
+  normalItemSets = () ->
+    builds = []
 
-
-    # If split item sets
-    if window.cSettings.splititems
-      builds = splitItemSets()
-      mfBuild = builds[0]
-      hwBuild = builds[1]
-
-      pushChampData(champ, currentPosition+' MF', mfBuild)
-      pushChampData(champ, currentPosition+' HW', hwBuild)
-
-    # If normal item sets
-    else
-      builds = normalItemSets()
-      pushChampData(champ, currentPosition, builds)
-
-    # Now we execute for the other positions for the champs, if there are any.
-    if !obj.position and positions.length > 0
-      positions = positions.map (e) ->
-        return {champ: champ, position: e}
-
-      async.each positions, (item, ecb) ->
-        # TODO Get rid of Try Catch, handle undefined builds correctly.
-        try
-          requestPage item, () ->
-            ecb null
-        catch e
-          ecb null
-
-      , () ->
-        cb()
+    # If freqStart and highestStart are the same, only push once.
+    if JSON.stringify(freqStart.build) == JSON.stringify(highestStart.build)
+      builds.push {
+        items: freqStart.build
+        type: 'Frequent/Highest Start ('+freqStart.wins+' wins - '+freqStart.games+ ' games)'
+      }
 
     else
+      builds.push {
+        items: freqStart.build
+        type: 'Most Frequent Starters ('+freqStart.wins+' wins - '+freqStart.games+ ' games)'
+      }
+      builds.push {
+        items: highestStart.build
+        type: 'Highest Win % Starters ('+highestStart.wins+' wins - '+highestStart.games+ ' games)'
+      }
+
+    # If freqCore and highestCore are the same, only push once.
+    if JSON.stringify(freqCore.build) == JSON.stringify(highestCore.build)
+      builds.push {
+        items: freqCore.build
+        type: 'Frequent/Highest Core ('+freqCore.wins+' wins - '+freqCore.games+ ' games)'
+      }
+
+    else
+      builds.push {
+        items: freqCore.build
+        type: 'Most Frequent Core Build ('+freqCore.wins+' wins - '+freqCore.games+ ' games)'
+      }
+      builds.push {
+        items: highestCore.build
+        type: 'Highest Win % Core Build ('+highestCore.wins+' wins - '+highestCore.games+ ' games)'
+      }
+
+    # Add trinkets and consumables, if enabled.
+    builds = trinksCon(builds)
+
+    return builds
+
+
+  splitItemSets = () ->
+    mfBuild = []
+    hwBuild = []
+
+    mfBuild.push {
+      items: freqStart.build
+      type: 'Most Frequent Starters ('+freqStart.wins+' wins - '+freqStart.games+ ' games)'
+    }
+    mfBuild.push {
+      items: freqCore.build
+      type: 'Most Frequent Core Build ('+freqCore.wins+' wins - '+freqCore.games+ ' games)'
+    }
+
+    hwBuild.push {
+      items: highestStart.build
+      type: 'Highest Win % Starters ('+highestStart.wins+' wins - '+highestStart.games+ ' games)'
+    }
+    hwBuild.push {
+      items: highestCore.build
+      type: 'Highest Win % Core Build ('+highestCore.wins+' wins - '+highestCore.games+ ' games)'
+    }
+
+    mfBuild = trinksCon(mfBuild)
+    hwBuild = trinksCon(hwBuild)
+
+    return [mfBuild, hwBuild]
+
+
+  pushChampData = (champ, position, build) ->
+    positionForFile = position.replace(/ /g, '_')
+    newObj = {
+      champion: champ,
+      title: _.capitalize(position) + ' ' + window.riotVer,
+      blocks: build
+    }
+
+    window.champData[champ][positionForFile] = hlp.mergeObj(defaultSchema, newObj)
+
+
+  # Save data to Global object for saving to disk later.
+  # We do this incase people cancel the function half way though.
+  if !window.champData[champ]
+    window.champData[champ] = {}
+
+
+  # If split item sets
+  if window.cSettings.splititems
+    builds = splitItemSets()
+    mfBuild = builds[0]
+    hwBuild = builds[1]
+
+    pushChampData(champ, currentPosition+' MF', mfBuild)
+    pushChampData(champ, currentPosition+' HW', hwBuild)
+
+  # If normal item sets
+  else
+    builds = normalItemSets()
+    pushChampData(champ, currentPosition, builds)
+
+  # Now we execute for the other positions for the champs, if there are any.
+  if !obj.position and positions.length > 0
+    positions = positions.map (e) ->
+      return {champ: champ, position: e}
+
+    async.each positions, (item, ecb) ->
+      requestPage item, () ->
+        ecb null
+
+    , () ->
       cb()
+
+  else
+    cb()
+
+
+notProcessed = (cb) ->
+  _.each window.undefinedBuilds, (e) ->
+    cl 'No Available Build: '+e
+
+  cb()
 
 
 downloadItemSets = (cb) ->
@@ -321,6 +370,7 @@ downloadItemSets = (cb) ->
     processChamps
     deleteOldBuilds
     saveToFile
+    notProcessed
   ], (err) ->
     console.log(err) if err
     cl 'Looks like were all done. Login and enjoy!'

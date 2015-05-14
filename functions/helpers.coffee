@@ -12,11 +12,15 @@ module.exports = {
 
 
   ajaxRequest: (url, cb) ->
-    $.ajax(url)
+    $.ajax({url: url, timeout: 20000})
       .fail (err) ->
         console.log err
       .done (body) ->
         cb body
+
+
+  wins: (text) ->
+    return text.toString() + '%'
 
 
   versionCompare: (left, right) ->
@@ -38,10 +42,32 @@ module.exports = {
     return 0
 
 
-  # Converts the arrays from Cheerio output to LoL Blocks
+  compileGGData: ($c) ->
+    data = $c('script:contains("matchupData.")').text()
+    data = data.replace(/;/g, '')
+
+    processed = {}
+
+    query = _.template('matchupData.<%= q %> = ')
+    _.each data.split('\n'), (line) ->
+      _.each ['championData', 'champion'], (field) ->
+        search = query({q: field})
+
+        if _.includes(line, search)
+          line = line.replace(search, '')
+          processed[field] = JSON.parse(line)
+
+    return processed
+
+
+  # Converts the arrays from ChampionGG data to LoL Blocks
   # Kinda lazy, but works like a charm.
+  # TODO: Make this better with Lodash.
   arrayToBuilds: (arr) ->
     build = []
+
+    arr = _.map arr, (e) ->
+      return e.id.toString()
 
     obj = arr.reduce (acc, curr) ->
       if typeof acc[curr] == 'undefined'
@@ -62,27 +88,18 @@ module.exports = {
 
     return build
 
-  # Processes the build images to grab each ID
-  getItems: (cheer, selector) ->
-    c = cheer(selector).find('img').map (i, e) ->
-      item = cheer(e).attr('src').split('/')
-      item = item[item.length - 1].split('.')[0]
-      return item
-
-    return c.get()
 
   # Process the skills table and return an array in order.
-  getSkills: (cheer, selector) ->
-    keys = ['Q', 'W', 'E', 'R']
-    skillOrder = []
+  processSkills: (skills) ->
+    keys = {
+      '1': 'Q'
+      '2': 'W'
+      '3': 'E'
+      '4': 'R'
+    }
 
-    data = cheer(selector).find('.skill')
-
-    data.get().forEach (e, idx) ->
-      if idx != 0
-        cheer(e).find('.skill-selections').children().get().forEach (s, s_idx) ->
-          if cheer(s).hasClass('selected')
-            skillOrder[s_idx] = keys[idx-1]
+    skillOrder = _.map skills, (e) ->
+      return keys[e]
 
     if window.cSettings.skillsformat
       arr = _.countBy(skillOrder.slice(0, 9), _.identity)

@@ -1,27 +1,3 @@
 {
-  "freqCore": {
-    "build": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-7.counter-column > div:nth-child(2)",
-    "wins": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-7.counter-column > div:nth-child(2) > div > strong:nth-child(1)",
-    "games": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-7.counter-column > div:nth-child(2) > div > strong:nth-child(2)"
-  },
-  "highestCore": {
-    "build": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-7.counter-column > div:nth-child(4)",
-    "wins": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-7.counter-column > div:nth-child(4) > div > strong:nth-child(1)",
-    "games": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-7.counter-column > div:nth-child(4) > div > strong:nth-child(2)"
-  },
-  "freqStart": {
-    "build": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-5.counter-column > div:nth-child(2)",
-    "wins": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-5.counter-column > div:nth-child(2) > div > strong:nth-child(1)",
-    "games": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-5.counter-column > div:nth-child(2) > div > strong:nth-child(2)"
-  },
-  "highestStart": {
-    "build": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-5.counter-column > div:nth-child(4)",
-    "wins": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-5.counter-column > div:nth-child(4) > div > strong:nth-child(1)",
-    "games": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div.col-xs-12.col-sm-12.col-md-5.counter-column > div:nth-child(4) > div > strong:nth-child(2)"
-  },
-  "positions": "body > div > div > div.page-content > div > div.champion-area > div > div > div.col-xs-12.col-sm-3.col-md-2.champion-profile > ul",
-  "skills": {
-    "mostFreq": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(2)",
-    "highestWin": "body > div > div > div.page-content > div > div:nth-child(2) > div > div > div:nth-child(1) > div:nth-child(5)"
-  }
+  "positions": "body > div > div > div.page-content > div > div.champion-area > div > div > div.col-xs-12.col-sm-3.col-md-2.champion-profile > ul"
 }
