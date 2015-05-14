@@ -12,7 +12,7 @@ module.exports = {
 
 
   ajaxRequest: (url, cb) ->
-    $.ajax({url: url, timeout: 20000})
+    $.ajax({url: url, timeout: 10000})
       .fail (err) ->
         console.log err
       .done (body) ->
