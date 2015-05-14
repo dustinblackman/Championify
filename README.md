@@ -38,7 +38,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 - Swapped out scraping CSS paths to using available JSON data.
 - Scrape 2 pages at a time instead of 5, because 5 got way too fast.
 - Handle undefined builds (happens usually just after a new patch)
-- Handle Connection/Timeout Errors
+- Handle Connection/Timeout Errors (Timeout is 10 seconds.) [#11](https://github.com/dustinblackman/Championify/issues/11)
 
 ---
 
