@@ -444,7 +444,7 @@ processChamp = (champ_info, body, cb) ->
       blocks: build
     }
 
-    window.champData[champ][positionForFile] = _.merge({}, [defaultSchema, newObj])
+    window.champData[champ][positionForFile] = _.merge({}, defaultSchema, newObj)
 
   # Save data to Global object for saving to disk later.
   # We do this incase people cancel the function half way though.
