@@ -6,6 +6,12 @@ https = require 'https'
 open = require 'open'
 
 
+###*
+ * Function to download files.
+ * @param {String} URL of download
+ * @param {String} Local Destination
+ * @callback {Function} Callback,
+###
 _downloadFile = (url, dest, cb) ->
   file = fs.createWriteStream(dest)
   https.get url, (res) ->
@@ -23,7 +29,11 @@ _ajaxRequest = (url, cb) ->
       cb body
 
 
-# Reloads Championify for update.
+###*
+ * Function Reboots Championify specificially for each platform, and switches in new asar archive for updates.
+ * @param {String} Current asar archive
+ * @param {String} New downloaded asar archive created by runUpdaets
+###
 reloadUpdate = (appAsar, updateAsar) ->
   app = remote.require('app')
 
@@ -48,7 +58,9 @@ reloadUpdate = (appAsar, updateAsar) ->
       app.quit()
 
 
-# Runs Updates
+###*
+ * Function checks for updates by calling package.json on Github, and executes accordingly.
+###
 runUpdates = ->
   window.Championify.checkVer (needUpdate, version) ->
     if needUpdate
@@ -62,8 +74,10 @@ runUpdates = ->
         reloadUpdate(__dirname, dest)
 
 
-# We check if we can write to directory.
-# If no admin and is required, warn. Disable import button incase of any random errors.
+###*
+ * Function If platform is Windows, check if we can write to the user selected directory, and warn if not.
+ * @callback {Function} Callback
+###
 isWindowsAdmin = (cb) ->
   if process.platform != 'darwin'
     fs.writeFile window.lolInstallPath + '/test.txt', 'Testing Write', (err) ->
@@ -77,6 +91,9 @@ isWindowsAdmin = (cb) ->
     cb null
 
 
+###*
+ * Function Auto discovery of League installation.
+###
 findInstallPath = ->
   userHome = process.env.HOME || process.env.USERPROFILE
 
@@ -92,6 +109,10 @@ findInstallPath = ->
       setInstallPath null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/'
 
 
+###*
+ * Function Verifies the users selected install paths. Warns if no League related files/diretories are found.
+ * @param {String} User selected path
+###
 checkInstallPath = (path) ->
   if process.platform == 'darwin'
     if fs.existsSync(path + 'Contents/LoL/')
@@ -115,7 +136,12 @@ checkInstallPath = (path) ->
     else
       setInstallPath 'Not Found', path
 
-
+###*
+ * Function Sets the path string for the user to see on the interface.
+ * @param {String} If !=, explains path error
+ * @param {String} Install path
+ * @param {String} Champion folder path relative to Install Path
+###
 setInstallPath = (pathErr, installPath, champPath) ->
   $('#inputMsg').removeAttr('class')
   $('#inputMsg').text('')
@@ -145,7 +171,9 @@ setInstallPath = (pathErr, installPath, champPath) ->
       $('#inputMsg').text('Looks Good!')
       $('#submitBtn').removeClass('disabled')
 
-
+###*
+ * Function to call Electrons OpenDialog. Sets title based on Platform.
+###
 openFolder = ->
   if process.platform == 'darwin'
     title = 'Select League of Legends.app'
@@ -168,7 +196,9 @@ openFolder = ->
     checkInstallPath(path)
 
 
-# Watchers
+###*
+ * Watches for buttons pressed on GUI.
+###
 $('#browse').click (e) ->
   window.Championify.browser.openFolder()
 
@@ -176,7 +206,9 @@ $('.github > a').click (e) ->
   e.preventDefault()
   open('https://github.com/dustinblackman/Championify#faq')
 
-# Import
+###*
+ * Called when "Import" button is pressed.
+###
 $('#submitBtn').click (e) ->
   if !window.lolInstallPath
     $('#inputMsg').addClass('yellow')
@@ -186,14 +218,19 @@ $('#submitBtn').click (e) ->
     $('.status').removeClass('hidden')
     window.Championify.run()
 
-# On load
+###*
+ * Executes on Page Load.
+###
 $(document).ready ->
   runUpdates()
   window.Championify.setVersion()
   $('.options [data-toggle="tooltip"]').tooltip()
   findInstallPath()
 
-# Browser prototype for Championify
+
+###*
+ * Export
+###
 window.Championify.browser = {
   openFolder: openFolder
   remote: remote
