@@ -419,9 +419,15 @@ processChamp = (champ_info, body, cb) ->
   # Inserts new item sets in to a global object to be used when we get to saving files.
   pushChampData = (champ, position, build) ->
     positionForFile = position.replace(/ /g, '_')
+
+    if _.includes(position, 'adc')
+      title = position.toUpperCase()
+    else
+      title = _.capitalize(position)
+
     newObj = {
       champion: champ,
-      title: _.capitalize(position) + ' ' + window.riotVer,
+      title: title + ' ' + window.riotVer,
       blocks: build
     }
 
