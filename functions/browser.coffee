@@ -176,16 +176,14 @@ setInstallPath = (pathErr, installPath, champPath) ->
 ###
 openFolder = ->
   if process.platform == 'darwin'
-    title = 'Select League of Legends.app'
     properties = ['openFile']
   else
-    title = 'Open League of Legends directory'
     properties = ['openDirectory']
 
 
   dialog.showOpenDialog {
     properties: properties
-    title: title
+    title: window.browseTitle
   }, (path) ->
     if path.slice(-1) != '/' and path.slice(-1) != '\\'
       if process.platform == 'darwin'
@@ -194,6 +192,17 @@ openFolder = ->
         path = path+'\\'
 
     checkInstallPath(path)
+
+
+###*
+ * Function Sets platform specific variables.
+###
+setupPlatform = ->
+  if process.platform == 'darwin'
+    window.browseTitle = 'Select League of Legends.app'
+
+  else
+    window.browseTitle = 'Select League of Legends directory'
 
 
 ###*
@@ -223,6 +232,8 @@ $('#submitBtn').click (e) ->
 ###
 $(document).ready ->
   runUpdates()
+  setupPlatform()
+  $('#browseTitle').text(window.browseTitle)
   window.Championify.setVersion()
   $('.options [data-toggle="tooltip"]').tooltip()
   findInstallPath()
