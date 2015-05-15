@@ -159,7 +159,7 @@ setInstallPath = (pathErr, installPath, champPath) ->
 
     else
       $('#inputMsg').addClass('green')
-      $('#inputMsg').text('Looks Good!')
+      $('#inputMsg').text('Found League of Legends!')
       $('#submitBtn').removeClass('disabled')
 
 ###*
