@@ -81,7 +81,7 @@ getSettings = (cb) ->
  * @callback {Function} Callback.
 ###
 getRiotVer = (cb) ->
-  cl 'Getting Latest LoL Version Number'
+  cl 'Getting LoL Version'
   hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/api/versions.json', (body) ->
     window.riotVer = body[0]
     cb null
