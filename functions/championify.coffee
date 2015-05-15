@@ -16,6 +16,7 @@ manaless = require '../data/manaless.json'
 window.champData = {}
 window.cSettings = {}
 window.riotVer = '5.7'  # This will change
+window.champGGVer = '5.8' # This will change
 window.undefinedBuilds = []
 
 
@@ -84,6 +85,18 @@ getRiotVer = (cb) ->
   hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/api/versions.json', (body) ->
     window.riotVer = body[0]
     cb null
+
+
+###*
+  * Function Gets current version Champion.GG is using.
+  * @callback {Function} Callback.
+###
+getChampionGGVer = (cb) ->
+  cl 'Getting Champion.GG Version'
+  hlp.ajaxRequest 'http://champion.gg/faq/', (body) ->
+    $c = cheerio.load(body)
+    window.champGGVer = $c(csspaths.version).text()
+    cb()
 
 
 ###*
@@ -427,7 +440,7 @@ processChamp = (champ_info, body, cb) ->
 
     newObj = {
       champion: champ,
-      title: title + ' ' + window.riotVer,
+      title: title + ' ' + window.champGGVer,
       blocks: build
     }
 
@@ -488,6 +501,7 @@ notProcessed = (cb) ->
 downloadItemSets = (cb) ->
   async.waterfall [
     getSettings
+    getChampionGGVer
     getRiotVer
     getChamps
     requestChamps
