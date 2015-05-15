@@ -30,8 +30,9 @@ window.undefinedBuilds = []
 cl = (text) ->
   m = moment().format('HH:mm:ss')
   m = ('['+m+'] | ') + text
-  # console.log(m)
+  console.log(m)
   $('#progress').prepend('<span>'+text+'</span><br />')
+
 
 # TODO: I think we can access Electrons package.json instead directly in the browser, making this useless.
 ###*
@@ -142,7 +143,7 @@ saveToFile = (cb) ->
  * @param {Array} Array of strings of Champs from Riot.
  * @callback {Function} Callback.
 ###
-asyncRequestChamps = (champs, cb) ->
+requestChamps = (champs, cb) ->
   async.eachLimit champs, 2, (champ, acb) ->
     requestPage {champ: champ}, () ->
       acb null
@@ -156,14 +157,14 @@ asyncRequestChamps = (champs, cb) ->
  * @param {Object} Champion object created by asyncRequestChamps.
  * @callback {Function} Callback.
 ###
-requestPage = (obj, cb) ->
-  champ = obj.champ
+requestPage = (champ_info, cb) ->
+  champ = champ_info.champ
   url = 'http://champion.gg/champion/'+champ
 
-  if obj.position
-    url = url + '/' + obj.position
+  if champ_info.position
+    url = url + '/' + champ_info.position
   else
-    cl 'Processing: '+obj.champ
+    cl 'Processing: '+champ_info.champ
 
   async.retry 3, (_cb) ->
     hlp.ajaxRequest url, (body) ->
@@ -173,7 +174,7 @@ requestPage = (obj, cb) ->
     if err
       window.undefinedBuilds.push(champ)
       return cb()
-    processChamp(obj, body, cb)
+    processChamp(champ_info, body, cb)
 
 
 ###*
@@ -182,8 +183,8 @@ requestPage = (obj, cb) ->
  * @param {String} Body of Champion.GG page.
  * @callback {Function} Callback.
 ###
-processChamp = (obj, body, cb) ->
-  champ = obj.champ
+processChamp = (champ_info, body, cb) ->
+  champ = champ_info.champ
 
   $c = cheerio.load(body)
   gg = hlp.compileGGData($c)
@@ -243,7 +244,7 @@ processChamp = (obj, body, cb) ->
 
 
   # Process the skills table and return an array in order.
-  processSkills: (skills) ->
+  processSkills = (skills) ->
     keys = {
       '1': 'Q'
       '2': 'W'
@@ -280,14 +281,14 @@ processChamp = (obj, body, cb) ->
 
 
   # TODO: Make this better with Lodash.
-  # Converts array of items from ChampionGG in to useable object from LoL Blocks. 
-  arrayToBuilds: (arr) ->
+  # Converts array of items from ChampionGG in to useable object from LoL Blocks.
+  arrayToBuilds = (arr) ->
     build = []
 
     arr = _.map arr, (e) ->
       return e.id.toString()
 
-    obj = arr.reduce (acc, curr) ->
+    count_obj = arr.reduce (acc, curr) ->
       if typeof acc[curr] == 'undefined'
         acc[curr] = 1
       else
@@ -299,7 +300,7 @@ processChamp = (obj, body, cb) ->
       a.indexOf(v) == i
 
     arr.forEach (e) ->
-      count = obj[e]
+      count = count_obj[e]
       if e == '2010'  # Nugget biscuit nugget in a biscuit.
         e = '2003'
       build.push {id: e, count: count}
@@ -335,8 +336,16 @@ processChamp = (obj, body, cb) ->
 
     return builds
 
-  # TODO: Use lodash templating for type key.
+
   # Generates item set for Combinded sets (with both Most Frequent and Highest Wins on one page)
+  templates = {
+    combindedStart: _.template('Frequent/Highest Start (<%- wins %> wins - <%- games %> games)')
+    combinedCore: _.template('Frequent/Highest Core (<%- wins %> wins - <%- games %> games)')
+    freqStart: _.template('Most Frequent Starters (<%- wins %> wins - <%- games %> games)')
+    freqCore: _.template('Most Frequent Core Build (<%- wins %> wins - <%- games %> games)')
+    highestStart: _.template('Highest Win % Starters (<%- wins %> wins - <%- games %> games)')
+    highestCore: _.template('Highest Win % Core Build (<%- wins %> wins - <%- games %> games)')
+  }
   normalItemSets = () ->
     builds = []
 
@@ -344,34 +353,34 @@ processChamp = (obj, body, cb) ->
     if JSON.stringify(freqStart.build) == JSON.stringify(highestStart.build)
       builds.push {
         items: freqStart.build
-        type: 'Frequent/Highest Start ('+freqStart.wins+' wins - '+freqStart.games+ ' games)'
+        type: templates.combindedStart({wins: freqStart.wins, games: freqStart.games})
       }
 
     else
       builds.push {
         items: freqStart.build
-        type: 'Most Frequent Starters ('+freqStart.wins+' wins - '+freqStart.games+ ' games)'
+        type: templates.freqStart({wins: freqStart.wins, games: freqStart.games})
       }
       builds.push {
         items: highestStart.build
-        type: 'Highest Win % Starters ('+highestStart.wins+' wins - '+highestStart.games+ ' games)'
+        type: templates.highestStart({wins: highestStart.wins, games: highestStart.games})
       }
 
     # If freqCore and highestCore are the same, only push once.
     if JSON.stringify(freqCore.build) == JSON.stringify(highestCore.build)
       builds.push {
         items: freqCore.build
-        type: 'Frequent/Highest Core ('+freqCore.wins+' wins - '+freqCore.games+ ' games)'
+        type: templates.combinedCore({wins: freqCore.wins, games: freqCore.games})
       }
 
     else
       builds.push {
         items: freqCore.build
-        type: 'Most Frequent Core Build ('+freqCore.wins+' wins - '+freqCore.games+ ' games)'
+        type: templates.freqCore({wins: freqCore.wins, games: freqCore.games})
       }
       builds.push {
         items: highestCore.build
-        type: 'Highest Win % Core Build ('+highestCore.wins+' wins - '+highestCore.games+ ' games)'
+        type: templates.highestCore({wins: highestCore.wins, games: highestCore.games})
       }
 
     # Add trinkets and consumables, if enabled.
@@ -386,20 +395,20 @@ processChamp = (obj, body, cb) ->
 
     mfBuild.push {
       items: freqStart.build
-      type: 'Most Frequent Starters ('+freqStart.wins+' wins - '+freqStart.games+ ' games)'
+      type: templates.freqStart({wins: freqStart.wins, games: freqStart.games})
     }
     mfBuild.push {
       items: freqCore.build
-      type: 'Most Frequent Core Build ('+freqCore.wins+' wins - '+freqCore.games+ ' games)'
+      type: templates.freqCore({wins: freqCore.wins, games: freqCore.games})
     }
 
     hwBuild.push {
       items: highestStart.build
-      type: 'Highest Win % Starters ('+highestStart.wins+' wins - '+highestStart.games+ ' games)'
+      type: templates.highestStart({wins: highestStart.wins, games: highestStart.games})
     }
     hwBuild.push {
       items: highestCore.build
-      type: 'Highest Win % Core Build ('+highestCore.wins+' wins - '+highestCore.games+ ' games)'
+      type: templates.highestCore({wins: highestCore.wins, games: highestCore.games})
     }
 
     mfBuild = trinksCon(mfBuild)
@@ -416,8 +425,7 @@ processChamp = (obj, body, cb) ->
       blocks: build
     }
 
-    window.champData[champ][positionForFile] = hlp.mergeObj(defaultSchema, newObj)
-
+    window.champData[champ][positionForFile] = _.merge({}, [defaultSchema, newObj])
 
   # Save data to Global object for saving to disk later.
   # We do this incase people cancel the function half way though.
@@ -441,7 +449,8 @@ processChamp = (obj, body, cb) ->
 
   # TODO: Lodash map.
   # Now we execute for the other positions for the champs, if there are any.
-  if !obj.position and positions.length > 0
+
+  if !champ_info.position and positions.length > 0
     positions = positions.map (e) ->
       return {champ: champ, position: e}
 
@@ -475,7 +484,7 @@ downloadItemSets = (cb) ->
     getSettings
     getRiotVer
     getChamps
-    asyncRequestChamps
+    requestChamps
     deleteOldBuilds
     saveToFile
     notProcessed
