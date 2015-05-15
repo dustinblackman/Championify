@@ -2,21 +2,6 @@ _ = require 'lodash'
 
 module.exports = {
 
-  # TODO: Replace function completely with Lodash.
-  ###*
-   * Function Merges two objects.
-   * @param {Object} Object 1
-   * @param {Object} Object 2
-   * @returns {Object} Combinded Object.
-  ###
-  mergeObj: (obj1, obj2) ->
-    obj3 = {}
-    for attrname of obj1
-      obj3[attrname] = obj1[attrname]
-    for attrname of obj2
-      obj3[attrname] = obj2[attrname]
-    obj3
-
   ###*
    * Function Preset ajax request.
    * @param {String} URL
@@ -37,6 +22,7 @@ module.exports = {
   ###
   wins: (text) ->
     return text.toString() + '%'
+
 
   ###*
    * Function Compares version numbers. Returns 1 if left is highest, -1 if right, 0 if the same.

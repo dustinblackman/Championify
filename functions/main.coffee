@@ -20,15 +20,6 @@ _downloadFile = (url, dest, cb) ->
       file.close cb
 
 
-# TODO: This doesn't need to be here.
-_ajaxRequest = (url, cb) ->
-  $.ajax(url)
-    .fail (err) ->
-      console.log err
-    .done (body) ->
-      cb body
-
-
 ###*
  * Function Reboots Championify specificially for each platform, and switches in new asar archive for updates.
  * @param {String} Current asar archive
