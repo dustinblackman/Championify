@@ -19,7 +19,7 @@ gulp.task 'removelivereload', ->
 gulp.task 'run-watch', (cb) ->
   fs.writeFileSync('./dev/dev_enabled', 'dev enabled', 'utf8')
   gulp.watch './stylesheets/*.styl', ['stylus']
-  gulp.watch './functions/browser.coffee', ['coffee']
+  gulp.watch './functions/main.coffee', ['coffee']
   gulp.watch ['./functions/championify.coffee', './functions/helpers.coffee'], ['browserify']
 
   cmd = path.normalize('../node_modules/.bin/electron') + ' .'
