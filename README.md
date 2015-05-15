@@ -64,6 +64,10 @@ Run Championify.exe, the app will try and look for your League of Legends folder
 Run Championify, the app will try and look for your League of Legends.app for you. If the app can't find it, browse and select your League of Legends.app.
 
 
+### "App can’t be opened because it is from an unidentified developer"
+Read [this](http://osxdaily.com/2012/07/27/app-cant-be-opened-because-it-is-from-an-unidentified-developer/) to fix it.
+
+
 ### AAHHHH! SOMETHING BROKE! IT'S ALL MESSED UP!
 Calm down, I gotcha! If something went wrong it means something has changed that I did not expect. Follow the steps [below](#uninstall) in the next FAQ question to remove Championify's builds.
 
