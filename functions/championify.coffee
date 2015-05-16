@@ -497,7 +497,7 @@ processChamp = (champ_info, body, cb) ->
 ###
 notProcessed = (cb) ->
   _.each window.undefinedBuilds, (e) ->
-    cl 'No Available Build: '+e
+    cl 'Not Available: '+e
 
   cb()
 
