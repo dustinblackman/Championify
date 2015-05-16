@@ -21,8 +21,12 @@ gulp.task 'coffee', ->
 
 
 gulp.task 'stylus', ->
+  stylus_settings = {use: nib()}
+  if GLOBAL.ifBuild
+    stylus_settings.compress = true
+
   gulp.src('./stylesheets/*.styl')
-  .pipe(stylus({use: nib(), compress: true}))
+  .pipe(stylus(stylus_settings))
   .pipe gulp.dest('./dev/css')
 
 

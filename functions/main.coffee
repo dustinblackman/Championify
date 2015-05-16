@@ -1,5 +1,7 @@
 remote = require 'remote'
 dialog = remote.require 'dialog'
+app = remote.require('app')
+
 fs = require 'fs'
 exec = require('child_process').exec
 https = require 'https'
@@ -26,8 +28,6 @@ _downloadFile = (url, dest, cb) ->
  * @param {String} New downloaded asar archive created by runUpdaets
 ###
 reloadUpdate = (appAsar, updateAsar) ->
-  app = remote.require('app')
-
   if process.platform == 'darwin'
     fs.unlink appAsar, (err) ->
       fs.rename updateAsar, appAsar, (err) ->
@@ -194,11 +194,20 @@ setupPlatform = ->
 
   else
     window.browseTitle = 'Select League of Legends directory'
+    $('.system-btns').attr('class','system-btns-right')
 
 
 ###*
  * Watches for buttons pressed on GUI.
 ###
+$('#minimizeBtn').click (e) ->
+  e.preventDefault()
+  remote.getCurrentWindow().minimize()
+
+$('#closeBtn').click (e) ->
+  e.preventDefault()
+  app.quit()
+
 $('#browse').click (e) ->
   window.Championify.browser.openFolder()
 

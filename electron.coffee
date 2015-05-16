@@ -16,7 +16,7 @@ app.on 'window-all-closed', ->
 app.on 'ready', ->
   # Create the browser window.
   mainWindow = new BrowserWindow({
-    frame: true
+    frame: false
     fullscreen: false
     width: 380
     height: 600
