@@ -218,15 +218,21 @@ $('#submitBtn').click (e) ->
     $('.status').removeClass('hidden')
     window.Championify.run()
 
+
+###*
+* Execute ASAP
+###
+setupPlatform()
+$('#browseTitle').text(window.browseTitle)
+window.Championify.setVersion()
+$('.options [data-toggle="tooltip"]').tooltip()
+
+
 ###*
  * Executes on Page Load.
 ###
 $(document).ready ->
   runUpdates()
-  setupPlatform()
-  $('#browseTitle').text(window.browseTitle)
-  window.Championify.setVersion()
-  $('.options [data-toggle="tooltip"]').tooltip()
   findInstallPath()
 
 
