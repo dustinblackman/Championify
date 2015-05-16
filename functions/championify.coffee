@@ -18,6 +18,7 @@ window.cSettings = {}
 window.riotVer = '5.7'  # This will change
 window.champGGVer = '5.8' # This will change
 window.undefinedBuilds = []
+window.progressIncr = 0
 
 
 #################
@@ -32,7 +33,14 @@ cl = (text) ->
   m = moment().format('HH:mm:ss')
   m = ('['+m+'] | ') + text
   console.log(m)
-  $('#progress').prepend('<span>'+text+'</span><br />')
+  $('#cl-progress').prepend('<span>'+text+'</span><br />')
+
+
+updateProgressBar = (incr) ->
+  window.progressIncr += incr
+  console.log window.progressIncr + ' | '+Math.floor(window.progressIncr)
+  $('.progress-bar').attr('style', 'width: '+Math.floor(window.progressIncr)+'%')
+
 
 
 #################
@@ -76,6 +84,7 @@ getRiotVer = (cb) ->
   cl 'Getting LoL Version'
   hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/api/versions.json', (body) ->
     window.riotVer = body[0]
+    updateProgressBar(1.5)
     cb null
 
 
@@ -88,6 +97,7 @@ getChampionGGVer = (cb) ->
   hlp.ajaxRequest 'http://champion.gg/faq/', (body) ->
     $c = cheerio.load(body)
     window.champGGVer = $c(csspaths.version).text()
+    updateProgressBar(1.5)
     cb()
 
 
@@ -115,6 +125,7 @@ deleteOldBuilds = (cb) ->
         console.log err if err
         ecb null
     , () ->
+      updateProgressBar(2.5)
       cb null
 
 
@@ -139,6 +150,7 @@ saveToFile = (cb) ->
       acb null
 
   , () ->
+    updateProgressBar(10) # Just max it.
     cb null
 
 
@@ -151,6 +163,7 @@ saveToFile = (cb) ->
 requestChamps = (champs, cb) ->
   async.eachLimit champs, 2, (champ, acb) ->
     requestPage {champ: champ}, () ->
+      updateProgressBar(90 / champs.length)
       acb null
 
   , () ->
