@@ -511,6 +511,5 @@ downloadItemSets = (cb) ->
 ###
 window.Championify = {
   run: downloadItemSets
-  setVersion: setVersion
   checkVer: checkVer
 }
