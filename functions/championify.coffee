@@ -277,22 +277,22 @@ processChamp = (champ_info, body, cb) ->
       return keys[e]
 
     if window.cSettings.skillsformat
-      arr = _.countBy(skillOrder.slice(0, 9), _.identity)
-      delete arr['R']
-      arr = _.invert(arr)
+      sliced_skills = _.countBy(skillOrder.slice(0, 9), _.identity)
+      delete sliced_skills['R']
+      sliced_skills = _.invert(sliced_skills)
 
-      keys = _.keys(arr)
+      keys = _.keys(sliced_skills)
       keys.sort()
       keys.reverse()
 
-      skillOrder = _.map keys, (key) ->
-        return arr[key]
+      mapped_skills = _.map keys, (key) ->
+        return sliced_skills[key]
 
-      skillOrder = skillOrder.join('>')
+      formatted_skills = skillOrder.slice(0, 4).join('.') + ' - ' + mapped_skills.join('>')
     else
-      skillOrder = skillOrder.join('.')
+      formatted_skills = skillOrder.join('.')
 
-    return skillOrder
+    return formatted_skills
 
   # Build string for skill priorities. Logic done in Helpers.
   skills = {
