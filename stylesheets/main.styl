@@ -44,6 +44,18 @@ makeSysBtn(alignto)
     else
       right first
 
+    .text
+      position fixed
+      font-size 13px
+      margin-left 2.5px
+      margin-top -4.5px
+      color black
+      visibility hidden
+
+    &:hover .text
+      visibility visible
+
+
   .yellow
     background minimize
     if alignto == left
@@ -51,8 +63,19 @@ makeSysBtn(alignto)
     else
       right third
 
+    .text
+      position fixed
+      font-size 18px
+      margin-left 2.7px
+      margin-top -7px
+      color black
+      visibility hidden
+
+    &:hover .text
+      visibility visible
+
   .green
-    opacity 0.5
+    opacity 0.4
     background maximize
     if alignto == left
       left third
