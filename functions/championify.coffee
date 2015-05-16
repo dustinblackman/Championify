@@ -35,14 +35,6 @@ cl = (text) ->
   $('#progress').prepend('<span>'+text+'</span><br />')
 
 
-# TODO: I think we can access Electrons package.json instead directly in the browser, making this useless.
-###*
- * Function sets the version number on the interface. Function is here so it has access to package.json
-###
-setVersion = ->
-  $('.version > span').text('v'+pkg.version)
-
-
 #################
 #      MAIN
 #################

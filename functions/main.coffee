@@ -6,6 +6,7 @@ fs = require 'fs'
 exec = require('child_process').exec
 https = require 'https'
 open = require 'open'
+pkg = require '../package.json'
 
 
 ###*
@@ -20,6 +21,13 @@ _downloadFile = (url, dest, cb) ->
     res.pipe file
     file.on 'finish', ->
       file.close cb
+
+
+###*
+ * Function Read package file and set version in bottom right corner of interface.
+###
+setVersion = ->
+  $('.version > span').text('v'+pkg.version)
 
 
 ###*
@@ -233,7 +241,7 @@ $('#submitBtn').click (e) ->
 ###
 setupPlatform()
 $('#browseTitle').text(window.browseTitle)
-window.Championify.setVersion()
+setVersion()
 $('.options [data-toggle="tooltip"]').tooltip()
 
 
