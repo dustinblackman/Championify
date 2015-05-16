@@ -36,9 +36,12 @@ cl = (text) ->
   $('#cl-progress').prepend('<span>'+text+'</span><br />')
 
 
+###*
+ * Function Updates the progress bar on the interface.
+ * @param {Number} Increment progress bar.
+###
 updateProgressBar = (incr) ->
   window.progressIncr += incr
-  console.log window.progressIncr + ' | '+Math.floor(window.progressIncr)
   $('.progress-bar').attr('style', 'width: '+Math.floor(window.progressIncr)+'%')
 
 
@@ -150,7 +153,7 @@ saveToFile = (cb) ->
       acb null
 
   , () ->
-    updateProgressBar(10) # Just max it.
+    updateProgressBar(2.5)
     cb null
 
 
@@ -162,8 +165,8 @@ saveToFile = (cb) ->
 ###
 requestChamps = (champs, cb) ->
   async.eachLimit champs, 2, (champ, acb) ->
+    updateProgressBar(90 / champs.length)
     requestPage {champ: champ}, () ->
-      updateProgressBar(90 / champs.length)
       acb null
 
   , () ->
@@ -515,6 +518,7 @@ downloadItemSets = (cb) ->
     notProcessed
   ], (err) ->
     console.log(err) if err
+    updateProgressBar(10) # Just max it.
     cl 'Looks like were all done. Login and enjoy!'
     cb()
 
