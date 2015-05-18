@@ -8,18 +8,111 @@ body
   overflow hidden
   user-select none
 
+
 // Helpers
 .hidden
   display none
 
 
-// Main
+// System Buttons
+makeSysBtn(alignto)
+  first = 3px
+  second = first + 20px
+  third = first + 40px
+
+  close = #FF5955
+  minimize = #FFBB09
+  maximize = #17C935
+
+  -webkit-app-region: no-drag
+
+  .osx-window-btn
+    position absolute
+    top 20px
+    width 12px
+    height 12px
+    border-radius 50%
+    if alignto == left
+      margin-left 5px
+    else
+      margin-right 5px
+
+  .red
+    background close
+    if alignto == left
+      left first
+    else
+      right first
+
+    .text
+      position fixed
+      font-size 13px
+      margin-left 2.5px
+      margin-top -4.5px
+      color black
+      visibility hidden
+
+    &:hover .text
+      visibility visible
+
+
+  .yellow
+    background minimize
+    if alignto == left
+      left second
+    else
+      right third
+
+    .text
+      position fixed
+      font-size 18px
+      margin-left 2.7px
+      margin-top -7px
+      color black
+      visibility hidden
+
+    &:hover .text
+      visibility visible
+
+  .green
+    opacity 0.4
+    background maximize
+    if alignto == left
+      left third
+    else
+      right second
+
+.system-btns
+  makeSysBtn(left)
+
+.system-btns-right
+  makeSysBtn(right)
+
+
+// NOTE: This is a workaround as clicks at the top of a frameless border dont work,
+// preventing the OSX buttons from working.
+#mainContainer
+  top 32px
+  position relative
+  // -webkit-app-region: drag
+
+
+// Banner
 .banner
   text-align center
+  margin-top -35px
+  // margin-top -10px  // Use for Borderless
+
+// Browse/Inputs
+.browseTitle
+  text-align center
+  margin-top -15px
+  margin-bottom 5px
 
 .lolDirInput
   margin auto
   width elemWidth
+  -webkit-app-region: no-drag;
 
 .lolDirInputMsg
   text-align center
@@ -33,19 +126,32 @@ body
   .green
     color #0ce3ac
 
+
+// Options
 .options
+  -webkit-app-region: no-drag;
   position relative
   left 4%
 
+
+// Submit/Progress
 .submitBtn
+  -webkit-app-region: no-drag;
   text-align center
   margin-top 20px
 
 .status
   text-align center
 
-#progress
-  height 190px
+.progress
+  margin auto
+  margin-top -5px
+  margin-bottom 5px
+  width elemWidth
+
+#cl-progress
+  // height 230px  // Use for Borderless
+  height 170px
   overflow hidden
 
 

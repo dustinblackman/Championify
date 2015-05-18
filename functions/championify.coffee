@@ -16,31 +16,46 @@ manaless = require '../data/manaless.json'
 window.champData = {}
 window.cSettings = {}
 window.riotVer = '5.7'  # This will change
+window.champGGVer = '5.8' # This will change
 window.undefinedBuilds = []
+window.progressIncr = 0
 
 
 #################
 #    HELPERS
 #################
 
-# Pretty Console Log
+###*
+ * Function Pretty console log, as well as updates the progress div on interface
+ * @param {String} Console Message.
+###
 cl = (text) ->
   m = moment().format('HH:mm:ss')
   m = ('['+m+'] | ') + text
-  # console.log(m)
-  $('#progress').prepend('<span>'+text+'</span><br />')
+  console.log(m)
+  $('#cl-progress').prepend('<span>'+text+'</span><br />')
 
 
-# Sets version on interface. Have it here cause I need access to package.json, should be in browser, but whatever.
-setVersion = ->
-  $('.version > span').text('v'+pkg.version)
+###*
+ * Function Updates the progress bar on the interface.
+ * @param {Number} Increment progress bar.
+###
+updateProgressBar = (incr) ->
+  window.progressIncr += incr
+  $('.progress-bar').attr('style', 'width: '+Math.floor(window.progressIncr)+'%')
+
 
 
 #################
 #      MAIN
 #################
 
-# Check if this is the latest version of the application.
+
+# TODO: I think we can access Electrons package.json instead directly in the browser, making this useless.
+###*
+ * Function Check version of Github package.json and local.
+ * @callback {Function} Callback.
+###
 checkVer = (cb) ->
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
   hlp.ajaxRequest url, (data) ->
@@ -50,7 +65,10 @@ checkVer = (cb) ->
     else
       cb false
 
-
+###*
+ * Function Collects options from the Frontend.
+ * @callback {Function} Callback.
+###
 getSettings = (cb) ->
   window.cSettings = {
     splititems: $('#options_splititems').is(':checked')
@@ -61,15 +79,35 @@ getSettings = (cb) ->
   cb null
 
 
-# Get latest Riot Version
+###*
+ * Function Gets the latest Riot Version.
+ * @callback {Function} Callback.
+###
 getRiotVer = (cb) ->
-  cl 'Getting Latest LoL Version Number'
+  cl 'Getting LoL Version'
   hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/api/versions.json', (body) ->
     window.riotVer = body[0]
+    updateProgressBar(1.5)
     cb null
 
 
-# Download all the champs from riot (saves making requests to ChampionGG)
+###*
+  * Function Gets current version Champion.GG is using.
+  * @callback {Function} Callback.
+###
+getChampionGGVer = (cb) ->
+  cl 'Getting Champion.GG Version'
+  hlp.ajaxRequest 'http://champion.gg/faq/', (body) ->
+    $c = cheerio.load(body)
+    window.champGGVer = $c(csspaths.version).text()
+    updateProgressBar(1.5)
+    cb()
+
+
+###*
+ * Function Downloads all available champs from Riot.
+ * @callback {Function} Callback.
+###
 getChamps = (cb) ->
   cl 'Downloading Champs from Riot'
   hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/cdn/'+window.riotVer+'/data/en_US/champion.json', (body) ->
@@ -77,19 +115,11 @@ getChamps = (cb) ->
     cb null, champs
 
 
-# This executes the scraper for ChampionGG
-# We scrape ChampionGG 2 at a time, this prevents high load on ChampionGGs side, as we don't want to cause issues
-# with their servers.
-processChamps = (champs, cb) ->
-  async.eachLimit champs, 2, (champ, acb) ->
-    requestPage {champ: champ}, () ->
-      acb null
-
-  , () ->
-    cb null
-
-
-# Delete all the previous ChampionGG builds.
+# TODO: This doesn't work on Windows if the files were created with admin priveleges but are trying to delete without.
+###*
+ * Function Deletes all previous Championify builds from client.
+ * @callback {Function} Callback.
+###
 deleteOldBuilds = (cb) ->
   cl 'Deleting Old Builds'
   glob window.lolChampPath+'**/CGG_*.json', (err, files) ->
@@ -98,10 +128,15 @@ deleteOldBuilds = (cb) ->
         console.log err if err
         ecb null
     , () ->
+      updateProgressBar(2.5)
       cb null
 
 
-# Save all builds we created to file in the correct directories.
+# TODO: This is a messy function. Clean it up with Lodash, possibly.
+###*
+ * Function Saves all compiled item sets to file, creating paths included.
+ * @callback {Function} Callback.
+###
 saveToFile = (cb) ->
   cl 'Saving Builds to File'
   async.each Object.keys(window.champData), (champ, acb) ->
@@ -118,18 +153,39 @@ saveToFile = (cb) ->
       acb null
 
   , () ->
+    updateProgressBar(2.5)
     cb null
 
 
-# Makes request to Champion.gg. Retry limit 3. Timeout is set in Helpers.
-requestPage = (obj, cb) ->
-  champ = obj.champ
+
+###*
+ * Function Async execute scraper on Champion.gg. Currently at 2 at a time to prevent high load.
+ * @param {Array} Array of strings of Champs from Riot.
+ * @callback {Function} Callback.
+###
+requestChamps = (champs, cb) ->
+  async.eachLimit champs, 2, (champ, acb) ->
+    updateProgressBar(90 / champs.length)
+    requestPage {champ: champ}, () ->
+      acb null
+
+  , () ->
+    cb null
+
+
+###*
+ * Function Request champion.gg page, 3 retries (according to Helpers).
+ * @param {Object} Champion object created by asyncRequestChamps.
+ * @callback {Function} Callback.
+###
+requestPage = (champ_info, cb) ->
+  champ = champ_info.champ
   url = 'http://champion.gg/champion/'+champ
 
-  if obj.position
-    url = url + '/' + obj.position
+  if champ_info.position
+    url = url + '/' + champ_info.position
   else
-    cl 'Processing: '+obj.champ
+    cl 'Processing: '+champ_info.champ
 
   async.retry 3, (_cb) ->
     hlp.ajaxRequest url, (body) ->
@@ -139,15 +195,21 @@ requestPage = (obj, cb) ->
     if err
       window.undefinedBuilds.push(champ)
       return cb()
-    processChamp(obj, body, cb)
+    processChamp(champ_info, body, cb)
 
 
-# Processes page from Champion.GG
-processChamp = (obj, body, cb) ->
-  champ = obj.champ
+###*
+ * Function Process scraped Champion.GG page.
+ * @param {Object} Champion object created by asyncRequestChamps.
+ * @param {String} Body of Champion.GG page.
+ * @callback {Function} Callback.
+###
+processChamp = (champ_info, body, cb) ->
+  champ = champ_info.champ
 
   $c = cheerio.load(body)
   gg = hlp.compileGGData($c)
+
 
   # Check what role were currently grabbing, and what other roles exist.
   currentPosition = ''
@@ -163,7 +225,8 @@ processChamp = (obj, body, cb) ->
   positions = _.filter positions, (e) ->
     return e != currentPosition
 
-  # Check if these builds aren't defined yet.
+
+  # Check if these builds aren't defined yet (happens during new patch)
   undefArray = [
     !gg.championData.items.mostGames.winPercent
     !gg.championData.firstItems.mostGames.winPercent
@@ -175,7 +238,7 @@ processChamp = (obj, body, cb) ->
     window.undefinedBuilds.push(champ + ' ' + _.capitalize(currentPosition))
     return cb()
 
-
+  # Build objects for each section of item sets.
   freqCore = {
     items: gg.championData.items.mostGames.items
     wins: hlp.wins(gg.championData.items.mostGames.winPercent)
@@ -201,17 +264,75 @@ processChamp = (obj, body, cb) ->
   }
 
 
+  # Process the skills table and return an array in order.
+  processSkills = (skills) ->
+    keys = {
+      '1': 'Q'
+      '2': 'W'
+      '3': 'E'
+      '4': 'R'
+    }
+
+    skillOrder = _.map skills, (e) ->
+      return keys[e]
+
+    if window.cSettings.skillsformat
+      sliced_skills = _.countBy(skillOrder.slice(0, 9), _.identity)
+      delete sliced_skills['R']
+      sliced_skills = _.invert(sliced_skills)
+
+      keys = _.keys(sliced_skills)
+      keys.sort()
+      keys.reverse()
+
+      mapped_skills = _.map keys, (key) ->
+        return sliced_skills[key]
+
+      formatted_skills = skillOrder.slice(0, 4).join('.') + ' - ' + mapped_skills.join('>')
+    else
+      formatted_skills = skillOrder.join('.')
+
+    return formatted_skills
+
+  # Build string for skill priorities. Logic done in Helpers.
   skills = {
-    mostFreq: hlp.processSkills(gg.championData.skills.mostGames.order)
-    highestWin: hlp.processSkills(gg.championData.skills.highestWinPercent.order)
+    mostFreq: processSkills(gg.championData.skills.mostGames.order)
+    highestWin: processSkills(gg.championData.skills.highestWinPercent.order)
   }
 
 
-  # Convert ChampionGG data to Championify
-  freqStart.build = hlp.arrayToBuilds(freqStart.items).concat(prebuilts.trinkets)
-  highestStart.build = hlp.arrayToBuilds(highestStart.items).concat(prebuilts.trinkets)
-  freqCore.build = hlp.arrayToBuilds(freqCore.items)
-  highestCore.build = hlp.arrayToBuilds(highestCore.items)
+  # TODO: Make this better with Lodash.
+  # Converts array of items from ChampionGG in to useable object from LoL Blocks.
+  arrayToBuilds = (arr) ->
+    build = []
+
+    arr = _.map arr, (e) ->
+      return e.id.toString()
+
+    count_obj = arr.reduce (acc, curr) ->
+      if typeof acc[curr] == 'undefined'
+        acc[curr] = 1
+      else
+        acc[curr] += 1
+      return acc
+    , {}
+
+    arr = arr.filter (v, i, a) ->
+      a.indexOf(v) == i
+
+    arr.forEach (e) ->
+      count = count_obj[e]
+      if e == '2010'  # Nugget biscuit nugget in a biscuit.
+        e = '2003'
+      build.push {id: e, count: count}
+
+    return build
+
+  # Convert ChampionGG data to Championify. Append trinkets to Starting sets.
+  freqStart.build = arrayToBuilds(freqStart.items).concat(prebuilts.trinkets)
+  highestStart.build = arrayToBuilds(highestStart.items).concat(prebuilts.trinkets)
+  freqCore.build = arrayToBuilds(freqCore.items)
+  highestCore.build = arrayToBuilds(highestCore.items)
 
 
   # Reusable function for generating Trainkets and Consumables.
@@ -237,6 +358,15 @@ processChamp = (obj, body, cb) ->
     return builds
 
 
+  # Generates item set for Combinded sets (with both Most Frequent and Highest Wins on one page)
+  templates = {
+    combindedStart: _.template('Frequent/Highest Start (<%- wins %> wins - <%- games %> games)')
+    combinedCore: _.template('Frequent/Highest Core (<%- wins %> wins - <%- games %> games)')
+    freqStart: _.template('Most Frequent Starters (<%- wins %> wins - <%- games %> games)')
+    freqCore: _.template('Most Frequent Core Build (<%- wins %> wins - <%- games %> games)')
+    highestStart: _.template('Highest Win % Starters (<%- wins %> wins - <%- games %> games)')
+    highestCore: _.template('Highest Win % Core Build (<%- wins %> wins - <%- games %> games)')
+  }
   normalItemSets = () ->
     builds = []
 
@@ -244,62 +374,62 @@ processChamp = (obj, body, cb) ->
     if JSON.stringify(freqStart.build) == JSON.stringify(highestStart.build)
       builds.push {
         items: freqStart.build
-        type: 'Frequent/Highest Start ('+freqStart.wins+' wins - '+freqStart.games+ ' games)'
+        type: templates.combindedStart({wins: freqStart.wins, games: freqStart.games})
       }
 
     else
       builds.push {
         items: freqStart.build
-        type: 'Most Frequent Starters ('+freqStart.wins+' wins - '+freqStart.games+ ' games)'
+        type: templates.freqStart({wins: freqStart.wins, games: freqStart.games})
       }
       builds.push {
         items: highestStart.build
-        type: 'Highest Win % Starters ('+highestStart.wins+' wins - '+highestStart.games+ ' games)'
+        type: templates.highestStart({wins: highestStart.wins, games: highestStart.games})
       }
 
     # If freqCore and highestCore are the same, only push once.
     if JSON.stringify(freqCore.build) == JSON.stringify(highestCore.build)
       builds.push {
         items: freqCore.build
-        type: 'Frequent/Highest Core ('+freqCore.wins+' wins - '+freqCore.games+ ' games)'
+        type: templates.combinedCore({wins: freqCore.wins, games: freqCore.games})
       }
 
     else
       builds.push {
         items: freqCore.build
-        type: 'Most Frequent Core Build ('+freqCore.wins+' wins - '+freqCore.games+ ' games)'
+        type: templates.freqCore({wins: freqCore.wins, games: freqCore.games})
       }
       builds.push {
         items: highestCore.build
-        type: 'Highest Win % Core Build ('+highestCore.wins+' wins - '+highestCore.games+ ' games)'
+        type: templates.highestCore({wins: highestCore.wins, games: highestCore.games})
       }
 
     # Add trinkets and consumables, if enabled.
     builds = trinksCon(builds)
-
     return builds
 
 
+  # Generates a split item sets for Most Frequent and Highest Wins.
   splitItemSets = () ->
     mfBuild = []
     hwBuild = []
 
     mfBuild.push {
       items: freqStart.build
-      type: 'Most Frequent Starters ('+freqStart.wins+' wins - '+freqStart.games+ ' games)'
+      type: templates.freqStart({wins: freqStart.wins, games: freqStart.games})
     }
     mfBuild.push {
       items: freqCore.build
-      type: 'Most Frequent Core Build ('+freqCore.wins+' wins - '+freqCore.games+ ' games)'
+      type: templates.freqCore({wins: freqCore.wins, games: freqCore.games})
     }
 
     hwBuild.push {
       items: highestStart.build
-      type: 'Highest Win % Starters ('+highestStart.wins+' wins - '+highestStart.games+ ' games)'
+      type: templates.highestStart({wins: highestStart.wins, games: highestStart.games})
     }
     hwBuild.push {
       items: highestCore.build
-      type: 'Highest Win % Core Build ('+highestCore.wins+' wins - '+highestCore.games+ ' games)'
+      type: templates.highestCore({wins: highestCore.wins, games: highestCore.games})
     }
 
     mfBuild = trinksCon(mfBuild)
@@ -307,17 +437,22 @@ processChamp = (obj, body, cb) ->
 
     return [mfBuild, hwBuild]
 
-
+  # Inserts new item sets in to a global object to be used when we get to saving files.
   pushChampData = (champ, position, build) ->
     positionForFile = position.replace(/ /g, '_')
+
+    if _.includes(position, 'adc')
+      title = position.toUpperCase()
+    else
+      title = _.capitalize(position)
+
     newObj = {
       champion: champ,
-      title: _.capitalize(position) + ' ' + window.riotVer,
+      title: title + ' ' + window.champGGVer,
       blocks: build
     }
 
-    window.champData[champ][positionForFile] = hlp.mergeObj(defaultSchema, newObj)
-
+    window.champData[champ][positionForFile] = _.merge({}, defaultSchema, newObj)
 
   # Save data to Global object for saving to disk later.
   # We do this incase people cancel the function half way though.
@@ -339,8 +474,10 @@ processChamp = (obj, body, cb) ->
     builds = normalItemSets()
     pushChampData(champ, currentPosition, builds)
 
+  # TODO: Lodash map.
   # Now we execute for the other positions for the champs, if there are any.
-  if !obj.position and positions.length > 0
+
+  if !champ_info.position and positions.length > 0
     positions = positions.map (e) ->
       return {champ: champ, position: e}
 
@@ -348,37 +485,48 @@ processChamp = (obj, body, cb) ->
       requestPage item, () ->
         ecb null
 
-    , () ->
-      cb()
+    , () -> cb()
 
   else
     cb()
 
 
+###*
+ * Function To output any champ/positions that were done due to timeouts or undefined builds.
+ * @callback {Function} Callback.
+###
 notProcessed = (cb) ->
   _.each window.undefinedBuilds, (e) ->
-    cl 'No Available Build: '+e
+    cl 'Not Available: '+e
 
   cb()
 
 
+###*
+ * Function Main function that starts up all the magic.
+ * @callback {Function} Callback.
+###
 downloadItemSets = (cb) ->
   async.waterfall [
     getSettings
+    getChampionGGVer
     getRiotVer
     getChamps
-    processChamps
+    requestChamps
     deleteOldBuilds
     saveToFile
     notProcessed
   ], (err) ->
     console.log(err) if err
+    updateProgressBar(10) # Just max it.
     cl 'Looks like were all done. Login and enjoy!'
     cb()
 
 
+###*
+ * Export.
+###
 window.Championify = {
   run: downloadItemSets
-  setVersion: setVersion
   checkVer: checkVer
 }

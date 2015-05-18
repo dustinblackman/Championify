@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="0.2.0" />
+### 0.2.0 (May 18th, 2015)
+
+### Features
+- Added progress bar [#30](https://github.com/dustinblackman/Championify/issues/30)
+- Added first four skill upgrades to short skills (Trinkets | Frequent: E.W.Q.E - E>W>Q) [#32](https://github.com/dustinblackman/Championify/issues/32)
+- Add "Browse for League folder" above input box [#14](https://github.com/dustinblackman/Championify/issues/14)
+
+### Bug Fixes
+- Directory confirmations are more obvious [#28](https://github.com/dustinblackman/Championify/issues/28)
+- Capitalize 'ADC' Item Set title. [#25](https://github.com/dustinblackman/Championify/issues/25)
+- Use Champion.GG's client version instead of Riot's for Item Sets [#17](https://github.com/dustinblackman/Championify/issues/17)
+- Change title of split item sets [#16](https://github.com/dustinblackman/Championify/issues/16)
+
 <a name="0.1.0" />
 ### 0.1.0 (May 14th, 2015)
 

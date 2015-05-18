@@ -1,3 +1,4 @@
 {
-  "positions": "body > div > div > div.page-content > div > div.champion-area > div > div > div.col-xs-12.col-sm-3.col-md-2.champion-profile > ul"
+  "positions": "body > div > div > div.page-content > div > div.champion-area > div > div > div.col-xs-12.col-sm-3.col-md-2.champion-profile > ul",
+  "version": "body > div > div > div.navbar.navbar-inverse > div > div > div.navigation-holder.cleafix > div > small > strong:nth-child(1)"
 }

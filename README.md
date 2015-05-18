@@ -17,28 +17,18 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 ---
 
 ## [Change Log](CHANGELOG.md)
-### 0.1.0 (May 14th, 2015)
+### 0.2.0 (May 18th, 2015)
 
-#### Features
-- New GUI, no more Terminal Windows.
-- Processing speed is stupid fast (I even had to slow it down...)
-- Easier to read Progress Report.
-- Split item sets between Most Frequent and Highest Wins. [#2](https://github.com/dustinblackman/Championify/issues/2)
-- Enable/Disable Trinkets and Consumables. [#6](https://github.com/dustinblackman/Championify/issues/6)
-- Switch between full skill priorities (Q.W.E.Q.W.R.Q ect) and shortened priorities (Q>E>W). [#8](https://github.com/dustinblackman/Championify/issues/8)
-- Hover over checkbox settings to see tooltips explaining what each setting does.
-- Better LoL Installation Auto Discovery. [#9](https://github.com/dustinblackman/Championify/issues/9)
-- Allow user to select install directory.
-- Auto Updater. [#7](https://github.com/dustinblackman/Championify/issues/7)
-- Virus Total reports included in all future releases.
+### Features
+- Added progress bar [#30](https://github.com/dustinblackman/Championify/issues/30)
+- Added first four skill upgrades to short skills (Trinkets | Frequent: E.W.Q.E - E>W>Q) [#32](https://github.com/dustinblackman/Championify/issues/32)
+- Add "Browse for League folder" above input box [#14](https://github.com/dustinblackman/Championify/issues/14)
 
-#### Bug Fixes
-- Windows write tests writes to LoL root directory instead of Champion directory. [#12](https://github.com/dustinblackman/Championify/issues/12)
-- LoL directory check is no longer forced, only warnings.
-- Swapped out scraping CSS paths to using available JSON data.
-- Scrape 2 pages at a time instead of 5, because 5 got way too fast.
-- Handle undefined builds (happens usually just after a new patch)
-- Handle Connection/Timeout Errors (Timeout is 10 seconds.) [#11](https://github.com/dustinblackman/Championify/issues/11)
+### Bug Fixes
+- Directory confirmations are more obvious [#28](https://github.com/dustinblackman/Championify/issues/28)
+- Capitalize 'ADC' Item Set title. [#25](https://github.com/dustinblackman/Championify/issues/25)
+- Use Champion.GG's client version instead of Riot's for Item Sets [#17](https://github.com/dustinblackman/Championify/issues/17)
+- Change title of split item sets [#16](https://github.com/dustinblackman/Championify/issues/16)
 
 ---
 
