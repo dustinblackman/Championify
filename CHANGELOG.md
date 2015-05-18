@@ -1,5 +1,12 @@
 # Changelog
 
+<a name="0.2.1" />
+### 0.2.1 (May 18th, 2015)
+
+### Bug Fixes
+- Auto updater correctly follows Github redirects.
+- Auto updater styling
+
 <a name="0.2.0" />
 ### 0.2.0 (May 18th, 2015)
 

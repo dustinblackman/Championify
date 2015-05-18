@@ -17,6 +17,12 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 ---
 
 ## [Change Log](CHANGELOG.md)
+### 0.2.1 (May 18th, 2015)
+
+### Bug Fixes
+- Auto updater correctly follows Github redirects.
+- Auto updater styling
+
 ### 0.2.0 (May 18th, 2015)
 
 ### Features
