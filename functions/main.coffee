@@ -4,7 +4,7 @@ app = remote.require('app')
 
 fs = require 'fs'
 exec = require('child_process').exec
-https = require 'https'
+https = require('follow-redirects').https
 open = require 'open'
 pkg = require './package.json'
 
