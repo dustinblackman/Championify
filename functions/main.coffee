@@ -6,7 +6,7 @@ fs = require 'fs'
 exec = require('child_process').exec
 https = require 'https'
 open = require 'open'
-pkg = require '../package.json'
+pkg = require './package.json'
 
 
 ###*
