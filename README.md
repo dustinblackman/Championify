@@ -108,11 +108,8 @@ Well that's great! Put up an Issue or send me a message on reddit [/u/dustinhero
 ## Future Plans
 - Automatically elevate when required instead of making the user do it.
 - Get my own Championify Icon.
+- Proper design.
 
-
-##### Nerdy Future Plans
-- Take better advantage of lodash.
-- Gulp task to auto generate Github Releases with VirusTotal reports and Changelog parsing.
 
 ---
 
