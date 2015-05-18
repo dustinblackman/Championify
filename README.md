@@ -48,6 +48,10 @@ Well it's easy really. Here's a link for [Teemo's most popular build in top lane
 Yep it's safe! Were not modifying League of Legends at all, so no rules broken there. And my code is clean and free to browse, so no smelly virus' or surprises. I've added VirusTotal report to all my recent releases just to be sure. If you still don't trust my executables, have a tech buddy look over my code themselves and you can build from [source](#source).
 
 
+### I just opened Championify to find an error black window, or just an error pop up?
+If you have version 0.2.0 or lower, that's my fault, sorry about that. I made a mistake with my Auto Updater that caused the issue. Redownload the latest version and this shouldn't happen again. Found [here](https://github.com/dustinblackman/Championify/releases/latest).
+
+
 ### Why do I not see the item sets in the launcher?
 Due to Riot restrictions, you can only see the item sets in game, you won't see them in the launcher.
 
