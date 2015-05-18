@@ -1,48 +1,70 @@
-gulp      = require 'gulp'
-request 	= require 'request'
-async 		= require 'async'
-path 			= require 'path'
-glob 			= require 'glob'
-fs 				= require 'fs-extra'
-gutil			= require 'gulp-util'
+gulp   			= require 'gulp'
+GitHubApi  	= require 'github'
+fs 					= require 'fs-extra'
+async 			= require 'async'
+glob 				= require 'glob'
+path 				= require 'path'
 
+pkg = require '../package.json'
 
-GLOBAL.vtReports = {}
-
-virusTotal = (file, rootUrl, cb) ->
-  gutil.log '[VIRUSTOTAL] Uploading: ' + path.basename(file)
-  url = 'https://www.virustotal.com/vtapi/v2/url/scan'
-
-  gutil.log rootUrl + '/' + path.basename(file)
-
-  formData = {
-    apikey: process.env.VIRUSTOTAL
-    url: rootUrl + '/' + path.basename(file)
+# Setup Github API
+github = new GitHubApi {
+  version: "3.0.0"
+  debug: true
+  protocol: "https"
+  timeout: 5000
+  headers: {
+    "user-agent": "Championify-Gulp-Release"
   }
-  options = {
-    url: url,
-    formData: formData
-  }
+}
 
-  request.post options, (err, res, body) ->
-    cb err if err
-    if body.indexOf('<html>') > -1
-      return cb body
+github.authenticate {
+  type: 'oauth'
+  token: process.env.GITHUB_TOKEN
+}
 
-    body = JSON.parse(body)
-    console.log(body)
-    cb null, body.permalink
+gulp.task 'move-asar', (cb) ->
+  fs.copy './tmp/app.asar', './releases/update.asar', -> cb()
 
 
-gulp.task 'virustotal', (cb) ->
-  glob './releases/**' , {nodir: true}, (err, files) ->
-    async.each files, (file, acb) ->
-      filename = path.basename(file)
-      virusTotal file, rootUrl, (err, vtLink) ->
-        if err
-          console.log(err)
-          process.exit(0)
-        GLOBAL.vtReports[filename] = vtLink
-        acb null
-    , () ->
-      cb()
+gulp.task 'github-release', (cb) ->
+  async.waterfall [
+  	# Create release draft
+  	(step) ->
+  		fs.readFile './CHANGELOG.md', {encoding: 'utf8'}, (err, changelog) ->
+  			body = changelog.split(/<a name="*.*.*" \/>/g)[1]
+
+  			create_release = {
+  				owner: 'dustinblackman'
+  				repo: 'Championify'
+  				tag_name: pkg.version
+  				draft: true
+  				name: 'Championify '+pkg.version
+  				body: body
+  			}
+  			github.releases.createRelease create_release, (err, release) ->
+  				step err, release.id
+
+  	# Upload Assets
+  	(release_id, step) ->
+  		glob './releases/*', (err, files) ->
+  			async.eachSeries files, (file_path, acb) ->
+  				console.log 'Uploading: ' + file_path
+  				upload_file = {
+  					owner: 'dustinblackman',
+  					repo: 'Championify',
+  					id: release_id,
+  					name: path.basename(file_path)
+  					filePath: file_path
+  				}
+
+  				github.releases.uploadAsset upload_file, (err, done) ->
+  					console.log done
+  					acb null
+
+  			, (err) ->
+  				console log err if err
+  				step err
+
+  ], ->
+    cb()

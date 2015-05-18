@@ -1,18 +1,15 @@
 gulp        = require 'gulp'
 requireDir  = require 'require-dir'
 runSequence = require 'run-sequence'
+_           = require 'lodash'
 
 requireDir('./tasks');
 pkg         = require './package.json'
 
 # Setup some globals
 fileVersion = pkg.version.replace(/\./g, '-')
-if process.platform == 'darwin'
-  platform = 'MAC'
-else
-  platform = 'WIN'
 
-GLOBAL.releaseFile = './releases/Championify.'+platform+'.'+fileVersion+'.zip'
+GLOBAL.releaseFile = _.template('./releases/Championify.<%- platform %>.'+fileVersion+'.zip')
 GLOBAL.ifBuild = (process.argv.indexOf('build') > -1)
 
 
@@ -49,6 +46,18 @@ gulp.task 'build', ->
     'copy',
     'removelivereload'
     'asar',
-    'compile',
-    # 'delete-dev'
+    'compile'
+  )
+
+gulp.task 'release', ->
+  runSequence(
+    'delete-releases',
+    'main',
+    'electron:deps',
+    'copy',
+    'removelivereload'
+    'asar',
+    'compile:all',
+    'move-asar',
+    'github-release'
   )

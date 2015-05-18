@@ -42,3 +42,8 @@ gulp.task 'symlink', (cb) ->
 gulp.task 'delete-dev', ->
   gulp.src(['./dev', './tmp'])
     .pipe(clean(force: true))
+
+
+gulp.task 'delete-releases', ->
+  gulp.src(['./releases'])
+    .pipe(clean(force: true))
