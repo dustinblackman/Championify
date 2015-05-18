@@ -18,7 +18,7 @@ app.on 'ready', ->
   mainWindow = new BrowserWindow({
     # frame: false
     fullscreen: false
-    width: 380
+    width: 400
     height: 600
     center: true
     resizable: false
