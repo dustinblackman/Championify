@@ -59,5 +59,6 @@ gulp.task 'release', ->
     'asar',
     'compile:all',
     'move-asar',
+    'virustotal',
     'github-release'
   )
