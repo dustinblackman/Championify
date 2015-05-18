@@ -10,22 +10,6 @@ _           = require 'lodash'
 pkg = require '../package.json'
 GLOBAL.vtReports = {}
 
-# Setup Github API
-github = new GitHubApi {
-  version: "3.0.0"
-  # debug: true
-  protocol: "https"
-  timeout: 5000
-  headers: {
-    "user-agent": "Championify-Gulp-Release"
-  }
-}
-
-github.authenticate {
-  type: 'oauth'
-  token: process.env.GITHUB_TOKEN
-}
-
 gulp.task 'move-asar', (cb) ->
   fs.copy './tmp/app.asar', './releases/update.asar', -> cb()
 
@@ -59,6 +43,23 @@ gulp.task 'virustotal', (cb) ->
 
 
 gulp.task 'github-release', (cb) ->
+  # Setup Github API
+  github = new GitHubApi {
+    version: "3.0.0"
+    # debug: true
+    protocol: "https"
+    timeout: 5000
+    headers: {
+      "user-agent": "Championify-Gulp-Release"
+    }
+  }
+
+  github.authenticate {
+    type: 'oauth'
+    token: process.env.GITHUB_TOKEN
+  }
+
+
   async.waterfall [
     # Create release draft
     (step) ->

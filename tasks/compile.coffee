@@ -2,6 +2,7 @@ gulp        = require 'gulp'
 asar        = require 'gulp-asar'
 atomshell   = require 'gulp-atom-shell'
 runSequence = require 'run-sequence'
+path        = require 'path'
 
 pkg         = require '../package.json'
 version = pkg.devDependencies['electron-prebuilt'].replace(/\^/g, '')
@@ -17,7 +18,7 @@ gulp.task 'compile:win', ->
   buildCfg = {
     version: version
     platform: 'win32'
-    winIcon: './resources/win/Championify.ico'
+    winIcon: path.normalize('./resources/win/Championify.ico')
     companyName: pkg.author
     copyright: [pkg.license, pkg.author, '2015'].join(' ')
     asar: true
