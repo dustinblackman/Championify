@@ -47,6 +47,10 @@ Well it's easy really. Here's a link for [Teemo's most popular build in top lane
 ### Is it safe?
 Yep it's safe! Were not modifying League of Legends at all, so no rules broken there. And my code is clean and free to browse, so no smelly virus' or surprises. I've added VirusTotal report to all my recent releases just to be sure. If you still don't trust my executables, have a tech buddy look over my code themselves and you can build from [source](#source).
 
+<a name="autoupdate_error" />
+### I just opened Championify to find a black window, or just an error pop up?
+If you have version 0.2.0 or lower, that's my fault, sorry about that. I made a mistake with my Auto Updater that caused the issue. Redownload the latest version and this shouldn't happen again. Found [here](https://github.com/dustinblackman/Championify/releases/latest).
+
 
 ### Why do I not see the item sets in the launcher?
 Due to Riot restrictions, you can only see the item sets in game, you won't see them in the launcher.
@@ -104,11 +108,8 @@ Well that's great! Put up an Issue or send me a message on reddit [/u/dustinhero
 ## Future Plans
 - Automatically elevate when required instead of making the user do it.
 - Get my own Championify Icon.
+- Proper design.
 
-
-##### Nerdy Future Plans
-- Take better advantage of lodash.
-- Gulp task to auto generate Github Releases with VirusTotal reports and Changelog parsing.
 
 ---
 
