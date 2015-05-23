@@ -249,7 +249,7 @@ $('.options [data-toggle="tooltip"]').tooltip()
  * Executes on Page Load.
 ###
 $(document).ready ->
-  runUpdates()
+  # runUpdates()
   findInstallPath()
 
 
