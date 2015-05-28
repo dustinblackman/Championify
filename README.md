@@ -115,8 +115,7 @@ You'll find a compiled executable zipped in the releases folder.
 ---
 
 ## Credit
-- Icon by [fazie69](http://www.iconarchive.com/show/league-of-legends-icons-by-fazie69/Zed-icon.html)
-- [ResourceHacker](http://www.angusj.com/resourcehacker/)
+- Icon by [fazie69](http://www.iconarchive.com/show/league-of-legends-icons-by-fazie69/Zed-icon.html) 
 
 ---
 
