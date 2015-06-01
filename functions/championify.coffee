@@ -15,8 +15,6 @@ manaless = require '../data/manaless.json'
 # Set Defaults
 window.champData = {}
 window.cSettings = {}
-window.riotVer = '5.7'  # This will change
-window.champGGVer = '5.8' # This will change
 window.undefinedBuilds = []
 window.progressIncr = 0
 
@@ -86,9 +84,8 @@ getSettings = (cb) ->
 getRiotVer = (cb) ->
   cl 'Getting LoL Version'
   hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/api/versions.json', (body) ->
-    window.riotVer = body[0]
     updateProgressBar(1.5)
-    cb null
+    cb null, body[0]
 
 
 ###*
@@ -101,18 +98,17 @@ getChampionGGVer = (cb) ->
     $c = cheerio.load(body)
     window.champGGVer = $c(csspaths.version).text()
     updateProgressBar(1.5)
-    cb()
+    cb null
 
 
 ###*
  * Function Downloads all available champs from Riot.
  * @callback {Function} Callback.
 ###
-getChamps = (cb) ->
+getChamps = (cb, r) ->
   cl 'Downloading Champs from Riot'
-  hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/cdn/'+window.riotVer+'/data/en_US/champion.json', (body) ->
-    champs = Object.keys(body.data)
-    cb null, champs
+  hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/cdn/'+r.riotVer+'/data/en_US/champion.json', (body) ->
+    cb null, Object.keys(body.data)
 
 
 # TODO: This doesn't work on Windows if the files were created with admin priveleges but are trying to delete without.
@@ -163,9 +159,9 @@ saveToFile = (cb) ->
  * @param {Array} Array of strings of Champs from Riot.
  * @callback {Function} Callback.
 ###
-requestChamps = (champs, cb) ->
-  async.eachLimit champs, 2, (champ, acb) ->
-    updateProgressBar(90 / champs.length)
+requestChamps = (cb, r) ->
+  async.eachLimit r.champs, 2, (champ, acb) ->
+    updateProgressBar(90 / r.champs.length)
     requestPage {champ: champ}, () ->
       acb null
 
@@ -476,7 +472,6 @@ processChamp = (champ_info, body, cb) ->
 
   # TODO: Lodash map.
   # Now we execute for the other positions for the champs, if there are any.
-
   if !champ_info.position and positions.length > 0
     positions = positions.map (e) ->
       return {champ: champ, position: e}
@@ -507,16 +502,16 @@ notProcessed = (cb) ->
  * @callback {Function} Callback.
 ###
 downloadItemSets = (cb) ->
-  async.waterfall [
-    getSettings
-    getChampionGGVer
-    getRiotVer
-    getChamps
-    requestChamps
-    deleteOldBuilds
-    saveToFile
-    notProcessed
-  ], (err) ->
+  async.auto {
+    settings: getSettings
+    champGGVer: getChampionGGVer
+    riotVer: getRiotVer
+    champs:  ['riotVer', getChamps]
+    requestChamps: ['champs', requestChamps]
+    deleteOldBuilds: ['requestChamps', deleteOldBuilds]
+    saveToFile: ['deleteOldBuilds', saveToFile],
+    notProcessed: ['saveToFile', notProcessed]
+  }, (err, r) ->
     console.log(err) if err
     updateProgressBar(10) # Just max it.
     cl 'Looks like were all done. Login and enjoy!'
