@@ -155,6 +155,11 @@ setInstallPath = (pathErr, installPath, champPath) ->
   window.lolChampPath = installPath + champPath
   $('#installPath').val(installPath)
 
+  enableBtns = ->
+    $('#importBtn').removeClass('disabled')
+    $('#deleteBtn').removeClass('disabled')
+
+
   isWindowsAdmin (err) ->
     if err
       $('#inputMsg').addClass('yellow')
@@ -163,12 +168,12 @@ setInstallPath = (pathErr, installPath, champPath) ->
     else if pathErr
       $('#inputMsg').addClass('yellow')
       $('#inputMsg').text('You sure that\'s League?')
-      $('#submitBtn').removeClass('disabled')
+      enableBtns()
 
     else
       $('#inputMsg').addClass('green')
       $('#inputMsg').text('Found League of Legends!')
-      $('#submitBtn').removeClass('disabled')
+      enableBtns()
 
 ###*
  * Function to call Electrons OpenDialog. Sets title based on Platform.
@@ -226,14 +231,23 @@ $('.github > a').click (e) ->
 ###*
  * Called when "Import" button is pressed.
 ###
-$('#submitBtn').click (e) ->
+$('#importBtn').click (e) ->
   if !window.lolInstallPath
     $('#inputMsg').addClass('yellow')
     $('#inputMsg').text('You need to select your folder first!')
   else
-    $('.submitBtn').addClass('hidden')
+    $('.submitBtns').addClass('hidden')
     $('.status').removeClass('hidden')
     window.Championify.run()
+
+
+$('#deleteBtn').click (e) ->
+  if !window.lolInstallPath
+    $('#inputMsg').addClass('yellow')
+    $('#inputMsg').text('You need to select your folder first!')
+  else
+    window.Championify.delete ->
+      $('#cl-progress > span').append('. Done!')
 
 
 ###*

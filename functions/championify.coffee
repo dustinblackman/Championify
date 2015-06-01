@@ -524,4 +524,5 @@ downloadItemSets = (cb) ->
 window.Championify = {
   run: downloadItemSets
   checkVer: checkVer
+  delete: deleteOldBuilds
 }
