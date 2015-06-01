@@ -3,7 +3,7 @@ requireDir  = require 'require-dir'
 runSequence = require 'run-sequence'
 _           = require 'lodash'
 
-requireDir('./tasks');
+requireDir('./tasks')
 pkg         = require './package.json'
 
 # Setup some globals

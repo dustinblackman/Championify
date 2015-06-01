@@ -192,7 +192,7 @@ requestPage = (champ_info, cb) ->
       _cb null, body
 
   , (err, body) ->
-    if err
+    if err or _.contains(body, "We're currently in the process of generating stats for")
       window.undefinedBuilds.push(champ)
       return cb()
     processChamp(champ_info, body, cb)

@@ -1,6 +1,12 @@
 # Changelog
 
 <a name="0.2.1" />
+### 0.2.2 (May 27th, 2015)
+
+### Bug Fixes
+- Handle champs that have yet to be released.
+
+<a name="0.2.1" />
 ### 0.2.1 (May 18th, 2015)
 
 ### Bug Fixes
