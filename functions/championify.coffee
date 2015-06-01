@@ -30,7 +30,7 @@ window.progressIncr = 0
 cl = (text) ->
   m = moment().format('HH:mm:ss')
   m = ('['+m+'] | ') + text
-  console.log(m)
+  console.log(m) if window.devEnabled
   $('#cl-progress').prepend('<span>'+text+'</span><br />')
 
 

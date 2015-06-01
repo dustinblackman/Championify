@@ -257,6 +257,7 @@ setupPlatform()
 $('#browseTitle').text(window.browseTitle)
 setVersion()
 $('.options [data-toggle="tooltip"]').tooltip()
+window.devEnabled = true if fs.existsSync('./dev_enabled')
 
 
 ###*
