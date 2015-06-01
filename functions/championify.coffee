@@ -41,6 +41,10 @@ cl = (text) ->
 updateProgressBar = (incr) ->
   window.progressIncr += incr
   $('.progress-bar').attr('style', 'width: '+Math.floor(window.progressIncr)+'%')
+  if window.progressIncr >= 100
+    window.Championify.remote.getCurrentWindow().setProgressBar(-1)
+  else
+    window.Championify.remote.getCurrentWindow().setProgressBar(window.progressIncr / 100)
 
 
 

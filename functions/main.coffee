@@ -222,7 +222,7 @@ $('#closeBtn').click (e) ->
   app.quit()
 
 $('#browse').click (e) ->
-  window.Championify.browser.openFolder()
+  openFolder()
 
 $('.github > a').click (e) ->
   e.preventDefault()
@@ -264,14 +264,11 @@ window.devEnabled = true if fs.existsSync('./dev_enabled')
  * Executes on Page Load.
 ###
 $(document).ready ->
-  # runUpdates()
+  runUpdates()
   findInstallPath()
 
 
 ###*
  * Export
 ###
-window.Championify.browser = {
-  openFolder: openFolder
-  remote: remote
-}
+window.Championify.remote = remote
