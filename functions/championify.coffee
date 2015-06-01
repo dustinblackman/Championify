@@ -16,7 +16,6 @@ manaless = require '../data/manaless.json'
 window.champData = {}
 window.cSettings = {}
 window.undefinedBuilds = []
-window.progressIncr = 0
 
 
 #################
@@ -39,12 +38,13 @@ cl = (text) ->
  * @param {Number} Increment progress bar.
 ###
 updateProgressBar = (incr) ->
-  window.progressIncr += incr
-  $('.progress-bar').attr('style', 'width: '+Math.floor(window.progressIncr)+'%')
-  if window.progressIncr >= 100
+  this.incr = 0 if !this.incr
+  this.incr += incr
+  $('.progress-bar').attr('style', 'width: '+Math.floor(this.incr)+'%')
+  if this.incr >= 100
     window.Championify.remote.getCurrentWindow().setProgressBar(-1)
   else
-    window.Championify.remote.getCurrentWindow().setProgressBar(window.progressIncr / 100)
+    window.Championify.remote.getCurrentWindow().setProgressBar(this.incr / 100)
 
 
 
@@ -120,7 +120,7 @@ getChamps = (cb, r) ->
  * Function Deletes all previous Championify builds from client.
  * @callback {Function} Callback.
 ###
-deleteOldBuilds = (cb) ->
+deleteOldBuilds = (cb, deletebtn) ->
   cl 'Deleting Old Builds'
   glob window.lolChampPath+'**/CGG_*.json', (err, files) ->
     async.each files, (item, ecb) ->
@@ -128,7 +128,7 @@ deleteOldBuilds = (cb) ->
         console.log err if err
         ecb null
     , () ->
-      updateProgressBar(2.5)
+      updateProgressBar(2.5) if !deletebtn
       cb null
 
 

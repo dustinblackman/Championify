@@ -248,6 +248,7 @@ $('#deleteBtn').click (e) ->
   else
     window.Championify.delete ->
       $('#cl-progress > span').append('. Done!')
+    , true
 
 
 ###*
