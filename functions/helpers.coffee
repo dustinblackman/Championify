@@ -1,4 +1,5 @@
 _ = require 'lodash'
+moment = require 'moment'
 
 module.exports = {
 
@@ -11,8 +12,9 @@ module.exports = {
     $.ajax({url: url, timeout: 10000})
       .fail (err) ->
         console.log err
+        cb err
       .done (body) ->
-        cb body
+        cb null, body
 
 
   ###*
@@ -70,5 +72,30 @@ module.exports = {
           processed[field] = JSON.parse(line)
 
     return processed
+
+
+  ###*
+   * Function Pretty console log, as well as updates the progress div on interface
+   * @param {String} Console Message.
+  ###
+  cl: (text) ->
+    m = moment().format('HH:mm:ss')
+    m = ('['+m+'] | ') + text
+    console.log(m) if window.devEnabled
+    $('#cl-progress').prepend('<span>'+text+'</span><br />')
+
+
+  ###*
+   * Function Updates the progress bar on the interface.
+   * @param {Number} Increment progress bar.
+  ###
+  updateProgressBar: (incr) ->
+    this.incr = 0 if !this.incr
+    this.incr += incr
+    $('.progress-bar').attr('style', 'width: '+Math.floor(this.incr)+'%')
+    if this.incr >= 100
+      window.Championify.remote.getCurrentWindow().setProgressBar(-1)
+    else
+      window.Championify.remote.getCurrentWindow().setProgressBar(this.incr / 100)
 
 }
