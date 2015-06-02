@@ -455,7 +455,7 @@ processChamp = (champ_info, body, cb) ->
 
     # Lock item sets to Summoners Rift
     riot_json = _.merge(_.clone(defaultSchema, true), newObj)
-    if window.cSettings
+    if window.cSettings.locksr
       riot_json.map = "11"
 
     window.champData[champ][positionForFile] = riot_json
