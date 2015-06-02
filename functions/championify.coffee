@@ -77,6 +77,7 @@ getSettings = (cb) ->
     skillsformat: $('#options_skillsformat').is(':checked')
     trinkets: $('#options_trinkets').is(':checked')
     consumables: $('#options_consumables').is(':checked')
+    locksr: $('#options_locksr').is(':checked')
   }
   cb null
 
@@ -452,7 +453,12 @@ processChamp = (champ_info, body, cb) ->
       blocks: build
     }
 
-    window.champData[champ][positionForFile] = _.merge({}, defaultSchema, newObj)
+    # Lock item sets to Summoners Rift
+    riot_json = _.merge(_.clone(defaultSchema, true), newObj)
+    if window.cSettings
+      riot_json.map = "11"
+
+    window.champData[champ][positionForFile] = riot_json
 
   # Save data to Global object for saving to disk later.
   # We do this incase people cancel the function half way though.
