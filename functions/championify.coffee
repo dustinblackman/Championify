@@ -6,7 +6,8 @@ hlp = require './helpers.coffee'
 pkg = require '../package.json'
 csspaths = require '../data/csspaths.json'
 
-summonersRift = require './summoners_rift.coffee'
+rift = require './summoners_rift.coffee'
+aram = require './aram.coffee'
 cl = hlp.cl
 
 # Set Defaults
@@ -97,30 +98,6 @@ deleteOldBuilds = (step, deletebtn) ->
       step null
 
 
-# TODO: This is a messy function. Clean it up with Lodash, possibly.
-###*
- * Function Saves all compiled item sets to file, creating paths included.
- * @callback {Function} Callback.
-###
-saveToFile = (step) ->
-  cl 'Saving Builds to File'
-  async.each Object.keys(window.champData), (champ, next) ->
-    async.each Object.keys(window.champData[champ]), (position, nextPosition) ->
-      toFileData = JSON.stringify(window.champData[champ][position], null, 4)
-
-      mkdirp window.lolChampPath+champ+'/Recommended/', (err) ->
-        fileName = window.lolChampPath+champ+'/Recommended/CGG_'+champ+'_'+position+'.json'
-        fs.writeFile fileName, toFileData, (err) ->
-          console.log err if err
-          nextPosition null
-
-    , () ->
-      next null
-
-  , () ->
-    hlp.updateProgressBar(2.5)
-    step null
-
 
 ###*
  * Function To output any champ/positions that were done due to timeouts or undefined builds.
@@ -146,12 +123,19 @@ downloadItemSets = (done) ->
     champs:  ['riotVer', getChamps]
 
     # Summoners Rift
-    srItemSets: ['champs', 'champGGVer', summonersRift]
+    riftItemSets: ['champs', 'champGGVer', rift.requestChamps]
+    riftSave: ['deleteOldBuilds', 'riftItemSets', rift.save]
 
-    # End/Save
-    deleteOldBuilds: ['srItemSets', deleteOldBuilds]
-    saveToFile: ['deleteOldBuilds', saveToFile],
-    notProcessed: ['saveToFile', notProcessed]
+    # ARAM
+    aramChamps: aram.requestChamps
+    aramItemSets: ['riotVer','aramChamps', aram.requestData]
+    aramSave: ['deleteOldBuilds','aramItemSets', aram.save]
+
+    # Utils
+    deleteOldBuilds: ['riftItemSets', 'aramItemSets', deleteOldBuilds]
+
+    # End
+    notProcessed: ['riftSave', 'aramSave', notProcessed]
   }, (err, r) ->
     console.log(err) if err
     hlp.updateProgressBar(10) # Just max it.

@@ -349,6 +349,10 @@ processChamp = (champ_info, body, step) ->
     step()
 
 
+###*
+ * Function Save Rift item sets to file
+ * @callback {Function} Callback.
+###
 saveToFile = (step) ->
   cl 'Saving Rift Item Sets'
   hlp.saveToFile window.champData, () ->
