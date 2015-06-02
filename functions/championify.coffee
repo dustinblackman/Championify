@@ -53,9 +53,9 @@ getSettings = (step) ->
 ###
 getRiotVer = (step) ->
   cl 'Getting LoL Version'
-  hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/api/versions.json', (err, body) ->
+  hlp.ajaxRequest 'https://ddragon.leagueoflegends.com/realms/na.json', (err, body) ->
     hlp.updateProgressBar(1.5)
-    step null, body[0]
+    step null, body.v
 
 
 ###*
