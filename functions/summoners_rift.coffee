@@ -10,6 +10,8 @@ csspaths = require '../data/csspaths.json'
 prebuilts = require '../data/prebuilts.json'
 manaless = require '../data/manaless.json'
 
+cl = hlp.cl
+
 # Set Defaults
 window.champData = {}
 window.undefinedBuilds = []
@@ -42,14 +44,9 @@ requestPage = (champ_info, step) ->
   if champ_info.position
     url = url + '/' + champ_info.position
   else
-    hlp.cl 'Processing: '+champ_info.champ
+    cl 'Processing Rift: '+champ_info.champ
 
-  async.retry 3, (_cb) ->
-    hlp.ajaxRequest url, (err, body) ->
-      return _cb err if err
-      _cb null, body
-
-  , (err, body) ->
+  hlp.ajaxRequest url, (err, body) ->
     if err or _.contains(body, "We're currently in the process of generating stats for")
       window.undefinedBuilds.push(champ)
       return cb()
@@ -352,7 +349,16 @@ processChamp = (champ_info, body, step) ->
     step()
 
 
+saveToFile = (step) ->
+  cl 'Saving Rift Item Sets'
+  hlp.saveToFile window.champData, () ->
+    hlp.updateProgressBar(2.5)
+    step null
+
 ###*
  * Export
 ###
-module.exports = requestChamps
+module.exports = {
+  requestChamps: requestChamps
+  save: saveToFile
+}

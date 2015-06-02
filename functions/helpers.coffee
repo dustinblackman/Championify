@@ -1,5 +1,6 @@
 _ = require 'lodash'
 moment = require 'moment'
+async = require 'async'
 
 module.exports = {
 
@@ -97,5 +98,28 @@ module.exports = {
       window.Championify.remote.getCurrentWindow().setProgressBar(-1)
     else
       window.Championify.remote.getCurrentWindow().setProgressBar(this.incr / 100)
+
+
+  # TODO: This is a messy function. Clean it up with Lodash, possibly.
+  ###*
+   * Function Saves all compiled item sets to file, creating paths included.
+   * @callback {Function} Callback.
+  ###
+  saveToFile: (champData, step) ->
+    async.each _.keys(champData), (champ, next) ->
+      async.each _.keys(champData[champ]), (position, nextPosition) ->
+        toFileData = JSON.stringify(champData[champ][position], null, 4)
+
+        mkdirp window.lolChampPath+champ+'/Recommended/', (err) ->
+          fileName = window.lolChampPath+champ+'/Recommended/CGG_'+champ+'_'+position+'.json'
+          fs.writeFile fileName, toFileData, (err) ->
+            console.log err if err # TODO: Print this to user.
+            nextPosition null
+
+      , () ->
+        next null
+
+    , () ->
+      step null
 
 }
