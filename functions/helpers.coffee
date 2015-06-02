@@ -9,13 +9,19 @@ module.exports = {
    * @param {String} URL
    * @callback {Function} Callback
   ###
-  ajaxRequest: (url, cb) ->
-    $.ajax({url: url, timeout: 10000})
-      .fail (err) ->
-        console.log err
-        cb err
-      .done (body) ->
-        cb null, body
+  ajaxRequest: (url, done) ->
+    async.retry 3, (step) ->
+      $.ajax({url: url, timeout: 10000})
+        .fail (err) ->
+          console.log err
+          step err
+        .done (body) ->
+          step null, body
+
+    , (err, results) ->
+      console.log err if err
+      return done(err) if err
+      done null, results
 
 
   ###*
