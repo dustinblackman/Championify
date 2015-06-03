@@ -109,6 +109,7 @@ You'll find a compiled executable zipped in the releases folder.
 ## Credit
 - Icon by [fazie69](http://www.iconarchive.com/show/league-of-legends-icons-by-fazie69/Zed-icon.html)
 - [Joeldo](https://www.reddit.com/user/joeldo) of [Champion.gg](http://champion.gg)
+- [Lolflavor](http://www.lolflavor.com/)
 
 ---
 
