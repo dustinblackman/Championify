@@ -20,7 +20,7 @@ gulp.task 'run-watch', (cb) ->
   fs.writeFileSync('./dev/dev_enabled', 'dev enabled', 'utf8')
   gulp.watch './stylesheets/*.styl', ['stylus']
   gulp.watch './functions/main.coffee', ['coffee']
-  gulp.watch ['./functions/championify.coffee', './functions/helpers.coffee'], ['browserify']
+  gulp.watch ['./functions/*.coffee', '!./functions/main.coffee'], ['browserify']
 
   cmd = path.normalize('../node_modules/.bin/electron') + ' .'
 
