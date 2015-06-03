@@ -88,7 +88,7 @@ processChamp = (champ_info, body, step) ->
     !gg.championData.firstItems.highestWinPercent.winPercent
   ]
 
-  if undefArray.indexOf(true) > -1
+  if _.contains(undefArray, true)
     window.undefinedBuilds.push(champ + ' ' + _.capitalize(currentPosition))
     return step()
 
@@ -201,7 +201,7 @@ processChamp = (champ_info, body, step) ->
     if window.cSettings.consumables
       # If champ has no mana, remove mana pot from consumables
       consumables = prebuilts.consumables.concat([])  # Lazy fix for pointer issue.
-      if manaless.indexOf(champ) > -1
+      if _.contains(manaless, champ)
         consumables.splice(1, 1)
 
       builds.push {
@@ -225,7 +225,7 @@ processChamp = (champ_info, body, step) ->
     builds = []
 
     # If freqStart and highestStart are the same, only push once.
-    if JSON.stringify(freqStart.build) == JSON.stringify(highestStart.build)
+    if _.eq(freqStart.build, highestStart.build)
       builds.push {
         items: freqStart.build
         type: templates.combindedStart({wins: freqStart.wins, games: freqStart.games})
@@ -242,7 +242,7 @@ processChamp = (champ_info, body, step) ->
       }
 
     # If freqCore and highestCore are the same, only push once.
-    if JSON.stringify(freqCore.build) == JSON.stringify(highestCore.build)
+    if _.eq(freqCore.build, highestCore.build)
       builds.push {
         items: freqCore.build
         type: templates.combinedCore({wins: freqCore.wins, games: freqCore.games})
