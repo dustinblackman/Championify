@@ -13,7 +13,7 @@ source      = require 'vinyl-source-stream'
 
 # Coffee, Stylus, Browserify
 gulp.task 'coffee', ->
-  gulp.src(['./functions/main.coffee', './functions/deps.coffee'], {base: './'})
+  gulp.src(['./lib/main.coffee', './lib/deps.coffee'], {base: './'})
     .pipe(coffee(bare: true).on('error', gutil.log))
     .pipe(gulpif(GLOBAL.ifBuild, uglify({mangle: false})))
     .pipe(flatten())
@@ -33,7 +33,7 @@ gulp.task 'stylus', ->
 gulp.task 'browserify', (cb) ->
   browserify({
     transform: [coffeeify]
-    entries: ['./functions/championify.coffee']
+    entries: ['./lib/championify.coffee']
   })
   .bundle()
   .pipe(source('championify.js'))
