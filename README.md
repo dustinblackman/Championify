@@ -104,6 +104,11 @@ npm run build
 
 You'll find a compiled executable zipped in the releases folder.
 
+Wine is required if building on Mac for Windows.
+```console
+brew install wine
+```
+
 ---
 
 ## Credit
