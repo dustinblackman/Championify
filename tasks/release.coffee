@@ -1,11 +1,13 @@
-gulp   			= require 'gulp'
-GitHubApi  	= require 'github'
-fs 					= require 'fs-extra'
-async 			= require 'async'
-glob 				= require 'glob'
-path 				= require 'path'
-request     = require 'request'
-_           = require 'lodash'
+gulp = require 'gulp'
+GitHubApi = require 'github'
+fs = require 'fs-extra'
+async = require 'async'
+glob = require 'glob'
+path = require 'path'
+request = require 'request'
+_ = require 'lodash'
+AdmZip = require 'adm-zip'
+nsis = require 'gulp-nsis'
 
 pkg = require '../package.json'
 GLOBAL.vtReports = {}
@@ -113,3 +115,27 @@ gulp.task 'github-release', (cb) ->
 
   ], ->
     cb()
+
+
+gulp.task 'windows-installer', ->
+  zip = new AdmZip GLOBAL.releaseFile({'platform': 'WIN'})
+  zip.extractAllTo './tmp/championify_windows', true
+
+  nsi = _.template(fs.readFileSync('./resources/win/Championify.nsi'), {}, {interpolate: /{{([\s\S]+?)}}/g})
+
+  dataPath = path.resolve('./tmp/championify_windows').replace(/\//g,'\\')
+  releasePath = __dirname.replace(/\//g,'\\') +'\\releases'
+  if process.platform != 'win32'
+    releasePath = 'Z:'+root
+    dataPath = 'Z:'+dataPath
+
+  nsi_compiled = nsi({
+    version: pkg.version
+    description: pkg.description
+    outputFolder: releasePath
+    exe: pkg.name
+    dataPath: dataPath
+  })
+
+  fs.writeFileSync './tmp/installerscript.nsi', nsi_compiled, {encoding: 'utf8'}
+  return gulp.src('./tmp/installerscript.nsi').pipe(nsis())
