@@ -1,10 +1,10 @@
-gulp        = require 'gulp'
-asar        = require 'gulp-asar'
-atomshell   = require 'gulp-atom-shell'
+gulp = require 'gulp'
+asar = require 'gulp-asar'
+atomshell = require 'gulp-atom-shell'
 runSequence = require 'run-sequence'
-path        = require 'path'
+path = require 'path'
 
-pkg         = require '../package.json'
+pkg = require '../package.json'
 version = pkg.devDependencies['electron-prebuilt'].replace(/\^/g, '')
 
 # Build

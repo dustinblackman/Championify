@@ -1,7 +1,7 @@
-gulp        = require 'gulp'
-bower       = require 'gulp-bower'
-preen       = require 'preen'
-flatten     = require 'gulp-flatten'
+gulp = require 'gulp'
+bower = require 'gulp-bower'
+preen = require 'preen'
+flatten = require 'gulp-flatten'
 
 # BOWER
 gulp.task 'bower', ->

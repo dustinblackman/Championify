@@ -1,8 +1,8 @@
-gulp        = require 'gulp'
+gulp = require 'gulp'
 deleteLines = require 'gulp-delete-lines'
-fs          = require 'fs-extra'
-path        = require 'path'
-exec        = require('child_process').exec
+fs = require 'fs-extra'
+path = require 'path'
+exec = require('child_process').exec
 
 
 gulp.task 'removelivereload', ->

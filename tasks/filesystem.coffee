@@ -1,10 +1,10 @@
-gulp        = require 'gulp'
-async       = require 'async'
-path        = require 'path'
-mkdirp      = require 'mkdirp'
-fs          = require 'fs-extra'
-clean       = require 'gulp-clean'
-glob        = require 'glob'
+gulp = require 'gulp'
+async = require 'async'
+path = require 'path'
+mkdirp = require 'mkdirp'
+fs = require 'fs-extra'
+clean = require 'gulp-clean'
+glob = require 'glob'
 
 # Dirs, Copy, Delete, Mk
 gulp.task 'mkdir', (cb) ->
