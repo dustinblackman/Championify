@@ -3,6 +3,10 @@ asar = require 'gulp-asar'
 atomshell = require 'gulp-atom-shell'
 runSequence = require 'run-sequence'
 path = require 'path'
+AdmZip = require 'adm-zip'
+inno = require 'gulp-inno'
+_ = require 'lodash'
+fs = require 'fs-extra'
 
 pkg = require '../package.json'
 version = pkg.devDependencies['electron-prebuilt'].replace(/\^/g, '')
@@ -26,7 +30,7 @@ gulp.task 'compile:win', ->
 
   gulp.src(['./dev/package.json', './tmp/app.asar'])
     .pipe atomshell(buildCfg)
-    .pipe atomshell.zfsdest(GLOBAL.releaseFile({'platform': 'WIN'}))
+    .pipe atomshell.zfsdest(GLOBAL.releaseFile({'platform': 'Windows'}))
 
 
 gulp.task 'compile:mac', ->
@@ -39,7 +43,33 @@ gulp.task 'compile:mac', ->
 
   gulp.src(['./dev/package.json', './tmp/app.asar'])
     .pipe atomshell(buildCfg)
-    .pipe atomshell.zfsdest(GLOBAL.releaseFile({'platform': 'MAC'}))
+    .pipe atomshell.zfsdest(GLOBAL.releaseFile({'platform': 'OSX'}))
+
+
+gulp.task 'compile:win-installer', ->
+  zip = new AdmZip GLOBAL.releaseFile({'platform': 'Windows'})
+  zip.extractAllTo './tmp/championify_windows', true
+
+  inno_script = _.template(fs.readFileSync('./resources/win/inno_script.iss'))
+
+  dataPath = path.resolve('./tmp/championify_windows').replace(/\//g,'\\')
+  releasePath = process.cwd().replace(/\//g,'\\') + '\\releases'
+  if process.platform != 'win32'
+    releasePath = 'Z:'+releasePath
+    dataPath = 'Z:'+dataPath
+
+  inno_compiled = inno_script({
+    version: pkg.version
+    description: pkg.description
+    url: pkg.repository.url
+    outputPath: releasePath
+    exe: pkg.name
+    dataPath: dataPath
+  })
+
+  fs.writeFileSync './tmp/installerscript.iss', inno_compiled, {encoding: 'utf8'}
+  return gulp.src('./tmp/installerscript.iss').pipe(inno())
+
 
 
 gulp.task 'compile', (cb) ->
@@ -50,4 +80,4 @@ gulp.task 'compile', (cb) ->
 
 
 gulp.task 'compile:all', (cb) ->
-  runSequence('compile:mac', 'compile:win', cb)
+  runSequence('compile:mac', 'compile:win', 'compile:win-installer', cb)

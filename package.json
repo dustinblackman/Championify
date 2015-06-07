@@ -53,6 +53,7 @@
     "gulp-delete-lines": "0.0.7",
     "gulp-flatten": "0.0.4",
     "gulp-if": "^1.2.5",
+    "gulp-inno": "git://github.com/dustinblackman/gulp-inno.git#master",
     "gulp-stylus": "^2.0.3",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.5",
