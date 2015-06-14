@@ -17,11 +17,22 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 ---
 
 ## [Change Log](CHANGELOG.md)
-<a name="0.2.1" />
-### 0.2.2 (May 27th, 2015)
+<a name="0.3.0" />
+### 0.3.0 (June 15th, 2015)
+
+### Features
+- ARAM Item Sets
+- Delete "Championify Item Sets" Button
+- Lock ChampionGG Item Sets to Summoners Rift (so they don't pop up in ARAM games)
+- Scrollable progress log
+- Windows Setup Installer (So you can now install Championify instead of extracing ZIPs)
 
 ### Bug Fixes
-- Handle champs that have yet to be released.
+- Fix styling issue where footer and progress log overlapped on Windows
+- Better execution flow to improve speed
+- Progress bar now shows up in Windows Tray/OSX Dock
+- Better retry setup for when connections fail
+- Code cleanup
 
 ---
 
@@ -39,16 +50,20 @@ Yep it's safe! Were not modifying League of Legends at all, so no rules broken t
 If you have version 0.2.0 or lower, that's my fault, sorry about that. I made a mistake with my Auto Updater that caused the issue. Redownload the latest version and this shouldn't happen again. Found [here](https://github.com/dustinblackman/Championify/releases/latest).
 
 
-### Why do I not see the item sets in the launcher?
-Due to Riot restrictions, you can only see the item sets in game, you won't see them in the launcher.
-
-
 ### How do I make this work on Windows?
 Run Championify.exe, the app will try and look for your League of Legends folder for you. If the app can't find it, browse to your League of Legends folder where lol.launcher.exe is saved (LoLLauncher.exe for Garena installations).
 
 
 ### How do I make this work on Mac?
 Run Championify, the app will try and look for your League of Legends.app for you. If the app can't find it, browse and select your League of Legends.app.
+
+
+### Why do I not see the item sets in the launcher?
+Due to Riot restrictions, you can only see the item sets in game, you won't see them in the launcher.
+
+
+### Why does this not work on XP, Vista, or OSX Lion?
+Sorry, Electron doesn't support anything below 7 or Mountain Lion. There's no plans to support it.
 
 
 ### "App can’t be opened because it is from an unidentified developer"
@@ -120,4 +135,4 @@ brew install wine
 
 ## [License](LICENSE)
 
-Championify isn't endorsed by Champgion.gg or Riot Games and doesn't reflect the views or opinions of Riot Games, Champgion.gg, or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
+Championify isn't endorsed by Champgion.gg, Lolflavor or Riot Games and doesn't reflect the views or opinions of them or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.

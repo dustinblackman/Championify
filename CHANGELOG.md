@@ -1,6 +1,23 @@
 # Changelog
 
-<a name="0.2.1" />
+<a name="0.3.0" />
+### 0.3.0 (June 15th, 2015)
+
+### Features
+- ARAM Item Sets
+- Delete "Championify Item Sets" Button
+- Lock ChampionGG Item Sets to Summoners Rift (so they don't pop up in ARAM games)
+- Scrollable progress log
+- Windows Setup Installer (So you can now install Championify instead of extracing ZIPs)
+
+### Bug Fixes
+- Fix styling issue where footer and progress log overlapped on Windows
+- Better execution flow to improve speed
+- Progress bar now shows up in Windows Tray/OSX Dock
+- Better retry setup for when connections fail
+- Code cleanup
+
+<a name="0.2.2" />
 ### 0.2.2 (May 27th, 2015)
 
 ### Bug Fixes
