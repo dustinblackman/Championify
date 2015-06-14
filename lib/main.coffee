@@ -96,16 +96,23 @@ isWindowsAdmin = (cb) ->
 findInstallPath = ->
   userHome = process.env.HOME || process.env.USERPROFILE
 
+  notFound = ->
+    $('#inputMsg').text(window.browseTitle)
+
   if process.platform == 'darwin'
     if fs.existsSync('/Applications/League of Legends.app')
       setInstallPath null, '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
 
     else if fs.existsSync(userHome + '/Applications/League of Legends.app')
       setInstallPath null, userHome + '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
+    else
+      notFound()
 
   else
     if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
       setInstallPath null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/'
+    else
+      notFound()
 
 
 ###*
