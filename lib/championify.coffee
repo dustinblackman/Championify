@@ -12,6 +12,7 @@ cl = hlp.cl
 
 # Set Defaults
 window.cSettings = {}
+window.undefinedBuilds = []
 
 
 #################

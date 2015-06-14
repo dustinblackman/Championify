@@ -14,7 +14,6 @@ cl = hlp.cl
 
 # Set Defaults
 window.champData = {}
-window.undefinedBuilds = []
 
 
 ###*

@@ -13,7 +13,11 @@ cl = hlp.cl
 requestChamps = (step) ->
   cl 'Downloading ARAM Champs'
   hlp.ajaxRequest 'http://www.lolflavor.com/data/statsARAM.json', (err, body) ->
-    console.log err if err
+    if err
+      console.log err
+      window.undefinedBuilds.push('ARAM: All')
+      return step null, []
+
     champs = _.map body.champions, (item) ->
       return item.name
     champs.sort()
@@ -33,6 +37,11 @@ requestData = (step, r) ->
 
     url = _.template('http://www.lolflavor.com/champions/<%- c %>/Recommended/<%- c %>_aram_scrape.json')
     hlp.ajaxRequest url({c: champ}), (err, data) ->
+      if err
+        console.log err
+        window.undefinedBuilds.push('ARAM: '+champ)
+        return next null
+
       data.map = '12'
       data.title = 'ARAM ' + r.riotVer
       champs[champ] = {}
