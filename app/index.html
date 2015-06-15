@@ -84,13 +84,17 @@
             <input type="checkbox" value="None" id="options_consumables" data-toggle="tooltip" data-placement="top" title="" data-original-title="By disabling Consumables you'll lose Highest Win Skill priorities" checked />
             <span>Enable Consumables</span><br />
 
+            <input type="checkbox" value="None" id="options_locksr" data-toggle="tooltip" data-placement="top" title="" data-original-title="Champion.GG item sets will only be available on Summoners Rift" />
+            <span>Lock ChampionGG Item Sets to Summoners Rift</span><br />
+
           </div>
         </div>
 
 
         <div class="row">
-          <div class="submitBtn">
-            <button id="submitBtn" class="btn btn-success disabled">Import</button>
+          <div class="submitBtns">
+            <button id="importBtn" class="btn btn-success disabled">Import</button>
+            <button id="deleteBtn" class="btn btn-danger disabled" >Delete</button>
           </div>
 
           <div class="status hidden">
@@ -98,11 +102,14 @@
             <div class="progress">
               <div class="progress-bar progress-bar-success" style="width: 0%"></div>
             </div>
+          </div>
+          <div class="progresslog">
             <div id="cl-progress">
 
             </div>
           </div>
-        </div>
+
+      </div>
       </div>
 
       <footer>

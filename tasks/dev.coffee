@@ -1,8 +1,8 @@
-gulp        = require 'gulp'
+gulp = require 'gulp'
 deleteLines = require 'gulp-delete-lines'
-fs          = require 'fs-extra'
-path        = require 'path'
-exec        = require('child_process').exec
+fs = require 'fs-extra'
+path = require 'path'
+exec = require('child_process').exec
 
 
 gulp.task 'removelivereload', ->
@@ -19,8 +19,8 @@ gulp.task 'removelivereload', ->
 gulp.task 'run-watch', (cb) ->
   fs.writeFileSync('./dev/dev_enabled', 'dev enabled', 'utf8')
   gulp.watch './stylesheets/*.styl', ['stylus']
-  gulp.watch './functions/main.coffee', ['coffee']
-  gulp.watch ['./functions/championify.coffee', './functions/helpers.coffee'], ['browserify']
+  gulp.watch './lib/main.coffee', ['coffee']
+  gulp.watch ['./lib/*.coffee', '!./lib/main.coffee'], ['browserify']
 
   cmd = path.normalize('../node_modules/.bin/electron') + ' .'
 

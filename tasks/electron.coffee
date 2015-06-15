@@ -1,12 +1,12 @@
-gulp        = require 'gulp'
-exec        = require('child_process').exec
-coffee      = require 'gulp-coffee'
-gulpif      = require 'gulp-if'
-uglify      = require 'gulp-uglify'
-fs          = require 'fs-extra'
-gutil       = require 'gulp-util'
+gulp = require 'gulp'
+exec = require('child_process').exec
+coffee = require 'gulp-coffee'
+gulpif = require 'gulp-if'
+uglify = require 'gulp-uglify'
+fs = require 'fs-extra'
+gutil = require 'gulp-util'
 
-pkg         = require '../package.json'
+pkg = require '../package.json'
 
 
 # Electron Settings

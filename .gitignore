@@ -1,10 +1,11 @@
 node_modules/
 champs/
 releases/
-*.log
 dev/
 bower_components/
+tmp/
 
 *.asar
+*.log
 
 test.coffee

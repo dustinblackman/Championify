@@ -1,11 +1,11 @@
-gulp   			= require 'gulp'
-GitHubApi  	= require 'github'
-fs 					= require 'fs-extra'
-async 			= require 'async'
-glob 				= require 'glob'
-path 				= require 'path'
-request     = require 'request'
-_           = require 'lodash'
+gulp = require 'gulp'
+GitHubApi = require 'github'
+fs = require 'fs-extra'
+async = require 'async'
+glob = require 'glob'
+path = require 'path'
+request = require 'request'
+_ = require 'lodash'
 
 pkg = require '../package.json'
 GLOBAL.vtReports = {}
@@ -69,10 +69,13 @@ gulp.task 'github-release', (cb) ->
 
         link = _.template('[<%- name %> | VirusTotal Report](<%- link %>)\n')
         _.each _.keys(GLOBAL.vtReports), (item) ->
-          if _.includes(item, 'WIN')
-            body += link({name: 'Windows', link: GLOBAL.vtReports[item]})
+          if _.includes(item, 'Windows_Setup')
+            body += link({name: 'Windows Setup', link: GLOBAL.vtReports[item]})
 
-          if _.includes(item, 'MAC')
+          if _.includes(item, '.Windows.')
+            body += link({name: 'Windows ZIP', link: GLOBAL.vtReports[item]})
+
+          if _.includes(item, 'OSX')
             body += link({name: 'Mac/OSX', link: GLOBAL.vtReports[item]})
 
           if _.includes(item, 'asar')

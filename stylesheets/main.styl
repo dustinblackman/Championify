@@ -2,11 +2,13 @@ vendor-prefixes ?= webkit official
 @import 'nib'
 
 elemWidth = 95%
+background_color = #222222
 
 // Defaults
 body
   overflow hidden
   user-select none
+  // background: rgba(34, 34, 34, 0.9) !important
 
 
 // Helpers
@@ -94,7 +96,7 @@ makeSysBtn(alignto)
 #mainContainer
   top 32px
   position relative
-  // -webkit-app-region: drag
+  // -webkit-app-region drag
 
 
 // Banner
@@ -144,7 +146,7 @@ makeSysBtn(alignto)
 
 
 // Submit/Progress
-.submitBtn
+.submitBtns
   -webkit-app-region: no-drag;
   text-align center
   margin-top 20px
@@ -155,18 +157,35 @@ makeSysBtn(alignto)
 .progress
   margin auto
   margin-top -5px
-  margin-bottom 5px
   width elemWidth
 
-#cl-progress
+.progresslog
   // height 230px  // Use for Borderless
   height 170px
   overflow hidden
+  text-align center
+  margin-top 5px
+
+  ::-webkit-scrollbar
+    display none
+
+  div
+    height 100%
+    overflow auto
 
 
 // Footer
 footerBottom = 2px
 footerSide = 10px
+
+footer
+  position absolute
+  display block
+  background-color background_color
+  height footerBottom + 18px
+  width 100%
+  bottom 0px
+  z-index 10
 
 .github
   bottom footerBottom

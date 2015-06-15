@@ -96,16 +96,23 @@ isWindowsAdmin = (cb) ->
 findInstallPath = ->
   userHome = process.env.HOME || process.env.USERPROFILE
 
+  notFound = ->
+    $('#inputMsg').text(window.browseTitle)
+
   if process.platform == 'darwin'
     if fs.existsSync('/Applications/League of Legends.app')
       setInstallPath null, '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
 
     else if fs.existsSync(userHome + '/Applications/League of Legends.app')
       setInstallPath null, userHome + '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
+    else
+      notFound()
 
   else
     if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
       setInstallPath null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/'
+    else
+      notFound()
 
 
 ###*
@@ -155,6 +162,11 @@ setInstallPath = (pathErr, installPath, champPath) ->
   window.lolChampPath = installPath + champPath
   $('#installPath').val(installPath)
 
+  enableBtns = ->
+    $('#importBtn').removeClass('disabled')
+    $('#deleteBtn').removeClass('disabled')
+
+
   isWindowsAdmin (err) ->
     if err
       $('#inputMsg').addClass('yellow')
@@ -163,12 +175,12 @@ setInstallPath = (pathErr, installPath, champPath) ->
     else if pathErr
       $('#inputMsg').addClass('yellow')
       $('#inputMsg').text('You sure that\'s League?')
-      $('#submitBtn').removeClass('disabled')
+      enableBtns()
 
     else
       $('#inputMsg').addClass('green')
       $('#inputMsg').text('Found League of Legends!')
-      $('#submitBtn').removeClass('disabled')
+      enableBtns()
 
 ###*
  * Function to call Electrons OpenDialog. Sets title based on Platform.
@@ -217,7 +229,7 @@ $('#closeBtn').click (e) ->
   app.quit()
 
 $('#browse').click (e) ->
-  window.Championify.browser.openFolder()
+  openFolder()
 
 $('.github > a').click (e) ->
   e.preventDefault()
@@ -226,14 +238,24 @@ $('.github > a').click (e) ->
 ###*
  * Called when "Import" button is pressed.
 ###
-$('#submitBtn').click (e) ->
+$('#importBtn').click (e) ->
   if !window.lolInstallPath
     $('#inputMsg').addClass('yellow')
     $('#inputMsg').text('You need to select your folder first!')
   else
-    $('.submitBtn').addClass('hidden')
+    $('.submitBtns').addClass('hidden')
     $('.status').removeClass('hidden')
     window.Championify.run()
+
+
+$('#deleteBtn').click (e) ->
+  if !window.lolInstallPath
+    $('#inputMsg').addClass('yellow')
+    $('#inputMsg').text('You need to select your folder first!')
+  else
+    window.Championify.delete ->
+      $('#cl-progress > span').append('. Done!')
+    , true
 
 
 ###*
@@ -243,6 +265,7 @@ setupPlatform()
 $('#browseTitle').text(window.browseTitle)
 setVersion()
 $('.options [data-toggle="tooltip"]').tooltip()
+window.devEnabled = true if fs.existsSync('./dev_enabled')
 
 
 ###*
@@ -256,7 +279,4 @@ $(document).ready ->
 ###*
  * Export
 ###
-window.Championify.browser = {
-  openFolder: openFolder
-  remote: remote
-}
+window.Championify.remote = remote

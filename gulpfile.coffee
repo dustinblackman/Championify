@@ -49,14 +49,20 @@ gulp.task 'build', ->
     'compile'
   )
 
-gulp.task 'release', ->
+gulp.task 'prerelease', (cb) ->
   runSequence(
     'delete-releases',
     'main',
     'electron:deps',
     'copy',
-    'removelivereload'
+    'removelivereload',
     'asar',
+    cb
+  )
+
+gulp.task 'release', ->
+  runSequence(
+    'prerelease',
     'compile:all',
     'move-asar',
     'virustotal',
