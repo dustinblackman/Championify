@@ -22,7 +22,7 @@ gulp.task 'compile:win', ->
   buildCfg = {
     version: version
     platform: 'win32'
-    winIcon: path.normalize('./resources/win/Championify.ico')
+    winIcon: path.normalize('./resources/win/icon.ico')
     companyName: pkg.author
     copyright: [pkg.license, pkg.author, '2015'].join(' ')
     asar: true
@@ -37,7 +37,7 @@ gulp.task 'compile:mac', ->
   buildCfg = {
     version: version
     platform: 'darwin'
-    darwinIcon: './resources/osx/Championify.icns'
+    darwinIcon: './resources/osx/icon.icns'
     asar: true
   }
 

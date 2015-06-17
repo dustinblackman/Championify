@@ -127,7 +127,7 @@ brew install wine
 ---
 
 ## Credit
-- Icon by [fazie69](http://www.iconarchive.com/show/league-of-legends-icons-by-fazie69/Zed-icon.html)
+- Icon by [OmerValentine](https://twitter.com/omervalentine)
 - [Joeldo](https://www.reddit.com/user/joeldo) of [Champion.gg](http://champion.gg)
 - [Lolflavor](http://www.lolflavor.com/)
 
