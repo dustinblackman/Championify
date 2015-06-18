@@ -8,6 +8,7 @@ background_color = #222222
 body
   overflow hidden
   user-select none
+  background-image url('../img/background.png')
   // background: rgba(34, 34, 34, 0.9) !important
 
 
@@ -84,11 +85,11 @@ makeSysBtn(alignto)
     else
       right second
 
-.system-btns
-  makeSysBtn(left)
-
-.system-btns-right
-  makeSysBtn(right)
+// .system-btns
+//   makeSysBtn(left)
+//
+// .system-btns-right
+//   makeSysBtn(right)
 
 
 // NOTE: This is a workaround as clicks at the top of a frameless border dont work,
@@ -182,7 +183,7 @@ footer
   position absolute
   display block
   background-color background_color
-  height footerBottom + 18px
+  height footerBottom + 22px
   width 100%
   bottom 0px
   z-index 10
@@ -196,3 +197,4 @@ footer
   bottom footerBottom
   right footerSide
   position absolute
+  color #989898

@@ -245,7 +245,8 @@ $('#importBtn').click (e) ->
   else
     $('.submitBtns').addClass('hidden')
     $('.status').removeClass('hidden')
-    window.Championify.run()
+    window.Championify.run ->
+      $('.progress-striped').removeClass('active')
 
 
 $('#deleteBtn').click (e) ->
