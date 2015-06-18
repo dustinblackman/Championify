@@ -17,7 +17,16 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 ---
 
 ## [Change Log](CHANGELOG.md)
-<a name="0.3.0" />
+### 0.3.1 (June 17th, 2015)
+
+### Features
+- New Icon
+- Added background and changed progress bar
+
+### Bug Fixes
+- Remove last digit of Riot version for ARAM builds.
+
+
 ### 0.3.0 (June 15th, 2015)
 
 ### Features

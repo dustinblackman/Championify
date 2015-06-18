@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="0.3.1" />
+### 0.3.1 (June 17th, 2015)
+
+### Features
+- New Icon
+- Added background and changed progress bar
+
+### Bug Fixes
+- Remove last digit of Riot version for ARAM builds.
+
 <a name="0.3.0" />
 ### 0.3.0 (June 15th, 2015)
 
