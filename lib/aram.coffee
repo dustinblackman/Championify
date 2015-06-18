@@ -32,6 +32,7 @@ requestChamps = (step) ->
 ###
 requestData = (step, r) ->
   champs = {}
+  aramVer = r.riotVer.split('.').splice(0, 2).join('.')
   async.eachLimit r.aramChamps, 3, (champ, next) ->
     cl 'Processing ARAM: '+champ
 
@@ -43,7 +44,7 @@ requestData = (step, r) ->
         return next null
 
       data.map = '12'
-      data.title = 'ARAM ' + r.riotVer
+      data.title = 'ARAM ' + aramVer
       champs[champ] = {}
       champs[champ].aram = data
 
