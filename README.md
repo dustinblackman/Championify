@@ -17,6 +17,12 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 ---
 
 ## [Change Log](CHANGELOG.md)
+<a name="0.3.2" />
+### 0.3.2 (July 10th, 2015)
+
+### Bug Fixes
+- Incorrect callback used when a new champ is introduced.
+
 ### 0.3.1 (June 17th, 2015)
 
 ### Features

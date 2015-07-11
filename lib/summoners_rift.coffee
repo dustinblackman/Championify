@@ -48,7 +48,7 @@ requestPage = (champ_info, step) ->
   hlp.ajaxRequest url, (err, body) ->
     if err or _.contains(body, "We're currently in the process of generating stats for")
       window.undefinedBuilds.push(champ)
-      return cb()
+      return step()
     processChamp(champ_info, body, step)
 
 

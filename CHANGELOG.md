@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="0.3.2" />
+### 0.3.2 (July 10th, 2015)
+
+### Bug Fixes
+- Incorrect callback used when a new champ is introduced.
+
 <a name="0.3.1" />
 ### 0.3.1 (June 17th, 2015)
 
