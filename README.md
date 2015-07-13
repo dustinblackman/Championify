@@ -98,6 +98,14 @@ I'm sorry you don't like it, hopefully I'll have it live up to your expectations
 Oh no not at all, that's the last thing you want to do. The best time to run Championify is 3-4 day after a major patch comes out. Only got to do it once.
 
 
+### Why do you force auto updates?
+If something was to change on Riots end and Championify's item sets broke your client or completely screwed up one of your games, you'd be pretty pissed right? I know I would be. This is just one method to make sure you run in to the least amount of problems possible, plus the update are under ~2MB anyway.
+
+
+### Why is my antivirus complaining about lolflavor?
+Let me guess, BitDefender? I know, I got it running too. For some reason they have lolflavor marked as malware, which I've checked myself and it's not. To add, Championify never loads a lolflavor page, so even if there was malware laying around Championify would never open it. See [virus total report here](https://www.virustotal.com/en/url/576b112b6ae43a58f00176c5efe8f9456fa16dcfcf4e341e17f6c68c6a5e0e88/analysis/1435015572/).
+
+
 ### If this has been done before, why did you do it again?
 Well for a few reasons. [ebildude123](https://github.com/ebildude123/champion.gg-item-set-creator) original script is in PHP, and I wanted to do some changes and I don't like PHP in the slightest. Another issue is that the greater part of the world doesn't have PHP installed by default making the use of his script very difficult, plus you have a good number of people who automatically run in fear when they have to open a command prompt. My solution is a simple .exe/.app where you run and follow the instructions. Much easier.
 
