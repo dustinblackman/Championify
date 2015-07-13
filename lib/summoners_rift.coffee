@@ -46,7 +46,7 @@ requestPage = (champ_info, step) ->
     cl 'Processing Rift: '+champ_info.champ
 
   hlp.ajaxRequest url, (err, body) ->
-    if err or _.contains(body, "We're currently in the process of generating stats for")
+    if err or _.contains(body, 'We\'re currently in the process of generating stats for')
       GLOBAL.undefinedBuilds.push(champ)
       return step()
     processChamp(champ_info, body, step)
@@ -308,7 +308,7 @@ processChamp = (champ_info, body, step) ->
     # Lock item sets to Summoners Rift
     riot_json = _.merge(_.clone(defaultSchema, true), newObj)
     if window.cSettings.locksr
-      riot_json.map = "11"
+      riot_json.map = 'SR'
 
     champData[champ][positionForFile] = riot_json
 

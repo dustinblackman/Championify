@@ -43,7 +43,7 @@ requestData = (step, r) ->
         GLOBAL.undefinedBuilds.push('ARAM: '+champ)
         return next null
 
-      data.map = '12'
+      data.map = 'HA'
       data.title = 'ARAM ' + aramVer
       champs[champ] = {}
       champs[champ].aram = data
