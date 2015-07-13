@@ -140,7 +140,7 @@ downloadItemSets = (done) ->
   }, (err, r) ->
     console.log(err) if err
     hlp.updateProgressBar(10) # Just max it.
-    cl 'Looks like were all done. Login and enjoy!'
+    cl 'Looks like we\'re all done. Login and enjoy!'
     done()
 
 
