@@ -11,8 +11,8 @@ aram = require './aram.coffee'
 cl = hlp.cl
 
 # Set Defaults
-window.cSettings = {}
-window.undefinedBuilds = []
+GLOBAL.cSettings = {}
+GLOBAL.undefinedBuilds = []
 
 
 #################
@@ -38,7 +38,7 @@ checkVer = (step) ->
  * @callback {Function} Callback.
 ###
 getSettings = (step) ->
-  window.cSettings = {
+  GLOBAL.cSettings = {
     splititems: $('#options_splititems').is(':checked')
     skillsformat: $('#options_skillsformat').is(':checked')
     trinkets: $('#options_trinkets').is(':checked')
@@ -105,7 +105,7 @@ deleteOldBuilds = (step, deletebtn) ->
  * @callback {Function} Callback.
 ###
 notProcessed = (step) ->
-  _.each window.undefinedBuilds, (e) ->
+  _.each GLOBAL.undefinedBuilds, (e) ->
     cl 'Not Available: '+e
 
   step()

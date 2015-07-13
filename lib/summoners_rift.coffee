@@ -13,7 +13,7 @@ manaless = require '../data/manaless.json'
 cl = hlp.cl
 
 # Set Defaults
-window.champData = {}
+champData = {}
 
 
 ###*
@@ -47,7 +47,7 @@ requestPage = (champ_info, step) ->
 
   hlp.ajaxRequest url, (err, body) ->
     if err or _.contains(body, "We're currently in the process of generating stats for")
-      window.undefinedBuilds.push(champ)
+      GLOBAL.undefinedBuilds.push(champ)
       return step()
     processChamp(champ_info, body, step)
 
@@ -88,7 +88,7 @@ processChamp = (champ_info, body, step) ->
   ]
 
   if _.contains(undefArray, true)
-    window.undefinedBuilds.push(champ + ' ' + _.capitalize(currentPosition))
+    GLOBAL.undefinedBuilds.push(champ + ' ' + _.capitalize(currentPosition))
     return step()
 
   # Build objects for each section of item sets.
@@ -310,12 +310,12 @@ processChamp = (champ_info, body, step) ->
     if window.cSettings.locksr
       riot_json.map = "11"
 
-    window.champData[champ][positionForFile] = riot_json
+    champData[champ][positionForFile] = riot_json
 
   # Save data to Global object for saving to disk later.
   # We do this incase people cancel the function half way though.
-  if !window.champData[champ]
-    window.champData[champ] = {}
+  if !champData[champ]
+    champData[champ] = {}
 
 
   # If split item sets
@@ -354,7 +354,7 @@ processChamp = (champ_info, body, step) ->
 ###
 saveToFile = (step) ->
   cl 'Saving Rift Item Sets'
-  hlp.saveToFile window.champData, () ->
+  hlp.saveToFile champData, () ->
     hlp.updateProgressBar(2.5)
     step null
 

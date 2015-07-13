@@ -15,7 +15,7 @@ requestChamps = (step) ->
   hlp.ajaxRequest 'http://www.lolflavor.com/data/statsARAM.json', (err, body) ->
     if err
       console.log err
-      window.undefinedBuilds.push('ARAM: All')
+      GLOBAL.undefinedBuilds.push('ARAM: All')
       return step null, []
 
     champs = _.map body.champions, (item) ->
@@ -40,7 +40,7 @@ requestData = (step, r) ->
     hlp.ajaxRequest url({c: champ}), (err, data) ->
       if err
         console.log err
-        window.undefinedBuilds.push('ARAM: '+champ)
+        GLOBAL.undefinedBuilds.push('ARAM: '+champ)
         return next null
 
       data.map = '12'
