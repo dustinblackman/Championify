@@ -185,24 +185,28 @@ setInstallPath = (pathErr, installPath, champPath) ->
 ###*
  * Function to call Electrons OpenDialog. Sets title based on Platform.
 ###
+folder_dialog_open = false
 openFolder = ->
-  if process.platform == 'darwin'
-    properties = ['openFile']
-  else
-    properties = ['openDirectory']
+  if !folder_dialog_open
+    folder_dialog_open = true
+    if process.platform == 'darwin'
+      properties = ['openFile']
+    else
+      properties = ['openDirectory']
 
+    dialog.showOpenDialog {
+      properties: properties
+      title: window.browseTitle
+    }, (path) ->
+      folder_dialog_open = false
+      if path
+        if path.slice(-1) != '/' and path.slice(-1) != '\\'
+          if process.platform == 'darwin'
+            path = path+'/'
+          else
+            path = path+'\\'
 
-  dialog.showOpenDialog {
-    properties: properties
-    title: window.browseTitle
-  }, (path) ->
-    if path.slice(-1) != '/' and path.slice(-1) != '\\'
-      if process.platform == 'darwin'
-        path = path+'/'
-      else
-        path = path+'\\'
-
-    checkInstallPath(path)
+      checkInstallPath(path)
 
 
 ###*
