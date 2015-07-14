@@ -1,5 +1,4 @@
 _ = require 'lodash'
-moment = require 'moment'
 async = require 'async'
 
 module.exports = {
@@ -13,15 +12,16 @@ module.exports = {
     async.retry 3, (step) ->
       $.ajax({url: url, timeout: 10000})
         .fail (err) ->
-          console.log err
           step err
         .done (body) ->
           step null, body
 
     , (err, results) ->
-      console.log err if err
-      return done(err) if err
-      done null, results
+      if err
+        console.log err
+        window.logger.error(err)
+        return done(err)
+      return done null, results
 
 
   ###*
@@ -85,10 +85,10 @@ module.exports = {
    * Function Pretty console log, as well as updates the progress div on interface
    * @param {String} Console Message.
   ###
-  cl: (text) ->
-    m = moment().format('HH:mm:ss')
-    m = ('['+m+'] | ') + text
-    console.log(m) if window.devEnabled
+  cl: (text, level) ->
+    level = level || 'info'
+    window.logger[level](text)
+
     $('#cl-progress').prepend('<span>'+text+'</span><br />')
 
 

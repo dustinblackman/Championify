@@ -6,7 +6,37 @@ fs = require 'fs'
 exec = require('child_process').exec
 https = require('follow-redirects').https
 open = require 'open'
+path = require 'path'
+winston = require 'winston'
 pkg = require './package.json'
+
+# Setup logger
+error_log = path.join(__dirname, '..', 'championify.log')
+window.logger = new (winston.Logger)({
+  transports: [
+    new winston.transports.Console({
+        level: 'debug'
+        handleExceptions: true
+    })
+    new winston.transports.File({
+      filename: error_log
+      handleExceptions: true
+      level: 'debug'
+      options:
+        level: 'w'
+    })
+  ]
+})
+# Cheat code to do something when an uncaught exception comes up
+window.logger.exitOnError =  ->
+  if !@open_called
+    @open_called = true
+    open(error_log)
+  $('#cl-progress').hide()
+  $('.progresslog').text('Whoops! Something broke. Would you mind sending me that error log so I can get it fixed? :)')
+
+  # Return false so the application doesn't exit.
+  return false
 
 
 ###*
@@ -19,6 +49,8 @@ _downloadFile = (url, dest, cb) ->
   file = fs.createWriteStream(dest)
   https.get url, (res) ->
     res.pipe file
+    file.on 'error', (err) ->
+      return cb(err)
     file.on 'finish', ->
       file.close cb
 
@@ -38,7 +70,11 @@ setVersion = ->
 reloadUpdate = (appAsar, updateAsar) ->
   if process.platform == 'darwin'
     fs.unlink appAsar, (err) ->
+      window.logger.error(err) if err
+
       fs.rename updateAsar, appAsar, (err) ->
+        window.logger.error(err) if err
+
         appPath = __dirname.replace('/Contents/Resources/app.asar', '')
         exec 'open -n ' + appPath
         app.quit()
@@ -52,7 +88,9 @@ reloadUpdate = (appAsar, updateAsar) ->
       'start "" "'+process.execPath+'"',
       'exit']
 
-    fs.writeFile 'update.bat', cmdArgs.join('\n'), 'utf8', () ->
+    fs.writeFile 'update.bat', cmdArgs.join('\n'), 'utf8', (err) ->
+      window.logger.error(err) if err
+
       exec 'START update.bat'
       app.quit()
 
@@ -69,7 +107,9 @@ runUpdates = ->
       url = 'https://github.com/dustinblackman/Championify/releases/download/'+version+'/update.asar'
       dest = __dirname.replace(/app.asar/g, '') + 'update-asar'
 
-      _downloadFile url, dest, ->
+      _downloadFile url, dest, (err) ->
+        # TODO: Do something else.
+        window.logger.error(err) if err
         reloadUpdate(__dirname, dest)
 
 
@@ -80,9 +120,9 @@ runUpdates = ->
 isWindowsAdmin = (cb) ->
   if process.platform != 'darwin'
     fs.writeFile window.lolInstallPath + '/test.txt', 'Testing Write', (err) ->
-      console.log err if err
+      window.logger.error(err)
       if err or !fs.existsSync(window.lolInstallPath + '/test.txt')
-        cb 'err'
+        cb(new Error('Can not write test file on Windows'))
       else
         fs.unlinkSync(window.lolInstallPath + '/test.txt')
         cb null
@@ -128,7 +168,7 @@ checkInstallPath = (path) ->
       setInstallPath null, path+'League of Legends.app/', 'Contents/LoL/Config/Champions/'
 
     else
-      setInstallPath 'Not Found', path
+      setInstallPath(new Error('Path not found'), path)
 
   else
     # Default install, Garena Check 2
@@ -140,7 +180,7 @@ checkInstallPath = (path) ->
       setInstallPath null, path, 'GameData/Apps/LoL/Game/Config/Champions/'
 
     else
-      setInstallPath 'Not Found', path
+      setInstallPath(new Error('Path not found'), path)
 
 ###*
  * Function Sets the path string for the user to see on the interface.

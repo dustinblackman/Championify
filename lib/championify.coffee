@@ -106,7 +106,7 @@ deleteOldBuilds = (step, deletebtn) ->
 ###
 notProcessed = (step) ->
   _.each GLOBAL.undefinedBuilds, (e) ->
-    cl 'Not Available: '+e
+    cl 'Not Available: '+e, 'warn'
 
   step()
 

@@ -13,8 +13,9 @@ cl = hlp.cl
 requestChamps = (step) ->
   cl 'Downloading ARAM Champs'
   hlp.ajaxRequest 'http://www.lolflavor.com/data/statsARAM.json', (err, body) ->
+    # Some antivirus' don't like lolfavor. Skip all ARAM builds if so and log error.
     if err
-      console.log err
+      window.logger.warn(err)
       GLOBAL.undefinedBuilds.push('ARAM: All')
       return step null, []
 
