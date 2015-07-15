@@ -124,15 +124,16 @@ Well that's great! Put up an Issue or send me a message on reddit [/u/dustinhero
 ---
 ## Future Plans
 - Automatically elevate when required instead of making the user do it.
-- Get my own Championify Icon.
 - Proper design.
+- Automatically send logs with users permission.
+- Write testing suite to be run before releases.
 
 
 ---
 
 <a name="source" />
 ## Build From Source
-You must have NodeJS installed on your system, last tested with NodeJS 0.12.2. Git clone the repo and run the following in the root folder.
+You must have iojs 1.6.3 installed on your system (thats what the version of Electron is using), git clone the repo and run the following in the root folder.
 
 ```console
 npm install -g gulp
