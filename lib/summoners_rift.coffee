@@ -46,9 +46,11 @@ requestPage = (champ_info, step) ->
     cl 'Processing Rift: '+champ_info.champ
 
   hlp.ajaxRequest url, (err, body) ->
+    window.log.warn(err) if err
     if err or _.contains(body, 'We\'re currently in the process of generating stats for')
       GLOBAL.undefinedBuilds.push(champ)
       return step()
+
     processChamp(champ_info, body, step)
 
 
@@ -354,7 +356,9 @@ processChamp = (champ_info, body, step) ->
 ###
 saveToFile = (step) ->
   cl 'Saving Rift Item Sets'
-  hlp.saveToFile champData, () ->
+  hlp.saveToFile champData, (err) ->
+    return step(err) if err
+
     hlp.updateProgressBar(2.5)
     step null
 

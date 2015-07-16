@@ -6,6 +6,7 @@ hlp = require './helpers.coffee'
 pkg = require '../package.json'
 csspaths = require '../data/csspaths.json'
 
+cErrors = require './errors.coffee'
 rift = require './summoners_rift.coffee'
 aram = require './aram.coffee'
 cl = hlp.cl
@@ -24,10 +25,11 @@ GLOBAL.undefinedBuilds = []
  * Function Check version of Github package.json and local.
  * @callback {Function} Callback.
 ###
+# TODO: Does this really have to be here?
 checkVer = (step) ->
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
   hlp.ajaxRequest url, (err, data) ->
-    return window.endSession(err) if err
+    return window.endSession(new cErrors.AjaxError('Can\'t access Github package.json').causedBy(err)) if err
 
     data = JSON.parse(data)
     if hlp.versionCompare(data.version, pkg.version) == 1
@@ -57,7 +59,8 @@ getSettings = (step) ->
 getRiotVer = (step) ->
   cl 'Getting LoL Version'
   hlp.ajaxRequest 'https://ddragon.leagueoflegends.com/realms/na.json', (err, body) ->
-    return window.endSession(err) if err
+    return step(new cErrors.AjaxError('Can\'t get Riot Version').causedBy(err)) if err
+
     hlp.updateProgressBar(1.5)
     step null, body.v
 
@@ -69,6 +72,8 @@ getRiotVer = (step) ->
 getChampionGGVer = (step) ->
   cl 'Getting Champion.GG Version'
   hlp.ajaxRequest 'http://champion.gg/faq/', (err, body) ->
+    return step(new cErrors.AjaxError('Can\'t get Champion.GG Version').causedBy(err)) if err
+
     $c = cheerio.load(body)
     window.champGGVer = $c(csspaths.version).text()
     hlp.updateProgressBar(1.5)
@@ -82,6 +87,7 @@ getChampionGGVer = (step) ->
 getChamps = (step, r) ->
   cl 'Downloading Champs from Riot'
   hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/cdn/'+r.riotVer+'/data/en_US/champion.json', (err, body) ->
+    return step(new cErrors.AjaxError('Can\'t get Champs').causedBy(err)) if err
     step null, Object.keys(body.data)
 
 
@@ -93,9 +99,12 @@ getChamps = (step, r) ->
 deleteOldBuilds = (step, deletebtn) ->
   cl 'Deleting Old Builds'
   glob window.lolChampPath+'**/CGG_*.json', (err, files) ->
+    return step(new cErrors.OperationalError('Can\'t glob for old item set files').causedBy(err)) if err
+
     async.each files, (item, next) ->
       fs.unlink item, (err) ->
-        console.log err if err
+        # TODO: Fix
+        window.log.warn(err) if err
         next null
     , () ->
       hlp.updateProgressBar(2.5) if !deletebtn
@@ -140,8 +149,8 @@ downloadItemSets = (done) ->
 
     # End
     notProcessed: ['riftSave', 'aramSave', notProcessed]
-  }, (err, r) ->
-    console.log(err) if err
+  }, (err) ->
+    return endSession(err) if err
     hlp.updateProgressBar(10) # Just max it.
     cl 'Looks like we\'re all done. Login and enjoy!'
     done()

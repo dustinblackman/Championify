@@ -1,5 +1,6 @@
 _ = require 'lodash'
 async = require 'async'
+cErrors = require './errors.coffee'
 
 module.exports = {
 
@@ -18,8 +19,7 @@ module.exports = {
 
     , (err, results) ->
       if err
-        console.log err
-        window.logger.error(err)
+        window.log.error(err)
         return done(err)
       return done null, results
 
@@ -87,7 +87,7 @@ module.exports = {
   ###
   cl: (text, level) ->
     level = level || 'info'
-    window.logger[level](text)
+    window.log[level](text)
 
     $('#cl-progress').prepend('<span>'+text+'</span><br />')
 
@@ -117,15 +117,19 @@ module.exports = {
         toFileData = JSON.stringify(champData[champ][position], null, 4)
 
         mkdirp window.lolChampPath+champ+'/Recommended/', (err) ->
-          fileName = window.lolChampPath+champ+'/Recommended/CGG_'+champ+'_'+position+'.json'
+          window.log.warn(err) if err
+
+          fileName = window.lolChampPath+champ+'/Recommended123/CGG_'+champ+'_'+position+'.json'
           fs.writeFile fileName, toFileData, (err) ->
-            console.log err if err # TODO: Print this to user.
+            return nextPosition(new cErrors.FileWriteError('Failed to write item set json file').causedBy(err)) if err
             nextPosition null
 
-      , () ->
+      , (err) ->
+        return next(err) if err
         next null
 
-    , () ->
+    , (err) ->
+      return step(err) if err
       step null
 
 }

@@ -8,6 +8,8 @@ https = require('follow-redirects').https
 open = require 'open'
 path = require 'path'
 winston = require 'winston'
+
+cErrors = require './js/errors'
 pkg = require './package.json'
 
 window.devEnabled = fs.existsSync('./dev_enabled')
@@ -21,7 +23,7 @@ else
   else
     error_log = path.join(process.env.APPDATA, 'Championify/championify.log')
 
-window.logger = new (winston.Logger)({
+window.log = new (winston.Logger)({
   transports: [
     new winston.transports.Console({
         level: 'debug'
@@ -38,7 +40,7 @@ window.logger = new (winston.Logger)({
   ]
 })
 # Cheat code to do something when an uncaught exception comes up
-window.logger.exitOnError = ->
+window.log.exitOnError = ->
   endSession()
 
   # Return false so the application doesn't exit.
@@ -48,8 +50,11 @@ window.logger.exitOnError = ->
  * Function if error exists, enable error view and log error ending the session.
  * @param {Object} Error instance
 ###
-endSession = (err) ->
-  window.logger.error(err) if err
+endSession = (c_error) ->
+  if c_error
+    cause = c_error.cause || {}
+    window.log.error(c_error, {err: cause})
+
   $('#view').load('views/error.html')
 
 
@@ -95,10 +100,10 @@ setVersion = ->
 reloadUpdate = (appAsar, updateAsar) ->
   if process.platform == 'darwin'
     fs.unlink appAsar, (err) ->
-      return endSession(err) if err
+      return endSession(new cErrors.UpdateError('Can\'t unlink file').causedBy(err)) if err
 
       fs.rename updateAsar, appAsar, (err) ->
-        return endSession(err) if err
+        return endSession(new cErrors.UpdateError('Can\'t rename app.asar').causedBy(err)) if err
 
         appPath = __dirname.replace('/Contents/Resources/app.asar', '')
         exec 'open -n ' + appPath
@@ -114,7 +119,7 @@ reloadUpdate = (appAsar, updateAsar) ->
       'exit']
 
     fs.writeFile 'update.bat', cmdArgs.join('\n'), 'utf8', (err) ->
-      return endSession(err) if err
+      return endSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
 
       exec 'START update.bat'
       app.quit()
@@ -143,7 +148,8 @@ runUpdates = ->
 isWindowsAdmin = (cb) ->
   if process.platform != 'darwin'
     fs.writeFile window.lolInstallPath + '/test.txt', 'Testing Write', (err) ->
-      window.logger.warn(err)
+      window.log.warn(err) if err
+
       if err or !fs.existsSync(window.lolInstallPath + '/test.txt')
         cb(new Error('Can not write test file on Windows'))
       else
