@@ -94,7 +94,7 @@ makeSysBtn(alignto)
 
 // NOTE: This is a workaround as clicks at the top of a frameless border dont work,
 // preventing the OSX buttons from working.
-#mainContainer
+#main_container
   top 32px
   position relative
   // -webkit-app-region drag
@@ -105,15 +105,6 @@ makeSysBtn(alignto)
   text-align center
   margin-top -35px
   // margin-top -10px  // Use for Borderless
-
-// TODO: This shouldn't be needed.
-.update-banner
-  text-align center
-  margin-top 0px
-
-.updateing
-  margin-top 2px
-  text-align center
 
 // Browse/Inputs
 .browseTitle
@@ -198,3 +189,23 @@ footer
   right footerSide
   position absolute
   color #989898
+
+
+// Update View
+.updating
+  margin-top 2px
+  text-align center
+
+// Error View
+.error
+  margin-top 2px
+  text-align center
+
+  img
+    width 100px
+    height 100px
+
+  p
+    margin-top 30px
+    margin-left 20px
+    margin-right 20px

@@ -10,6 +10,8 @@ path = require 'path'
 winston = require 'winston'
 pkg = require './package.json'
 
+window.devEnabled = fs.existsSync('./dev_enabled')
+
 # Setup logger
 error_log = path.join(__dirname, '..', 'championify.log')
 window.logger = new (winston.Logger)({
@@ -29,14 +31,21 @@ window.logger = new (winston.Logger)({
 })
 # Cheat code to do something when an uncaught exception comes up
 window.logger.exitOnError =  ->
-  if !@open_called
-    @open_called = true
-    open(error_log)
-  $('#cl-progress').hide()
-  $('.progresslog').text('Whoops! Something broke. Would you mind sending me that error log so I can get it fixed? :)')
+  $('#view').load('views/error.html')
 
   # Return false so the application doesn't exit.
   return false
+
+
+###*
+ * Function to upload log file to hastebin
+###
+uploadLog = ->
+  fs.readFile error_log, 'utf8', (err, data) ->
+    # TODO Do something with error reading log file.
+    if !err
+      $.post 'http://hastebin.com/documents', data, (res) ->
+        open('http://hastebin.com/' + res.key)
 
 
 ###*
@@ -136,7 +145,7 @@ findInstallPath = ->
   userHome = process.env.HOME || process.env.USERPROFILE
 
   notFound = ->
-    $('#inputMsg').text(window.browseTitle)
+    $('#input_msg').text(window.browseTitle)
 
   if process.platform == 'darwin'
     if fs.existsSync('/Applications/League of Legends.app')
@@ -187,38 +196,39 @@ checkInstallPath = (path) ->
  * @param {String} Install path
  * @param {String} Champion folder path relative to Install Path
 ###
-setInstallPath = (pathErr, installPath, champPath) ->
-  $('#inputMsg').removeAttr('class')
-  $('#inputMsg').text('')
+setInstallPath = (pathErr, install_path, champ_path) ->
+  $('#input_msg').removeAttr('class')
+  $('#input_msg').text('')
 
-  if !champPath
+  if !champ_path
     if process.platform == 'darwin'
-      champPath = 'Contents/LoL/Config/Champions/'
+      champ_path = 'Contents/LoL/Config/Champions/'
     else
-      champPath = 'Config/Champions/'
+      champ_path = 'Config/Champions/'
 
-  window.lolInstallPath = installPath
-  window.lolChampPath = installPath + champPath
-  $('#installPath').val(installPath)
+  window.lolInstallPath = install_path
+  window.lolChampPath = install_path + champ_path
+  $('#install_path').val(install_path)
 
   enableBtns = ->
-    $('#importBtn').removeClass('disabled')
-    $('#deleteBtn').removeClass('disabled')
+    $('#import_btn').removeClass('disabled')
+    $('#delete_btn').removeClass('disabled')
 
 
   isWindowsAdmin (err) ->
     if err
-      $('#inputMsg').addClass('yellow')
-      $('#inputMsg').text('Whoops! You need to run me as an admin. Right click on my file and hit "Run as Administrator"')
+      $('#input_msg').addClass('yellow')
+      $('#input_msg').text('Whoops! You need to run me as an admin. \
+        Right click on my file and hit "Run as Administrator"')
 
     else if pathErr
-      $('#inputMsg').addClass('yellow')
-      $('#inputMsg').text('You sure that\'s League?')
+      $('#input_msg').addClass('yellow')
+      $('#input_msg').text('You sure that\'s League?')
       enableBtns()
 
     else
-      $('#inputMsg').addClass('green')
-      $('#inputMsg').text('Found League of Legends!')
+      $('#input_msg').addClass('green')
+      $('#input_msg').text('Found League of Legends!')
       enableBtns()
 
 ###*
@@ -263,39 +273,53 @@ setupPlatform = ->
 ###*
  * Watches for buttons pressed on GUI.
 ###
-$('#minimizeBtn').click (e) ->
-  e.preventDefault()
-  remote.getCurrentWindow().minimize()
-
-$('#closeBtn').click (e) ->
-  e.preventDefault()
-  app.quit()
-
-$('#browse').click (e) ->
+$(document).on 'click', '#browse', ->
   openFolder()
 
 $('.github > a').click (e) ->
   e.preventDefault()
   open('https://github.com/dustinblackman/Championify#faq')
 
+$(document).on 'click', '#reddit_msg', (e) ->
+  e.preventDefault()
+  open('https://www.reddit.com/message/compose/?to=DustinHeroin')
+
+$(document).on 'click', '#github_issues', (e) ->
+  e.preventDefault()
+  open('https://github.com/dustinblackman/Championify/issues')
+
+$(document).on 'click', '#upload_log', (e) ->
+  e.preventDefault()
+  uploadLog()
+
+# $('#minimizeBtn').click (e) ->
+#   e.preventDefault()
+#   remote.getCurrentWindow().minimize()
+
+# $('#closeBtn').click (e) ->
+#   e.preventDefault()
+#   app.quit()
+
 ###*
  * Called when "Import" button is pressed.
 ###
-$('#importBtn').click (e) ->
+$(document).on 'click', '#import_btn', ->
   if !window.lolInstallPath
-    $('#inputMsg').addClass('yellow')
-    $('#inputMsg').text('You need to select your folder first!')
+    $('#input_msg').addClass('yellow')
+    $('#input_msg').text('You need to select your folder first!')
   else
     $('.submitBtns').addClass('hidden')
     $('.status').removeClass('hidden')
     window.Championify.run ->
       $('.progress-striped').removeClass('active')
 
-
-$('#deleteBtn').click (e) ->
+###*
+ * Called when "Delete" button is pressed.
+###
+$(document).on 'click', '#delete_btn', ->
   if !window.lolInstallPath
-    $('#inputMsg').addClass('yellow')
-    $('#inputMsg').text('You need to select your folder first!')
+    $('#input_msg').addClass('yellow')
+    $('#input_msg').text('You need to select your folder first!')
   else
     window.Championify.delete ->
       $('#cl-progress > span').append('. Done!')
@@ -313,8 +337,6 @@ $('#view').load 'views/main.html', ->
 
   runUpdates()
   findInstallPath()
-
-window.devEnabled = true if fs.existsSync('./dev_enabled')
 
 
 ###*
