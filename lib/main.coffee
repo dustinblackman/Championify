@@ -13,7 +13,14 @@ pkg = require './package.json'
 window.devEnabled = fs.existsSync('./dev_enabled')
 
 # Setup logger
-error_log = path.join(__dirname, '..', 'championify.log')
+if window.devEnabled
+  error_log = path.join(__dirname, '..', 'championify.log')
+else
+  if process.platform == 'darwin'
+    error_log = path.join(process.env.HOME, 'Library/Application Support/Championify/championify.log')
+  else
+    error_log = path.join(process.env.APPDATA, 'Championify/championify.log')
+
 window.logger = new (winston.Logger)({
   transports: [
     new winston.transports.Console({
@@ -23,6 +30,7 @@ window.logger = new (winston.Logger)({
     new winston.transports.File({
       filename: error_log
       handleExceptions: true
+      prettyPrint: true,
       level: 'debug'
       options:
         level: 'w'
@@ -30,11 +38,19 @@ window.logger = new (winston.Logger)({
   ]
 })
 # Cheat code to do something when an uncaught exception comes up
-window.logger.exitOnError =  ->
-  $('#view').load('views/error.html')
+window.logger.exitOnError = ->
+  endSession()
 
   # Return false so the application doesn't exit.
   return false
+
+###*
+ * Function if error exists, enable error view and log error ending the session.
+ * @param {Object} Error instance
+###
+endSession = (err) ->
+  window.logger.error(err) if err
+  $('#view').load('views/error.html')
 
 
 ###*
@@ -52,7 +68,7 @@ uploadLog = ->
  * Function to download files.
  * @param {String} URL of download
  * @param {String} Local Destination
- * @callback {Function} Callback,
+ * @callback {Function} Callback
 ###
 _downloadFile = (url, dest, cb) ->
   file = fs.createWriteStream(dest)
@@ -79,10 +95,10 @@ setVersion = ->
 reloadUpdate = (appAsar, updateAsar) ->
   if process.platform == 'darwin'
     fs.unlink appAsar, (err) ->
-      window.logger.error(err) if err
+      return endSession(err) if err
 
       fs.rename updateAsar, appAsar, (err) ->
-        window.logger.error(err) if err
+        return endSession(err) if err
 
         appPath = __dirname.replace('/Contents/Resources/app.asar', '')
         exec 'open -n ' + appPath
@@ -98,7 +114,7 @@ reloadUpdate = (appAsar, updateAsar) ->
       'exit']
 
     fs.writeFile 'update.bat', cmdArgs.join('\n'), 'utf8', (err) ->
-      window.logger.error(err) if err
+      return endSession(err) if err
 
       exec 'START update.bat'
       app.quit()
@@ -116,8 +132,7 @@ runUpdates = ->
       dest = __dirname.replace(/app.asar/g, '') + 'update-asar'
 
       _downloadFile url, dest, (err) ->
-        # TODO: Do something else.
-        window.logger.error(err) if err
+        return endSession(err) if err
         reloadUpdate(__dirname, dest)
 
 
@@ -128,7 +143,7 @@ runUpdates = ->
 isWindowsAdmin = (cb) ->
   if process.platform != 'darwin'
     fs.writeFile window.lolInstallPath + '/test.txt', 'Testing Write', (err) ->
-      window.logger.error(err)
+      window.logger.warn(err)
       if err or !fs.existsSync(window.lolInstallPath + '/test.txt')
         cb(new Error('Can not write test file on Windows'))
       else
@@ -343,3 +358,4 @@ $('#view').load 'views/main.html', ->
  * Export
 ###
 window.Championify.remote = remote
+window.endSession = endSession

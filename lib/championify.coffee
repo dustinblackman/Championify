@@ -27,6 +27,8 @@ GLOBAL.undefinedBuilds = []
 checkVer = (step) ->
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
   hlp.ajaxRequest url, (err, data) ->
+    return window.endSession(err) if err
+
     data = JSON.parse(data)
     if hlp.versionCompare(data.version, pkg.version) == 1
       step true, data.version
@@ -55,6 +57,7 @@ getSettings = (step) ->
 getRiotVer = (step) ->
   cl 'Getting LoL Version'
   hlp.ajaxRequest 'https://ddragon.leagueoflegends.com/realms/na.json', (err, body) ->
+    return window.endSession(err) if err
     hlp.updateProgressBar(1.5)
     step null, body.v
 
