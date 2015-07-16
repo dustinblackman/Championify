@@ -101,8 +101,7 @@ reloadUpdate = (appAsar, updateAsar) ->
 runUpdates = ->
   window.Championify.checkVer (needUpdate, version) ->
     if needUpdate
-      $('#mainContainer').hide()
-      $('#updateContainer').show()
+      $('#view').load('views/update.html')
 
       url = 'https://github.com/dustinblackman/Championify/releases/download/'+version+'/update.asar'
       dest = __dirname.replace(/app.asar/g, '') + 'update-asar'
@@ -304,21 +303,18 @@ $('#deleteBtn').click (e) ->
 
 
 ###*
-* Execute ASAP
+* Execute ASAP after view load
 ###
-setupPlatform()
-$('#browseTitle').text(window.browseTitle)
-setVersion()
-$('.options [data-toggle="tooltip"]').tooltip()
-window.devEnabled = true if fs.existsSync('./dev_enabled')
+$('#view').load 'views/main.html', ->
+  setupPlatform()
+  $('#browseTitle').text(window.browseTitle)
+  setVersion()
+  $('.options [data-toggle="tooltip"]').tooltip()
 
-
-###*
- * Executes on Page Load.
-###
-$(document).ready ->
   runUpdates()
   findInstallPath()
+
+window.devEnabled = true if fs.existsSync('./dev_enabled')
 
 
 ###*
