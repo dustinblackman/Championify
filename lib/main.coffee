@@ -8,20 +8,25 @@ https = require('follow-redirects').https
 open = require 'open'
 path = require 'path'
 winston = require 'winston'
+_ = require 'lodash'
 
 cErrors = require './js/errors'
 pkg = require './package.json'
 
 window.devEnabled = fs.existsSync('./dev_enabled')
 
+# Set preference directory and file
+if process.platform == 'darwin'
+  preference_dir = path.join(process.env.HOME, 'Library/Application Support/Championify/')
+else
+  preference_dir = path.join(process.env.APPDATA, 'Championify')
+preference_file = path.join(preference_dir, 'prefs.json')
+
 # Setup logger
 if window.devEnabled
   error_log = path.join(__dirname, '..', 'championify.log')
 else
-  if process.platform == 'darwin'
-    error_log = path.join(process.env.HOME, 'Library/Application Support/Championify/championify.log')
-  else
-    error_log = path.join(process.env.APPDATA, 'Championify/championify.log')
+  error.log = path.join(preference_dir, 'championify.log')
 
 window.log = new (winston.Logger)({
   transports: [
@@ -67,6 +72,16 @@ uploadLog = ->
     if !err
       $.post 'http://hastebin.com/documents', data, (res) ->
         open('http://hastebin.com/' + res.key)
+
+
+###*
+ * Function to load prefence files
+###
+loadPreferences = ->
+  if fs.existsSync(preference_file)
+    preferences = require preference_file
+    _.each preferences, (val, key) ->
+      $('#options_'+key).prop('checked', val)
 
 
 ###*
@@ -357,6 +372,7 @@ $('#view').load 'views/main.html', ->
   $('.options [data-toggle="tooltip"]').tooltip()
 
   runUpdates()
+  loadPreferences()
   findInstallPath()
 
 
@@ -365,3 +381,4 @@ $('#view').load 'views/main.html', ->
 ###
 window.Championify.remote = remote
 window.endSession = endSession
+window.preference_file = preference_file

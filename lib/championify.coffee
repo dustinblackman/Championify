@@ -37,6 +37,7 @@ checkVer = (step) ->
     else
       step false
 
+
 ###*
  * Function Collects options from the Frontend.
  * @callback {Function} Callback.
@@ -49,7 +50,10 @@ getSettings = (step) ->
     consumables: $('#options_consumables').is(':checked')
     locksr: $('#options_locksr').is(':checked')
   }
-  step null
+
+  fs.writeFile window.preference_file, JSON.stringify(GLOBAL.cSettings, null, 2), {encoding: 'utf8'}, (err) ->
+    window.logger.warn(err) if err
+    step null
 
 
 ###*
@@ -109,7 +113,6 @@ deleteOldBuilds = (step, deletebtn) ->
     , () ->
       hlp.updateProgressBar(2.5) if !deletebtn
       step null
-
 
 
 ###*

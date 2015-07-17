@@ -22,7 +22,8 @@
     "mkdirp",
     "open",
     "follow-redirects",
-    "super-error"
+    "super-error",
+    "lodash"
   ],
   "dependencies": {
     "async": "^1.2.0",

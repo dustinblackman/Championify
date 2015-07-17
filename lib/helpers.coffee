@@ -119,7 +119,7 @@ module.exports = {
         mkdirp window.lolChampPath+champ+'/Recommended/', (err) ->
           window.log.warn(err) if err
 
-          fileName = window.lolChampPath+champ+'/Recommended123/CGG_'+champ+'_'+position+'.json'
+          fileName = window.lolChampPath+champ+'/Recommended/CGG_'+champ+'_'+position+'.json'
           fs.writeFile fileName, toFileData, (err) ->
             return nextPosition(new cErrors.FileWriteError('Failed to write item set json file').causedBy(err)) if err
             nextPosition null
