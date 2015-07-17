@@ -64,14 +64,20 @@ endSession = (c_error) ->
 
 
 ###*
- * Function to upload log file to hastebin
+ * Function to upload log file to server
 ###
 uploadLog = ->
+  log_server = 'http://clogger.dustinblackman.com'
+  log_server = 'http://127.0.0.1:8080' if window.devEnabled
   fs.readFile error_log, 'utf8', (err, data) ->
+    $('#upload_log').addClass('disabled')
+    $('#upload_log').text('Sending...')
+
     # TODO Do something with error reading log file.
     if !err
-      $.post 'http://hastebin.com/documents', data, (res) ->
-        open('http://hastebin.com/' + res.key)
+      $.post log_server + '/submit', data, (res) ->
+        $('#upload_log').removeClass('disabled')
+        $('#upload_log').text('Sent!')
 
 
 ###*
@@ -316,17 +322,11 @@ $('.github > a').click (e) ->
   e.preventDefault()
   open('https://github.com/dustinblackman/Championify#faq')
 
-$(document).on 'click', '#reddit_msg', (e) ->
-  e.preventDefault()
-  open('https://www.reddit.com/message/compose/?to=DustinHeroin')
-
-$(document).on 'click', '#github_issues', (e) ->
-  e.preventDefault()
-  open('https://github.com/dustinblackman/Championify/issues')
-
+log_uploaded = false
 $(document).on 'click', '#upload_log', (e) ->
   e.preventDefault()
-  uploadLog()
+  uploadLog() if !log_uploaded
+  log_uploaded = true
 
 # $('#minimizeBtn').click (e) ->
 #   e.preventDefault()
