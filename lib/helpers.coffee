@@ -1,5 +1,6 @@
 _ = require 'lodash'
 async = require 'async'
+path = require 'path'
 cErrors = require './errors.coffee'
 
 module.exports = {
@@ -115,12 +116,13 @@ module.exports = {
     async.each _.keys(champData), (champ, next) ->
       async.each _.keys(champData[champ]), (position, nextPosition) ->
         toFileData = JSON.stringify(champData[champ][position], null, 4)
+        folder_path = path.join(window.item_set_path, champ, 'Recommended')
 
-        mkdirp window.lolChampPath+champ+'/Recommended/', (err) ->
+        mkdirp folder_path, (err) ->
           window.log.warn(err) if err
 
-          fileName = window.lolChampPath+champ+'/Recommended/CGG_'+champ+'_'+position+'.json'
-          fs.writeFile fileName, toFileData, (err) ->
+          file_path = path.join(window.item_set_path, champ, 'Recommended/CGG_'+champ+'_'+position+'.json')
+          fs.writeFile file_path, toFileData, (err) ->
             return nextPosition(new cErrors.FileWriteError('Failed to write item set json file').causedBy(err)) if err
             nextPosition null
 

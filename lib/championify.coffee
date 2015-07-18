@@ -51,7 +51,13 @@ getSettings = (step) ->
     locksr: $('#options_locksr').is(':checked')
   }
 
-  fs.writeFile window.preference_file, JSON.stringify(GLOBAL.cSettings, null, 2), {encoding: 'utf8'}, (err) ->
+  preferences = {
+    options: GLOBAL.cSettings
+    install_path: window.lol_install_path
+    champ_path: window.lol_champ_path
+  }
+
+  fs.writeFile window.preference_file, JSON.stringify(preferences, null, 2), {encoding: 'utf8'}, (err) ->
     window.logger.warn(err) if err
     step null
 
@@ -102,7 +108,7 @@ getChamps = (step, r) ->
 ###
 deleteOldBuilds = (step, deletebtn) ->
   cl 'Deleting Old Builds'
-  glob window.lolChampPath+'**/CGG_*.json', (err, files) ->
+  glob window.item_set_path+'**/CGG_*.json', (err, files) ->
     return step(new cErrors.OperationalError('Can\'t glob for old item set files').causedBy(err)) if err
 
     async.each files, (item, next) ->

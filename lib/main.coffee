@@ -86,8 +86,12 @@ uploadLog = ->
 loadPreferences = ->
   if fs.existsSync(preference_file)
     preferences = require preference_file
-    _.each preferences, (val, key) ->
+    setInstallPath null, preferences.install_path, preferences.champ_path
+
+    _.each preferences.options, (val, key) ->
       $('#options_'+key).prop('checked', val)
+  else
+    findInstallPath()
 
 
 ###*
@@ -170,13 +174,15 @@ runUpdates = ->
 ###
 isWindowsAdmin = (cb) ->
   if process.platform != 'darwin'
-    fs.writeFile window.lolInstallPath + '/test.txt', 'Testing Write', (err) ->
+    test_path = path.join(window.lol_install_path, 'test.txt')
+
+    fs.writeFile test_path, 'Testing Write', (err) ->
       window.log.warn(err) if err
 
-      if err or !fs.existsSync(window.lolInstallPath + '/test.txt')
+      if err or !fs.existsSync(test_path)
         cb(new Error('Can not write test file on Windows'))
       else
-        fs.unlinkSync(window.lolInstallPath + '/test.txt')
+        fs.unlinkSync(test_path)
         cb null
   else
     cb null
@@ -211,28 +217,28 @@ findInstallPath = ->
  * Function Verifies the users selected install paths. Warns if no League related files/diretories are found.
  * @param {String} User selected path
 ###
-checkInstallPath = (path) ->
+checkInstallPath = (selected_path) ->
   if process.platform == 'darwin'
-    if fs.existsSync(path + 'Contents/LoL/')
-      setInstallPath null, path, 'Contents/LoL/Config/Champions/'
+    if fs.existsSync(path.join(selected_path, 'Contents/LoL/'))
+      setInstallPath null, selected_path, 'Contents/LoL/Config/Champions/'
 
-    else if fs.existsSync(path + 'League of Legends.app')
-      setInstallPath null, path+'League of Legends.app/', 'Contents/LoL/Config/Champions/'
+    else if fs.existsSync(path.join(selected_path, 'League of Legends.app'))
+      setInstallPath null, path.join(selected_path, 'League of Legends.app'), 'Contents/LoL/Config/Champions/'
 
     else
-      setInstallPath(new Error('Path not found'), path)
+      setInstallPath(new Error('Path not found'), selected_path)
 
   else
     # Default install, Garena Check 2
-    if fs.existsSync(path + 'lol.launcher.exe') or fs.existsSync(path + 'League of Legends.exe')
-      setInstallPath null, path, 'Config/Champions/'
+    if fs.existsSync(path.join(selected_path, 'lol.launcher.exe')) or fs.existsSync(path.join(selected_path, 'League of Legends.exe'))
+      setInstallPath null, selected_path, 'Config/Champions/'
 
     # Garena Installation Check 1
-    else if fs.existsSync(path + 'LoLLauncher.exe')
-      setInstallPath null, path, 'GameData/Apps/LoL/Game/Config/Champions/'
+    else if fs.existsSync(path.join(selected_path + 'LoLLauncher.exe'))
+      setInstallPath null, selected_path, 'GameData/Apps/LoL/Game/Config/Champions/'
 
     else
-      setInstallPath(new Error('Path not found'), path)
+      setInstallPath(new Error('Path not found'), selected_path)
 
 ###*
  * Function Sets the path string for the user to see on the interface.
@@ -240,7 +246,21 @@ checkInstallPath = (path) ->
  * @param {String} Install path
  * @param {String} Champion folder path relative to Install Path
 ###
-setInstallPath = (pathErr, install_path, champ_path) ->
+setInstallPath = (path_err, install_path, champ_path) ->
+  enableBtns = ->
+    $('#import_btn').removeClass('disabled')
+    $('#delete_btn').removeClass('disabled')
+
+  pathErr = ->
+    $('#input_msg').addClass('yellow')
+    $('#input_msg').text('You sure that\'s League?')
+    enableBtns()
+
+  foundLeague = ->
+    $('#input_msg').addClass('green')
+    $('#input_msg').text('Found League of Legends!')
+    enableBtns()
+
   $('#input_msg').removeAttr('class')
   $('#input_msg').text('')
 
@@ -250,30 +270,26 @@ setInstallPath = (pathErr, install_path, champ_path) ->
     else
       champ_path = 'Config/Champions/'
 
-  window.lolInstallPath = install_path
-  window.lolChampPath = install_path + champ_path
+  window.lol_install_path = install_path
+  window.lol_champ_path = champ_path
+  window.item_set_path = path.join(install_path, champ_path)
   $('#install_path').val(install_path)
 
-  enableBtns = ->
-    $('#import_btn').removeClass('disabled')
-    $('#delete_btn').removeClass('disabled')
+  if process.platform == 'darwin'
+    return pathErr() if path_err
+    foundLeague()
+  else
+    isWindowsAdmin (err) ->
+      if err
+        $('#input_msg').addClass('yellow')
+        $('#input_msg').text('Whoops! You need to run me as an admin. \
+          Right click on my file and hit "Run as Administrator"')
 
+      else if path_err
+        pathErr()
 
-  isWindowsAdmin (err) ->
-    if err
-      $('#input_msg').addClass('yellow')
-      $('#input_msg').text('Whoops! You need to run me as an admin. \
-        Right click on my file and hit "Run as Administrator"')
-
-    else if pathErr
-      $('#input_msg').addClass('yellow')
-      $('#input_msg').text('You sure that\'s League?')
-      enableBtns()
-
-    else
-      $('#input_msg').addClass('green')
-      $('#input_msg').text('Found League of Legends!')
-      enableBtns()
+      else
+        foundLeague()
 
 ###*
  * Function to call Electrons OpenDialog. Sets title based on Platform.
@@ -290,16 +306,9 @@ openFolder = ->
     dialog.showOpenDialog {
       properties: properties
       title: window.browseTitle
-    }, (path) ->
+    }, (selected_path) ->
       folder_dialog_open = false
-      if path
-        if path.slice(-1) != '/' and path.slice(-1) != '\\'
-          if process.platform == 'darwin'
-            path = path+'/'
-          else
-            path = path+'\\'
-
-      checkInstallPath(path)
+      checkInstallPath(selected_path) if selected_path
 
 
 ###*
@@ -342,7 +351,7 @@ $(document).on 'click', '#upload_log', (e) ->
  * Called when "Import" button is pressed.
 ###
 $(document).on 'click', '#import_btn', ->
-  if !window.lolInstallPath
+  if !window.lol_install_path
     $('#input_msg').addClass('yellow')
     $('#input_msg').text('You need to select your folder first!')
   else
@@ -355,7 +364,7 @@ $(document).on 'click', '#import_btn', ->
  * Called when "Delete" button is pressed.
 ###
 $(document).on 'click', '#delete_btn', ->
-  if !window.lolInstallPath
+  if !window.lol_install_path
     $('#input_msg').addClass('yellow')
     $('#input_msg').text('You need to select your folder first!')
   else
@@ -375,7 +384,6 @@ $('#view').load 'views/main.html', ->
 
   runUpdates()
   loadPreferences()
-  findInstallPath()
 
 
 ###*
