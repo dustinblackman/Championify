@@ -26,7 +26,7 @@ preference_file = path.join(preference_dir, 'prefs.json')
 if window.devEnabled
   error_log = path.join(__dirname, '..', 'championify.log')
 else
-  error.log = path.join(preference_dir, 'championify.log')
+  error_log = path.join(preference_dir, 'championify.log')
 
 window.log = new (winston.Logger)({
   transports: [
@@ -58,7 +58,7 @@ window.log.exitOnError = ->
 endSession = (c_error) ->
   if c_error
     cause = c_error.cause || {}
-    window.log.error(c_error, {err: cause})
+    window.log.error(c_error)
 
   $('#view').load('views/error.html')
 
@@ -150,7 +150,9 @@ reloadUpdate = (appAsar, updateAsar) ->
  * Function checks for updates by calling package.json on Github, and executes accordingly.
 ###
 runUpdates = ->
-  window.Championify.checkVer (needUpdate, version) ->
+  window.Championify.checkVer (err, needUpdate, version) ->
+    return endSession(err) if err
+
     if needUpdate
       $('#view').load('views/update.html')
 

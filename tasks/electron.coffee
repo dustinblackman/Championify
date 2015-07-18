@@ -5,6 +5,7 @@ gulpif = require 'gulp-if'
 uglify = require 'gulp-uglify'
 fs = require 'fs-extra'
 gutil = require 'gulp-util'
+_ = require 'lodash'
 
 pkg = require '../package.json'
 
@@ -13,7 +14,10 @@ pkg = require '../package.json'
 gulp.task 'electron:deps', (cb) ->
   installItems = []
   pkg['electron-deps'].forEach (item) ->
-    installItems.push(item+'@'+pkg.dependencies[item])
+    if _.contains(pkg.dependencies[item], 'git://')
+      installItems.push pkg.dependencies[item]
+    else
+      installItems.push item+'@'+pkg.dependencies[item]
 
   cmd = 'npm install ' + installItems.join(' ')
   cmd = cmd + ' --prefix ' + process.cwd() + '/dev'

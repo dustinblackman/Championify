@@ -39,14 +39,26 @@ gulp.task 'dev', ->
 gulp.task 'setup', ->
   runSequence('bower', 'preen')
 
-gulp.task 'build', ->
+gulp.task 'package-asar', (cb) ->
   runSequence(
     'main'
     'electron:deps',
     'copy',
     'removelivereload'
     'asar',
+    cb
+  )
+
+gulp.task 'build', ->
+  runSequence(
+    'package-asar'
     'compile'
+  )
+
+gulp.task 'build:win', ->
+  runSequence(
+    'package-asar'
+    'compile:win'
   )
 
 gulp.task 'prerelease', (cb) ->

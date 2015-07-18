@@ -33,9 +33,9 @@ checkVer = (step) ->
 
     data = JSON.parse(data)
     if hlp.versionCompare(data.version, pkg.version) == 1
-      step true, data.version
+      step null, true, data.version
     else
-      step false
+      step null, false
 
 
 ###*

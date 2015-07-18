@@ -23,7 +23,8 @@
     "open",
     "follow-redirects",
     "super-error",
-    "lodash"
+    "lodash",
+    "winston"
   ],
   "dependencies": {
     "async": "^1.2.0",
