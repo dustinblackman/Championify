@@ -192,21 +192,21 @@ processChamp = (champ_info, body, step) ->
 
   # Reusable function for generating Trainkets and Consumables.
   trinksCon = (builds) ->
-    # Trinkets
-    if window.cSettings.trinkets
-      builds.push {
-        items: prebuilts.trinketUpgrades
-        type: 'Trinkets | Frequent: '+skills.mostFreq
-      }
-
     if window.cSettings.consumables
       # If champ has no mana, remove mana pot from consumables
-      consumables = prebuilts.consumables.concat([])  # Lazy fix for pointer issue.
+      consumables = _.clone(prebuilts.consumables, true)
       if _.contains(manaless, champ)
         consumables.splice(1, 1)
 
       builds.push {
         items: consumables
+        type: 'Trinkets | Frequent: '+skills.mostFreq
+      }
+
+    # Trinkets
+    if window.cSettings.trinkets
+      builds.push {
+        items: prebuilts.trinketUpgrades
         type: 'Consumables | Wins: '+skills.highestWin
       }
 
