@@ -195,7 +195,7 @@ findInstallPath = ->
   userHome = process.env.HOME || process.env.USERPROFILE
 
   notFound = ->
-    $('#input_msg').text(window.browseTitle)
+    $('#input_msg').text(window.browse_title)
 
   if process.platform == 'darwin'
     if fs.existsSync('/Applications/League of Legends.app')
@@ -305,7 +305,7 @@ openFolder = ->
 
     dialog.showOpenDialog {
       properties: properties
-      title: window.browseTitle
+      title: window.browse_title
     }, (selected_path) ->
       folder_dialog_open = false
       checkInstallPath(selected_path) if selected_path
@@ -316,10 +316,10 @@ openFolder = ->
 ###
 setupPlatform = ->
   if process.platform == 'darwin'
-    window.browseTitle = 'Select League of Legends.app'
+    window.browse_title = 'Select League of Legends.app'
 
   else
-    window.browseTitle = 'Select League of Legends directory'
+    window.browse_title = 'Select League of Legends directory'
     $('.system-btns').attr('class','system-btns-right')
 
 
@@ -378,7 +378,7 @@ $(document).on 'click', '#delete_btn', ->
 ###
 $('#view').load 'views/main.html', ->
   setupPlatform()
-  $('#browseTitle').text(window.browseTitle)
+  $('#browse_title').text(window.browse_title)
   setVersion()
   $('.options [data-toggle="tooltip"]').tooltip()
 

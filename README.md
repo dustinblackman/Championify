@@ -137,7 +137,6 @@ Well that's great! Put up an Issue or send me a message on reddit [/u/dustinhero
 ## Future Plans
 - Automatically elevate when required instead of making the user do it.
 - Proper design.
-- Automatically send logs with users permission.
 - Write testing suite to be run before releases.
 
 
