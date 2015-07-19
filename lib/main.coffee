@@ -89,7 +89,10 @@ loadPreferences = ->
     setInstallPath null, preferences.install_path, preferences.champ_path
 
     _.each preferences.options, (val, key) ->
-      $('#options_'+key).prop('checked', val)
+      if _.contains(key, 'position')
+        $('#options_'+key).val(val)
+      else
+        $('#options_'+key).prop('checked', val)
   else
     findInstallPath()
 
@@ -380,7 +383,7 @@ $('#view').load 'views/main.html', ->
   setupPlatform()
   $('#browse_title').text(window.browse_title)
   setVersion()
-  $('.options [data-toggle="tooltip"]').tooltip()
+  $(".options_tooltip").tooltip({placement: "top"})
 
   runUpdates()
   loadPreferences()

@@ -20,20 +20,44 @@
 
 <div class="row">
   <div class="options">
-    <input type="checkbox" value="None" id="options_splititems" data-toggle="tooltip" data-placement="top" title="" data-original-title="You'll have two menu options in game, one for Most Frequent, and Highest Wins "/>
-    <span>Split Up Item Sets</span><br />
 
-    <input type="checkbox" value="None" id="options_skillsformat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instead of Q.W.E.Q.W.R.Q.W.Q.W ect" />
-    <span>Use short Skills (Q>W>E) instead of full (Q.W.E.Q.W)</span><br />
+    <div class="left">
+      <span class="options_tooltip" title="You'll have two menu options in game, one for Most Frequent, and Highest Wins"><input type="checkbox" id="options_splititems" />Split Up Item Sets</span><br />
+    </div>
 
-    <input type="checkbox" value="None" id="options_consumables" data-toggle="tooltip" data-placement="top" title="" data-original-title="By disabling Consumables you'll lose Highest Win Skill priorities" checked />
-    <span>Enable Consumables</span><br />
+    <div class="left">
+      <span class="options_tooltip" title="Instead of Q.W.E.Q.W.R.Q.W.Q.W ect"><input type="checkbox" id="options_skillsformat" />Use short Skills (Q>W>E) instead of full (Q.W.E.Q.W)</span><br />
+    </div>
 
-    <input type="checkbox" value="None" id="options_trinkets" data-toggle="tooltip" data-placement="top" title="" data-original-title="By disabling Trinkets you'll lose Most Frequient Skill priorities" checked  />
-    <span>Enable Trinkets</span><br />
+    <div class="with_dropdown">
+      <div class="left">
+        <span class="options_tooltip" title="By disabling Consumables you'll lose Highest Win Skill priorities">        <input type="checkbox" id="options_consumables" checked />Enable Consumables</span>
+      </div>
+      <div class="right">
+        <select id="options_consumables_position" class="form-control">
+          <option selected disabled>Position</option>
+          <option>Beginning</option>
+          <option>End</option>
+        </select>
+      </div>
+    </div>
 
-    <input type="checkbox" value="None" id="options_locksr" data-toggle="tooltip" data-placement="top" title="" data-original-title="Champion.GG item sets will only be available on Summoners Rift" />
-    <span>Lock ChampionGG Item Sets to Summoners Rift</span><br />
+    <div class="with_dropdown">
+      <div class="left">
+        <span class="options_tooltip" title="By disabling Trinkets you'll lose Most Frequient Skill priorities"><input type="checkbox" id="options_trinkets" checked  />Enable Trinkets</span>
+      </div>
+      <div class="right">
+        <select id="options_trinkets_position" class="form-control">
+          <option selected disabled>Position</option>
+          <option>Beginning</option>
+          <option>End</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="left">
+      <span class="options_tooltip" title="Champion.GG item sets will only be available on Summoners Rift"><input type="checkbox" id="options_locksr" />Lock ChampionGG Item Sets to Summoners Rift</span><br />
+    </div>
 
   </div>
 </div>

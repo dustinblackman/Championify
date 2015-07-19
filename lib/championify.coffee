@@ -43,11 +43,14 @@ checkVer = (step) ->
  * @callback {Function} Callback.
 ###
 getSettings = (step) ->
+  # Positions default to bottom.
   GLOBAL.cSettings = {
     splititems: $('#options_splititems').is(':checked')
     skillsformat: $('#options_skillsformat').is(':checked')
-    trinkets: $('#options_trinkets').is(':checked')
     consumables: $('#options_consumables').is(':checked')
+    consumables_position: $('#options_consumables_position').val() or 'Bottom'
+    trinkets: $('#options_trinkets').is(':checked')
+    trinkets_position: $('#options_trinkets_position').val() or 'Bottom'
     locksr: $('#options_locksr').is(':checked')
   }
 

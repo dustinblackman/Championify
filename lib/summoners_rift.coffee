@@ -198,17 +198,27 @@ processChamp = (champ_info, body, step) ->
       if _.contains(manaless, champ)
         consumables.splice(1, 1)
 
-      builds.push {
+      consumables_block = {
         items: consumables
-        type: 'Trinkets | Frequent: '+skills.mostFreq
+        type: 'Consumables | Frequent: '+skills.mostFreq
       }
+
+      if window.cSettings.consumables_position == 'Top'
+        builds.unshift consumables_block
+      else
+        builds.push consumables_block
 
     # Trinkets
     if window.cSettings.trinkets
-      builds.push {
+      trinkets_block = {
         items: prebuilts.trinketUpgrades
-        type: 'Consumables | Wins: '+skills.highestWin
+        type: 'Trinkets | Wins: '+skills.highestWin
       }
+      
+      if window.cSettings.trinkets_position == 'Top'
+        builds.unshift trinkets_block
+      else
+        builds.push trinkets_block
 
     return builds
 
