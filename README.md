@@ -5,9 +5,9 @@ Championify is a little program that downloads all the recent builds from Champi
 
 Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.1.
 
-![screenshot](https://i.imgur.com/OnjM9yK.png)
+![screenshot](https://i.imgur.com/2W3rKzK.png)
 
-Check out some more screenshots [here](https://imgur.com/ISDJrIX,OnjM9yK,umDkx5j,scpQPBH,GpHtwKt#0)!
+Check out some more screenshots [here](https://imgur.com/2W3rKzK,ADYZ9ED,KNVRFs7,umDkx5j,scpQPBH,GpHtwKt#0)!
 
 Note this application is still in development, as far as I've tested it's worked great, but don't get overly surprised if you find a bug or two.
 
@@ -29,37 +29,25 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 ---
 
 ## [Change Log](CHANGELOG.md)
-<a name="0.3.2" />
-### 0.3.2 (July 10th, 2015)
-
-### Bug Fixes
-- Incorrect callback used when a new champ is introduced.
-
-### 0.3.1 (June 17th, 2015)
+<a name="0.4.0" />
+### 0.4.0 (July 20th, 2015)
 
 ### Features
-- New Icon
-- Added background and changed progress bar
+- Give user ability to set Trinkets and/or Consumables to top or bottom of item set
+- Automatically save preferences and League directory
+- Item sets file structure now follows Riot standards
+- Add error/crash message for when something breaks
+- New error log reporting system
+- Switch from Bootstrap to Semantic UI (New buttons, progress bar, layout)
 
-### Bug Fixes
-- Remove last digit of Riot version for ARAM builds.
+### Fixes
+- Multiple windows opening when clicking browse
+- Improved path handling
+- Grammar fixes
+- Tooltips so they're easier to view
 
-
-### 0.3.0 (June 15th, 2015)
-
-### Features
-- ARAM Item Sets
-- Delete "Championify Item Sets" Button
-- Lock ChampionGG Item Sets to Summoners Rift (so they don't pop up in ARAM games)
-- Scrollable progress log
-- Windows Setup Installer (So you can now install Championify instead of extracing ZIPs)
-
-### Bug Fixes
-- Fix styling issue where footer and progress log overlapped on Windows
-- Better execution flow to improve speed
-- Progress bar now shows up in Windows Tray/OSX Dock
-- Better retry setup for when connections fail
-- Code cleanup
+### Notes
+- ARAM builds still in Beta, still haven't decided what I want to do with them.
 
 ---
 

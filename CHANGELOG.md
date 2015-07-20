@@ -1,5 +1,25 @@
 # Changelog
 
+<a name="0.4.0" />
+### 0.4.0 (July 20th, 2015)
+
+### Features
+- Give user ability to set Trinkets and/or Consumables to top or bottom of item set
+- Automatically save preferences and League directory
+- Item sets file structure now follows Riot standards
+- Add error/crash message for when something breaks
+- New error log reporting system
+- Switch from Bootstrap to Semantic UI (New buttons, progress bar, layout)
+
+### Fixes
+- Multiple windows opening when clicking browse
+- Improved path handling
+- Grammar fixes
+- Tooltips so they're easier to view
+
+### Notes
+- ARAM builds still in Beta, still haven't decided what I want to do with them.
+
 <a name="0.3.2" />
 ### 0.3.2 (July 10th, 2015)
 
