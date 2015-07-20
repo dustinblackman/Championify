@@ -6,7 +6,7 @@
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <link rel="stylesheet" href="vendor/css/semantic.min.css">
       <link rel="stylesheet" href="vendor/css/font-awesome.min.css">
       <link rel="stylesheet" href="css/main.css">
     </head>
@@ -19,97 +19,17 @@
         </div> -->
       </header>
 
-      <div id="updateContainer" class="container" style="display:none;">
-        <!-- TODO: This banner shouldn't be duplicated. -->
-        <div class="row">
-          <div class="update-banner">
-            <h3>Welcome to Championify!</h3>
+      <div id="main_container">
+        <div class="one column row">
+          <div class="banner column">
+            <h2>Welcome to Championify!</h2>
+            <div class="ui divider"></div>
           </div>
         </div>
 
-        <hr />
-
-        <div class="row">
-          <div id="update_inprogress" class="updateing">
-            <h4>Downloading Updates...</h4>
-            <br />
-            <img src="img/loading.gif" />
-          </div>
+        <div id="view" class="ui container">
         </div>
 
-
-      </div>
-
-      <div id="mainContainer" class="container">
-        <div class="row">
-          <div class="banner">
-            <h3>Welcome to Championify!</h3>
-          </div>
-        </div>
-
-        <hr />
-
-        <div class="row">
-          <div class="browseTitle">
-            <span id="browseTitle"></span>
-          </div>
-
-
-          <div class="input-group lolDirInput">
-            <input id="installPath" type="text" class="form-control">
-            <span class="input-group-btn">
-              <button id="browse" class="btn btn-default" type="button">Browse</button>
-            </span>
-          </div>
-          <br />
-          <div class="lolDirInputMsg">
-            <span id="inputMsg">
-            </span>
-          </div>
-        </div>
-
-        <br />
-
-        <div class="row">
-          <div class="options">
-            <input type="checkbox" value="None" id="options_splititems" data-toggle="tooltip" data-placement="top" title="" data-original-title="You'll have two menu options in game, one for Most Frequent, and Highest Wins "/>
-            <span>Split Up Item Sets</span><br />
-
-            <input type="checkbox" value="None" id="options_skillsformat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Instead of Q.W.E.Q.W.R.Q.W.Q.W ect" />
-            <span>Use short Skills (Q>W>E) instead of full (Q.W.E.Q.W)</span><br />
-
-            <input type="checkbox" value="None" id="options_trinkets" data-toggle="tooltip" data-placement="top" title="" data-original-title="By disabling Trinkets you'll lose Most Frequient Skill priorities" checked  />
-            <span>Enable Trinkets</span><br />
-
-            <input type="checkbox" value="None" id="options_consumables" data-toggle="tooltip" data-placement="top" title="" data-original-title="By disabling Consumables you'll lose Highest Win Skill priorities" checked />
-            <span>Enable Consumables</span><br />
-
-            <input type="checkbox" value="None" id="options_locksr" data-toggle="tooltip" data-placement="top" title="" data-original-title="Champion.GG item sets will only be available on Summoners Rift" />
-            <span>Lock ChampionGG Item Sets to Summoners Rift</span><br />
-
-          </div>
-        </div>
-
-
-        <div class="row">
-          <div class="submitBtns">
-            <button id="importBtn" class="btn btn-success disabled">Import</button>
-            <button id="deleteBtn" class="btn btn-danger disabled" >Delete</button>
-          </div>
-
-          <div class="status hidden">
-            <span><h3>Status</h3></span>
-            <div class="progress progress-striped active">
-              <div class="progress-bar progress-bar-info" style="width: 0%"></div>
-            </div>
-          </div>
-          <div class="progresslog">
-            <div id="cl-progress">
-
-            </div>
-          </div>
-
-      </div>
       </div>
 
       <footer>
@@ -122,7 +42,7 @@
       </footer>
 
       <script>window.$ = window.jQuery = require('./vendor/js/jquery.min.js');</script>
-      <script src="vendor/js/bootstrap.min.js"></script>
+      <script src="vendor/js/semantic.min.js"></script>
       <script src="js/deps.js"></script>
       <script src="js/championify.js"></script>
       <script src="js/main.js"></script>

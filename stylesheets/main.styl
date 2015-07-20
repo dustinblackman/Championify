@@ -1,15 +1,27 @@
 vendor-prefixes ?= webkit official
 @import 'nib'
+// @import sys_buttons
 
 elemWidth = 95%
 background_color = #222222
+text_color = #eeebeb
 
 // Defaults
+@font-face
+  font-family 'Lato'
+  font-style normal
+  font-weight 400
+  src local('Lato Regular'), local('Lato-Regular'), url('../fonts/lato.woff2')
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000
+
+
 body
   overflow hidden
   user-select none
   background-image url('../img/background.png')
-  // background: rgba(34, 34, 34, 0.9) !important
+  font-family 'Lato'
+  background-color background_color
+  color text_color
 
 
 // Helpers
@@ -17,85 +29,10 @@ body
   display none
 
 
-// System Buttons
-makeSysBtn(alignto)
-  first = 3px
-  second = first + 20px
-  third = first + 40px
-
-  close = #FF5955
-  minimize = #FFBB09
-  maximize = #17C935
-
-  -webkit-app-region: no-drag
-
-  .osx-window-btn
-    position absolute
-    top 20px
-    width 12px
-    height 12px
-    border-radius 50%
-    if alignto == left
-      margin-left 5px
-    else
-      margin-right 5px
-
-  .red
-    background close
-    if alignto == left
-      left first
-    else
-      right first
-
-    .text
-      position fixed
-      font-size 13px
-      margin-left 2.5px
-      margin-top -4.5px
-      color black
-      visibility hidden
-
-    &:hover .text
-      visibility visible
-
-
-  .yellow
-    background minimize
-    if alignto == left
-      left second
-    else
-      right third
-
-    .text
-      position fixed
-      font-size 18px
-      margin-left 2.7px
-      margin-top -7px
-      color black
-      visibility hidden
-
-    &:hover .text
-      visibility visible
-
-  .green
-    opacity 0.4
-    background maximize
-    if alignto == left
-      left third
-    else
-      right second
-
-// .system-btns
-//   makeSysBtn(left)
-//
-// .system-btns-right
-//   makeSysBtn(right)
-
-
 // NOTE: This is a workaround as clicks at the top of a frameless border dont work,
 // preventing the OSX buttons from working.
-#mainContainer
-  top 32px
+#main_container
+  top 15px
   position relative
   // -webkit-app-region drag
 
@@ -103,30 +40,20 @@ makeSysBtn(alignto)
 // Banner
 .banner
   text-align center
-  margin-top -35px
+  // margin-top -35px
   // margin-top -10px  // Use for Borderless
 
-// TODO: This shouldn't be needed.
-.update-banner
-  text-align center
-  margin-top 0px
-
-.updateing
-  margin-top 2px
-  text-align center
-
 // Browse/Inputs
-.browseTitle
+.browse_title
   text-align center
-  margin-top -15px
+  margin-top -10px
   margin-bottom 5px
 
-.lolDirInput
-  margin auto
-  width elemWidth
-  -webkit-app-region: no-drag;
+.lol_dir_input
+  // margin auto
+  -webkit-app-region  no-drag
 
-.lolDirInputMsg
+.lol_dir_input_msg
   text-align center
   margin-top -15px
   height 25px
@@ -141,10 +68,26 @@ makeSysBtn(alignto)
 
 // Options
 .options
-  -webkit-app-region: no-drag;
-  position relative
-  left 4%
+  -webkit-app-region no-drag
 
+  .with_dropdown
+    display flex
+    flex-direction row
+    justify-content space-between
+
+    .ui.icon.button
+      padding .05em
+    .ui.icon.button>.icon
+      vertical-align middle
+    .ui.button
+      height 20px
+    .ui.bottom.pointing.dropdown>.menu
+      margin 0 0 0.1em
+
+  .left
+    margin-bottom 5px
+    label
+      color text_color
 
 // Submit/Progress
 .submitBtns
@@ -154,18 +97,22 @@ makeSysBtn(alignto)
 
 .status
   text-align center
+  h2
+    color text_color
 
-.progress
-  margin auto
-  margin-top -5px
-  width elemWidth
+  .ui.progress .bar
+    height 1.5em
+  .ui.progress:last-child
+    margin 0 0 0.3em
+  .ui.divider
+    margin 0.8rem 0
 
 .progresslog
   // height 230px  // Use for Borderless
   height 170px
   overflow hidden
   text-align center
-  margin-top 5px
+  margin-top 0px
 
   ::-webkit-scrollbar
     display none
@@ -198,3 +145,23 @@ footer
   right footerSide
   position absolute
   color #989898
+
+
+// Update View
+.updating
+  margin-top 2px
+  text-align center
+
+// Error View
+.error
+  margin-top 2px
+  text-align center
+
+  img
+    width 100px
+    height 100px
+
+  p
+    margin-top 30px
+    margin-left 4%
+    margin-right 4%

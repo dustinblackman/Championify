@@ -13,8 +13,9 @@ cl = hlp.cl
 requestChamps = (step) ->
   cl 'Downloading ARAM Champs'
   hlp.ajaxRequest 'http://www.lolflavor.com/data/statsARAM.json', (err, body) ->
+    # Some antivirus' don't like lolfavor. Skip all ARAM builds if so and log error.
     if err
-      console.log err
+      window.log.warn(err)
       GLOBAL.undefinedBuilds.push('ARAM: All')
       return step null, []
 
@@ -39,11 +40,11 @@ requestData = (step, r) ->
     url = _.template('http://www.lolflavor.com/champions/<%- c %>/Recommended/<%- c %>_aram_scrape.json')
     hlp.ajaxRequest url({c: champ}), (err, data) ->
       if err
-        console.log err
+        window.log.warn(err)
         GLOBAL.undefinedBuilds.push('ARAM: '+champ)
         return next null
 
-      data.map = '12'
+      data.map = 'HA'
       data.title = 'ARAM ' + aramVer
       champs[champ] = {}
       champs[champ].aram = data
@@ -61,7 +62,9 @@ requestData = (step, r) ->
 ###
 saveToFile = (step, r) ->
   cl 'Saving ARAM Item Sets'
-  hlp.saveToFile r.aramItemSets, () ->
+  hlp.saveToFile r.aramItemSets, (err) ->
+    return step(err) if err
+    
     hlp.updateProgressBar(2.5)
     step null
 

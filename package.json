@@ -1,6 +1,6 @@
 {
   "name": "Championify",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Downloads all the current builds from Champion.gg and imports them in to League of Legends.",
   "main": "electron.coffee",
   "scripts": {
@@ -13,7 +13,7 @@
     "url": "https://github.com/dustinblackman/Championify.git"
   },
   "engines": {
-    "node": ">=0.12.2"
+    "iojs": "1.6.3"
   },
   "author": "Dustin Blackman",
   "license": "MIT",
@@ -21,7 +21,10 @@
     "glob",
     "mkdirp",
     "open",
-    "follow-redirects"
+    "follow-redirects",
+    "super-error",
+    "lodash",
+    "winston"
   ],
   "dependencies": {
     "async": "^1.2.0",
@@ -30,18 +33,17 @@
     "glob": "^5.0.10",
     "lodash": "^3.9.3",
     "mkdirp": "^0.5.1",
-    "moment": "^2.10.3",
-    "open": "0.0.5"
+    "open": "0.0.5",
+    "super-error": "^1.1.2",
+    "winston": "git://github.com/dustinblackman/winston.git#master"
   },
   "devDependencies": {
     "adm-zip": "^0.4.7",
     "bower": "^1.4.1",
     "browserify": "^10.2.3",
-    "chai": "^2.3.0",
-    "chromedriver": "^2.15.1",
     "coffee-script": "^1.9.3",
     "coffeeify": "^1.1.0",
-    "electron-prebuilt": "^0.26.0",
+    "electron-prebuilt": "0.26.0",
     "fs-extra": "^0.18.4",
     "github": "^0.2.4",
     "gulp": "^3.9.0",
@@ -58,13 +60,11 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.5",
     "gulp-watch": "^4.2.4",
-    "mocha": "^2.2.5",
     "nib": "^1.1.0",
     "preen": "^1.2.0",
     "request": "^2.57.0",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.0",
-    "selenium-webdriver": "^2.45.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }

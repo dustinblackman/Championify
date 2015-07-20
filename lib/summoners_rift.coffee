@@ -46,9 +46,11 @@ requestPage = (champ_info, step) ->
     cl 'Processing Rift: '+champ_info.champ
 
   hlp.ajaxRequest url, (err, body) ->
-    if err or _.contains(body, "We're currently in the process of generating stats for")
+    window.log.warn(err) if err
+    if err or _.contains(body, 'We\'re currently in the process of generating stats for')
       GLOBAL.undefinedBuilds.push(champ)
       return step()
+
     processChamp(champ_info, body, step)
 
 
@@ -190,23 +192,33 @@ processChamp = (champ_info, body, step) ->
 
   # Reusable function for generating Trainkets and Consumables.
   trinksCon = (builds) ->
-    # Trinkets
-    if window.cSettings.trinkets
-      builds.push {
-        items: prebuilts.trinketUpgrades
-        type: 'Trinkets | Frequent: '+skills.mostFreq
-      }
-
     if window.cSettings.consumables
       # If champ has no mana, remove mana pot from consumables
-      consumables = prebuilts.consumables.concat([])  # Lazy fix for pointer issue.
+      consumables = _.clone(prebuilts.consumables, true)
       if _.contains(manaless, champ)
         consumables.splice(1, 1)
 
-      builds.push {
+      consumables_block = {
         items: consumables
-        type: 'Consumables | Wins: '+skills.highestWin
+        type: 'Consumables | Frequent: '+skills.mostFreq
       }
+
+      if window.cSettings.consumables_position == 'beginning'
+        builds.unshift consumables_block
+      else
+        builds.push consumables_block
+
+    # Trinkets
+    if window.cSettings.trinkets
+      trinkets_block = {
+        items: prebuilts.trinketUpgrades
+        type: 'Trinkets | Wins: '+skills.highestWin
+      }
+
+      if window.cSettings.trinkets_position == 'beginning'
+        builds.unshift trinkets_block
+      else
+        builds.push trinkets_block
 
     return builds
 
@@ -308,7 +320,7 @@ processChamp = (champ_info, body, step) ->
     # Lock item sets to Summoners Rift
     riot_json = _.merge(_.clone(defaultSchema, true), newObj)
     if window.cSettings.locksr
-      riot_json.map = "11"
+      riot_json.map = 'SR'
 
     champData[champ][positionForFile] = riot_json
 
@@ -354,7 +366,9 @@ processChamp = (champ_info, body, step) ->
 ###
 saveToFile = (step) ->
   cl 'Saving Rift Item Sets'
-  hlp.saveToFile champData, () ->
+  hlp.saveToFile champData, (err) ->
+    return step(err) if err
+
     hlp.updateProgressBar(2.5)
     step null
 

@@ -6,6 +6,7 @@ hlp = require './helpers.coffee'
 pkg = require '../package.json'
 csspaths = require '../data/csspaths.json'
 
+cErrors = require './errors.coffee'
 rift = require './summoners_rift.coffee'
 aram = require './aram.coffee'
 cl = hlp.cl
@@ -24,28 +25,47 @@ GLOBAL.undefinedBuilds = []
  * Function Check version of Github package.json and local.
  * @callback {Function} Callback.
 ###
+# TODO: Does this really have to be here?
 checkVer = (step) ->
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
   hlp.ajaxRequest url, (err, data) ->
+    return window.endSession(new cErrors.AjaxError('Can\'t access Github package.json').causedBy(err)) if err
+
     data = JSON.parse(data)
     if hlp.versionCompare(data.version, pkg.version) == 1
-      step true, data.version
+      step null, true, data.version
     else
-      step false
+      step null, false
+
 
 ###*
  * Function Collects options from the Frontend.
  * @callback {Function} Callback.
 ###
 getSettings = (step) ->
+  # Positions default to bottom.
+  consumables_position = if $('#options_consumables_position').find('.beginning').hasClass('selected') then 'beginning' else 'end'
+  trinkets_position = if $('#options_trinkets_position').find('.beginning').hasClass('selected') then 'beginning' else 'end'
+
   GLOBAL.cSettings = {
     splititems: $('#options_splititems').is(':checked')
     skillsformat: $('#options_skillsformat').is(':checked')
-    trinkets: $('#options_trinkets').is(':checked')
     consumables: $('#options_consumables').is(':checked')
+    consumables_position: consumables_position
+    trinkets: $('#options_trinkets').is(':checked')
+    trinkets_position: trinkets_position
     locksr: $('#options_locksr').is(':checked')
   }
-  step null
+
+  preferences = {
+    options: GLOBAL.cSettings
+    install_path: window.lol_install_path
+    champ_path: window.lol_champ_path
+  }
+
+  fs.writeFile window.preference_file, JSON.stringify(preferences, null, 2), {encoding: 'utf8'}, (err) ->
+    window.logger.warn(err) if err
+    step null
 
 
 ###*
@@ -55,6 +75,8 @@ getSettings = (step) ->
 getRiotVer = (step) ->
   cl 'Getting LoL Version'
   hlp.ajaxRequest 'https://ddragon.leagueoflegends.com/realms/na.json', (err, body) ->
+    return step(new cErrors.AjaxError('Can\'t get Riot Version').causedBy(err)) if err
+
     hlp.updateProgressBar(1.5)
     step null, body.v
 
@@ -66,6 +88,8 @@ getRiotVer = (step) ->
 getChampionGGVer = (step) ->
   cl 'Getting Champion.GG Version'
   hlp.ajaxRequest 'http://champion.gg/faq/', (err, body) ->
+    return step(new cErrors.AjaxError('Can\'t get Champion.GG Version').causedBy(err)) if err
+
     $c = cheerio.load(body)
     window.champGGVer = $c(csspaths.version).text()
     hlp.updateProgressBar(1.5)
@@ -79,6 +103,7 @@ getChampionGGVer = (step) ->
 getChamps = (step, r) ->
   cl 'Downloading Champs from Riot'
   hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/cdn/'+r.riotVer+'/data/en_US/champion.json', (err, body) ->
+    return step(new cErrors.AjaxError('Can\'t get Champs').causedBy(err)) if err
     step null, Object.keys(body.data)
 
 
@@ -89,15 +114,17 @@ getChamps = (step, r) ->
 ###
 deleteOldBuilds = (step, deletebtn) ->
   cl 'Deleting Old Builds'
-  glob window.lolChampPath+'**/CGG_*.json', (err, files) ->
+  glob window.item_set_path+'**/CGG_*.json', (err, files) ->
+    return step(new cErrors.OperationalError('Can\'t glob for old item set files').causedBy(err)) if err
+
     async.each files, (item, next) ->
       fs.unlink item, (err) ->
-        console.log err if err
+        # TODO: Fix
+        window.log.warn(err) if err
         next null
     , () ->
       hlp.updateProgressBar(2.5) if !deletebtn
       step null
-
 
 
 ###*
@@ -106,7 +133,7 @@ deleteOldBuilds = (step, deletebtn) ->
 ###
 notProcessed = (step) ->
   _.each GLOBAL.undefinedBuilds, (e) ->
-    cl 'Not Available: '+e
+    cl 'Not Available: '+e, 'warn'
 
   step()
 
@@ -137,8 +164,8 @@ downloadItemSets = (done) ->
 
     # End
     notProcessed: ['riftSave', 'aramSave', notProcessed]
-  }, (err, r) ->
-    console.log(err) if err
+  }, (err) ->
+    return endSession(err) if err
     hlp.updateProgressBar(10) # Just max it.
     cl 'Looks like we\'re all done. Login and enjoy!'
     done()

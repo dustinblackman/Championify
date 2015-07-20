@@ -16,19 +16,21 @@
   ],
   "dependencies": {
     "jquery": "~2.1.3",
-    "bootstrap": "~3.3.4",
-    "font-awesome": "~4.3.0"
+    "font-awesome": "~4.3.0",
+    "semantic": "~2.0.4"
   },
   "preen": {
     "jquery": [
       "dist/jquery.min.*"
     ],
-    "bootstrap": [
-      "dist/js/bootstrap.min.js"
-    ],
     "font-awesome": [
       "css/font-awesome.min.css",
       "fonts/**"
+    ],
+    "semantic": [
+      "dist/semantic.min.css",
+      "dist/semantic.min.js",
+      "dist/themes/default/assets/fonts/**"
     ]
   }
 }

@@ -1,0 +1,102 @@
+<div class="one column row">
+  <div class="column">
+    <div class="browse_title">
+      <span id="browse_title"></span>
+    </div>
+
+    <div class="ui fluid action input">
+      <input id="install_path" type="text">
+      <button id="browse" class="ui grey button" type="button">Browse</button>
+    </div>
+    <br />
+    <div class="lol_dir_input_msg">
+      <span id="input_msg">
+      </span>
+    </div>
+  </div>
+</div>
+
+<br />
+
+<div class="one column row">
+  <div class="column options">
+
+    <div class="ui checkbox left">
+      <input type="checkbox" id="options_splititems" />
+      <label class="options_tooltip" data-content="You'll have two menu options in game, one for Most Frequent, and Highest Wins">Split Up Item Sets</label>
+    </div>
+
+    <div class="ui checkbox left">
+      <input type="checkbox" id="options_skillsformat" />
+      <label class="options_tooltip" data-content="Instead of Q.W.E.Q.W.R.Q.W.Q.W ect">Use short Skills (Q>W>E) instead of full (Q.W.E.Q.W)</label>
+    </div>
+
+    <div class="with_dropdown">
+      <div class="ui checkbox left">
+        <input type="checkbox" id="options_consumables" checked />
+        <label class="options_tooltip" data-content="By disabling Consumables you'll lose Highest Win Skill priorities">Enable Consumables</label>
+      </div>
+      <div class="ui icon bottom right pointing dropdown button">
+        <i class="small wrench icon"></i>
+        <div id="options_consumables_position" class="menu">
+          <div class="header">
+            <i class="resize vertical icon"></i>
+            Select Position
+          </div>
+          <div class="divider"></div>
+          <div class="item beginning">Beginning</div>
+          <div class="item end">End</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="with_dropdown">
+      <div class="ui checkbox left">
+        <input type="checkbox" id="options_trinkets" checked  />
+        <label class="options_tooltip" data-content="By disabling Trinkets you'll lose Most Frequient Skill priorities">Enable Trinkets</label>
+      </div>
+      <div class="ui icon bottom right pointing dropdown button">
+        <i class="small wrench icon"></i>
+        <div id="options_trinkets_position" class="menu">
+          <div class="header">
+            <i class="resize vertical icon"></i>
+            Select Position
+          </div>
+          <div class="item beginning">Beginning</div>
+          <div class="item end">End</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui checkbox left">
+      <input type="checkbox" id="options_locksr" />
+      <label class="options_tooltip" data-content="Champion.GG item sets will only be available on Summoners Rift">Lock ChampionGG Item Sets to Summoners Rift</label><br />
+    </div>
+
+  </div>
+</div>
+
+
+<div class="one column row">
+  <div class="submitBtns">
+    <button id="import_btn" class="ui green button">Import</button>
+    <button id="delete_btn" class="ui red button" >Delete</button>
+  </div>
+
+  <div class="status hidden">
+    <div class="ui horizontal divider">
+      <h2>Status</h2>
+    </div>
+    <div id="progress_bar" class="ui indicating progress" data-percent="0">
+      <div class="bar" style="transition-duration: 300ms; -webkit-transition-duration: 300ms;">
+        <div class="progress">0%</div>
+      </div>
+    </div>
+  </div>
+  <div class="progresslog">
+    <div id="cl-progress">
+
+    </div>
+  </div>
+
+</div>
