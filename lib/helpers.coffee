@@ -100,7 +100,15 @@ module.exports = {
   updateProgressBar: (incr) ->
     this.incr = 0 if !this.incr
     this.incr += incr
-    $('.progress-bar').attr('style', 'width: '+Math.floor(this.incr)+'%')
+
+    # Bug with Semantic UI progress function that makes 0 be set constantly.
+    # This is an easy work around.
+    floored = Math.floor(this.incr)
+    floored = 100 if floored > 100
+    $('#progress_bar').attr('data-percent', floored)
+    $('#progress_bar').find('.bar').css('width', floored+'%')
+    $('#progress_bar').find('.progress').text(floored+'%')
+
     if this.incr >= 100
       window.Championify.remote.getCurrentWindow().setProgressBar(-1)
     else

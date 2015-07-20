@@ -23,6 +23,12 @@ gulp.task 'bower_copy', ->
     .pipe(flatten())
     .pipe gulp.dest('./dev/vendor/css/')
 
+  # Font Awesome
   gulp.src('./bower_components/font-awesome/fonts/**')
     .pipe(flatten())
     .pipe gulp.dest('./dev/vendor/fonts/')
+
+  # Semantic UI
+  gulp.src('./bower_components/semantic/dist/themes/default/assets/fonts/**')
+    .pipe(flatten())
+    .pipe gulp.dest('./dev/vendor/css/themes/default/assets/fonts/')

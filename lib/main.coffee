@@ -70,13 +70,13 @@ uploadLog = ->
   log_server = 'http://clogger.dustinblackman.com'
   log_server = 'http://127.0.0.1:8080' if window.devEnabled
   fs.readFile error_log, 'utf8', (err, data) ->
-    $('#upload_log').addClass('disabled')
+    $('#upload_log').attr('class','ui inverted yellow button')
     $('#upload_log').text('Sending...')
 
     # TODO Do something with error reading log file.
     if !err
       $.post log_server + '/submit', data, (res) ->
-        $('#upload_log').removeClass('disabled')
+        $('#upload_log').attr('class', 'ui green button')
         $('#upload_log').text('Sent!')
 
 
@@ -86,11 +86,15 @@ uploadLog = ->
 loadPreferences = ->
   if fs.existsSync(preference_file)
     preferences = require preference_file
-    setInstallPath null, preferences.install_path, preferences.champ_path
+    checkInstallPath preferences.install_path, (err) ->
+      if err
+        findInstallPath()
+      else
+        setInstallPath null, preferences.install_path, preferences.champ_path
 
     _.each preferences.options, (val, key) ->
       if _.contains(key, 'position')
-        $('#options_'+key).val(val)
+        $('#options_'+key).find('.'+val).addClass('active selected')
       else
         $('#options_'+key).prop('checked', val)
   else
@@ -198,7 +202,7 @@ findInstallPath = ->
   userHome = process.env.HOME || process.env.USERPROFILE
 
   notFound = ->
-    $('#input_msg').text(window.browse_title)
+    # $('#input_msg').text(window.browse_title)
 
   if process.platform == 'darwin'
     if fs.existsSync('/Applications/League of Legends.app')
@@ -220,28 +224,29 @@ findInstallPath = ->
  * Function Verifies the users selected install paths. Warns if no League related files/diretories are found.
  * @param {String} User selected path
 ###
-checkInstallPath = (selected_path) ->
+checkInstallPath = (selected_path, done) ->
+  selected_path = selected_path[0] if !_.isString(selected_path)
   if process.platform == 'darwin'
     if fs.existsSync(path.join(selected_path, 'Contents/LoL/'))
-      setInstallPath null, selected_path, 'Contents/LoL/Config/Champions/'
+      done null, selected_path, 'Contents/LoL/Config/Champions/'
 
     else if fs.existsSync(path.join(selected_path, 'League of Legends.app'))
-      setInstallPath null, path.join(selected_path, 'League of Legends.app'), 'Contents/LoL/Config/Champions/'
+      done null, path.join(selected_path, 'League of Legends.app'), 'Contents/LoL/Config/Champions/'
 
     else
-      setInstallPath(new Error('Path not found'), selected_path)
+      done new Error('Path not found'), selected_path
 
   else
     # Default install, Garena Check 2
     if fs.existsSync(path.join(selected_path, 'lol.launcher.exe')) or fs.existsSync(path.join(selected_path, 'League of Legends.exe'))
-      setInstallPath null, selected_path, 'Config/Champions/'
+      done null, selected_path, 'Config/Champions/'
 
     # Garena Installation Check 1
     else if fs.existsSync(path.join(selected_path + 'LoLLauncher.exe'))
-      setInstallPath null, selected_path, 'GameData/Apps/LoL/Game/Config/Champions/'
+      done null, selected_path, 'GameData/Apps/LoL/Game/Config/Champions/'
 
     else
-      setInstallPath(new Error('Path not found'), selected_path)
+      done new Error('Path not found'), selected_path
 
 ###*
  * Function Sets the path string for the user to see on the interface.
@@ -311,7 +316,7 @@ openFolder = ->
       title: window.browse_title
     }, (selected_path) ->
       folder_dialog_open = false
-      checkInstallPath(selected_path) if selected_path
+      checkInstallPath(selected_path, setInstallPath) if selected_path
 
 
 ###*
@@ -383,7 +388,8 @@ $('#view').load 'views/main.html', ->
   setupPlatform()
   $('#browse_title').text(window.browse_title)
   setVersion()
-  $(".options_tooltip").tooltip({placement: "top"})
+  $(".options_tooltip").popup()
+  $('.ui.dropdown').dropdown()
 
   runUpdates()
   loadPreferences()

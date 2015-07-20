@@ -203,7 +203,7 @@ processChamp = (champ_info, body, step) ->
         type: 'Consumables | Frequent: '+skills.mostFreq
       }
 
-      if window.cSettings.consumables_position == 'Top'
+      if window.cSettings.consumables_position == 'beginning'
         builds.unshift consumables_block
       else
         builds.push consumables_block
@@ -214,8 +214,8 @@ processChamp = (champ_info, body, step) ->
         items: prebuilts.trinketUpgrades
         type: 'Trinkets | Wins: '+skills.highestWin
       }
-      
-      if window.cSettings.trinkets_position == 'Top'
+
+      if window.cSettings.trinkets_position == 'beginning'
         builds.unshift trinkets_block
       else
         builds.push trinkets_block

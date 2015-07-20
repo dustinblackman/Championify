@@ -44,13 +44,16 @@ checkVer = (step) ->
 ###
 getSettings = (step) ->
   # Positions default to bottom.
+  consumables_position = if $('#options_consumables_position').find('.beginning').hasClass('selected') then 'beginning' else 'end'
+  trinkets_position = if $('#options_trinkets_position').find('.beginning').hasClass('selected') then 'beginning' else 'end'
+
   GLOBAL.cSettings = {
     splititems: $('#options_splititems').is(':checked')
     skillsformat: $('#options_skillsformat').is(':checked')
     consumables: $('#options_consumables').is(':checked')
-    consumables_position: $('#options_consumables_position').val() or 'Bottom'
+    consumables_position: consumables_position
     trinkets: $('#options_trinkets').is(':checked')
-    trinkets_position: $('#options_trinkets_position').val() or 'Bottom'
+    trinkets_position: trinkets_position
     locksr: $('#options_locksr').is(':checked')
   }
 
