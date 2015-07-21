@@ -112,7 +112,11 @@ loadPreferences = ->
  * @callback {Function} Callback
 ###
 _downloadFile = (url, dest, cb) ->
-  file = fs.createWriteStream(dest)
+  try
+    file = fs.createWriteStream(dest)
+  catch e
+    return cb(new cErrors.UpdateError('Can\'t write update-asar').causedBy(e))
+
   https.get url, (res) ->
     res.pipe file
     file.on 'error', (err) ->
