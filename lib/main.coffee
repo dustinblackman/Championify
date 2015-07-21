@@ -70,6 +70,7 @@ uploadLog = ->
   log_server = 'http://clogger.dustinblackman.com'
   log_server = 'http://127.0.0.1:8080' if window.devEnabled
   fs.readFile error_log, 'utf8', (err, data) ->
+    window.log.error(err) if err
     $('#upload_log').attr('class','ui inverted yellow button')
     $('#upload_log').text('Sending...')
 
@@ -78,6 +79,9 @@ uploadLog = ->
       $.post log_server + '/submit', data, (res) ->
         $('#upload_log').attr('class', 'ui green button')
         $('#upload_log').text('Sent!')
+    else
+      $('#upload_log').attr('class','ui inverted red button')
+      $('#upload_log').text('Failed')
 
 
 ###*

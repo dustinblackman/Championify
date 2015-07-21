@@ -29,6 +29,15 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 ---
 
 ## [Change Log](CHANGELOG.md)
+<a name="0.4.1" />
+### 0.4.1 (July 20th, 2015)
+
+### Bug Fixes
+- Grammar fixes (thanks iKevinY!)
+- Mark log upload as failed if it can't be opened
+- AJAX requests error instance (cause there was none...)
+- Update error message for tips on how to fix
+
 <a name="0.4.0" />
 ### 0.4.0 (July 20th, 2015)
 
@@ -40,7 +49,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 - New error log reporting system
 - Switch from Bootstrap to Semantic UI (New buttons, progress bar, layout)
 
-### Fixes
+### Bug Fixes
 - Multiple windows opening when clicking browse
 - Improved path handling
 - Grammar fixes
