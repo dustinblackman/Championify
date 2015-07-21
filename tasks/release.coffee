@@ -82,7 +82,7 @@ gulp.task 'github-release', (cb) ->
             body += link({name: 'update.asar', link: GLOBAL.vtReports[item]})
 
 
-        body += '\n \
+        body += '\n\
         ### How to Download: \n
         Below you\'ll find the download section. If you\'re on Windows, your best bet it to select the "Windows Setup" to get yourself started with Championify. If you have trouble installing you can always try the ".zip" version. For Mac, download the file labeled "OSX", extract the .zip, and you\'ll be good to go!'
 
