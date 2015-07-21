@@ -14,14 +14,15 @@ module.exports = {
     async.retry 3, (step) ->
       $.ajax({url: url, timeout: 10000})
         .fail (err) ->
-          step err
+          return step err
         .done (body) ->
           step null, body
 
     , (err, results) ->
       if err
         window.log.error(err)
-        return done(err)
+        return done(new Error(err))
+
       return done null, results
 
 
