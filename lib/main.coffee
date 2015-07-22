@@ -13,7 +13,7 @@ _ = require 'lodash'
 cErrors = require './js/errors'
 pkg = require './package.json'
 
-window.devEnabled = fs.existsSync('./dev_enabled')
+window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync('../../dev_enabled')
 
 # Set preference directory and file
 if process.platform == 'darwin'
