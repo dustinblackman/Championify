@@ -137,12 +137,12 @@ setVersion = ->
  * @param {String} Current asar archive
  * @param {String} New downloaded asar archive created by runUpdaets
 ###
-reloadUpdate = (appAsar, updateAsar) ->
+reloadUpdate = (app_asar, update_asar) ->
   if process.platform == 'darwin'
-    fs.unlink appAsar, (err) ->
+    fs.unlink app_asar, (err) ->
       return endSession(new cErrors.UpdateError('Can\'t unlink file').causedBy(err)) if err
 
-      fs.rename updateAsar, appAsar, (err) ->
+      fs.rename update_asar, app_asar, (err) ->
         return endSession(new cErrors.UpdateError('Can\'t rename app.asar').causedBy(err)) if err
 
         appPath = __dirname.replace('/Contents/Resources/app.asar', '')
@@ -150,19 +150,26 @@ reloadUpdate = (appAsar, updateAsar) ->
         app.quit()
 
   else
-    cmdArgs = [
-      '@echo off'
-      'ping 1.1.1.1 -n 1 -w 3000 > nul',
-      'del "'+appAsar+'"',
-      'ren "'+updateAsar+'" app.asar',
-      'start "" "'+process.execPath+'"',
-      'exit']
+    cmd = _.template('
+      @echo off\n
+      echo Updating Championify, please wait...\n
+      taskkill /IM championify.exe /f\n
+      ping 1.1.1.1 -n 1 -w 3000 > nul\n
+      del "${app_asar}"\n
+      ren "${update_asar}" app.asar\n
+      start "" "${exec_path}"\n
+      exit\n
+    ')
 
-    fs.writeFile 'update.bat', cmdArgs.join('\n'), 'utf8', (err) ->
+    params = {
+      app_asar: app_asar
+      update_asar: update_asar
+      exec_path: process.execPath
+    }
+
+    fs.writeFile 'update.bat', cmd(params), 'utf8', (err) ->
       return endSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
-
       exec 'START update.bat'
-      app.quit()
 
 
 ###*
