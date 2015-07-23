@@ -336,8 +336,8 @@ processChamp = (champ_info, body, step) ->
     mfBuild = builds[0]
     hwBuild = builds[1]
 
-    pushChampData(champ, currentPosition+' MF', mfBuild)
-    pushChampData(champ, currentPosition+' HW', hwBuild)
+    pushChampData(champ, currentPosition+' MostFrequent', mfBuild)
+    pushChampData(champ, currentPosition+' HighestWin', hwBuild)
 
   # If normal item sets
   else
