@@ -341,6 +341,9 @@ setupPlatform = ->
 $(document).on 'click', '#browse', ->
   openFolder()
 
+$(document).on 'input', '#install_path', ->
+  checkInstallPath($(this).val(), setInstallPath)
+
 $('.github > a').click (e) ->
   e.preventDefault()
   open('https://github.com/dustinblackman/Championify#faq')
