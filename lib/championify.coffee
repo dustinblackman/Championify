@@ -104,7 +104,26 @@ getChamps = (step, r) ->
   cl 'Downloading Champs from Riot'
   hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/cdn/'+r.riotVer+'/data/en_US/champion.json', (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Champs').causedBy(err)) if err
-    step null, Object.keys(body.data)
+    step null, body.data
+
+
+###*
+ * Function Returns array of champs
+ * @callback {Function} Callback.
+###
+champNames = (step, r) ->
+  return step null, _.keys(r.champs_json)
+
+
+###*
+ * Function Generate manaless champs array
+ * @callback {Function} Callback.
+###
+genManaless = (step, r) ->
+  manaless = _.map r.champs_json, (champ_obj) ->
+    return champ_obj.id if champ_obj.partype != 'Mana'
+
+  step null, _.compact(manaless)
 
 
 # TODO: This doesn't work on Windows if the files were created with admin priveleges but are trying to delete without.
@@ -148,10 +167,12 @@ downloadItemSets = (done) ->
     settings: getSettings
     champGGVer: getChampionGGVer
     riotVer: getRiotVer
-    champs:  ['riotVer', getChamps]
+    champs_json:  ['riotVer', getChamps]
+    champs: ['champs_json', champNames]
+    manaless: ['champs_json', genManaless]
 
     # Summoners Rift
-    riftItemSets: ['champs', 'champGGVer', rift.requestChamps]
+    riftItemSets: ['champs', 'champGGVer', 'manaless', rift.requestChamps]
     riftSave: ['deleteOldBuilds', 'riftItemSets', rift.save]
 
     # ARAM

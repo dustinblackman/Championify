@@ -4,11 +4,10 @@ _ = require 'lodash'
 
 hlp = require './helpers.coffee'
 
-# Mini JSON files to keep track of CSS paths, schemas, default builds, and manaless champs.
+# Mini JSON files to keep track of CSS paths, schemas, and default builds
 defaultSchema = require '../data/default.json'
 csspaths = require '../data/csspaths.json'
 prebuilts = require '../data/prebuilts.json'
-manaless = require '../data/manaless.json'
 
 cl = hlp.cl
 
@@ -24,7 +23,7 @@ champData = {}
 requestChamps = (step, r) ->
   async.eachLimit r.champs, 2, (champ, next) ->
     hlp.updateProgressBar(90 / r.champs.length)
-    requestPage {champ: champ}, () ->
+    requestPage {champ: champ, manaless: r.manaless}, () ->
       next null
 
   , () ->
@@ -36,14 +35,14 @@ requestChamps = (step, r) ->
  * @param {Object} Champion object created by asyncRequestChamps.
  * @callback {Function} Callback.
 ###
-requestPage = (champ_info, step) ->
-  champ = champ_info.champ
+requestPage = (request_params, step) ->
+  champ = request_params.champ
   url = 'http://champion.gg/champion/'+champ
 
-  if champ_info.position
-    url = url + '/' + champ_info.position
+  if request_params.position
+    url = url + '/' + request_params.position
   else
-    cl 'Processing Rift: '+champ_info.champ
+    cl 'Processing Rift: '+request_params.champ
 
   hlp.ajaxRequest url, (err, body) ->
     window.log.warn(err) if err
@@ -51,7 +50,7 @@ requestPage = (champ_info, step) ->
       GLOBAL.undefinedBuilds.push(champ)
       return step()
 
-    processChamp(champ_info, body, step)
+    processChamp(request_params, body, step)
 
 
 ###*
@@ -60,8 +59,8 @@ requestPage = (champ_info, step) ->
  * @param {String} Body of Champion.GG page.
  * @callback {Function} Callback.
 ###
-processChamp = (champ_info, body, step) ->
-  champ = champ_info.champ
+processChamp = (request_params, body, step) ->
+  champ = request_params.champ
 
   $c = cheerio.load(body)
   gg = hlp.compileGGData($c)
@@ -195,7 +194,7 @@ processChamp = (champ_info, body, step) ->
     if window.cSettings.consumables
       # If champ has no mana, remove mana pot from consumables
       consumables = _.clone(prebuilts.consumables, true)
-      if _.contains(manaless, champ)
+      if _.contains(request_params.manaless, champ)
         consumables.splice(1, 1)
 
       consumables_block = {
@@ -346,9 +345,9 @@ processChamp = (champ_info, body, step) ->
 
   # TODO: Lodash map.
   # Now we execute for the other positions for the champs, if there are any.
-  if !champ_info.position and positions.length > 0
+  if !request_params.position and positions.length > 0
     positions = positions.map (e) ->
-      return {champ: champ, position: e}
+      return {champ: champ, position: e, manaless: request_params.manaless}
 
     async.each positions, (item, next) ->
       requestPage item, () ->
