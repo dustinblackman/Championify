@@ -6,28 +6,27 @@ uglify = require 'gulp-uglify'
 fs = require 'fs-extra'
 gutil = require 'gulp-util'
 _ = require 'lodash'
+npm = require 'npm'
 
 pkg = require '../package.json'
 
 
 # Electron Settings
 gulp.task 'electron:deps', (cb) ->
-  installItems = []
-  pkg['electron-deps'].forEach (item) ->
+  install_items = []
+  _.each _.keys(pkg.dependencies), (item) ->
     if _.contains(pkg.dependencies[item], 'git://')
-      installItems.push pkg.dependencies[item]
+      install_items.push pkg.dependencies[item]
     else
-      installItems.push item+'@'+pkg.dependencies[item]
+      install_items.push item+'@'+pkg.dependencies[item]
 
-  cmd = 'npm install ' + installItems.join(' ')
-  cmd = cmd + ' --prefix ' + process.cwd() + '/dev'
+  process.chdir './dev'
+  npm.load ->
+    npm.commands.install install_items, (err, data) ->
+      return cb(err) if err
+      process.chdir '..'
+      cb()
 
-  exec cmd, {cwd: '../'}, (err, std, ste) ->
-    console.log(err) if err
-    console.log(std)
-    console.log(ste) if ste
-
-    cb()
 
 gulp.task 'electron:settings', ->
   gulp.src(['./electron.coffee'], {base: './'})

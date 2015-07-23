@@ -2,7 +2,7 @@ cheerio = require 'cheerio'
 async = require 'async'
 _ = require 'lodash'
 
-hlp = require './helpers.coffee'
+hlp = require './helpers'
 
 # Mini JSON files to keep track of CSS paths, schemas, and default builds
 defaultSchema = require '../data/default.json'
@@ -13,6 +13,28 @@ cl = hlp.cl
 
 # Set Defaults
 champData = {}
+
+###*
+ * Function That parses Champion.GG HTML. Kept out of Championify.coffee as it'll rarely ever change.
+ * @param {Function} Cheerio.
+ * @returns {Object} Object containing Champion data.
+###
+compileGGData = ($c) ->
+  data = $c('script:contains("matchupData.")').text()
+  data = data.replace(/;/g, '')
+
+  processed = {}
+
+  query = _.template('matchupData.<%= q %> = ')
+  _.each data.split('\n'), (line) ->
+    _.each ['championData', 'champion'], (field) ->
+      search = query({q: field})
+
+      if _.includes(line, search)
+        line = line.replace(search, '')
+        processed[field] = JSON.parse(line)
+
+  return processed
 
 
 ###*
@@ -63,7 +85,7 @@ processChamp = (request_params, body, step) ->
   champ = request_params.champ
 
   $c = cheerio.load(body)
-  gg = hlp.compileGGData($c)
+  gg = compileGGData($c)
 
   # Check what role were currently grabbing, and what other roles exist.
   currentPosition = ''

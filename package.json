@@ -17,15 +17,6 @@
   },
   "author": "Dustin Blackman",
   "license": "MIT",
-  "electron-deps": [
-    "glob",
-    "mkdirp",
-    "open",
-    "follow-redirects",
-    "super-error",
-    "lodash",
-    "winston"
-  ],
   "dependencies": {
     "async": "^1.2.0",
     "cheerio": "^0.19.0",
@@ -40,7 +31,6 @@
   "devDependencies": {
     "adm-zip": "^0.4.7",
     "bower": "^1.4.1",
-    "browserify": "^10.2.3",
     "coffee-script": "^1.9.3",
     "coffeeify": "^1.1.0",
     "electron-prebuilt": "0.26.0",
@@ -50,6 +40,7 @@
     "gulp-asar": "0.0.2",
     "gulp-atom-shell": "git://github.com/dustinblackman/gulp-atom-shell.git#master",
     "gulp-bower": "0.0.10",
+    "gulp-changed": "^1.2.1",
     "gulp-clean": "^0.3.1",
     "gulp-coffee": "^2.3.1",
     "gulp-delete-lines": "0.0.7",
@@ -61,11 +52,10 @@
     "gulp-util": "^3.0.5",
     "gulp-watch": "^4.2.4",
     "nib": "^1.1.0",
+    "npm": "^2.13.1",
     "preen": "^1.2.0",
     "request": "^2.57.0",
     "require-dir": "^0.3.0",
-    "run-sequence": "^1.1.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "run-sequence": "^1.1.0"
   }
 }

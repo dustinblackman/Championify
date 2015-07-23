@@ -1,7 +1,10 @@
 _ = require 'lodash'
 async = require 'async'
 path = require 'path'
-cErrors = require './errors.coffee'
+https = require('follow-redirects').https
+
+cErrors = require './errors'
+pkg = require '../package.json'
 
 module.exports = {
 
@@ -24,6 +27,26 @@ module.exports = {
         return done(new Error(err))
 
       return done null, results
+
+
+  ###*
+   * Function to download files.
+   * @param {String} URL of download
+   * @param {String} Local Destination
+   * @callback {Function} Callback
+  ###
+  downloadFile: (url, dest, cb) ->
+    try
+      file = fs.createWriteStream(dest)
+    catch e
+      return cb(new cErrors.UpdateError('Can\'t write update-asar').causedBy(e))
+
+    https.get url, (res) ->
+      res.pipe file
+      file.on 'error', (err) ->
+        return cb(err)
+      file.on 'finish', ->
+        file.close cb
 
 
   ###*
@@ -61,29 +84,6 @@ module.exports = {
 
 
   ###*
-   * Function That parses Champion.GG HTML. Kept out of Championify.coffee as it'll rarely ever change.
-   * @param {Function} Cheerio.
-   * @returns {Object} Object containing Champion data.
-  ###
-  compileGGData: ($c) ->
-    data = $c('script:contains("matchupData.")').text()
-    data = data.replace(/;/g, '')
-
-    processed = {}
-
-    query = _.template('matchupData.<%= q %> = ')
-    _.each data.split('\n'), (line) ->
-      _.each ['championData', 'champion'], (field) ->
-        search = query({q: field})
-
-        if _.includes(line, search)
-          line = line.replace(search, '')
-          processed[field] = JSON.parse(line)
-
-    return processed
-
-
-  ###*
    * Function Pretty console log, as well as updates the progress div on interface
    * @param {String} Console Message.
   ###
@@ -111,9 +111,9 @@ module.exports = {
     $('#progress_bar').find('.progress').text(floored+'%')
 
     if this.incr >= 100
-      window.Championify.remote.getCurrentWindow().setProgressBar(-1)
+      window.remote.getCurrentWindow().setProgressBar(-1)
     else
-      window.Championify.remote.getCurrentWindow().setProgressBar(this.incr / 100)
+      window.remote.getCurrentWindow().setProgressBar(this.incr / 100)
 
 
   # TODO: This is a messy function. Clean it up with Lodash, possibly.
@@ -142,5 +142,22 @@ module.exports = {
     , (err) ->
       return step(err) if err
       step null
+
+  ###*
+   * Function Check version of Github package.json and local.
+   * @callback {Function} Callback.
+  ###
+  checkVer: (step) ->
+    self = this
+
+    url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
+    self.ajaxRequest url, (err, data) ->
+      return window.endSession(new cErrors.AjaxError('Can\'t access Github package.json').causedBy(err)) if err
+
+      data = JSON.parse(data)
+      if self.versionCompare(data.version, pkg.version) == 1
+        step null, true, data.version
+      else
+        step null, false
 
 }

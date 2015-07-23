@@ -5,16 +5,15 @@ gulpif = require 'gulp-if'
 flatten = require 'gulp-flatten'
 stylus = require 'gulp-stylus'
 nib = require 'nib'
-browserify = require 'browserify'
 coffeeify = require 'coffeeify'
-buffer = require 'vinyl-buffer'
 uglify = require 'gulp-uglify'
-source = require 'vinyl-source-stream'
+changed = require 'gulp-changed'
 
-# Coffee, Stylus, Browserify
+# Coffee, Stylus
 gulp.task 'coffee', ->
-  gulp.src(['./lib/main.coffee', './lib/deps.coffee', './lib/errors.coffee'], {base: './'})
-    .pipe(coffee(bare: true).on('error', gutil.log))
+  gulp.src('./lib/*.coffee', {base: './'})
+    .pipe(changed('./lib/*.coffee'))
+    .pipe(coffee({bare: true}).on('error', gutil.log))
     .pipe(gulpif(GLOBAL.ifBuild, uglify({mangle: false})))
     .pipe(flatten())
     .pipe gulp.dest('./dev/js/')
@@ -28,15 +27,3 @@ gulp.task 'stylus', ->
   gulp.src('./stylesheets/*.styl')
   .pipe(stylus(stylus_settings))
   .pipe gulp.dest('./dev/css')
-
-
-gulp.task 'browserify', (cb) ->
-  browserify({
-    transform: [coffeeify]
-    entries: ['./lib/championify.coffee']
-  })
-  .bundle()
-  .pipe(source('championify.js'))
-  .pipe(gulpif(GLOBAL.ifBuild, buffer()))
-  .pipe(gulpif(GLOBAL.ifBuild, uglify({mangle: false})))
-  .pipe(gulp.dest('./dev/js/'))

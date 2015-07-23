@@ -1,15 +1,22 @@
+# Electron
 remote = require 'remote'
 dialog = remote.require 'dialog'
 app = remote.require('app')
 
+# Deps
 fs = require 'fs'
 exec = require('child_process').exec
-https = require('follow-redirects').https
 open = require 'open'
 path = require 'path'
 winston = require 'winston'
 _ = require 'lodash'
+mkdirp = require 'mkdirp'
+glob = require 'glob'
 
+
+# Championify
+championify = require './js/championify'
+hlp = require './js/helpers'
 cErrors = require './js/errors'
 pkg = require './package.json'
 
@@ -106,26 +113,6 @@ loadPreferences = ->
 
 
 ###*
- * Function to download files.
- * @param {String} URL of download
- * @param {String} Local Destination
- * @callback {Function} Callback
-###
-_downloadFile = (url, dest, cb) ->
-  try
-    file = fs.createWriteStream(dest)
-  catch e
-    return cb(new cErrors.UpdateError('Can\'t write update-asar').causedBy(e))
-
-  https.get url, (res) ->
-    res.pipe file
-    file.on 'error', (err) ->
-      return cb(err)
-    file.on 'finish', ->
-      file.close cb
-
-
-###*
  * Function Read package file and set version in bottom right corner of interface.
 ###
 setVersion = ->
@@ -176,7 +163,7 @@ reloadUpdate = (app_asar, update_asar) ->
  * Function checks for updates by calling package.json on Github, and executes accordingly.
 ###
 runUpdates = ->
-  window.Championify.checkVer (err, needUpdate, version) ->
+  hlp.checkVer (err, needUpdate, version) ->
     return endSession(err) if err
 
     if needUpdate
@@ -185,7 +172,7 @@ runUpdates = ->
       url = 'https://github.com/dustinblackman/Championify/releases/download/'+version+'/update.asar'
       dest = __dirname.replace(/app.asar/g, '') + 'update-asar'
 
-      _downloadFile url, dest, (err) ->
+      hlp.downloadFile url, dest, (err) ->
         return endSession(err) if err
         reloadUpdate(__dirname, dest)
 
@@ -380,7 +367,7 @@ $(document).on 'click', '#import_btn', ->
   else
     $('.submitBtns').addClass('hidden')
     $('.status').removeClass('hidden')
-    window.Championify.run ->
+    championify.run ->
       $('.progress-striped').removeClass('active')
 
 ###*
@@ -391,7 +378,7 @@ $(document).on 'click', '#delete_btn', ->
     $('#input_msg').addClass('yellow')
     $('#input_msg').text('You need to select your folder first!')
   else
-    window.Championify.delete ->
+    championify.delete ->
       $('#cl-progress > span').append('. Done!')
     , true
 
@@ -403,6 +390,7 @@ $('#view').load 'views/main.html', ->
   setupPlatform()
   $('#browse_title').text(window.browse_title)
   setVersion()
+
   $(".options_tooltip").popup()
   $('.ui.dropdown').dropdown()
 
@@ -413,6 +401,6 @@ $('#view').load 'views/main.html', ->
 ###*
  * Export
 ###
-window.Championify.remote = remote
+window.remote = remote
 window.endSession = endSession
 window.preference_file = preference_file

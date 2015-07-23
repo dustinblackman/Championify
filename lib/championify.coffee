@@ -2,13 +2,12 @@ cheerio = require 'cheerio'
 async = require 'async'
 _ = require 'lodash'
 
-hlp = require './helpers.coffee'
-pkg = require '../package.json'
+hlp = require './helpers'
 csspaths = require '../data/csspaths.json'
 
-cErrors = require './errors.coffee'
-rift = require './summoners_rift.coffee'
-aram = require './aram.coffee'
+cErrors = require './errors'
+rift = require './summoners_rift'
+aram = require './aram'
 cl = hlp.cl
 
 # Set Defaults
@@ -19,24 +18,6 @@ GLOBAL.undefinedBuilds = []
 #################
 #      MAIN
 #################
-
-
-###*
- * Function Check version of Github package.json and local.
- * @callback {Function} Callback.
-###
-# TODO: Does this really have to be here?
-checkVer = (step) ->
-  url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
-  hlp.ajaxRequest url, (err, data) ->
-    return window.endSession(new cErrors.AjaxError('Can\'t access Github package.json').causedBy(err)) if err
-
-    data = JSON.parse(data)
-    if hlp.versionCompare(data.version, pkg.version) == 1
-      step null, true, data.version
-    else
-      step null, false
-
 
 ###*
  * Function Collects options from the Frontend.
@@ -195,8 +176,7 @@ downloadItemSets = (done) ->
 ###*
  * Export.
 ###
-window.Championify = {
+module.exports = {
   run: downloadItemSets
-  checkVer: checkVer
   delete: deleteOldBuilds
 }

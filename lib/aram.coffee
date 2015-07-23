@@ -1,7 +1,7 @@
 _ = require 'lodash'
 async = require 'async'
 
-hlp = require './helpers.coffee'
+hlp = require './helpers'
 defaultSchema = require '../data/default.json'
 
 cl = hlp.cl
@@ -64,7 +64,7 @@ saveToFile = (step, r) ->
   cl 'Saving ARAM Item Sets'
   hlp.saveToFile r.aramItemSets, (err) ->
     return step(err) if err
-    
+
     hlp.updateProgressBar(2.5)
     step null
 
