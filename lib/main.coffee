@@ -352,7 +352,7 @@ $(document).on 'input', '#install_path', ->
         checkInstallPath(path, setInstallPath)
       else
         $('#input_msg').attr('class', 'yellow')
-        $('#input_msg').text('Not a directory. P')
+        $('#input_msg').text('Not a directory.')
 
 $('.github > a').click (e) ->
   e.preventDefault()
