@@ -342,7 +342,17 @@ $(document).on 'click', '#browse', ->
   openFolder()
 
 $(document).on 'input', '#install_path', ->
-  checkInstallPath($(this).val(), setInstallPath)
+  path = $(this).val()
+  fs.stat path, (err, stats)->
+    if err
+      $('#input_msg').attr('class', 'yellow')
+      $('#input_msg').text('No such file or directory')
+    else
+      if stats.isDirectory()
+        checkInstallPath(path, setInstallPath)
+      else
+        $('#input_msg').attr('class', 'yellow')
+        $('#input_msg').text('Not a directory. P')
 
 $('.github > a').click (e) ->
   e.preventDefault()
