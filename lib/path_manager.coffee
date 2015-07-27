@@ -1,0 +1,136 @@
+fs = require 'fs'
+path = require 'path'
+
+###*
+ * Function Auto discovery of League installation.
+###
+findInstallPath = ->
+  userHome = process.env.HOME || process.env.USERPROFILE
+
+  # TODO: Fix.
+  notFound = ->
+    # $('#input_msg').text(window.browse_title)
+
+  if process.platform == 'darwin'
+    if fs.existsSync('/Applications/League of Legends.app')
+      @setInstallPath null, '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
+
+    else if fs.existsSync(userHome + '/Applications/League of Legends.app')
+      @setInstallPath null, userHome + '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
+    else
+      notFound()
+
+  else
+    if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
+      @setInstallPath null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/'
+    else
+      notFound()
+
+
+###*
+ * Function Verifies the users selected install paths. Warns if no League related files/diretories are found.
+ * @param {String} User selected path
+###
+checkInstallPath = (selected_path, done) ->
+  selected_path = selected_path[0] if !_.isString(selected_path)
+
+  # Verify is valid a path
+  try
+    path.resolve(selected_path)
+  catch e
+    return done(e)
+
+  if process.platform == 'darwin'
+    if fs.existsSync(path.join(selected_path, 'Contents/LoL/'))
+      done null, selected_path, 'Contents/LoL/Config/Champions/'
+
+    else if fs.existsSync(path.join(selected_path, 'League of Legends.app'))
+      done null, path.join(selected_path, 'League of Legends.app'), 'Contents/LoL/Config/Champions/'
+
+    else
+      done new Error('Path not found'), selected_path
+
+  else
+    # Default install, Garena Check 2
+    if fs.existsSync(path.join(selected_path, 'lol.launcher.exe')) or fs.existsSync(path.join(selected_path, 'League of Legends.exe'))
+      done null, selected_path, 'Config/Champions/'
+
+    # Garena Installation Check 1
+    else if fs.existsSync(path.join(selected_path + 'LoLLauncher.exe'))
+      done null, selected_path, 'GameData/Apps/LoL/Game/Config/Champions/'
+
+    else
+      done new Error('Path not found'), selected_path
+
+
+###*
+ * Function Sets the path string for the user to see on the interface.
+ * @param {String} If !=, explains path error
+ * @param {String} Install path
+ * @param {String} Champion folder path relative to Install Path
+###
+setInstallPath = (path_err, install_path, champ_path) ->
+  enableBtns = ->
+    $('#import_btn').removeClass('disabled')
+    $('#delete_btn').removeClass('disabled')
+
+  pathErr = ->
+    $('#input_msg').addClass('yellow')
+    $('#input_msg').text('You sure that\'s League?')
+    enableBtns()
+
+  foundLeague = ->
+    $('#input_msg').addClass('green')
+    $('#input_msg').text('Found League of Legends!')
+    enableBtns()
+
+  $('#input_msg').removeAttr('class')
+  $('#input_msg').text('')
+
+  if !champ_path
+    if process.platform == 'darwin'
+      champ_path = 'Contents/LoL/Config/Champions/'
+    else
+      champ_path = 'Config/Champions/'
+
+  window.lol_install_path = install_path
+  window.lol_champ_path = champ_path
+  window.item_set_path = path.join(install_path, champ_path)
+  $('#install_path').val(install_path)
+
+  if process.platform == 'darwin'
+    return pathErr() if path_err
+    foundLeague()
+  else
+    if path_err
+      pathErr()
+    else
+      foundLeague()
+
+
+###*
+ * Function If platform is Windows, check if we can write to the user selected directory, and warn if not.
+ * @callback {Function} Callback
+###
+isWindowsAdmin = (step) ->
+  if process.platform != 'darwin'
+    test_path = path.join(window.lol_install_path, 'test.txt')
+
+    fs.writeFile test_path, 'Testing Write', (err) ->
+      window.log.warn(err) if err
+
+      if err or !fs.existsSync(test_path)
+        step(new Error('Can not write test file on Windows'))
+      else
+        fs.unlinkSync(test_path)
+        step null
+  else
+    step null
+
+
+module.exports = {
+  findInstallPath: findInstallPath
+  checkInstallPath: checkInstallPath
+  setInstallPath: setInstallPath
+  isWindowsAdmin: isWindowsAdmin
+}

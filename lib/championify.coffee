@@ -11,8 +11,8 @@ aram = require './aram'
 cl = hlp.cl
 
 # Set Defaults
-GLOBAL.cSettings = {}
-GLOBAL.undefinedBuilds = []
+window.cSettings = {}
+window.undefinedBuilds = []
 
 
 #################
@@ -28,7 +28,7 @@ getSettings = (step) ->
   consumables_position = if $('#options_consumables_position').find('.beginning').hasClass('selected') then 'beginning' else 'end'
   trinkets_position = if $('#options_trinkets_position').find('.beginning').hasClass('selected') then 'beginning' else 'end'
 
-  GLOBAL.cSettings = {
+  window.cSettings = {
     splititems: $('#options_splititems').is(':checked')
     skillsformat: $('#options_skillsformat').is(':checked')
     consumables: $('#options_consumables').is(':checked')
@@ -39,7 +39,7 @@ getSettings = (step) ->
   }
 
   preferences = {
-    options: GLOBAL.cSettings
+    options: window.cSettings
     install_path: window.lol_install_path
     champ_path: window.lol_champ_path
   }
@@ -132,7 +132,7 @@ deleteOldBuilds = (step, deletebtn) ->
  * @callback {Function} Callback.
 ###
 notProcessed = (step) ->
-  _.each GLOBAL.undefinedBuilds, (e) ->
+  _.each window.undefinedBuilds, (e) ->
     cl 'Not Available: '+e, 'warn'
 
   step()

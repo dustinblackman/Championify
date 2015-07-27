@@ -16,7 +16,7 @@ requestChamps = (step) ->
     # Some antivirus' don't like lolfavor. Skip all ARAM builds if so and log error.
     if err
       window.log.warn(err)
-      GLOBAL.undefinedBuilds.push('ARAM: All')
+      window.undefinedBuilds.push('ARAM: All')
       return step null, []
 
     champs = _.map body.champions, (item) ->
@@ -41,7 +41,7 @@ requestData = (step, r) ->
     hlp.ajaxRequest url({c: champ}), (err, data) ->
       if err
         window.log.warn(err)
-        GLOBAL.undefinedBuilds.push('ARAM: '+champ)
+        window.undefinedBuilds.push('ARAM: '+champ)
         return next null
 
       data.map = 'HA'

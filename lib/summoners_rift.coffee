@@ -69,7 +69,7 @@ requestPage = (request_params, step) ->
   hlp.ajaxRequest url, (err, body) ->
     window.log.warn(err) if err
     if err or _.contains(body, 'We\'re currently in the process of generating stats for')
-      GLOBAL.undefinedBuilds.push(champ)
+      window.undefinedBuilds.push(champ)
       return step()
 
     processChamp(request_params, body, step)
@@ -111,7 +111,7 @@ processChamp = (request_params, body, step) ->
   ]
 
   if _.contains(undefArray, true)
-    GLOBAL.undefinedBuilds.push(champ + ' ' + _.capitalize(currentPosition))
+    window.undefinedBuilds.push(champ + ' ' + _.capitalize(currentPosition))
     return step()
 
   # Build objects for each section of item sets.

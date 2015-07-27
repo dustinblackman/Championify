@@ -13,10 +13,10 @@ _ = require 'lodash'
 mkdirp = require 'mkdirp'
 glob = require 'glob'
 
-
 # Championify
 championify = require './js/championify'
 hlp = require './js/helpers'
+pathManager = require './js/path_manager'
 cErrors = require './js/errors'
 pkg = require './package.json'
 
@@ -97,11 +97,11 @@ uploadLog = ->
 loadPreferences = ->
   if fs.existsSync(preference_file)
     preferences = require preference_file
-    checkInstallPath preferences.install_path, (err) ->
+    pathManager.checkInstallPath preferences.install_path, (err) ->
       if err
-        findInstallPath()
+        pathManager.findInstallPath()
       else
-        setInstallPath null, preferences.install_path, preferences.champ_path
+        pathManager.setInstallPath null, preferences.install_path, preferences.champ_path
 
     _.each preferences.options, (val, key) ->
       if _.contains(key, 'position')
@@ -109,7 +109,7 @@ loadPreferences = ->
       else
         $('#options_'+key).prop('checked', val)
   else
-    findInstallPath()
+    pathManager.findInstallPath()
 
 
 ###*
@@ -178,130 +178,6 @@ runUpdates = ->
 
 
 ###*
- * Function If platform is Windows, check if we can write to the user selected directory, and warn if not.
- * @callback {Function} Callback
-###
-isWindowsAdmin = (cb) ->
-  if process.platform != 'darwin'
-    test_path = path.join(window.lol_install_path, 'test.txt')
-
-    fs.writeFile test_path, 'Testing Write', (err) ->
-      window.log.warn(err) if err
-
-      if err or !fs.existsSync(test_path)
-        cb(new Error('Can not write test file on Windows'))
-      else
-        fs.unlinkSync(test_path)
-        cb null
-  else
-    cb null
-
-
-###*
- * Function Auto discovery of League installation.
-###
-findInstallPath = ->
-  userHome = process.env.HOME || process.env.USERPROFILE
-
-  notFound = ->
-    # $('#input_msg').text(window.browse_title)
-
-  if process.platform == 'darwin'
-    if fs.existsSync('/Applications/League of Legends.app')
-      setInstallPath null, '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
-
-    else if fs.existsSync(userHome + '/Applications/League of Legends.app')
-      setInstallPath null, userHome + '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
-    else
-      notFound()
-
-  else
-    if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
-      setInstallPath null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/'
-    else
-      notFound()
-
-
-###*
- * Function Verifies the users selected install paths. Warns if no League related files/diretories are found.
- * @param {String} User selected path
-###
-checkInstallPath = (selected_path, done) ->
-  selected_path = selected_path[0] if !_.isString(selected_path)
-  if process.platform == 'darwin'
-    if fs.existsSync(path.join(selected_path, 'Contents/LoL/'))
-      done null, selected_path, 'Contents/LoL/Config/Champions/'
-
-    else if fs.existsSync(path.join(selected_path, 'League of Legends.app'))
-      done null, path.join(selected_path, 'League of Legends.app'), 'Contents/LoL/Config/Champions/'
-
-    else
-      done new Error('Path not found'), selected_path
-
-  else
-    # Default install, Garena Check 2
-    if fs.existsSync(path.join(selected_path, 'lol.launcher.exe')) or fs.existsSync(path.join(selected_path, 'League of Legends.exe'))
-      done null, selected_path, 'Config/Champions/'
-
-    # Garena Installation Check 1
-    else if fs.existsSync(path.join(selected_path + 'LoLLauncher.exe'))
-      done null, selected_path, 'GameData/Apps/LoL/Game/Config/Champions/'
-
-    else
-      done new Error('Path not found'), selected_path
-
-###*
- * Function Sets the path string for the user to see on the interface.
- * @param {String} If !=, explains path error
- * @param {String} Install path
- * @param {String} Champion folder path relative to Install Path
-###
-setInstallPath = (path_err, install_path, champ_path) ->
-  enableBtns = ->
-    $('#import_btn').removeClass('disabled')
-    $('#delete_btn').removeClass('disabled')
-
-  pathErr = ->
-    $('#input_msg').addClass('yellow')
-    $('#input_msg').text('You sure that\'s League?')
-    enableBtns()
-
-  foundLeague = ->
-    $('#input_msg').addClass('green')
-    $('#input_msg').text('Found League of Legends!')
-    enableBtns()
-
-  $('#input_msg').removeAttr('class')
-  $('#input_msg').text('')
-
-  if !champ_path
-    if process.platform == 'darwin'
-      champ_path = 'Contents/LoL/Config/Champions/'
-    else
-      champ_path = 'Config/Champions/'
-
-  window.lol_install_path = install_path
-  window.lol_champ_path = champ_path
-  window.item_set_path = path.join(install_path, champ_path)
-  $('#install_path').val(install_path)
-
-  if process.platform == 'darwin'
-    return pathErr() if path_err
-    foundLeague()
-  else
-    isWindowsAdmin (err) ->
-      if err
-        $('#input_msg').addClass('yellow')
-        $('#input_msg').text('Whoops! You need to run me as an admin. \
-          Right click on my file and hit "Run as Administrator"')
-
-      else if path_err
-        pathErr()
-
-      else
-        foundLeague()
-
-###*
  * Function to call Electrons OpenDialog. Sets title based on Platform.
 ###
 folder_dialog_open = false
@@ -318,7 +194,7 @@ openFolder = ->
       title: window.browse_title
     }, (selected_path) ->
       folder_dialog_open = false
-      checkInstallPath(selected_path, setInstallPath) if selected_path
+      pathManager.checkInstallPath(selected_path, pathManager.setInstallPath) if selected_path
 
 
 ###*
@@ -327,10 +203,8 @@ openFolder = ->
 setupPlatform = ->
   if process.platform == 'darwin'
     window.browse_title = 'Select League of Legends.app'
-
   else
     window.browse_title = 'Select League of Legends directory'
-    $('.system-btns').attr('class','system-btns-right')
 
 
 ###*
@@ -349,13 +223,6 @@ $(document).on 'click', '#upload_log', (e) ->
   uploadLog() if !log_uploaded
   log_uploaded = true
 
-# $('#minimizeBtn').click (e) ->
-#   e.preventDefault()
-#   remote.getCurrentWindow().minimize()
-
-# $('#closeBtn').click (e) ->
-#   e.preventDefault()
-#   app.quit()
 
 ###*
  * Called when "Import" button is pressed.
@@ -367,8 +234,10 @@ $(document).on 'click', '#import_btn', ->
   else
     $('.submitBtns').addClass('hidden')
     $('.status').removeClass('hidden')
+    # TODO: Add new windows admin check before running this.
     championify.run ->
       $('.progress-striped').removeClass('active')
+
 
 ###*
  * Called when "Delete" button is pressed.
@@ -378,6 +247,7 @@ $(document).on 'click', '#delete_btn', ->
     $('#input_msg').addClass('yellow')
     $('#input_msg').text('You need to select your folder first!')
   else
+    # TODO: Verify if is Windows admin and can delete.
     championify.delete ->
       $('#cl-progress > span').append('. Done!')
     , true
