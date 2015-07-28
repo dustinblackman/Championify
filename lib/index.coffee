@@ -175,19 +175,15 @@ $(document).on 'click', '#upload_log', (e) ->
   uploadLog() if !log_uploaded
   log_uploaded = true
 
-
-###*
- * Called when "Import" button is pressed.
-###
 $(document).on 'click', '#import_btn', ->
   importItemSets()
 
-
-###*
- * Called when "Delete" button is pressed.
-###
 $(document).on 'click', '#delete_btn', ->
   deleteItemSets()
+
+$(document).on 'input', '#install_path', ->
+  console.log($(this).val())
+  pathManager.checkInstallPath($(this).val(), pathManager.setInstallPath)
 
 
 ###*

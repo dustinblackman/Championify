@@ -36,9 +36,9 @@ checkInstallPath = (selected_path, done) ->
 
   # Verify is valid a path
   try
-    path.resolve(selected_path)
+    fs.lstatSync(selected_path)
   catch e
-    return done(e)
+    return
 
   if process.platform == 'darwin'
     if fs.existsSync(path.join(selected_path, 'Contents/LoL/'))
