@@ -1,7 +1,6 @@
 _ = require 'lodash'
 async = require 'async'
 path = require 'path'
-https = require('follow-redirects').https
 
 cErrors = require './errors'
 pkg = require '../package.json'
@@ -30,57 +29,12 @@ module.exports = {
 
 
   ###*
-   * Function to download files.
-   * @param {String} URL of download
-   * @param {String} Local Destination
-   * @callback {Function} Callback
-  ###
-  downloadFile: (url, dest, cb) ->
-    try
-      file = fs.createWriteStream(dest)
-    catch e
-      return cb(new cErrors.UpdateError('Can\'t write update-asar').causedBy(e))
-
-    https.get url, (res) ->
-      res.pipe file
-      file.on 'error', (err) ->
-        return cb(err)
-      file.on 'finish', ->
-        file.close cb
-
-
-  ###*
    * Function Adds % to string.
    * @param {String} Text.
    * @returns {String} Formated String.
   ###
   wins: (text) ->
     return text.toString() + '%'
-
-
-  ###*
-   * Function Compares version numbers. Returns 1 if left is highest, -1 if right, 0 if the same.
-   * @param {String} First (Left) version number.
-   * @param {String} Second (Right) version number.
-   * @returns {Number}.
-  ###
-  versionCompare: (left, right) ->
-    if typeof left + typeof right != 'stringstring'
-      return false
-
-    a = left.split('.')
-    b = right.split('.')
-    i = 0
-    len = Math.max(a.length, b.length)
-
-    while i < len
-      if a[i] and !b[i] and parseInt(a[i]) > 0 or parseInt(a[i]) > parseInt(b[i])
-        return 1
-      else if b[i] and !a[i] and parseInt(b[i]) > 0 or parseInt(a[i]) < parseInt(b[i])
-        return -1
-      i++
-
-    return 0
 
 
   ###*
@@ -142,22 +96,4 @@ module.exports = {
     , (err) ->
       return step(err) if err
       step null
-
-  ###*
-   * Function Check version of Github package.json and local.
-   * @callback {Function} Callback.
-  ###
-  checkVer: (step) ->
-    self = this
-
-    url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
-    self.ajaxRequest url, (err, data) ->
-      return window.endSession(new cErrors.AjaxError('Can\'t access Github package.json').causedBy(err)) if err
-
-      data = JSON.parse(data)
-      if self.versionCompare(data.version, pkg.version) == 1
-        step null, true, data.version
-      else
-        step null, false
-
 }

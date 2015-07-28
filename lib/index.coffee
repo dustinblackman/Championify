@@ -5,7 +5,6 @@ app = remote.require('app')
 
 # Deps
 fs = require 'fs'
-exec = require('child_process').exec
 open = require 'open'
 path = require 'path'
 winston = require 'winston'
@@ -17,6 +16,7 @@ glob = require 'glob'
 championify = require './js/championify'
 hlp = require './js/helpers'
 pathManager = require './js/path_manager'
+updateManager = require './js/update_manager'
 preferences = require './js/preferences'
 cErrors = require './js/errors'
 pkg = require './package.json'
@@ -84,71 +84,6 @@ uploadLog = ->
     else
       $('#upload_log').attr('class','ui inverted red button')
       $('#upload_log').text('Failed')
-
-
-###*
- * Function Read package file and set version in bottom right corner of interface.
-###
-setVersion = ->
-  $('.version > span').text('v'+pkg.version)
-
-
-###*
- * Function Reboots Championify specificially for each platform, and switches in new asar archive for updates.
- * @param {String} Current asar archive
- * @param {String} New downloaded asar archive created by runUpdaets
-###
-reloadUpdate = (app_asar, update_asar) ->
-  if process.platform == 'darwin'
-    fs.unlink app_asar, (err) ->
-      return endSession(new cErrors.UpdateError('Can\'t unlink file').causedBy(err)) if err
-
-      fs.rename update_asar, app_asar, (err) ->
-        return endSession(new cErrors.UpdateError('Can\'t rename app.asar').causedBy(err)) if err
-
-        appPath = __dirname.replace('/Contents/Resources/app.asar', '')
-        exec 'open -n ' + appPath
-        app.quit()
-
-  else
-    cmd = _.template('
-      @echo off\n
-      echo Updating Championify, please wait...\n
-      taskkill /IM championify.exe /f\n
-      ping 1.1.1.1 -n 1 -w 3000 > nul\n
-      del "${app_asar}"\n
-      ren "${update_asar}" app.asar\n
-      start "" "${exec_path}"\n
-      exit\n
-    ')
-
-    params = {
-      app_asar: app_asar
-      update_asar: update_asar
-      exec_path: process.execPath
-    }
-
-    fs.writeFile 'update.bat', cmd(params), 'utf8', (err) ->
-      return endSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
-      exec 'START update.bat'
-
-
-###*
- * Function checks for updates by calling package.json on Github, and executes accordingly.
-###
-runUpdates = ->
-  hlp.checkVer (err, needUpdate, version) ->
-    return endSession(err) if err
-
-    if needUpdate
-      $('#view').load('views/update.html')
-
-      url = 'https://github.com/dustinblackman/Championify/releases/download/'+version+'/update.asar'
-      dest = __dirname.replace(/app.asar/g, '') + 'update-asar'
-
-      hlp.downloadFile url, dest, (err) ->
-        return endSession(err) if err
-        reloadUpdate(__dirname, dest)
 
 
 ###*
@@ -233,12 +168,12 @@ $(document).on 'click', '#delete_btn', ->
 $('#view').load 'views/main.html', ->
   setupPlatform()
   $('#browse_title').text(window.browse_title)
-  setVersion()
+  $('.version > span').text('v'+pkg.version)
 
   $(".options_tooltip").popup()
   $('.ui.dropdown').dropdown()
 
-  runUpdates()
+  updateManager.check()
   preferences.load()
 
 
