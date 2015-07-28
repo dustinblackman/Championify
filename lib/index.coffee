@@ -18,6 +18,7 @@ hlp = require './js/helpers'
 pathManager = require './js/path_manager'
 updateManager = require './js/update_manager'
 preferences = require './js/preferences'
+optionsParser = require './js/options_parser'
 cErrors = require './js/errors'
 pkg = require './package.json'
 
@@ -117,6 +118,48 @@ setupPlatform = ->
 
 
 ###*
+ * Function Checks and imports item sets
+ * @callback {Function} Optional callback called after importing is done
+###
+importItemSets = (done) ->
+  if !window.lol_install_path
+    $('#input_msg').addClass('yellow')
+    $('#input_msg').text('You need to select your folder first!')
+  else
+    $('.submitBtns').addClass('hidden')
+    $('.status').removeClass('hidden')
+    # TODO: Add new windows admin check before running this.
+    championify.run ->
+      $('.progress-striped').removeClass('active')
+      return done() if done
+
+
+###*
+ * Function Checks and deletes item sets
+###
+deleteItemSets = ->
+  if !window.lol_install_path
+    $('#input_msg').addClass('yellow')
+    $('#input_msg').text('You need to select your folder first!')
+  else
+    # TODO: Verify if is Windows admin and can delete.
+    championify.delete ->
+      $('#cl-progress > span').append('. Done!')
+    , true
+
+
+###*
+ * Function Goes through options parameters and acts.
+###
+executeOptionParameters = ->
+  if optionsParser.delete()
+    deleteItemSets()
+  else if optionsParser.import() or optionsParser.autorun()
+    importItemSets ->
+      app.quit() if optionsParser.close() or optionsParser.autorun()
+
+
+###*
  * Watches for buttons pressed on GUI.
 ###
 $(document).on 'click', '#browse', ->
@@ -137,29 +180,14 @@ $(document).on 'click', '#upload_log', (e) ->
  * Called when "Import" button is pressed.
 ###
 $(document).on 'click', '#import_btn', ->
-  if !window.lol_install_path
-    $('#input_msg').addClass('yellow')
-    $('#input_msg').text('You need to select your folder first!')
-  else
-    $('.submitBtns').addClass('hidden')
-    $('.status').removeClass('hidden')
-    # TODO: Add new windows admin check before running this.
-    championify.run ->
-      $('.progress-striped').removeClass('active')
+  importItemSets()
 
 
 ###*
  * Called when "Delete" button is pressed.
 ###
 $(document).on 'click', '#delete_btn', ->
-  if !window.lol_install_path
-    $('#input_msg').addClass('yellow')
-    $('#input_msg').text('You need to select your folder first!')
-  else
-    # TODO: Verify if is Windows admin and can delete.
-    championify.delete ->
-      $('#cl-progress > span').append('. Done!')
-    , true
+  deleteItemSets()
 
 
 ###*
@@ -173,8 +201,12 @@ $('#view').load 'views/main.html', ->
   $(".options_tooltip").popup()
   $('.ui.dropdown').dropdown()
 
-  updateManager.check()
   preferences.load()
+  updateManager.check (version) ->
+    if version
+      updateManager.download(version)
+    else
+      executeOptionParameters()
 
 
 ###*

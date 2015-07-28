@@ -1,6 +1,7 @@
 app = require 'app'
 fs = require 'fs'
 path = require 'path'
+_ = require 'lodash'
 BrowserWindow = require('browser-window')
 require('crash-reporter').start()
 
@@ -39,7 +40,7 @@ app.on 'ready', ->
 
   # Avoid white page on load.
   mainWindow.webContents.on 'did-finish-load', ->
-    mainWindow.show()
+    mainWindow.show() if !_.contains(process.argv, '--autorun')
 
   mainWindow.on 'closed', ->
     # Dereference the window object, usually you would store windows

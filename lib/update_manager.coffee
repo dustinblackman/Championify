@@ -111,8 +111,9 @@ win = (app_asar, update_asar) ->
 
 ###*
  * Function Check version of Github package.json and local. Executes update if available.
+  * @callback {Function} Callback, only accepts a single finished parameter as errors are handled with endSession.
 ###
-check = ->
+check = (done) ->
   self = @
 
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
@@ -121,7 +122,9 @@ check = ->
 
     data = JSON.parse(data)
     if self.versionCompare(data.version, pkg.version) == 1
-      self.download(data.version)
+      return done(data.version)
+    else
+      return done(null)
 
 
 module.exports = {
