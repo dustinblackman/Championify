@@ -27,7 +27,7 @@ window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync('../../dev_e
 if window.devEnabled
   error_log = path.join(__dirname, '..', 'championify.log')
 else
-  error_log = path.join(preferences.dir(), 'championify.log')
+  error_log = path.join(preferences.directory(), 'championify.log')
 
 window.log = new (winston.Logger)({
   transports: [
