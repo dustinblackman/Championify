@@ -341,6 +341,19 @@ setupPlatform = ->
 $(document).on 'click', '#browse', ->
   openFolder()
 
+$(document).on 'input', '#install_path', ->
+  path = $(this).val()
+  fs.stat path, (err, stats)->
+    if err
+      $('#input_msg').attr('class', 'yellow')
+      $('#input_msg').text('No such file or directory')
+    else
+      if stats.isDirectory()
+        checkInstallPath(path, setInstallPath)
+      else
+        $('#input_msg').attr('class', 'yellow')
+        $('#input_msg').text('Not a directory.')
+
 $('.github > a').click (e) ->
   e.preventDefault()
   open('https://github.com/dustinblackman/Championify#faq')
