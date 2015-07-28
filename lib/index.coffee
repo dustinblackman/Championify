@@ -21,7 +21,7 @@ preferences = require './js/preferences'
 cErrors = require './js/errors'
 pkg = require './package.json'
 
-window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync('../../dev_enabled')
+window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
 
 # Setup logger
 if window.devEnabled

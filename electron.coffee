@@ -1,5 +1,6 @@
 app = require 'app'
 fs = require 'fs'
+path = require 'path'
 BrowserWindow = require('browser-window')
 require('crash-reporter').start()
 
@@ -33,7 +34,7 @@ app.on 'ready', ->
   # Emitted when the window is closed.
 
   # Enable dev stuff if needed.
-  if fs.existsSync('./dev_enabled') || fs.existsSync('../../dev_enabled')
+  if fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
     mainWindow.openDevTools()
 
   # Avoid white page on load.
