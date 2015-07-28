@@ -40,6 +40,7 @@ window.log = new (winston.Logger)({
     new winston.transports.Console({
         level: 'debug'
         handleExceptions: true
+        json: true
     })
     new winston.transports.File({
       filename: error_log
