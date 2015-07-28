@@ -51,13 +51,17 @@ checkInstallPath = (selected_path, done) ->
       done new Error('Path not found'), selected_path
 
   else
-    # Default install, Garena Check 2
+    garena_glob = glob.sync(path.join(selected_path, 'GameData/Apps/**/Game/Config/'))
+
+    # Default install, Garena Check 1
     if fs.existsSync(path.join(selected_path, 'lol.launcher.exe')) or fs.existsSync(path.join(selected_path, 'League of Legends.exe'))
       done null, selected_path, 'Config/Champions/'
 
-    # Garena Installation Check 1
-    else if fs.existsSync(path.join(selected_path + 'LoLLauncher.exe'))
-      done null, selected_path, 'GameData/Apps/LoL/Game/Config/Champions/'
+    # Garena Installation Check 2
+    else if fs.existsSync(path.join(selected_path, 'LoLLauncher.exe')) and garena_glob
+      garena_split = garena_glob[0].split('/')
+      garena_version = garena_split[garena_split.length - 4]
+      done null, selected_path, 'GameData/Apps/' + garena_version + '/Game/Config/Champions/'
 
     else
       done new Error('Path not found'), selected_path
