@@ -6,6 +6,7 @@ hlp = require './helpers'
 csspaths = require '../data/csspaths.json'
 
 cErrors = require './errors'
+preferences = require './preferences'
 rift = require './summoners_rift'
 aram = require './aram'
 cl = hlp.cl
@@ -38,15 +39,13 @@ getSettings = (step) ->
     locksr: $('#options_locksr').is(':checked')
   }
 
-  preferences = {
+  preferences_obj = {
     options: window.cSettings
     install_path: window.lol_install_path
     champ_path: window.lol_champ_path
   }
 
-  fs.writeFile window.preference_file, JSON.stringify(preferences, null, 2), {encoding: 'utf8'}, (err) ->
-    window.logger.warn(err) if err
-    step null
+  preferences.save preferences_obj, step
 
 
 ###*

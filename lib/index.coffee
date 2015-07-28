@@ -17,23 +17,17 @@ glob = require 'glob'
 championify = require './js/championify'
 hlp = require './js/helpers'
 pathManager = require './js/path_manager'
+preferences = require './js/preferences'
 cErrors = require './js/errors'
 pkg = require './package.json'
 
 window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync('../../dev_enabled')
 
-# Set preference directory and file
-if process.platform == 'darwin'
-  preference_dir = path.join(process.env.HOME, 'Library/Application Support/Championify/')
-else
-  preference_dir = path.join(process.env.APPDATA, 'Championify')
-preference_file = path.join(preference_dir, 'prefs.json')
-
 # Setup logger
 if window.devEnabled
   error_log = path.join(__dirname, '..', 'championify.log')
 else
-  error_log = path.join(preference_dir, 'championify.log')
+  error_log = path.join(preferences.dir(), 'championify.log')
 
 window.log = new (winston.Logger)({
   transports: [
@@ -90,27 +84,6 @@ uploadLog = ->
     else
       $('#upload_log').attr('class','ui inverted red button')
       $('#upload_log').text('Failed')
-
-
-###*
- * Function to load prefence files
-###
-loadPreferences = ->
-  if fs.existsSync(preference_file)
-    preferences = require preference_file
-    pathManager.checkInstallPath preferences.install_path, (err) ->
-      if err
-        pathManager.findInstallPath()
-      else
-        pathManager.setInstallPath null, preferences.install_path, preferences.champ_path
-
-    _.each preferences.options, (val, key) ->
-      if _.contains(key, 'position')
-        $('#options_'+key).find('.'+val).addClass('active selected')
-      else
-        $('#options_'+key).prop('checked', val)
-  else
-    pathManager.findInstallPath()
 
 
 ###*
@@ -266,7 +239,7 @@ $('#view').load 'views/main.html', ->
   $('.ui.dropdown').dropdown()
 
   runUpdates()
-  loadPreferences()
+  preferences.load()
 
 
 ###*
@@ -274,4 +247,3 @@ $('#view').load 'views/main.html', ->
 ###
 window.remote = remote
 window.endSession = endSession
-window.preference_file = preference_file
