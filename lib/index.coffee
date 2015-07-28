@@ -180,5 +180,4 @@ $('#view').load 'views/main.html', ->
 ###*
  * Export
 ###
-window.remote = remote
 window.endSession = endSession

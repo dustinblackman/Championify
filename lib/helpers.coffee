@@ -1,3 +1,4 @@
+remote = require 'remote'
 _ = require 'lodash'
 async = require 'async'
 path = require 'path'
@@ -65,9 +66,9 @@ module.exports = {
     $('#progress_bar').find('.progress').text(floored+'%')
 
     if this.incr >= 100
-      window.remote.getCurrentWindow().setProgressBar(-1)
+      remote.getCurrentWindow().setProgressBar(-1)
     else
-      window.remote.getCurrentWindow().setProgressBar(this.incr / 100)
+      remote.getCurrentWindow().setProgressBar(this.incr / 100)
 
 
   # TODO: This is a messy function. Clean it up with Lodash, possibly.
