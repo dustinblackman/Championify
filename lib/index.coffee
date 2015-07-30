@@ -43,7 +43,7 @@ window.log = new (winston.Logger)({
       prettyPrint: true,
       level: 'debug'
       options:
-        level: 'w'
+        flags: 'w'
     })
   ]
 })
