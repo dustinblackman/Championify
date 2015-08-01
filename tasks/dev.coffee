@@ -2,7 +2,7 @@ gulp = require 'gulp'
 deleteLines = require 'gulp-delete-lines'
 fs = require 'fs-extra'
 path = require 'path'
-exec = require('child_process').exec
+spawn = require('child_process').spawn
 
 
 gulp.task 'removelivereload', ->
@@ -21,9 +21,7 @@ gulp.task 'run-watch', (cb) ->
   gulp.watch './stylesheets/*.styl', ['stylus']
   gulp.watch './lib/*.coffee', ['coffee']
 
-  cmd = path.normalize('../node_modules/.bin/electron') + ' .'
-
-  console.log cmd
-  exec cmd, {'cwd': './dev'},(err, std, ste) ->
-    console.log err if err
+  current_process = spawn(path.normalize('../node_modules/.bin/electron'), ['.'], {'cwd': './dev'})
+  current_process.on 'close', (code) ->
+    console.log('child process exited with code ' + code);
     process.exit(0)
