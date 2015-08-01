@@ -17,7 +17,9 @@
   },
   "author": "Dustin Blackman",
   "license": "MIT",
+  "release_file_template": "Championify.<%- platform %>.<%- version.replace(/\\./g, '-') %>.zip",
   "dependencies": {
+    "adm-zip": "0.4.7",
     "async": "1.2.0",
     "cheerio": "0.19.0",
     "follow-redirects": "0.0.3",
@@ -27,9 +29,9 @@
     "open": "0.0.5",
     "super-error": "1.1.2",
     "winston": "git://github.com/dustinblackman/winston.git#master"
+    "yauzl": "2.3.1"
   },
   "devDependencies": {
-    "adm-zip": "0.4.7",
     "bower": "1.4.1",
     "coffee-script": "1.9.3",
     "coffeeify": "1.1.0",

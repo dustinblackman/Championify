@@ -40,6 +40,8 @@ gulp.task 'electron:packagejson', (cb) ->
     name: pkg.name
     version: pkg.version
     main: 'electron.js'
+    electron_version: pkg.dependencies['electron-prebuilt']
+    release_file_template: pkg.release_file_template
   }
   json = JSON.stringify(packagejson, null, 2)
   fs.writeFile './dev/package.json', json, 'utf8', (err) ->

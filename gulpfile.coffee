@@ -7,9 +7,7 @@ requireDir('./tasks')
 pkg = require './package.json'
 
 # Setup some globals
-fileVersion = pkg.version.replace(/\./g, '-')
-
-GLOBAL.releaseFile = _.template('./releases/Championify.<%- platform %>.'+fileVersion+'.zip')
+GLOBAL.releaseFile = _.template('./releases/'+pkg.release_file_template)
 GLOBAL.ifBuild = (process.argv.indexOf('build') > -1)
 
 

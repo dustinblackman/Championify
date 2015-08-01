@@ -166,7 +166,7 @@ downloadItemSets = (done) ->
     # End
     notProcessed: ['riftSave', 'aramSave', notProcessed]
   }, (err) ->
-    return endSession(err) if err
+    return window.endSession(err) if err
     hlp.updateProgressBar(10) # Just max it.
     cl 'Looks like we\'re all done. Login and enjoy!'
     done()

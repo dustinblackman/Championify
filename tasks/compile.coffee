@@ -9,7 +9,7 @@ _ = require 'lodash'
 fs = require 'fs-extra'
 
 pkg = require '../package.json'
-version = pkg.devDependencies['electron-prebuilt'].replace(/\^/g, '')
+electron_version = pkg.devDependencies['electron-prebuilt'].replace(/\^/g, '')
 
 # Build
 gulp.task 'asar', ->
@@ -20,7 +20,7 @@ gulp.task 'asar', ->
 
 gulp.task 'compile:win', ->
   buildCfg = {
-    version: version
+    version: electron_version
     platform: 'win32'
     winIcon: path.normalize('./resources/win/icon.ico')
     companyName: pkg.author
@@ -30,12 +30,12 @@ gulp.task 'compile:win', ->
 
   gulp.src(['./dev/package.json', './tmp/app.asar'])
     .pipe atomshell(buildCfg)
-    .pipe atomshell.zfsdest(GLOBAL.releaseFile({'platform': 'Windows'}))
+    .pipe atomshell.zfsdest(GLOBAL.releaseFile({platform: 'Windows', version: pkg.version}))
 
 
 gulp.task 'compile:mac', ->
   buildCfg = {
-    version: version
+    version: electron_version
     platform: 'darwin'
     darwinIcon: './resources/osx/icon.icns'
     asar: true
@@ -43,11 +43,11 @@ gulp.task 'compile:mac', ->
 
   gulp.src(['./dev/package.json', './tmp/app.asar'])
     .pipe atomshell(buildCfg)
-    .pipe atomshell.zfsdest(GLOBAL.releaseFile({'platform': 'OSX'}))
+    .pipe atomshell.zfsdest(GLOBAL.releaseFile({platform: 'OSX', version: pkg.version}))
 
 
 gulp.task 'compile:win-installer', ->
-  zip = new AdmZip GLOBAL.releaseFile({'platform': 'Windows'})
+  zip = new AdmZip GLOBAL.releaseFile({platform: 'Windows', version: pkg.version})
   zip.extractAllTo './tmp/championify_windows', true
 
   inno_script = _.template(fs.readFileSync('./resources/win/inno_script.iss'))

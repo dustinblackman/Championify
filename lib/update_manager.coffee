@@ -1,13 +1,16 @@
 remote = require 'remote'
 app = remote.require('app')
-fs = require 'fs'
-_ = require 'lodash'
-https = require('follow-redirects').https
+async = require 'async'
 exec = require('child_process').exec
+fs = require 'fs'
+https = require('follow-redirects').https
 path = require 'path'
+_ = require 'lodash'
 
 cErrors = require './errors'
 hlp = require './helpers'
+preferences = require './preferences'
+zipz = require './zipz'
 
 
 ###*
@@ -39,19 +42,14 @@ versionCompare = (left, right) ->
  * Function Downloads update file
  * @callback {Function} Callback.
 ###
-download = (version) ->
+download = (url, download_path, done) ->
   self = @
   self.download_precentage = 0
-  $('#view').load('views/update.html')
-
-  url = 'https://github.com/dustinblackman/Championify/releases/download/'+version+'/update.asar'
-  app_asar = path.join(__dirname, '..')
-  update_asar = path.join(__dirname, '../../', 'update-asar')
 
   try
-    file = fs.createWriteStream(update_asar)
+    file = fs.createWriteStream(download_path)
   catch e
-    return cb(new cErrors.UpdateError('Can\'t write update-asar').causedBy(e))
+    return done(err)
 
   https.get url, (res) ->
     len = parseInt(res.headers['content-length'], 10)
@@ -67,22 +65,78 @@ download = (version) ->
         hlp.incrUIProgressBar('update_progress_bar', self.download_precentage)
 
     file.on 'error', (err) ->
-      return endSession(err) if err
+      return done(err)
 
     file.on 'finish', ->
       file.close()
-      if process.platform == 'darwin'
-        self.osx(app_asar, update_asar)
-      else
-        self.win(app_asar, update_asar)
+      done()
+
+###*
+ * Function Sets up flow for download minor update (just update.asar)
+ * @callback {Function} Callback.
+###
+minorUpdate = (version) ->
+  $('#view').load('views/update.html')
+
+  url = 'https://github.com/dustinblackman/Championify/releases/download/' + version + '/update.asar'
+  app_asar = path.join(__dirname, '..')
+  update_asar = path.join(__dirname, '../../', 'update-asar')
+
+  download url, update_asar, ->
+    if process.platform == 'darwin'
+      osxMinor(app_asar, update_asar)
+    else
+      winMinor(app_asar, update_asar)
 
 
 ###*
- * Function Reboots Championify for updates on OSX
+ * Function Sets up flow for download major update (replacing entire install directory)
+ * @callback {Function} Callback.
+###
+majorUpdate = (version) ->
+  $('#view').load('views/update.html')
+
+  if process.platform == 'darwin'
+    platform = 'OSX'
+    install_path = path.join(__dirname, '../../../../')
+  else
+    platform = 'WIN'
+    install_path = path.join(__dirname, '../../../../') # TODO: This is wrong. I think it's only twice.
+  install_path = install_path.substring(0, install_path.length - 1)
+
+  zipFileName = _.template(pkg.release_file_template)
+  zip_file_name = zipFileName({platform: platform, version: version})
+  zip_path = path.join(preferences.directory(), zip_file_name)
+  update_path = path.join(preferences.directory(), 'major_update')
+
+  url = 'https://github.com/dustinblackman/Championify/releases/download/' + version + '/' + zip_file_name
+
+  async.series [
+    (step) ->
+      download url, zip_path, (err) ->
+        return step(new cErrors.UpdateError('Can\'t write/download update file').causedBy(e)) if err
+        step()
+    (step) ->
+      zipz.extract zip_path, update_path, (err) ->
+        return step(new cErrors.UpdateError('Error extracing major update zip').causedBy(err)) if err
+        step()
+    (step) ->
+      fs.unlink zip_path, (err) ->
+        return step(new cErrors.UpdateError('Can\'t unlink major update zip').causedBy(err)) if err
+        step()
+  ], (err) ->
+    return endSession(err) if err
+
+    if process.platform == 'darwin'
+      osxMajor(install_path, update_path)
+
+
+###*
+ * Function Reboots Championify for minor updates on OSX
  * @param {String} Current asar archive
  * @param {String} New downloaded asar archive created by runUpdaets
 ###
-osx = (app_asar, update_asar) ->
+osxMinor = (app_asar, update_asar) ->
   fs.unlink app_asar, (err) ->
     return window.endSession(new cErrors.UpdateError('Can\'t unlink file').causedBy(err)) if err
 
@@ -91,7 +145,43 @@ osx = (app_asar, update_asar) ->
 
       appPath = __dirname.replace('/Contents/Resources/app.asar/js', '')
       exec 'open -n ' + appPath
-      app.quit()
+      setTimeout ->
+        app.quit()
+      , 250
+
+
+###*
+ * Function Reboots Championify for major updates on OSX
+ * @param {String} Current asar archive
+ * @param {String} New downloaded asar archive created by runUpdaets
+###
+osxMajor = (install_path, update_path) ->
+  # TODO Set terminal title and kill terminal window at end.
+  cmd = _.template('
+    echo -n -e "\\033]0;Updating Championify\\007"
+    echo Updating Championify, please wait...\n
+    osascript -e \'quit app "${name}"\'
+    rm -rf ${install_path}\n
+    mv ${update_path} ${install_path}\n
+    open -n ${install_path}\n
+    osascript -e \'tell application "Terminal" to close (every window whose name contains "Updating Championify")\' &
+    exit
+  ')
+
+  update_path = path.join(update_path, 'Championify.app')
+
+  params = {
+    install_path: install_path
+    update_path: update_path
+    name: pkg.name
+  }
+  update_file = path.join(preferences.directory(), 'update_major.sh')
+
+  fs.writeFile update_file, cmd(params), 'utf8', (err) ->
+    return window.endSession(new cErrors.UpdateError('Can\'t write update_major.sh').causedBy(err)) if err
+
+    console.log update_file
+    exec 'bash ' + update_file
 
 
 ###*
@@ -99,9 +189,10 @@ osx = (app_asar, update_asar) ->
  * @param {String} Current asar archive
  * @param {String} New downloaded asar archive created by runUpdaets
 ###
-win = (app_asar, update_asar) ->
+winMinor = (app_asar, update_asar) ->
   cmd = _.template('
     @echo off\n
+    title Updating Championify
     echo Updating Championify, please wait...\n
     taskkill /IM championify.exe /f\n
     ping 1.1.1.1 -n 1 -w 1000 > nul\n
@@ -118,7 +209,7 @@ win = (app_asar, update_asar) ->
   }
 
   fs.writeFile 'update.bat', cmd(params), 'utf8', (err) ->
-    return endSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
+    return window.endSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
     exec 'START update.bat'
 
 
@@ -127,23 +218,19 @@ win = (app_asar, update_asar) ->
   * @callback {Function} Callback, only accepts a single finished parameter as errors are handled with endSession.
 ###
 check = (done) ->
-  self = @
-
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
   hlp.ajaxRequest url, (err, data) ->
     return window.endSession(new cErrors.AjaxError('Can\'t access Github package.json').causedBy(err)) if err
 
     data = JSON.parse(data)
-    if self.versionCompare(data.version, pkg.version) == 1
+    if versionCompare(data.version, pkg.version) == 1
       return done(data.version)
     else
       return done(null)
 
 
 module.exports = {
-  versionCompare: versionCompare
   check: check
-  download: download
-  osx: osx
-  win: win
+  minorUpdate: minorUpdate
+  majorUpdate: majorUpdate
 }

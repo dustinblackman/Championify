@@ -26,33 +26,36 @@ window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync(path.join(__
 
 # Setup logger
 if window.devEnabled
-  error_log = path.join(__dirname, '..', 'championify.log')
+  window.log = {
+    error: console.log
+    warn: console.log
+    info: console.log
+  }
 else
   error_log = path.join(preferences.directory(), 'championify.log')
-
-window.log = new (winston.Logger)({
-  transports: [
-    new winston.transports.Console({
-        level: 'debug'
+  window.log = new (winston.Logger)({
+    transports: [
+      new winston.transports.Console({
+          level: 'debug'
+          handleExceptions: true
+          json: true
+      })
+      new winston.transports.File({
+        filename: error_log
         handleExceptions: true
-        json: true
-    })
-    new winston.transports.File({
-      filename: error_log
-      handleExceptions: true
-      prettyPrint: true,
-      level: 'debug'
-      options:
-        flags: 'w'
-    })
-  ]
-})
-# Cheat code to do something when an uncaught exception comes up
-window.log.exitOnError = ->
-  endSession()
+        prettyPrint: true,
+        level: 'debug'
+        options:
+          flags: 'w'
+      })
+    ]
+  })
+  # Cheat code to do something when an uncaught exception comes up
+  window.log.exitOnError = ->
+    endSession()
 
-  # Return false so the application doesn't exit.
-  return false
+    # Return false so the application doesn't exit.
+    return false
 
 ###*
  * Function if error exists, enable error view and log error ending the session.
@@ -200,7 +203,7 @@ $('#view').load 'views/main.html', ->
   preferences.load()
   updateManager.check (version) ->
     if version
-      updateManager.download(version)
+      updateManager.minorUpdate(version)
     else
       executeOptionParameters()
 
