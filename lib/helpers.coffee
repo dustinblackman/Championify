@@ -57,18 +57,21 @@ module.exports = {
     this.incr = 0 if !this.incr
     this.incr += incr
 
-    # Bug with Semantic UI progress function that makes 0 be set constantly.
-    # This is an easy work around.
-    floored = Math.floor(this.incr)
-    floored = 100 if floored > 100
-    $('#progress_bar').attr('data-percent', floored)
-    $('#progress_bar').find('.bar').css('width', floored+'%')
-    $('#progress_bar').find('.progress').text(floored+'%')
-
+    this.incrUIProgressBar('itemsets_progress_bar', this.incr)
     if this.incr >= 100
       remote.getCurrentWindow().setProgressBar(-1)
     else
       remote.getCurrentWindow().setProgressBar(this.incr / 100)
+
+
+  incrUIProgressBar: (id, incr) ->
+    # Bug with Semantic UI progress function that makes 0 be set constantly.
+    # This is an easy work around.
+    floored = Math.floor(incr)
+    floored = 100 if floored > 100
+    $('#' + id).attr('data-percent', floored)
+    $('#' + id).find('.bar').css('width', floored + '%')
+    $('#' + id).find('.progress').text(floored + '%')
 
 
   # TODO: This is a messy function. Clean it up with Lodash, possibly.

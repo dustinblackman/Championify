@@ -41,6 +41,7 @@ versionCompare = (left, right) ->
 ###
 download = (version) ->
   self = @
+  self.download_precentage = 0
   $('#view').load('views/update.html')
 
   url = 'https://github.com/dustinblackman/Championify/releases/download/'+version+'/update.asar'
@@ -53,9 +54,21 @@ download = (version) ->
     return cb(new cErrors.UpdateError('Can\'t write update-asar').causedBy(e))
 
   https.get url, (res) ->
+    len = parseInt(res.headers['content-length'], 10)
+    downloaded = 0
+
     res.pipe file
+    res.on 'data', (chunk) ->
+      downloaded += chunk.length
+      current_precentage = parseInt(100.0 * downloaded / len)
+
+      if current_precentage > self.download_precentage
+        self.download_precentage = current_precentage
+        hlp.incrUIProgressBar('update_progress_bar', self.download_precentage)
+
     file.on 'error', (err) ->
       return endSession(err) if err
+
     file.on 'finish', ->
       file.close()
       if process.platform == 'darwin'
