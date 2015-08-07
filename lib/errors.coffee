@@ -1,8 +1,9 @@
 # Championify specific error instances used for tracking.
 
+os = require 'os'
 SuperError = require 'super-error'
 _ = require 'lodash'
-os = require 'os'
+
 
 ChampionifyError = SuperError.subclass('ChampionifyError')
 errors = {ChampionifyError: ChampionifyError}

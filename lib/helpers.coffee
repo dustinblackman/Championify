@@ -1,7 +1,7 @@
-remote = require 'remote'
-_ = require 'lodash'
 async = require 'async'
 path = require 'path'
+remote = require 'remote'
+_ = require 'lodash'
 
 cErrors = require './errors'
 pkg = require '../package.json'
@@ -42,8 +42,7 @@ module.exports = {
    * Function Pretty console log, as well as updates the progress div on interface
    * @param {String} Console Message.
   ###
-  cl: (text, level) ->
-    level = level || 'info'
+  cl: (text, level='info') ->
     window.log[level](text)
 
     $('#cl-progress').prepend('<span>'+text+'</span><br />')

@@ -1,5 +1,5 @@
-cheerio = require 'cheerio'
 async = require 'async'
+cheerio = require 'cheerio'
 _ = require 'lodash'
 
 hlp = require './helpers'

@@ -1,14 +1,15 @@
-cheerio = require 'cheerio'
 async = require 'async'
+cheerio = require 'cheerio'
 _ = require 'lodash'
 
 hlp = require './helpers'
 csspaths = require '../data/csspaths.json'
 
+aram = require './aram'
 cErrors = require './errors'
 preferences = require './preferences'
 rift = require './summoners_rift'
-aram = require './aram'
+
 cl = hlp.cl
 
 # Set Defaults

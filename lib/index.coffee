@@ -1,61 +1,55 @@
 # Electron
 remote = require 'remote'
+app = remote.require 'app'
 dialog = remote.require 'dialog'
-app = remote.require('app')
 
 # Deps
 fs = require 'fs'
+glob = require 'glob'
+mkdirp = require 'mkdirp'
 open = require 'open'
 path = require 'path'
 winston = require 'winston'
 _ = require 'lodash'
-mkdirp = require 'mkdirp'
-glob = require 'glob'
 
 # Championify
 championify = require './js/championify'
-hlp = require './js/helpers'
-pathManager = require './js/path_manager'
-updateManager = require './js/update_manager'
-preferences = require './js/preferences'
-optionsParser = require './js/options_parser'
 cErrors = require './js/errors'
+hlp = require './js/helpers'
+optionsParser = require './js/options_parser'
+preferences = require './js/preferences'
+pathManager = require './js/path_manager'
 pkg = require './package.json'
+updateManager = require './js/update_manager'
+
 
 window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
 
 # Setup logger
-if window.devEnabled
-  window.log = {
-    error: console.log
-    warn: console.log
-    info: console.log
-  }
-else
-  error_log = path.join(preferences.directory(), 'championify.log')
-  window.log = new (winston.Logger)({
-    transports: [
-      new winston.transports.Console({
-          level: 'debug'
-          handleExceptions: true
-          json: true
-      })
-      new winston.transports.File({
-        filename: error_log
-        handleExceptions: true
-        prettyPrint: true,
+error_log = path.join(preferences.directory(), 'championify.log')
+window.log = new (winston.Logger)({
+  transports: [
+    new winston.transports.Console({
         level: 'debug'
-        options:
-          flags: 'w'
-      })
-    ]
-  })
-  # Cheat code to do something when an uncaught exception comes up
-  window.log.exitOnError = ->
-    endSession()
+        handleExceptions: true
+        json: true
+    })
+    new winston.transports.File({
+      filename: error_log
+      handleExceptions: true
+      prettyPrint: true,
+      level: 'debug'
+      options:
+        flags: 'w'
+    })
+  ]
+})
+# Cheat code to do something when an uncaught exception comes up
+window.log.exitOnError = ->
+  endSession()
 
-    # Return false so the application doesn't exit.
-    return false
+  # Return false so the application doesn't exit.
+  return false
 
 ###*
  * Function if error exists, enable error view and log error ending the session.
@@ -63,7 +57,7 @@ else
 ###
 endSession = (c_error) ->
   if c_error
-    cause = c_error.cause || {}
+    cause = c_error.cause || c_error.rootCause || {}
     window.log.error(c_error)
 
   $('#view').load('views/error.html')
