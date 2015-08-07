@@ -1,9 +1,9 @@
 node_modules/
-champs/
 releases/
 dev/
 bower_components/
 tmp/
+cache/
 
 *.asar
 *.log

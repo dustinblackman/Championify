@@ -19,7 +19,6 @@
   "license": "MIT",
   "release_file_template": "Championify.<%- platform %>.<%- version.replace(/\\./g, '-') %>.zip",
   "dependencies": {
-    "adm-zip": "0.4.7",
     "async": "1.2.0",
     "cheerio": "0.19.0",
     "follow-redirects": "0.0.3",
@@ -28,7 +27,7 @@
     "mkdirp": "0.5.1",
     "open": "0.0.5",
     "super-error": "1.1.2",
-    "winston": "git://github.com/dustinblackman/winston.git#master"
+    "winston": "git://github.com/dustinblackman/winston.git#master",
     "yauzl": "2.3.1"
   },
   "devDependencies": {
@@ -40,7 +39,6 @@
     "github": "0.2.4",
     "gulp": "3.9.0",
     "gulp-asar": "0.0.2",
-    "gulp-atom-shell": "git://github.com/dustinblackman/gulp-atom-shell.git#master",
     "gulp-bower": "0.0.10",
     "gulp-changed": "1.2.1",
     "gulp-clean": "0.3.1",
@@ -53,9 +51,12 @@
     "gulp-uglify": "1.2.0",
     "gulp-util": "3.0.5",
     "gulp-watch": "4.2.4",
+    "moment": "^2.10.6",
     "nib": "1.1.0",
     "npm": "2.13.1",
+    "plist": "1.1.0",
     "preen": "1.2.0",
+    "rcedit": "0.3.0",
     "request": "2.57.0",
     "require-dir": "0.3.0",
     "run-sequence": "1.1.0"
