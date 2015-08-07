@@ -14,14 +14,14 @@ gulp.task 'coffee', ->
   gulp.src('./lib/*.coffee', {base: './'})
     .pipe(changed('./lib/*.coffee'))
     .pipe(coffee({bare: true}).on('error', gutil.log))
-    .pipe(gulpif(GLOBAL.ifBuild, uglify({mangle: false})))
+    .pipe(gulpif(GLOBAL.ifRelease, uglify({mangle: false})))
     .pipe(flatten())
     .pipe gulp.dest('./dev/js/')
 
 
 gulp.task 'stylus', ->
   stylus_settings = {use: nib()}
-  if GLOBAL.ifBuild
+  if GLOBAL.ifRelease
     stylus_settings.compress = true
 
   gulp.src('./stylesheets/*.styl')
