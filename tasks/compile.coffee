@@ -1,6 +1,5 @@
 async = require 'async'
 asar = require 'gulp-asar'
-atomshell = require 'gulp-atom-shell'
 fs = require 'fs-extra'
 gulp = require 'gulp'
 inno = require 'gulp-inno'
@@ -30,7 +29,7 @@ gulp.task 'asar', ->
     .pipe(gulp.dest('tmp'))
 
 
-gulp.task 'compile:mac', (cb) ->
+gulp.task '_compileMac', (cb) ->
   src_folder = 'darwin' + electron_version.replace(/\./g, '-')
   tmp_path = path.join('./tmp', pkg.name + '.app')
 
@@ -64,7 +63,10 @@ gulp.task 'compile:mac', (cb) ->
     ]
   }, (err) -> cb(err)
 
-gulp.task 'compile:win', (cb) ->
+gulp.task 'compile:mac', (cb) ->
+  return runSequence('electron:download:mac', '_compileMac', cb)
+
+gulp.task '_compileWin', (cb) ->
   src_folder = 'win32' + electron_version.replace(/\./g, '-')
   tmp_path = path.join('./tmp/', pkg.name)
   exe_path = path.join(tmp_path, pkg.name.toLowerCase() + '.exe')
@@ -100,6 +102,10 @@ gulp.task 'compile:win', (cb) ->
         step(err)
     ]
   }, (err) -> cb(err)
+
+
+gulp.task 'compile:win', (cb) ->
+  return runSequence('electron:download:win', '_compileWin', cb)
 
 
 gulp.task '_wininstaller', ->
