@@ -18,24 +18,40 @@ renameAsar = (asar, pkg_name, resource_path, done) ->
     done(err)
 
 
-gulp.task 'tarball:osx', (cb) ->
+tarball = (os, done) ->
+  if os == 'osx'
+    pkg_name = pkg.name + '.app'
+    resources_folder = 'Contents/Resources'
+  else
+    pkg_name = pkg.name
+    resources_folder = 'resources'
+
+  os_tmp_path = path.join('./tmp', os)
+
   async.auto {
     rename_app: (step) ->
-      renameAsar('app.asar', pkg.name + '.app', 'Contents/Resources', step)
+      renameAsar('app.asar', pkg_name, resources_folder, step)
     rename_atom: (step) ->
-      renameAsar('atom.asar', pkg.name + '.app', 'Contents/Resources', step)
+      renameAsar('atom.asar', pkg_name, resources_folder, step)
     move: ['rename_atom', 'rename_app', (step) ->
-      fs.move './tmp/' + pkg.name + '.app', './tmp/osx/'+ pkg.name + '.app', (err) ->
+      fs.move path.join('./tmp', pkg_name), path.join(os_tmp_path, pkg_name), (err) ->
         step(err)
     ]
   }, (err) ->
     return cb(err) if err
 
-    stream = fs.createWriteStream('./releases/u_osx.tar.gz')
-    stream.on 'close', -> cb()
-    tar.pack('./tmp/osx')
+    stream = fs.createWriteStream('./releases/u_' + os + '.tar.gz')
+    stream.on 'close', -> done()
+    tar.pack(os_tmp_path)
       .pipe(zlib.Gzip())
       .pipe(stream)
 
+
+gulp.task 'tarball:osx', (cb) ->
+  tarball('osx', cb)
+
+gulp.task 'tarball:win', (cb) ->
+  tarball('win', cb)
+
 gulp.task 'tarball:all', (cb) ->
-  return runSequence('tarball:osx', cb)
+  return runSequence(['tarball:osx', 'tarball:win'], cb)

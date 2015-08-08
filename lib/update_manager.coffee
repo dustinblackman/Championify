@@ -103,7 +103,7 @@ majorUpdate = (version) ->
     tar_name = 'u_osx.tar.gz'
   else
     platform = 'WIN'
-    install_path = path.join(__dirname, '../../../../') # TODO: This is wrong. I think it's only twice.
+    install_path = path.join(__dirname, '../../../')
     tar_name = 'u_win.tar.gz'
 
   tar_path = path.join(preferences.directory(), tar_name)
@@ -138,6 +138,8 @@ majorUpdate = (version) ->
 
     if process.platform == 'darwin'
       osxMajor(install_path, update_path)
+    else
+      winMajor(install_path, update_path)
 
 
 ###*
@@ -202,7 +204,7 @@ winMinor = (app_asar, update_asar) ->
     @echo off\n
     title Updating Championify
     echo Updating Championify, please wait...\n
-    taskkill /IM championify.exe /f\n
+    taskkill /IM ${process_name} /f\n
     ping 1.1.1.1 -n 1 -w 1000 > nul\n
     del "${app_asar}"\n
     ren "${update_asar}" app.asar\n
@@ -214,11 +216,57 @@ winMinor = (app_asar, update_asar) ->
     app_asar: app_asar
     update_asar: update_asar
     exec_path: process.execPath
+    process_name: path.basename(process.execPath)
   }
 
   fs.writeFile 'update.bat', cmd(params), 'utf8', (err) ->
     return window.endSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
     exec 'START update.bat'
+
+
+###*
+ * Function Reboots Championify for major updates on Windows
+ * @param {String} Current asar archive
+ * @param {String} New downloaded asar archive created by runUpdaets
+###
+winMajor = (install_path, update_path) ->
+  cmd = _.template([
+    '@echo off'
+    'title Updating Championify'
+    'echo Updating Championify, please wait...'
+    'taskkill /IM ${process_name} /f'
+    'ping 1.1.1.1 -n 1 -w 3000 > nul'
+    'echo Renaming app.asar'
+    'ren "${update_path}\\resources\\app-asar" app.asar'
+    'echo Renaming atom.asar'
+    'ren "${update_path}\\resources\\atom-asar" atom.asar'
+    'echo Removing Install Path: ${install_path}'
+    'rmdir "${install_path}" /s /q'
+    'echo Moving Championify'
+    'move "${update_path}" "${root_path}"'
+    'echo Starting Championify'
+    'start "" "${exec_path}"'
+    'exit'
+  ].join('\n'))
+
+  # TODO: Get path of where the app is installed to be used when re-executing, instead of defaulting to 'Championify'.
+
+  update_path = path.join(update_path, 'Championify')
+  root_path = path.resolve(path.join(install_path, '../'))
+
+  params = {
+    install_path: install_path
+    update_path: update_path
+    root_path: root_path
+    exec_path: process.execPath
+    process_name: path.basename(process.execPath)
+  }
+
+  update_file = path.join(preferences.directory(), 'update_major.bat')
+
+  fs.writeFile update_file, cmd(params), 'utf8', (err) ->
+    return window.endSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
+    exec 'START "" "' + update_file + '"'
 
 
 ###*

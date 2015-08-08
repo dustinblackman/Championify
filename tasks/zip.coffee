@@ -34,4 +34,4 @@ gulp.task 'zip:win', (cb) ->
 
 
 gulp.task 'zip:all', (cb) ->
-  runSequence('zip:osx', 'zip:win', cb)
+  runSequence(['zip:osx', 'zip:win'], cb)
