@@ -46,8 +46,13 @@ gulp.task '_compileMac', (cb) ->
       fs.copy './resources/osx/icon.icns', path.join(tmp_path, '/Contents/Resources/Championify.icns'), (err) ->
         step(err)
     ]
+    executable: ['electron', (step) ->
+      fs.move path.join(tmp_path, 'Contents/MacOS/Electron'), path.join(tmp_path, 'Contents/MacOS/', pkg.name), (err) ->
+        step(err)
+    ]
     plist: ['electron', (step) ->
       info_plist = plist.parse fs.readFileSync(path.join(tmp_path, 'Contents/Info.plist'), 'utf8')
+      info_plist['CFBundleExecutable'] = pkg.name
       info_plist['CFBundleName'] = pkg.name
       info_plist['CFBundleDisplayName'] = pkg.name
       info_plist['CFBundleVersion'] = pkg.version

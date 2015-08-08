@@ -2,15 +2,16 @@ remote = require 'remote'
 app = remote.require('app')
 async = require 'async'
 exec = require('child_process').exec
-fs = require 'fs'
+fs = require 'fs-extra'
 https = require('follow-redirects').https
 path = require 'path'
+tar = require 'tar-fs'
+zlib = require 'zlib'
 _ = require 'lodash'
 
 cErrors = require './errors'
 hlp = require './helpers'
 preferences = require './preferences'
-zipz = require './zipz'
 
 
 ###*
@@ -99,33 +100,41 @@ majorUpdate = (version) ->
   if process.platform == 'darwin'
     platform = 'OSX'
     install_path = path.join(__dirname, '../../../../')
+    tar_name = 'u_osx.tar.gz'
   else
     platform = 'WIN'
     install_path = path.join(__dirname, '../../../../') # TODO: This is wrong. I think it's only twice.
-  install_path = install_path.substring(0, install_path.length - 1)
+    tar_name = 'u_win.tar.gz'
 
-  zipFileName = _.template(pkg.release_file_template)
-  zip_file_name = zipFileName({platform: platform, version: version})
-  zip_path = path.join(preferences.directory(), zip_file_name)
+  tar_path = path.join(preferences.directory(), tar_name)
+  install_path = install_path.substring(0, install_path.length - 1)
   update_path = path.join(preferences.directory(), 'major_update')
 
-  url = 'https://github.com/dustinblackman/Championify/releases/download/' + version + '/' + zip_file_name
+  url = 'https://github.com/dustinblackman/Championify/releases/download/' + version + '/' + tar_name
 
   async.series [
-    (step) ->
-      download url, zip_path, (err) ->
+    (step) -> # Delete previous update folder if exists
+      if fs.existsSync(update_path)
+        fs.remove update_path, (err) ->
+          step(err)
+      else
+        step()
+    (step) -> # Download Tarball
+      download url, tar_path, (err) ->
         return step(new cErrors.UpdateError('Can\'t write/download update file').causedBy(e)) if err
         step()
-    (step) ->
-      zipz.extract zip_path, update_path, (err) ->
-        return step(new cErrors.UpdateError('Error extracing major update zip').causedBy(err)) if err
+    (step) -> # Extract Tarball
+      $('#update_current_file').text('Extracting...')
+      stream = fs.createReadStream(tar_path)
+      stream.pipe(zlib.Gunzip()).pipe(tar.extract(update_path))
+      stream.on 'end', ->
         step()
-    (step) ->
-      fs.unlink zip_path, (err) ->
+    (step) -> # Delete Tarball
+      fs.unlink tar_path, (err) ->
         return step(new cErrors.UpdateError('Can\'t unlink major update zip').causedBy(err)) if err
         step()
   ], (err) ->
-    return endSession(err) if err
+    return window.endSession(err) if err
 
     if process.platform == 'darwin'
       osxMajor(install_path, update_path)
@@ -156,17 +165,17 @@ osxMinor = (app_asar, update_asar) ->
  * @param {String} New downloaded asar archive created by runUpdaets
 ###
 osxMajor = (install_path, update_path) ->
-  # TODO Set terminal title and kill terminal window at end.
-  cmd = _.template('
-    echo -n -e "\\033]0;Updating Championify\\007"
-    echo Updating Championify, please wait...\n
-    osascript -e \'quit app "${name}"\'
-    rm -rf ${install_path}\n
-    mv ${update_path} ${install_path}\n
-    open -n ${install_path}\n
-    osascript -e \'tell application "Terminal" to close (every window whose name contains "Updating Championify")\' &
-    exit
-  ')
+  cmd = _.template([
+    'echo -n -e "\\033]0;Updating Championify\\007"'
+    'echo Updating Championify, please wait...'
+    'killall Championify'
+    'mv "${update_path}/Contents/Resources/atom-asar" "${update_path}/Contents/Resources/atom.asar"'
+    'mv "${update_path}/Contents/Resources/app-asar" "${update_path}/Contents/Resources/app.asar"'
+    'rm -rf "${install_path}"'
+    'mv "${update_path}" "${install_path}"'
+    'open -n "${install_path}"'
+    'exit'
+  ].join('\n'))
 
   update_path = path.join(update_path, 'Championify.app')
 
@@ -180,8 +189,7 @@ osxMajor = (install_path, update_path) ->
   fs.writeFile update_file, cmd(params), 'utf8', (err) ->
     return window.endSession(new cErrors.UpdateError('Can\'t write update_major.sh').causedBy(err)) if err
 
-    console.log update_file
-    exec 'bash ' + update_file
+    exec 'bash "' + update_file + '"'
 
 
 ###*

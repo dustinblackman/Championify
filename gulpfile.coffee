@@ -11,6 +11,9 @@ GLOBAL.releaseFile = _.template('./releases/' + pkg.release_file_template)
 GLOBAL.ifRelease = (process.argv.indexOf('release') > -1)
 
 
+gulp.task 'setup', ->
+  runSequence('bower', 'preen')
+
 # Main Tasks
 gulp.task 'main', (cb) ->
   runSequence(
@@ -32,9 +35,6 @@ gulp.task 'dev', ->
     # 'copy'
     'run-watch')
 
-gulp.task 'setup', ->
-  runSequence('bower', 'preen')
-
 gulp.task 'package-asar', (cb) ->
   runSequence(
     'main'
@@ -50,7 +50,6 @@ gulp.task 'build', ->
   runSequence(
     'package-asar'
     'compile:mac'
-    # 'create-releases-folder'
     'move:compiled-mac:folder'
   )
 
@@ -61,17 +60,18 @@ gulp.task 'build:win', ->
   runSequence(
     'package-asar'
     'compile:win',
-    # 'create-releases-folder'
     'move:compiled-win:folder'
   )
 
 gulp.task 'release', ->
   runSequence(
     'delete-releases'
+    'create-releases-folder'
     'package-asar'
     'compile:all'
-    # 'create-releases-folder'
-    'move:asar'
+    'zip:all'
+    'tarball:all'
+    'move:asar:update'
     'virustotal'
     'github-release'
   )

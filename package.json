@@ -22,23 +22,23 @@
     "async": "1.2.0",
     "cheerio": "0.19.0",
     "follow-redirects": "0.0.3",
+    "fs-extra": "0.18.4",
     "glob": "5.0.10",
     "lodash": "3.10.0",
     "mkdirp": "0.5.1",
     "open": "0.0.5",
     "super-error": "1.1.2",
-    "winston": "git://github.com/dustinblackman/winston.git#master",
-    "yauzl": "2.3.1"
+    "tar-fs": "1.8.1",
+    "winston": "git://github.com/dustinblackman/winston.git#master"
   },
   "devDependencies": {
     "bower": "1.4.1",
     "coffee-script": "1.9.3",
     "coffeeify": "1.1.0",
     "electron-prebuilt": "0.26.0",
-    "fs-extra": "0.18.4",
     "github": "0.2.4",
     "gulp": "3.9.0",
-    "gulp-asar": "0.0.2",
+    "gulp-asar": "git://github.com/dustinblackman/gulp-asar.git#master",
     "gulp-bower": "0.0.10",
     "gulp-changed": "1.2.1",
     "gulp-clean": "0.3.1",
@@ -60,6 +60,6 @@
     "request": "2.57.0",
     "require-dir": "0.3.0",
     "run-sequence": "1.1.0",
-    "yazl": "^2.2.2"
+    "yauzl": "2.3.1"
   }
 }
