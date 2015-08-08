@@ -166,9 +166,9 @@ osxMinor = (app_asar, update_asar) ->
 ###
 osxMajor = (install_path, update_path) ->
   cmd = _.template([
-    'echo -n -e "\\033]0;Updating Championify\\007"'
-    'echo Updating Championify, please wait...'
-    'killall Championify'
+    'echo -n -e "\\033]0;Updating ${name}\\007"'
+    'echo Updating ${name}, please wait...'
+    'killall ${name}'
     'mv "${update_path}/Contents/Resources/atom-asar" "${update_path}/Contents/Resources/atom.asar"'
     'mv "${update_path}/Contents/Resources/app-asar" "${update_path}/Contents/Resources/app.asar"'
     'rm -rf "${install_path}"'
