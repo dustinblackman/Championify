@@ -1,10 +1,10 @@
-gulp = require 'gulp'
 async = require 'async'
-path = require 'path'
-mkdirp = require 'mkdirp'
-fs = require 'fs-extra'
 clean = require 'gulp-clean'
+fs = require 'fs-extra'
 glob = require 'glob'
+gulp = require 'gulp'
+mkdirp = require 'mkdirp'
+path = require 'path'
 
 pkg = require '../package.json'
 
@@ -52,7 +52,7 @@ gulp.task 'delete-releases', ->
 gulp.task 'create-releases-folder', (cb) ->
   mkdirp './releases', -> cb()
 
-gulp.task 'move:asar', (cb) ->
+gulp.task 'move:asar:update', (cb) ->
   fs.copy './tmp/app.asar', './releases/update.asar', -> cb()
 
 gulp.task 'move:compiled-win:folder', (cb) ->
