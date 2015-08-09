@@ -59,7 +59,7 @@ gulp.task 'build:mac', ->
 gulp.task 'build:win', ->
   runSequence(
     'package-asar'
-    'compile:win',
+    'compile:win'
     'move:compiled-win:folder'
   )
 

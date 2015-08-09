@@ -133,6 +133,9 @@ extract = (download_path, os, done) ->
   mkdirp cache_path
   _zipExtract download_path, cache_path, (err) ->
     return done(err) if (err)
+    
+    license_file = path.join('./cache', folder_name, 'LICENSE')
+    fs.removeSync(license_file) if fs.existsSync(license_file)
     done()
 
 
