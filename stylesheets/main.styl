@@ -88,6 +88,12 @@ body
     margin-bottom 5px
     label
       color text_color
+    label:hover
+      color rgba(text_color, 0.5)
+    label:after
+      color text_color
+    input:focus~label
+      color text_color
 
 // Submit/Progress
 .submitBtns
