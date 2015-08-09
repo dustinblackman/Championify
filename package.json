@@ -13,7 +13,7 @@
     "url": "https://github.com/dustinblackman/Championify.git"
   },
   "engines": {
-    "iojs": "1.6.3"
+    "iojs": "2.3.1"
   },
   "author": "Dustin Blackman",
   "license": "MIT",
@@ -35,7 +35,7 @@
     "bower": "1.4.1",
     "coffee-script": "1.9.3",
     "coffeeify": "1.1.0",
-    "electron-prebuilt": "0.26.0",
+    "electron-prebuilt": "0.30.3",
     "github": "0.2.4",
     "gulp": "3.9.0",
     "gulp-asar": "git://github.com/dustinblackman/gulp-asar.git#master",
