@@ -67,6 +67,10 @@ endSession = (c_error) ->
  * Function to upload log file to server
 ###
 uploadLog = ->
+  onError = ->
+    $('#upload_log').attr('class','ui inverted red button')
+    $('#upload_log').text('Failed')
+
   log_server = 'http://clogger.dustinblackman.com'
   log_server = 'http://127.0.0.1:8080' if window.devEnabled
   fs.readFile error_log, 'utf8', (err, data) ->
@@ -74,14 +78,15 @@ uploadLog = ->
     $('#upload_log').attr('class','ui inverted yellow button')
     $('#upload_log').text('Sending...')
 
-    # TODO Do something with error reading log file.
     if !err
-      $.post log_server + '/submit', data, (res) ->
-        $('#upload_log').attr('class', 'ui green button')
-        $('#upload_log').text('Sent!')
+      $.post(log_server + '/submit', data)
+        .done ->
+          $('#upload_log').attr('class', 'ui green button')
+          $('#upload_log').text('Sent!')
+        .fail ->
+          onError()
     else
-      $('#upload_log').attr('class','ui inverted red button')
-      $('#upload_log').text('Failed')
+      onError()
 
 
 ###*
