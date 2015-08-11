@@ -171,6 +171,10 @@ $('.github > a').click (e) ->
   e.preventDefault()
   open('https://github.com/dustinblackman/Championify#faq')
 
+$('.version > span').click (e) ->
+  e.preventDefault()
+  open('https://github.com/dustinblackman/Championify/releases/latest')
+
 log_uploaded = false
 $(document).on 'click', '#upload_log', (e) ->
   e.preventDefault()
