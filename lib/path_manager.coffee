@@ -38,6 +38,8 @@ checkInstallPath = (selected_path, done) ->
   try
     fs.lstatSync(selected_path)
   catch e
+    $('#input_msg').addClass('red')
+    $('#input_msg').text('Invalid Path')
     return
 
   if process.platform == 'darwin'
