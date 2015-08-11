@@ -44,8 +44,7 @@ versionCompare = (left, right) ->
  * @callback {Function} Callback.
 ###
 download = (url, download_path, done) ->
-  self = @
-  self.download_precentage = 0
+  download_precentage = 0
 
   try
     file = fs.createWriteStream(download_path)
@@ -61,9 +60,9 @@ download = (url, download_path, done) ->
       downloaded += chunk.length
       current_precentage = parseInt(100.0 * downloaded / len)
 
-      if current_precentage > self.download_precentage
-        self.download_precentage = current_precentage
-        hlp.incrUIProgressBar('update_progress_bar', self.download_precentage)
+      if current_precentage > download_precentage
+        download_precentage = current_precentage
+        hlp.incrUIProgressBar('update_progress_bar', download_precentage)
 
     file.on 'error', (err) ->
       return done(err)
