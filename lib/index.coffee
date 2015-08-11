@@ -115,8 +115,19 @@ openFolder = ->
 setupPlatform = ->
   if process.platform == 'darwin'
     window.browse_title = 'Select League of Legends.app'
+    $('.osx_buttons').removeClass('hidden')
   else
     window.browse_title = 'Select League of Legends directory'
+    $('.win_buttons').removeClass('hidden')
+
+
+###*
+ * Function Warn user if their league folder isn't selected.
+###
+selectFolderWarning = ->
+  $('#input_msg').addClass('yellow')
+  $('#input_msg').text('You need to select your folder first!')
+  $('#input_msg').transition('shake')
 
 
 ###*
@@ -125,8 +136,7 @@ setupPlatform = ->
 ###
 importItemSets = (done) ->
   if !window.lol_install_path
-    $('#input_msg').addClass('yellow')
-    $('#input_msg').text('You need to select your folder first!')
+    selectFolderWarning()
   else
     $('.submit_btns').addClass('hidden')
     $('.status').transition('fade up', '500ms')
@@ -141,8 +151,7 @@ importItemSets = (done) ->
 ###
 deleteItemSets = ->
   if !window.lol_install_path
-    $('#input_msg').addClass('yellow')
-    $('#input_msg').text('You need to select your folder first!')
+    selectFolderWarning()
   else
     # TODO: Verify if is Windows admin and can delete.
     championify.delete ->
@@ -188,8 +197,15 @@ $(document).on 'click', '#delete_btn', ->
   deleteItemSets()
 
 $(document).on 'input', '#install_path', ->
-  console.log($(this).val())
   pathManager.checkInstallPath($(this).val(), pathManager.setInstallPath)
+
+$(document).on 'click', '.sys_button.minimize', (e) ->
+  e.preventDefault()
+  remote.getCurrentWindow().minimize()
+
+$(document).on 'click', '.sys_button.close', (e) ->
+  e.preventDefault()
+  app.quit()
 
 
 ###*

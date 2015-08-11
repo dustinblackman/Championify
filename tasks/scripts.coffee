@@ -24,6 +24,6 @@ gulp.task 'stylus', ->
   if GLOBAL.ifRelease
     stylus_settings.compress = true
 
-  gulp.src('./stylesheets/*.styl')
-  .pipe(stylus(stylus_settings))
-  .pipe gulp.dest('./dev/css')
+  gulp.src('./stylesheets/index.styl')
+    .pipe(stylus(stylus_settings))
+    .pipe gulp.dest('./dev/css')

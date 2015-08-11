@@ -18,16 +18,14 @@ app.on 'window-all-closed', ->
 app.on 'ready', ->
   # Create the browser window.
   mainWindow = new BrowserWindow({
-    # frame: false
-    # transparent: true
     fullscreen: false
     width: 400
     height: 600
     center: true
     resizable: false
     show: false
+    frame: false
     title: 'Championify'
-
   })
 
   # and load the index.html of the app.
