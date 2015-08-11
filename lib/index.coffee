@@ -128,8 +128,8 @@ importItemSets = (done) ->
     $('#input_msg').addClass('yellow')
     $('#input_msg').text('You need to select your folder first!')
   else
-    $('.submitBtns').addClass('hidden')
-    $('.status').removeClass('hidden')
+    $('.submit_btns').addClass('hidden')
+    $('.status').transition('fade up', '500ms')
     # TODO: Add new windows admin check before running this.
     championify.run ->
       $('.progress-striped').removeClass('active')
