@@ -12,6 +12,7 @@ _ = require 'lodash'
 cErrors = require './errors'
 hlp = require './helpers'
 preferences = require './preferences'
+viewManager = require './view_manager'
 
 
 ###*
@@ -76,7 +77,7 @@ download = (url, download_path, done) ->
  * @callback {Function} Callback.
 ###
 minorUpdate = (version) ->
-  $('#view').load('views/update.html')
+  viewManager.update()
 
   url = 'https://github.com/dustinblackman/Championify/releases/download/' + version + '/update.asar'
   app_asar = path.join(__dirname, '..')
@@ -94,7 +95,7 @@ minorUpdate = (version) ->
  * @callback {Function} Callback.
 ###
 majorUpdate = (version) ->
-  $('#view').load('views/update.html')
+  viewManager.update()
 
   if process.platform == 'darwin'
     platform = 'OSX'

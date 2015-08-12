@@ -4,6 +4,7 @@ app = remote.require 'app'
 dialog = remote.require 'dialog'
 
 # Deps
+exec = require('child_process').exec
 fs = require 'fs'
 glob = require 'glob'
 mkdirp = require 'mkdirp'
@@ -21,6 +22,7 @@ preferences = require './js/preferences'
 pathManager = require './js/path_manager'
 pkg = require './package.json'
 updateManager = require './js/update_manager'
+viewManager = require './js/view_manager'
 
 
 window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
@@ -60,7 +62,7 @@ endSession = (c_error) ->
     cause = c_error.cause || c_error.rootCause || {}
     window.log.error(c_error)
 
-  $('#view').load('views/error.html')
+  viewManager.error()
 
 
 ###*
@@ -142,7 +144,6 @@ importItemSets = (done) ->
     $('.status').transition('fade up', '500ms')
     # TODO: Add new windows admin check before running this.
     championify.run ->
-      $('.progress-striped').removeClass('active')
       return done() if done
 
 
@@ -167,7 +168,34 @@ executeOptionParameters = ->
     deleteItemSets()
   else if optionsParser.import() or optionsParser.autorun()
     importItemSets ->
-      app.quit() if optionsParser.close() or optionsParser.autorun()
+      if optionsParser.close() or optionsParser.autorun()
+        app.quit()
+      else
+        viewManager.complete()
+        startLeague() if optionsParser.startLeague()
+
+
+###*
+ * Function Start the League of Legends client.
+###
+startLeague = ->
+  exit = ->
+    setTimeout ->
+      app.quit()
+    , 500
+
+  if process.platform == 'darwin'
+    console.log 'open -n "' + window.lol_install_path + '"'
+    exec 'open -n "' + window.lol_install_path + '"'
+    exit()
+  else
+    if (window.lol_executable)
+      exec 'START "' + path.join(window.lol_install_path, window.lol_executable) + '"'
+      exit()
+    else
+      window.logger.error('League of legends executable is not defined. ' + window.lol_executable)
+      $('#start_league').attr('class','ui inverted red button')
+      $('#start_league').text('Can\'t start League')
 
 
 ###*
@@ -191,7 +219,7 @@ $(document).on 'click', '#upload_log', (e) ->
   log_uploaded = true
 
 $(document).on 'click', '#import_btn', ->
-  importItemSets()
+  importItemSets(viewManager.complete)
 
 $(document).on 'click', '#delete_btn', ->
   deleteItemSets()
@@ -206,6 +234,9 @@ $(document).on 'click', '.sys_button.minimize', (e) ->
 $(document).on 'click', '.sys_button.close', (e) ->
   e.preventDefault()
   app.quit()
+
+$(document).on 'click', '#start_league', ->
+  startLeague()
 
 
 ###*
@@ -225,7 +256,6 @@ $('#view').load 'views/main.html', ->
       updateManager.minorUpdate(version)
     else
       executeOptionParameters()
-
 
 ###*
  * Export

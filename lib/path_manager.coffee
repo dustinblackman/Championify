@@ -54,16 +54,20 @@ checkInstallPath = (selected_path, done) ->
 
   else
     garena_glob = glob.sync(path.join(selected_path, 'GameData/Apps/**/Game/Config/'))
+    garena_path = path.join(selected_path, 'League of Legends.exe')
+    default_path = path.join(selected_path, 'lol.launcher.exe')
 
     # Default install, Garena Check 1
-    if fs.existsSync(path.join(selected_path, 'lol.launcher.exe')) or fs.existsSync(path.join(selected_path, 'League of Legends.exe'))
-      done null, selected_path, 'Config/Champions/'
+    if fs.existsSync(default_path) or fs.existsSync(garena_path)
+      executable = if fs.existsSync(garena_path) then 'League of Legends.exe' else 'lol.launcher.exe'
+      done null, selected_path, 'Config/Champions/', executable
 
     # Garena Installation Check 2
     else if fs.existsSync(path.join(selected_path, 'LoLLauncher.exe')) and garena_glob
+      executable = 'LoLLauncher.exe'
       garena_split = garena_glob[0].split('/')
       garena_version = garena_split[garena_split.length - 4]
-      done null, selected_path, 'GameData/Apps/' + garena_version + '/Game/Config/Champions/'
+      done null, selected_path, 'GameData/Apps/' + garena_version + '/Game/Config/Champions/', executable
 
     else
       done new Error('Path not found'), selected_path
@@ -75,7 +79,7 @@ checkInstallPath = (selected_path, done) ->
  * @param {String} Install path
  * @param {String} Champion folder path relative to Install Path
 ###
-setInstallPath = (path_err, install_path, champ_path) ->
+setInstallPath = (path_err, install_path, champ_path, executable) ->
   enableBtns = ->
     $('#import_btn').removeClass('disabled')
     $('#delete_btn').removeClass('disabled')
@@ -101,6 +105,7 @@ setInstallPath = (path_err, install_path, champ_path) ->
 
   window.lol_install_path = install_path
   window.lol_champ_path = champ_path
+  window.lol_executable = executable
   window.item_set_path = path.join(install_path, champ_path)
   $('#install_path').val(install_path)
 
