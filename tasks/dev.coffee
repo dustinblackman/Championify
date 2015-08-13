@@ -20,8 +20,13 @@ gulp.task 'run-watch', (cb) ->
   fs.writeFileSync('./dev/dev_enabled', 'dev enabled', 'utf8')
   gulp.watch './stylesheets/*.styl', ['stylus']
   gulp.watch './lib/*.coffee', ['coffee']
+  if process.platform == 'win32'
+    gulp.watch './app/**', ['copy:app']
 
-  current_process = spawn(path.normalize('../node_modules/.bin/electron'), ['.'], {'cwd': './dev'})
+  exec_path = path.resolve('node_modules/.bin/electron')
+  exec_path = exec_path + '.cmd' if process.platform == 'win32'
+
+  current_process = spawn(exec_path, ['.'], {'cwd': './dev'})
   current_process.on 'close', (code) ->
-    console.log('child process exited with code ' + code);
+    console.log('child process exited with code ' + code)
     process.exit(0)

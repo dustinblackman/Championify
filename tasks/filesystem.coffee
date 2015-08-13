@@ -5,6 +5,7 @@ glob = require 'glob'
 gulp = require 'gulp'
 mkdirp = require 'mkdirp'
 path = require 'path'
+runSequence = require 'run-sequence'
 
 pkg = require '../package.json'
 
@@ -40,6 +41,12 @@ gulp.task 'symlink:app', (cb) ->
     , () ->
       cb()
 
+
+gulp.task 'dev_folder', (cb) ->
+  if process.platform == 'win32'
+    runSequence('copy:app', cb)
+  else
+    runSequence('symlink:app', cb)
 
 gulp.task 'delete-dev', ->
   gulp.src(['./dev', './tmp'])

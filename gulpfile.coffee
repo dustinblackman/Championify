@@ -27,12 +27,10 @@ gulp.task 'main', (cb) ->
     cb
   )
 
-# TODO Symlink doesn't work for Windows.
 gulp.task 'dev', ->
   runSequence(
     'main'
-    'symlink:app'
-    # 'copy'
+    'dev_folder'
     'run-watch')
 
 gulp.task 'package-asar', (cb) ->
