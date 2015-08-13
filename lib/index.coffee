@@ -190,10 +190,10 @@ startLeague = ->
     exit()
   else
     if (window.lol_executable)
-      exec 'START "' + path.join(window.lol_install_path, window.lol_executable) + '"'
+      exec '"' + path.join(window.lol_install_path, window.lol_executable) + '"'
       exit()
     else
-      window.logger.error('League of legends executable is not defined. ' + window.lol_executable)
+      window.log.error('League of legends executable is not defined. ' + window.lol_executable)
       $('#start_league').attr('class','ui inverted red button')
       $('#start_league').text('Can\'t start League')
 

@@ -163,7 +163,6 @@ downloadItemSets = (done) ->
   async_tasks = {
     # Default
     settings: getSettings
-    champggVer: champgg.version
     riotVer: getRiotVer
     champs_json:  ['riotVer', getChamps]
     champs: ['champs_json', champNames]
@@ -183,6 +182,7 @@ downloadItemSets = (done) ->
   if sr_source == 'lolflavor'
     async_tasks['srItemSets'] = ['riotVer', lolflavor.sr]
   else
+    async_tasks['champggVer'] = champgg.version
     async_tasks['srItemSets'] = ['champs', 'champggVer', 'manaless', champgg.sr]
 
   # Initialize progress bar

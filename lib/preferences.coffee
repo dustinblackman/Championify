@@ -14,7 +14,7 @@ load = ->
       if err
         pathManager.findInstallPath()
       else
-        pathManager.setInstallPath null, preferences.install_path, preferences.champ_path
+        pathManager.checkInstallPath preferences.install_path, pathManager.setInstallPath
 
     _.each preferences.options, (val, key) ->
       if key == 'sr_source'

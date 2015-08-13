@@ -22,7 +22,7 @@ findInstallPath = ->
 
   else
     if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
-      @setInstallPath null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/'
+      @setInstallPath null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/', 'lol.launcher.exe'
     else
       notFound()
 
