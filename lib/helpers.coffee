@@ -71,32 +71,4 @@ module.exports = {
     $('#' + id).attr('data-percent', floored)
     $('#' + id).find('.bar').css('width', floored + '%')
     $('#' + id).find('.progress').text(floored + '%')
-
-
-  # TODO: This is a messy function. Clean it up with Lodash, possibly.
-  ###*
-   * Function Saves all compiled item sets to file, creating paths included.
-   * @callback {Function} Callback.
-  ###
-  saveToFile: (champData, step) ->
-    async.each _.keys(champData), (champ, next) ->
-      async.each _.keys(champData[champ]), (position, nextPosition) ->
-        toFileData = JSON.stringify(champData[champ][position], null, 4)
-        folder_path = path.join(window.item_set_path, champ, 'Recommended')
-
-        mkdirp folder_path, (err) ->
-          window.log.warn(err) if err
-
-          file_path = path.join(window.item_set_path, champ, 'Recommended/CGG_'+champ+'_'+position+'.json')
-          fs.writeFile file_path, toFileData, (err) ->
-            return nextPosition(new cErrors.FileWriteError('Failed to write item set json file').causedBy(err)) if err
-            nextPosition null
-
-      , (err) ->
-        return next(err) if err
-        next null
-
-    , (err) ->
-      return step(err) if err
-      step null
 }

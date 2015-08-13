@@ -15,6 +15,21 @@ cl = hlp.cl
 champData = {}
 
 ###*
+  * Function Gets current version Champion.GG is using.
+  * @callback {Function} Callback.
+###
+getVersion = (step) ->
+  cl 'Getting Champion.GG Version'
+  hlp.ajaxRequest 'http://champion.gg/faq/', (err, body) ->
+    return step(new cErrors.AjaxError('Can\'t get Champion.GG Version').causedBy(err)) if err
+
+    $c = cheerio.load(body)
+    window.champGGVer = $c(csspaths.version).text()
+    hlp.updateProgressBar(1.5)
+    step null
+
+
+###*
  * Function That parses Champion.GG HTML. Kept out of Championify.coffee as it'll rarely ever change.
  * @param {Function} Cheerio.
  * @returns {Object} Object containing Champion data.
@@ -49,7 +64,7 @@ requestChamps = (step, r) ->
       next null
 
   , () ->
-    step null
+    step null, champData
 
 
 ###*
@@ -382,21 +397,9 @@ processChamp = (request_params, body, step) ->
 
 
 ###*
- * Function Save Rift item sets to file
- * @callback {Function} Callback.
-###
-saveToFile = (step) ->
-  cl 'Saving Rift Item Sets'
-  hlp.saveToFile champData, (err) ->
-    return step(err) if err
-
-    hlp.updateProgressBar(2.5)
-    step null
-
-###*
  * Export
 ###
 module.exports = {
-  requestChamps: requestChamps
-  save: saveToFile
+  sr: requestChamps
+  version: getVersion
 }

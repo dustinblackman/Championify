@@ -20,7 +20,6 @@
 
 <div class="one column row">
   <div class="column options">
-
     <div class="ui checkbox left">
       <input type="checkbox" id="options_splititems" />
       <label class="options_tooltip" data-content="Create separate item sets for Most Frequent and Highest Win %">Split Up Item Sets</label>
@@ -71,6 +70,19 @@
     <div class="ui checkbox left">
       <input type="checkbox" id="options_locksr" />
       <label class="options_tooltip" data-content="Champion.gg item sets will only be available on Summoner's Rift">Lock Champion.gg Item Sets to Summoner's Rift</label><br />
+    </div>
+
+    <div class="rift_source">
+      <div class="ui selection dropdown">
+        <input type="hidden" id="options_sr_source" value="championgg">
+        <i class="dropdown icon"></i>
+        <div id="sr_source_text" class="text">Champion.gg</div>
+        <div class="menu">
+          <div class="header">Summoners Rift Source</div>
+          <div class="item" data-value="championgg">Champion.gg</div>
+          <div class="item" data-value="lolflavor">Lolflavor</div>
+        </div>
+      </div>
     </div>
 
   </div>

@@ -17,7 +17,14 @@ load = ->
         pathManager.setInstallPath null, preferences.install_path, preferences.champ_path
 
     _.each preferences.options, (val, key) ->
-      if _.contains(key, 'position')
+      if key == 'sr_source'
+        if val == 'lolflavor'
+          $('#options_sr_source').val(val)
+          $('#sr_source_text').text($('.rift_source').find('[data-value="lolflavor"]').text())
+          $('.rift_source').find('[data-value="championgg"]').attr('class', 'item')
+          $('.rift_source').find('[data-value="lolflavor"]').addClass('selected active')
+
+      else if _.contains(key, 'position')
         $('#options_'+key).find('.'+val).addClass('active selected')
       else
         $('#options_'+key).prop('checked', val)

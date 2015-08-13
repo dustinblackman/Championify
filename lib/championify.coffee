@@ -5,10 +5,10 @@ _ = require 'lodash'
 hlp = require './helpers'
 csspaths = require '../data/csspaths.json'
 
-aram = require './aram'
 cErrors = require './errors'
+champgg = require './championgg'
+lolflavor = require './lolflavor'
 preferences = require './preferences'
-rift = require './summoners_rift'
 
 cl = hlp.cl
 
@@ -38,6 +38,7 @@ getSettings = (step) ->
     trinkets: $('#options_trinkets').is(':checked')
     trinkets_position: trinkets_position
     locksr: $('#options_locksr').is(':checked')
+    sr_source: $('#options_sr_source').val()
   }
 
   preferences_obj = {
@@ -60,21 +61,6 @@ getRiotVer = (step) ->
 
     hlp.updateProgressBar(1.5)
     step null, body.v
-
-
-###*
-  * Function Gets current version Champion.GG is using.
-  * @callback {Function} Callback.
-###
-getChampionGGVer = (step) ->
-  cl 'Getting Champion.GG Version'
-  hlp.ajaxRequest 'http://champion.gg/faq/', (err, body) ->
-    return step(new cErrors.AjaxError('Can\'t get Champion.GG Version').causedBy(err)) if err
-
-    $c = cheerio.load(body)
-    window.champGGVer = $c(csspaths.version).text()
-    hlp.updateProgressBar(1.5)
-    step null
 
 
 ###*
@@ -114,17 +100,48 @@ genManaless = (step, r) ->
 ###
 deleteOldBuilds = (step, deletebtn) ->
   cl 'Deleting Old Builds'
-  glob window.item_set_path+'**/CGG_*.json', (err, files) ->
-    return step(new cErrors.OperationalError('Can\'t glob for old item set files').causedBy(err)) if err
+  globbed = [
+    glob.sync(window.item_set_path+'**/CGG_*.json')
+    glob.sync(window.item_set_path+'**/CIFY_*.json')
+  ]
+  async.each _.flatten(globbed), (item, next) ->
+    fs.unlink item, (err) ->
+      # TODO: Fix
+      window.log.warn(err) if err
+      next null
+  , () ->
+    hlp.updateProgressBar(2.5) if !deletebtn
+    step null
 
-    async.each files, (item, next) ->
-      fs.unlink item, (err) ->
-        # TODO: Fix
+
+# TODO: This is a messy function. Clean it up with Lodash, possibly.
+###*
+ * Function Saves all compiled item sets to file, creating paths included.
+ * @callback {Function} Callback.
+###
+saveToFile = (step, r) ->
+  champData = _.merge(_.clone(r.srItemSets, true), r.aramItemSets)
+
+  async.each _.keys(champData), (champ, next) ->
+    async.each _.keys(champData[champ]), (position, nextPosition) ->
+      toFileData = JSON.stringify(champData[champ][position], null, 4)
+      folder_path = path.join(window.item_set_path, champ, 'Recommended')
+
+      mkdirp folder_path, (err) ->
         window.log.warn(err) if err
-        next null
-    , () ->
-      hlp.updateProgressBar(2.5) if !deletebtn
-      step null
+
+        file_path = path.join(window.item_set_path, champ, 'Recommended/CIFY_'+champ+'_'+position+'.json')
+        fs.writeFile file_path, toFileData, (err) ->
+          return nextPosition(new cErrors.FileWriteError('Failed to write item set json file').causedBy(err)) if err
+          nextPosition null
+
+    , (err) ->
+      return next(err) if err
+      next null
+
+  , (err) ->
+    return step(err) if err
+    step null
 
 
 ###*
@@ -143,30 +160,32 @@ notProcessed = (step) ->
  * @callback {Function} Callback.
 ###
 downloadItemSets = (done) ->
-  async.auto {
+  async_tasks = {
     # Default
     settings: getSettings
-    champGGVer: getChampionGGVer
+    champggVer: champgg.version
     riotVer: getRiotVer
     champs_json:  ['riotVer', getChamps]
     champs: ['champs_json', champNames]
     manaless: ['champs_json', genManaless]
 
-    # Summoners Rift
-    riftItemSets: ['champs', 'champGGVer', 'manaless', rift.requestChamps]
-    riftSave: ['deleteOldBuilds', 'riftItemSets', rift.save]
-
     # ARAM
-    aramChamps: aram.requestChamps
-    aramItemSets: ['riotVer','aramChamps', aram.requestData]
-    aramSave: ['deleteOldBuilds','aramItemSets', aram.save]
+    aramItemSets: ['riotVer', lolflavor.aram]
 
     # Utils
-    deleteOldBuilds: ['riftItemSets', 'aramItemSets', deleteOldBuilds]
+    deleteOldBuilds: ['srItemSets', 'aramItemSets', deleteOldBuilds]
+    saveBuilds: ['deleteOldBuilds', saveToFile]
+    notProcessed: ['saveBuilds', notProcessed]
+  }
 
-    # End
-    notProcessed: ['riftSave', 'aramSave', notProcessed]
-  }, (err) ->
+  # Summoners Rift
+  sr_source = window.cSettings.sr_source || $('#options_sr_source').val()
+  if sr_source == 'lolflavor'
+    async_tasks['srItemSets'] = ['riotVer', lolflavor.sr]
+  else
+    async_tasks['srItemSets'] = ['champs', 'champggVer', 'manaless', champgg.sr]
+
+  async.auto async_tasks, (err) ->
     return window.endSession(err) if err
     hlp.updateProgressBar(10) # Just max it.
     cl 'Looks like we\'re all done. Login and enjoy!'

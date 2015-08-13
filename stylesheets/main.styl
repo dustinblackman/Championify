@@ -26,6 +26,21 @@
 .options
   -webkit-app-region no-drag
 
+  .rift_source
+    z-index 2
+    text-align center
+
+    .ui.selection.dropdown
+      line-height 0.5em
+      height 30px
+      min-height .7142em
+
+    .ui.selection.dropdown>.dropdown.icon
+      padding .48571429em
+
+    .ui.selection.active.dropdown .menu
+      -webkit-app-region no-drag
+
   .with_dropdown
     display flex
     flex-direction row
@@ -69,7 +84,7 @@
     margin 0.8rem 0
 
 .progresslog
-  height 210px
+  height 170px
   overflow hidden
   text-align center
   margin-top 0px
