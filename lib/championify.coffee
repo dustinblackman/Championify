@@ -179,7 +179,7 @@ downloadItemSets = (done) ->
   }
 
   # Summoners Rift
-  sr_source = window.cSettings.sr_source || $('#options_sr_source').val()
+  sr_source = $('#options_sr_source').val()
   if sr_source == 'lolflavor'
     async_tasks['srItemSets'] = ['riotVer', lolflavor.sr]
   else

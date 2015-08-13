@@ -9,7 +9,7 @@ pathManager = require './path_manager'
 load = ->
   preference_file = @file()
   if fs.existsSync(preference_file)
-    preferences = require preference_file
+    preferences = JSON.parse(fs.readFileSync(preference_file))
     pathManager.checkInstallPath preferences.install_path, (err) ->
       if err
         pathManager.findInstallPath()
