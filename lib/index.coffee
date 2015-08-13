@@ -238,19 +238,14 @@ $(document).on 'click', '.sys_button.close', (e) ->
 $(document).on 'click', '#start_league', ->
   startLeague()
 
+$(document).on 'click', '#back_to_main', ->
+  viewManager.mainBack()
+
 
 ###*
 * Execute ASAP after view load
 ###
-$('#view').load 'views/main.html', ->
-  setupPlatform()
-  $('#browse_title').text(window.browse_title)
-  $('.version > span').text('v'+pkg.version)
-
-  $(".options_tooltip").popup()
-  $('.ui.dropdown').dropdown()
-
-  preferences.load()
+viewManager.init ->
   updateManager.check (version) ->
     if version
       updateManager.minorUpdate(version)

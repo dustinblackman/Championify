@@ -185,6 +185,9 @@ downloadItemSets = (done) ->
   else
     async_tasks['srItemSets'] = ['champs', 'champggVer', 'manaless', champgg.sr]
 
+  # Initialize progress bar
+  hlp.updateProgressBar()
+
   async.auto async_tasks, (err) ->
     return window.endSession(err) if err
     hlp.updateProgressBar(10) # Just max it.
