@@ -186,7 +186,7 @@ downloadItemSets = (done) ->
     async_tasks['srItemSets'] = ['champs', 'champggVer', 'manaless', champgg.sr]
 
   # Initialize progress bar
-  hlp.updateProgressBar()
+  hlp.updateProgressBar(true)
 
   async.auto async_tasks, (err) ->
     return window.endSession(err) if err

@@ -53,7 +53,7 @@ module.exports = {
    * @param {Number} Increment progress bar.
   ###
   updateProgressBar: (incr) ->
-    this.incr = 0 if !this.incr
+    this.incr = 0 if !this.incr or incr == true
     this.incr += incr
 
     this.incrUIProgressBar('itemsets_progress_bar', this.incr)
