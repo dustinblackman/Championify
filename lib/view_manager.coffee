@@ -80,6 +80,12 @@ _initSettings = ->
   $(".options_tooltip").popup()
   $('.ui.dropdown').dropdown()
 
+  $('#sr_source').dropdown({
+    action: 'activate',
+    onChange: (value, text, $selectedItem) ->
+      console.log(value, text, $selectedItem)
+  })
+
   preferences.load()
 
 
