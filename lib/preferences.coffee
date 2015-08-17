@@ -33,7 +33,11 @@ load = ->
  * Function to save preference file
 ###
 save = (preferences, done) ->
-  preferences = preferences || window.cSettings
+  if _.isFunction(preferences)
+    done = preferences
+    preferences = null
+
+  preferences = preferences || get()
   return done(cErrors.OperationalError('Preferences object does not exist')) if !preferences
 
   preference_file = preferenceFile()

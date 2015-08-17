@@ -27,7 +27,7 @@ window.undefinedBuilds = []
 ###
 getSettings = (step) ->
   window.cSettings = preferences.get().options
-  preferences.save preferences.get(), step
+  preferences.save step
 
 
 ###*
