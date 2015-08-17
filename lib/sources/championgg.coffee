@@ -2,12 +2,12 @@ async = require 'async'
 cheerio = require 'cheerio'
 _ = require 'lodash'
 
-hlp = require './helpers'
+hlp = require '../helpers'
 
 # Mini JSON files to keep track of CSS paths, schemas, and default builds
-defaultSchema = require '../data/default.json'
-csspaths = require '../data/csspaths.json'
-prebuilts = require '../data/prebuilts.json'
+defaultSchema = require '../../data/default.json'
+csspaths = require '../../data/csspaths.json'
+prebuilts = require '../../data/prebuilts.json'
 
 cl = hlp.cl
 

@@ -6,8 +6,8 @@ hlp = require './helpers'
 csspaths = require '../data/csspaths.json'
 
 cErrors = require './errors'
-champgg = require './championgg'
-lolflavor = require './lolflavor'
+champgg = require './sources/championgg'
+lolflavor = require './sources/lolflavor'
 preferences = require './preferences'
 
 cl = hlp.cl

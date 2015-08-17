@@ -1,8 +1,8 @@
 _ = require 'lodash'
 async = require 'async'
 
-hlp = require './helpers'
-defaultSchema = require '../data/default.json'
+hlp = require '../helpers'
+defaultSchema = require '../../data/default.json'
 
 cl = hlp.cl
 
