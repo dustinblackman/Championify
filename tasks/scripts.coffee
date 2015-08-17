@@ -11,11 +11,11 @@ changed = require 'gulp-changed'
 
 # Coffee, Stylus
 gulp.task 'coffee', ->
-  gulp.src('./lib/*.coffee', {base: './'})
-    .pipe(changed('./lib/*.coffee'))
+  gulp.src('./lib/**', {base: './lib'})
+    .pipe(changed('./lib/**'))
     .pipe(coffee({bare: true}).on('error', gutil.log))
     .pipe(gulpif(GLOBAL.ifRelease, uglify({mangle: false})))
-    .pipe(flatten())
+    # .pipe(flatten())
     .pipe gulp.dest('./dev/js/')
 
 

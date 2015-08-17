@@ -1,5 +1,6 @@
 preferences = require './preferences'
 pkg = require '../package.json'
+sourceUIManager = require './source_ui_manager'
 
 ###*
  * Function To change all views with the same transitions.
@@ -80,11 +81,14 @@ _initSettings = ->
   $(".options_tooltip").popup()
   $('.ui.dropdown').dropdown()
 
-  $('#sr_source').dropdown({
+  $('#sr_source').dropdown {
     action: 'activate',
-    onChange: (value, text, $selectedItem) ->
-      console.log(value, text, $selectedItem)
-  })
+    onChange: (value) ->
+      if value == 'lolflavor'
+        sourceUIManager.lolflavor()
+      else
+        sourceUIManager.championgg()
+  }
 
   preferences.load()
 

@@ -3,6 +3,7 @@ cErrors = require './errors'
 fs = require 'fs'
 path = require 'path'
 pathManager = require './path_manager'
+sourceUIManager = require './source_ui_manager'
 
 ###*
  * Function to loads and applies preference files
@@ -18,13 +19,8 @@ load = ->
         pathManager.checkInstallPath preferences.install_path, pathManager.setInstallPath
 
     _.each preferences.options, (val, key) ->
-      if key == 'sr_source'
-        if val == 'lolflavor'
-          $('#options_sr_source').val(val)
-          $('#sr_source_text').text($('.rift_source').find('[data-value="lolflavor"]').text())
-          $('.rift_source').find('[data-value="championgg"]').attr('class', 'item')
-          $('.rift_source').find('[data-value="lolflavor"]').addClass('selected active')
-
+      if key == 'sr_source' and val == 'lolflavor'
+        sourceUIManager.lolflavor()
       else if _.contains(key, 'position')
         $('#options_'+key).find('.'+val).addClass('active selected')
       else
