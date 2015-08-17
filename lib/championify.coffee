@@ -26,28 +26,8 @@ window.undefinedBuilds = []
  * @callback {Function} Callback.
 ###
 getSettings = (step) ->
-  # Positions default to bottom.
-  consumables_position = if $('#options_consumables_position').find('.beginning').hasClass('selected') then 'beginning' else 'end'
-  trinkets_position = if $('#options_trinkets_position').find('.beginning').hasClass('selected') then 'beginning' else 'end'
-
-  window.cSettings = {
-    splititems: $('#options_splititems').is(':checked')
-    skillsformat: $('#options_skillsformat').is(':checked')
-    consumables: $('#options_consumables').is(':checked')
-    consumables_position: consumables_position
-    trinkets: $('#options_trinkets').is(':checked')
-    trinkets_position: trinkets_position
-    locksr: $('#options_locksr').is(':checked')
-    sr_source: $('#options_sr_source').val()
-  }
-
-  preferences_obj = {
-    options: window.cSettings
-    install_path: window.lol_install_path
-    champ_path: window.lol_champ_path
-  }
-
-  preferences.save preferences_obj, step
+  window.cSettings = preferences.get().options
+  preferences.save preferences.get(), step
 
 
 ###*

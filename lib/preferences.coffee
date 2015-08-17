@@ -1,10 +1,11 @@
 _ = require 'lodash'
+cErrors = require './errors'
 fs = require 'fs'
 path = require 'path'
 pathManager = require './path_manager'
 
 ###*
- * Function to load preference files
+ * Function to loads and applies preference files
 ###
 load = ->
   preference_file = @file()
@@ -36,7 +37,10 @@ load = ->
  * Function to save preference file
 ###
 save = (preferences, done) ->
-  preference_file = @file()
+  preferences = preferences || window.cSettings
+  return done(cErrors.OperationalError('Preferences object does not exist')) if !preferences
+
+  preference_file = preferenceFile()
   fs.writeFile preference_file, JSON.stringify(preferences, null, 2), {encoding: 'utf8'}, (err) ->
     if err
       window.log.warn(err)
@@ -61,7 +65,30 @@ preferenceDir = ->
  * Function set preference file path
 ###
 preferenceFile = ->
-  return path.join(@directory(), 'prefs.json')
+  return path.join(preferenceDir(), 'prefs.json')
+
+###*
+ * Function gets preferences
+###
+get = ->
+  # Positions default to bottom.
+  consumables_position = if $('#options_consumables_position').find('.beginning').hasClass('selected') then 'beginning' else 'end'
+  trinkets_position = if $('#options_trinkets_position').find('.beginning').hasClass('selected') then 'beginning' else 'end'
+
+  return {
+    install_path: window.lol_install_path
+    champ_path: window.lol_champ_path
+    options: {
+      splititems: $('#options_splititems').is(':checked')
+      skillsformat: $('#options_skillsformat').is(':checked')
+      consumables: $('#options_consumables').is(':checked')
+      consumables_position: consumables_position
+      trinkets: $('#options_trinkets').is(':checked')
+      trinkets_position: trinkets_position
+      locksr: $('#options_locksr').is(':checked')
+      sr_source: $('#options_sr_source').val()
+    }
+  }
 
 
 module.exports = {
@@ -69,4 +96,5 @@ module.exports = {
   save: save
   directory: preferenceDir
   file: preferenceFile
+  get: get
 }
