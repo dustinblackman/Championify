@@ -32,7 +32,7 @@ findInstallPath = ->
  * @param {String} User selected path
 ###
 checkInstallPath = (selected_path, done) ->
-  selected_path = selected_path[0] if !_.isString(selected_path)
+  selected_path = selected_path[0] if selected_path and !_.isString(selected_path)
 
   # Verify is valid a path
   try
