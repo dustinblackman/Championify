@@ -139,7 +139,7 @@ gulp.task 'compile:win-installer', (cb) ->
   if fs.existsSync './tmp/' + pkg.name
     return runSequence('_wininstaller', cb)
   else
-    return runSequence('compile:win', '_wininstaller', cb)
+    return runSequence('package-asar', 'compile:win', '_wininstaller', cb)
 
 # TODO Deprecated.
 gulp.task 'compile', (cb) ->
