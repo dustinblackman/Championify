@@ -13,12 +13,6 @@ lolflavor = ->
   $('#options_skillsformat').parent().addClass('disabled')
   $('#options_skillsformat').attr('disabled', 'disabled')
 
-  $('#options_consumables').parent().addClass('disabled')
-  $('#options_consumables').attr('disabled', 'disabled')
-
-  $('#options_trinkets').parent().addClass('disabled')
-  $('#options_trinkets').attr('disabled', 'disabled')
-
 
 championgg = ->
   $('#options_splititems').parent().removeClass('disabled')
@@ -26,12 +20,6 @@ championgg = ->
 
   $('#options_skillsformat').parent().removeClass('disabled')
   $('#options_skillsformat').removeAttr('disabled', 'disabled')
-
-  $('#options_consumables').parent().removeClass('disabled')
-  $('#options_consumables').removeAttr('disabled', 'disabled')
-
-  $('#options_trinkets').parent().removeClass('disabled')
-  $('#options_trinkets').removeAttr('disabled', 'disabled')
 
 
 module.exports = {

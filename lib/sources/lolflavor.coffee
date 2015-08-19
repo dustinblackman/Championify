@@ -30,7 +30,7 @@ _requestAvailableChamps = (process_name, stats_file, done) ->
  * @callback {Function} Callback.
  * @param {Object} Async Auto Object
 ###
-_requestData = (champs_names, process_name, riotVer, step) ->
+_requestData = (champs_names, process_name, riotVer, manaless, step) ->
   champs = {}
   riotVer = riotVer.split('.').splice(0, 2).join('.')
 
@@ -51,8 +51,10 @@ _requestData = (champs_names, process_name, riotVer, step) ->
 
       if process_name == 'ARAM'
         data.map = 'HA'
-      if process_name != 'ARAM' and window.cSettings.locksr
-        data.map = 'SR'
+      if process_name != 'ARAM'
+        data.map = 'SR' if window.cSettings.locksr
+        data.blocks.shift()
+        data.blocks = hlp.trinksCon(data.blocks, champ, manaless)
 
       data.title = process_name + ' ' + riotVer
       champs[champ] = {}
@@ -65,12 +67,12 @@ _requestData = (champs_names, process_name, riotVer, step) ->
     step null, champs
 
 
-_processLolflavor = (process_name, stats_file, riotVer, step) ->
+_processLolflavor = (process_name, stats_file, riotVer, manaless, step) ->
   cl 'Downloading ' + process_name + ' Champs'
   _requestAvailableChamps process_name, stats_file, (err, champ_names) ->
     return step(err) if err
 
-    _requestData(champ_names, process_name, riotVer, step)
+    _requestData(champ_names, process_name, riotVer, manaless, step)
 
 
 ###*

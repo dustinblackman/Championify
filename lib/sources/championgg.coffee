@@ -226,39 +226,6 @@ processChamp = (request_params, body, step) ->
   highestCore.build = arrayToBuilds(highestCore.items)
 
 
-  # Reusable function for generating Trainkets and Consumables.
-  trinksCon = (builds) ->
-    if window.cSettings.consumables
-      # If champ has no mana, remove mana pot from consumables
-      consumables = _.clone(prebuilts.consumables, true)
-      if _.contains(request_params.manaless, champ)
-        consumables.splice(1, 1)
-
-      consumables_block = {
-        items: consumables
-        type: 'Consumables | Frequent: '+skills.mostFreq
-      }
-
-      if window.cSettings.consumables_position == 'beginning'
-        builds.unshift consumables_block
-      else
-        builds.push consumables_block
-
-    # Trinkets
-    if window.cSettings.trinkets
-      trinkets_block = {
-        items: prebuilts.trinketUpgrades
-        type: 'Trinkets | Wins: '+skills.highestWin
-      }
-
-      if window.cSettings.trinkets_position == 'beginning'
-        builds.unshift trinkets_block
-      else
-        builds.push trinkets_block
-
-    return builds
-
-
   # Generates item set for Combinded sets (with both Most Frequent and Highest Wins on one page)
   templates = {
     combindedStart: _.template('Frequent/Highest Start (<%- wins %> wins - <%- games %> games)')
@@ -306,7 +273,7 @@ processChamp = (request_params, body, step) ->
       }
 
     # Add trinkets and consumables, if enabled.
-    builds = trinksCon(builds)
+    builds = hlp.trinksCon(builds, champ, request_params.manaless, skills)
     return builds
 
 

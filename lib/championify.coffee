@@ -149,7 +149,7 @@ downloadItemSets = (done) ->
     manaless: ['champs_json', genManaless]
 
     # ARAM
-    aramItemSets: ['riotVer', lolflavor.aram]
+    aramItemSets: ['riotVer', 'manaless', lolflavor.aram]
 
     # Utils
     deleteOldBuilds: ['srItemSets', 'aramItemSets', deleteOldBuilds]
@@ -160,7 +160,7 @@ downloadItemSets = (done) ->
   # Summoners Rift
   sr_source = $('#options_sr_source').val()
   if sr_source == 'lolflavor'
-    async_tasks['srItemSets'] = ['riotVer', lolflavor.sr]
+    async_tasks['srItemSets'] = ['riotVer', 'manaless', lolflavor.sr]
   else
     async_tasks['champggVer'] = champgg.version
     async_tasks['srItemSets'] = ['champs', 'champggVer', 'manaless', champgg.sr]

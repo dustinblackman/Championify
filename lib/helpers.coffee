@@ -5,6 +5,7 @@ _ = require 'lodash'
 
 cErrors = require './errors'
 pkg = require '../package.json'
+prebuilts = require '../data/prebuilts.json'
 
 module.exports = {
 
@@ -71,4 +72,51 @@ module.exports = {
     $('#' + id).attr('data-percent', floored)
     $('#' + id).find('.bar').css('width', floored + '%')
     $('#' + id).find('.progress').text(floored + '%')
+
+
+  ###*
+   * Function Reusable function for generating Trinkets and Consumables.
+   * @param {Array} Array of blocks for item sets
+   * @param {String} System name of champ
+   * @param {Array} List of manaless champ names
+   * @param {Object} Formatted skill priorities
+  ###
+  trinksCon: (builds, champ, manaless, skills={}) ->
+    # Consumables
+    if window.cSettings.consumables
+      # If champ has no mana, remove mana pot from consumables
+      consumables = _.clone(prebuilts.consumables, true)
+      consumables.splice(1, 1) if _.contains(manaless, champ)
+
+      consumables_title = 'Consumables'
+      if skills.mostFreq
+        consumables_title += ' | Frequent: ' + skills.mostFreq
+
+      consumables_block = {
+        items: consumables
+        type: consumables_title
+      }
+
+      if window.cSettings.consumables_position == 'beginning'
+        builds.unshift consumables_block
+      else
+        builds.push consumables_block
+
+    # Trinkets
+    if window.cSettings.trinkets
+      trinkets_title = 'Trinkets'
+      if skills.highestWin
+        trinkets_title += ' | Wins: ' + skills.highestWin
+
+      trinkets_block = {
+        items: prebuilts.trinketUpgrades
+        type: trinkets_title
+      }
+
+      if window.cSettings.trinkets_position == 'beginning'
+        builds.unshift trinkets_block
+      else
+        builds.push trinkets_block
+
+    return builds
 }
