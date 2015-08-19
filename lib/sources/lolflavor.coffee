@@ -67,6 +67,14 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
     step null, champs
 
 
+###*
+ * Function Handle processing lolflavor
+ * @param {String} Name of process (ARAM, Jungle, ect)
+ * @param {String} Name of .json file on lolflavor
+ * @param {String} Riot version
+ * @param {Array} Manaless champs
+ * @callback {Function} Callback.
+###
 _processLolflavor = (process_name, stats_file, riotVer, manaless, step) ->
   cl 'Downloading ' + process_name + ' Champs'
   _requestAvailableChamps process_name, stats_file, (err, champ_names) ->
@@ -76,20 +84,11 @@ _processLolflavor = (process_name, stats_file, riotVer, manaless, step) ->
 
 
 ###*
- * Function Request available type champs from lolflavor.
+ * Function Helper to request item sets for aram
  * @callback {Function} Callback.
 ###
-requestAramChamps = (step, r) ->
-  _processLolflavor('ARAM', 'statsARAM.json', r.riotVer, step)
-
-requestLaneChamps = (step, r) ->
-  _processLolflavor('Lane', 'statsLane.json', r.riotVer, step)
-
-requestJungleChamps = (step, r) ->
-  _processLolflavor('Jungle', 'statsJungle.json', r.riotVer, step)
-
-requestSupportChamps = (step, r) ->
-  _processLolflavor('Support', 'statsSupport.json', r.riotVer, step)
+aram = (step, r) ->
+  _processLolflavor('ARAM', 'statsARAM.json', r.riotVer, r.manaless, step)
 
 
 ###*
@@ -98,9 +97,9 @@ requestSupportChamps = (step, r) ->
 ###
 summonersRift = (step, r) ->
   async.series {
-    lane: (next) -> requestLaneChamps(next, r)
-    jungle: (next) -> requestJungleChamps(next, r)
-    support: (next) -> requestSupportChamps(next, r)
+    lane: (next) -> _processLolflavor('Lane', 'statsLane.json', r.riotVer, r.manaless, next)
+    jungle: (next) -> _processLolflavor('Jungle', 'statsJungle.json', r.riotVer, r.manaless, next)
+    support: (next) -> _processLolflavor('Support', 'statsSupport.json', r.riotVer, r.manaless, next)
   }, (err, results) ->
     return step(err) if err
 
@@ -112,6 +111,6 @@ summonersRift = (step, r) ->
  * Export
 ###
 module.exports = {
-  aram: requestAramChamps
+  aram: aram
   sr: summonersRift
 }

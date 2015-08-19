@@ -300,10 +300,10 @@ processChamp = (request_params, body, step) ->
       type: templates.highestCore({wins: highestCore.wins, games: highestCore.games})
     }
 
-    mfBuild = trinksCon(mfBuild)
-    hwBuild = trinksCon(hwBuild)
-
-    return [mfBuild, hwBuild]
+    return {
+      mfBuild: trinksCon(mfBuild)
+      hwBuild: trinksCon(hwBuild)
+    }
 
   # Inserts new item sets in to a global object to be used when we get to saving files.
   pushChampData = (champ, position, build) ->
@@ -336,11 +336,8 @@ processChamp = (request_params, body, step) ->
   # If split item sets
   if window.cSettings.splititems
     builds = splitItemSets()
-    mfBuild = builds[0]
-    hwBuild = builds[1]
-
-    pushChampData(champ, currentPosition+' MostFrequent', mfBuild)
-    pushChampData(champ, currentPosition+' HighestWin', hwBuild)
+    pushChampData(champ, currentPosition + ' MostFrequent', builds.mfBuild)
+    pushChampData(champ, currentPosition + ' HighestWin', builds.hwBuild)
 
   # If normal item sets
   else
@@ -351,7 +348,11 @@ processChamp = (request_params, body, step) ->
   # Now we execute for the other positions for the champs, if there are any.
   if !request_params.position and positions.length > 0
     positions = positions.map (e) ->
-      return {champ: champ, position: e, manaless: request_params.manaless}
+      return {
+        champ: champ,
+        position: e,
+        manaless: request_params.manaless
+      }
 
     async.each positions, (item, next) ->
       requestPage item, () ->
