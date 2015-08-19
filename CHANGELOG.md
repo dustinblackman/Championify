@@ -1,15 +1,5 @@
 # Changelog
 
-<a name="0.4.2" />
-### 0.4.2 (?? ??th, 2015)
-
-### Features
-- Added 30 languages to the Windows Installer (full list [here](https://github.com/dustinblackman/Championify/blob/762456bba54044ef31b706ef3ba063f19fcf7013/resources/win/inno_script.iss#L25-L57))
-- Auto generate maneless champs list
-
-### Bug Fixes
-- Fixed auto updating on windows not installing the update correctly
-
 <a name="0.4.1" />
 ### 0.4.1 (July 20th, 2015)
 
