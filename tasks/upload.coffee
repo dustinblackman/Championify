@@ -1,17 +1,14 @@
-gulp = require 'gulp'
-GitHubApi = require 'github'
-fs = require 'fs-extra'
 async = require 'async'
+fs = require 'fs-extra'
+GitHubApi = require 'github'
 glob = require 'glob'
+gulp = require 'gulp'
 path = require 'path'
 request = require 'request'
 _ = require 'lodash'
 
 pkg = require '../package.json'
 GLOBAL.vtReports = {}
-
-gulp.task 'move-asar', (cb) ->
-  fs.copy './tmp/app.asar', './releases/update.asar', -> cb()
 
 
 gulp.task 'virustotal', (cb) ->

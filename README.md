@@ -128,7 +128,7 @@ I use Electron to wrap my GUI, and unfortunately it's a bit big. I'd rather the 
 
 
 #### BUT WAIT! I have a suggestion!
-Well that's great! Put up an Issue or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can. If you can code Coffeescript, feel free to make a pull request. :)
+Well that's great! Put up an Issue, hit me up on Gitter, or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can. If you can code Coffeescript, feel free to make a pull request. :)
 
 ---
 ## Future Plans
@@ -141,7 +141,7 @@ Well that's great! Put up an Issue or send me a message on reddit [/u/dustinhero
 
 <a name="source" />
 ## Build From Source
-You must have iojs 1.6.3 installed on your system (thats what the version of Electron is using), git clone the repo and run the following in the root folder.
+You must have iojs 2.3.1 installed on your system (thats what the version of Electron is using), git clone the repo and run the following in the root folder.
 
 ```console
 npm install -g gulp

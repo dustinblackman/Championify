@@ -1,19 +1,55 @@
-cheerio = require 'cheerio'
 async = require 'async'
+cheerio = require 'cheerio'
 _ = require 'lodash'
 
-hlp = require './helpers.coffee'
+hlp = require '../helpers'
 
-# Mini JSON files to keep track of CSS paths, schemas, default builds, and manaless champs.
-defaultSchema = require '../data/default.json'
-csspaths = require '../data/csspaths.json'
-prebuilts = require '../data/prebuilts.json'
-manaless = require '../data/manaless.json'
+# Mini JSON files to keep track of CSS paths, schemas, and default builds
+defaultSchema = require '../../data/default.json'
+csspaths = require '../../data/csspaths.json'
+prebuilts = require '../../data/prebuilts.json'
 
 cl = hlp.cl
 
 # Set Defaults
 champData = {}
+
+###*
+  * Function Gets current version Champion.GG is using.
+  * @callback {Function} Callback.
+###
+getVersion = (step) ->
+  cl 'Getting Champion.GG Version'
+  hlp.ajaxRequest 'http://champion.gg/faq/', (err, body) ->
+    return step(new cErrors.AjaxError('Can\'t get Champion.GG Version').causedBy(err)) if err
+
+    $c = cheerio.load(body)
+    window.champGGVer = $c(csspaths.version).text()
+    hlp.updateProgressBar(1.5)
+    step null
+
+
+###*
+ * Function That parses Champion.GG HTML. Kept out of Championify.coffee as it'll rarely ever change.
+ * @param {Function} Cheerio.
+ * @returns {Object} Object containing Champion data.
+###
+compileGGData = ($c) ->
+  data = $c('script:contains("matchupData.")').text()
+  data = data.replace(/;/g, '')
+
+  processed = {}
+
+  query = _.template('matchupData.<%= q %> = ')
+  _.each data.split('\n'), (line) ->
+    _.each ['championData', 'champion'], (field) ->
+      search = query({q: field})
+
+      if _.includes(line, search)
+        line = line.replace(search, '')
+        processed[field] = JSON.parse(line)
+
+  return processed
 
 
 ###*
@@ -24,11 +60,11 @@ champData = {}
 requestChamps = (step, r) ->
   async.eachLimit r.champs, 2, (champ, next) ->
     hlp.updateProgressBar(90 / r.champs.length)
-    requestPage {champ: champ}, () ->
+    requestPage {champ: champ, manaless: r.manaless}, () ->
       next null
 
   , () ->
-    step null
+    step null, champData
 
 
 ###*
@@ -36,22 +72,22 @@ requestChamps = (step, r) ->
  * @param {Object} Champion object created by asyncRequestChamps.
  * @callback {Function} Callback.
 ###
-requestPage = (champ_info, step) ->
-  champ = champ_info.champ
+requestPage = (request_params, step) ->
+  champ = request_params.champ
   url = 'http://champion.gg/champion/'+champ
 
-  if champ_info.position
-    url = url + '/' + champ_info.position
+  if request_params.position
+    url = url + '/' + request_params.position
   else
-    cl 'Processing Rift: '+champ_info.champ
+    cl 'Processing Rift: '+request_params.champ
 
   hlp.ajaxRequest url, (err, body) ->
     window.log.warn(err) if err
     if err or _.contains(body, 'We\'re currently in the process of generating stats for')
-      GLOBAL.undefinedBuilds.push(champ)
+      window.undefinedBuilds.push(champ)
       return step()
 
-    processChamp(champ_info, body, step)
+    processChamp(request_params, body, step)
 
 
 ###*
@@ -60,11 +96,11 @@ requestPage = (champ_info, step) ->
  * @param {String} Body of Champion.GG page.
  * @callback {Function} Callback.
 ###
-processChamp = (champ_info, body, step) ->
-  champ = champ_info.champ
+processChamp = (request_params, body, step) ->
+  champ = request_params.champ
 
   $c = cheerio.load(body)
-  gg = hlp.compileGGData($c)
+  gg = compileGGData($c)
 
   # Check what role were currently grabbing, and what other roles exist.
   currentPosition = ''
@@ -90,7 +126,7 @@ processChamp = (champ_info, body, step) ->
   ]
 
   if _.contains(undefArray, true)
-    GLOBAL.undefinedBuilds.push(champ + ' ' + _.capitalize(currentPosition))
+    window.undefinedBuilds.push(champ + ' ' + _.capitalize(currentPosition))
     return step()
 
   # Build objects for each section of item sets.
@@ -190,39 +226,6 @@ processChamp = (champ_info, body, step) ->
   highestCore.build = arrayToBuilds(highestCore.items)
 
 
-  # Reusable function for generating Trainkets and Consumables.
-  trinksCon = (builds) ->
-    if window.cSettings.consumables
-      # If champ has no mana, remove mana pot from consumables
-      consumables = _.clone(prebuilts.consumables, true)
-      if _.contains(manaless, champ)
-        consumables.splice(1, 1)
-
-      consumables_block = {
-        items: consumables
-        type: 'Consumables | Frequent: '+skills.mostFreq
-      }
-
-      if window.cSettings.consumables_position == 'beginning'
-        builds.unshift consumables_block
-      else
-        builds.push consumables_block
-
-    # Trinkets
-    if window.cSettings.trinkets
-      trinkets_block = {
-        items: prebuilts.trinketUpgrades
-        type: 'Trinkets | Wins: '+skills.highestWin
-      }
-
-      if window.cSettings.trinkets_position == 'beginning'
-        builds.unshift trinkets_block
-      else
-        builds.push trinkets_block
-
-    return builds
-
-
   # Generates item set for Combinded sets (with both Most Frequent and Highest Wins on one page)
   templates = {
     combindedStart: _.template('Frequent/Highest Start (<%- wins %> wins - <%- games %> games)')
@@ -270,7 +273,7 @@ processChamp = (champ_info, body, step) ->
       }
 
     # Add trinkets and consumables, if enabled.
-    builds = trinksCon(builds)
+    builds = hlp.trinksCon(builds, champ, request_params.manaless, skills)
     return builds
 
 
@@ -297,10 +300,10 @@ processChamp = (champ_info, body, step) ->
       type: templates.highestCore({wins: highestCore.wins, games: highestCore.games})
     }
 
-    mfBuild = trinksCon(mfBuild)
-    hwBuild = trinksCon(hwBuild)
-
-    return [mfBuild, hwBuild]
+    return {
+      mfBuild: trinksCon(mfBuild)
+      hwBuild: trinksCon(hwBuild)
+    }
 
   # Inserts new item sets in to a global object to be used when we get to saving files.
   pushChampData = (champ, position, build) ->
@@ -333,11 +336,8 @@ processChamp = (champ_info, body, step) ->
   # If split item sets
   if window.cSettings.splititems
     builds = splitItemSets()
-    mfBuild = builds[0]
-    hwBuild = builds[1]
-
-    pushChampData(champ, currentPosition+' MF', mfBuild)
-    pushChampData(champ, currentPosition+' HW', hwBuild)
+    pushChampData(champ, currentPosition + ' MostFrequent', builds.mfBuild)
+    pushChampData(champ, currentPosition + ' HighestWin', builds.hwBuild)
 
   # If normal item sets
   else
@@ -346,9 +346,13 @@ processChamp = (champ_info, body, step) ->
 
   # TODO: Lodash map.
   # Now we execute for the other positions for the champs, if there are any.
-  if !champ_info.position and positions.length > 0
+  if !request_params.position and positions.length > 0
     positions = positions.map (e) ->
-      return {champ: champ, position: e}
+      return {
+        champ: champ,
+        position: e,
+        manaless: request_params.manaless
+      }
 
     async.each positions, (item, next) ->
       requestPage item, () ->
@@ -361,21 +365,9 @@ processChamp = (champ_info, body, step) ->
 
 
 ###*
- * Function Save Rift item sets to file
- * @callback {Function} Callback.
-###
-saveToFile = (step) ->
-  cl 'Saving Rift Item Sets'
-  hlp.saveToFile champData, (err) ->
-    return step(err) if err
-
-    hlp.updateProgressBar(2.5)
-    step null
-
-###*
  * Export
 ###
 module.exports = {
-  requestChamps: requestChamps
-  save: saveToFile
+  sr: requestChamps
+  version: getVersion
 }

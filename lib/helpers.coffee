@@ -1,7 +1,11 @@
-_ = require 'lodash'
 async = require 'async'
 path = require 'path'
-cErrors = require './errors.coffee'
+remote = require 'remote'
+_ = require 'lodash'
+
+cErrors = require './errors'
+pkg = require '../package.json'
+prebuilts = require '../data/prebuilts.json'
 
 module.exports = {
 
@@ -36,59 +40,10 @@ module.exports = {
 
 
   ###*
-   * Function Compares version numbers. Returns 1 if left is highest, -1 if right, 0 if the same.
-   * @param {String} First (Left) version number.
-   * @param {String} Second (Right) version number.
-   * @returns {Number}.
-  ###
-  versionCompare: (left, right) ->
-    if typeof left + typeof right != 'stringstring'
-      return false
-
-    a = left.split('.')
-    b = right.split('.')
-    i = 0
-    len = Math.max(a.length, b.length)
-
-    while i < len
-      if a[i] and !b[i] and parseInt(a[i]) > 0 or parseInt(a[i]) > parseInt(b[i])
-        return 1
-      else if b[i] and !a[i] and parseInt(b[i]) > 0 or parseInt(a[i]) < parseInt(b[i])
-        return -1
-      i++
-
-    return 0
-
-
-  ###*
-   * Function That parses Champion.GG HTML. Kept out of Championify.coffee as it'll rarely ever change.
-   * @param {Function} Cheerio.
-   * @returns {Object} Object containing Champion data.
-  ###
-  compileGGData: ($c) ->
-    data = $c('script:contains("matchupData.")').text()
-    data = data.replace(/;/g, '')
-
-    processed = {}
-
-    query = _.template('matchupData.<%= q %> = ')
-    _.each data.split('\n'), (line) ->
-      _.each ['championData', 'champion'], (field) ->
-        search = query({q: field})
-
-        if _.includes(line, search)
-          line = line.replace(search, '')
-          processed[field] = JSON.parse(line)
-
-    return processed
-
-
-  ###*
    * Function Pretty console log, as well as updates the progress div on interface
    * @param {String} Console Message.
   ###
-  cl: (text, level) ->
-    level = level || 'info'
+  cl: (text, level='info') ->
     window.log[level](text)
 
     $('#cl-progress').prepend('<span>'+text+'</span><br />')
@@ -99,48 +54,69 @@ module.exports = {
    * @param {Number} Increment progress bar.
   ###
   updateProgressBar: (incr) ->
-    this.incr = 0 if !this.incr
+    this.incr = 0 if !this.incr or incr == true
     this.incr += incr
 
+    this.incrUIProgressBar('itemsets_progress_bar', this.incr)
+    if this.incr >= 100
+      remote.getCurrentWindow().setProgressBar(-1)
+    else
+      remote.getCurrentWindow().setProgressBar(this.incr / 100)
+
+
+  incrUIProgressBar: (id, incr) ->
     # Bug with Semantic UI progress function that makes 0 be set constantly.
     # This is an easy work around.
-    floored = Math.floor(this.incr)
+    floored = Math.floor(incr)
     floored = 100 if floored > 100
-    $('#progress_bar').attr('data-percent', floored)
-    $('#progress_bar').find('.bar').css('width', floored+'%')
-    $('#progress_bar').find('.progress').text(floored+'%')
-
-    if this.incr >= 100
-      window.Championify.remote.getCurrentWindow().setProgressBar(-1)
-    else
-      window.Championify.remote.getCurrentWindow().setProgressBar(this.incr / 100)
+    $('#' + id).attr('data-percent', floored)
+    $('#' + id).find('.bar').css('width', floored + '%')
+    $('#' + id).find('.progress').text(floored + '%')
 
 
-  # TODO: This is a messy function. Clean it up with Lodash, possibly.
   ###*
-   * Function Saves all compiled item sets to file, creating paths included.
-   * @callback {Function} Callback.
+   * Function Reusable function for generating Trinkets and Consumables.
+   * @param {Array} Array of blocks for item sets
+   * @param {String} System name of champ
+   * @param {Array} List of manaless champ names
+   * @param {Object} Formatted skill priorities
   ###
-  saveToFile: (champData, step) ->
-    async.each _.keys(champData), (champ, next) ->
-      async.each _.keys(champData[champ]), (position, nextPosition) ->
-        toFileData = JSON.stringify(champData[champ][position], null, 4)
-        folder_path = path.join(window.item_set_path, champ, 'Recommended')
+  trinksCon: (builds, champ, manaless, skills={}) ->
+    # Consumables
+    if window.cSettings.consumables
+      # If champ has no mana, remove mana pot from consumables
+      consumables = _.clone(prebuilts.consumables, true)
+      consumables.splice(1, 1) if _.contains(manaless, champ)
 
-        mkdirp folder_path, (err) ->
-          window.log.warn(err) if err
+      consumables_title = 'Consumables'
+      if skills.mostFreq
+        consumables_title += ' | Frequent: ' + skills.mostFreq
 
-          file_path = path.join(window.item_set_path, champ, 'Recommended/CGG_'+champ+'_'+position+'.json')
-          fs.writeFile file_path, toFileData, (err) ->
-            return nextPosition(new cErrors.FileWriteError('Failed to write item set json file').causedBy(err)) if err
-            nextPosition null
+      consumables_block = {
+        items: consumables
+        type: consumables_title
+      }
 
-      , (err) ->
-        return next(err) if err
-        next null
+      if window.cSettings.consumables_position == 'beginning'
+        builds.unshift consumables_block
+      else
+        builds.push consumables_block
 
-    , (err) ->
-      return step(err) if err
-      step null
+    # Trinkets
+    if window.cSettings.trinkets
+      trinkets_title = 'Trinkets'
+      if skills.highestWin
+        trinkets_title += ' | Wins: ' + skills.highestWin
 
+      trinkets_block = {
+        items: prebuilts.trinketUpgrades
+        type: trinkets_title
+      }
+
+      if window.cSettings.trinkets_position == 'beginning'
+        builds.unshift trinkets_block
+      else
+        builds.push trinkets_block
+
+    return builds
 }

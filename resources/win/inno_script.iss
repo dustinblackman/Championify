@@ -23,7 +23,39 @@ Compression=lzma
 SolidCompression=yes
 
 [Languages]
-Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "English"; MessagesFile: "compiler:Default.isl"
+Name: "Arabic"; MessagesFile: "compiler:Languages\Arabic.isl"
+Name: "Brazilian_Portuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
+Name: "Catalan"; MessagesFile: "compiler:Languages\Catalan.isl"
+Name: "Chinese_Simplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
+Name: "Chinese_Traditional"; MessagesFile: "compiler:Languages\ChineseTraditional.isl"
+Name: "Corsican"; MessagesFile: "compiler:Languages\Corsican.isl"
+Name: "Czech"; MessagesFile: "compiler:Languages\Czech.isl"
+Name: "Danish"; MessagesFile: "compiler:Languages\Danish.isl"
+Name: "Dutch"; MessagesFile: "compiler:Languages\Dutch.isl"
+Name: "Finnish"; MessagesFile: "compiler:Languages\Finnish.isl"
+Name: "French"; MessagesFile: "compiler:Languages\French.isl"
+Name: "German"; MessagesFile: "compiler:Languages\German.isl"
+Name: "Greek"; MessagesFile: "compiler:Languages\Greek.isl"
+Name: "Hebrew"; MessagesFile: "compiler:Languages\Hebrew.isl"
+Name: "Hungarian"; MessagesFile: "compiler:Languages\Hungarian.isl"
+Name: "Italian"; MessagesFile: "compiler:Languages\Italian.isl"
+Name: "Japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
+Name: "Korean"; MessagesFile: "compiler:Languages\Korean.isl"
+Name: "Norwegian"; MessagesFile: "compiler:Languages\Norwegian.isl"
+Name: "Polish"; MessagesFile: "compiler:Languages\Polish.isl"
+Name: "Portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
+Name: "Romanian"; MessagesFile: "compiler:Languages\Romanian.isl"
+Name: "Russian"; MessagesFile: "compiler:Languages\Russian.isl"
+Name: "Scottish_Gaelic"; MessagesFile: "compiler:Languages\ScottishGaelic.isl"
+Name: "Serbian_Cyrillic"; MessagesFile: "compiler:Languages\SerbianCyrillic.isl"
+Name: "Serbian_Latin"; MessagesFile: "compiler:Languages\SerbianLatin.isl"
+Name: "Slovenian"; MessagesFile: "compiler:Languages\Slovenian.isl"
+Name: "Spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
+Name: "Swedish"; MessagesFile: "compiler:Languages\Swedish.isl"
+Name: "Turkish"; MessagesFile: "compiler:Languages\Turkish.isl"
+Name: "Ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
+
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked

@@ -4,7 +4,7 @@
       <span id="browse_title"></span>
     </div>
 
-    <div class="ui fluid action input">
+    <div class="ui fluid action input lol_dir_input">
       <input id="install_path" type="text">
       <button id="browse" class="ui grey button" type="button">Browse</button>
     </div>
@@ -20,7 +20,6 @@
 
 <div class="one column row">
   <div class="column options">
-
     <div class="ui checkbox left">
       <input type="checkbox" id="options_splititems" />
       <label class="options_tooltip" data-content="Create separate item sets for Most Frequent and Highest Win %">Split Up Item Sets</label>
@@ -73,12 +72,25 @@
       <label class="options_tooltip" data-content="Champion.gg item sets will only be available on Summoner's Rift">Lock Champion.gg Item Sets to Summoner's Rift</label><br />
     </div>
 
+    <div class="rift_source">
+      <div id="sr_source" class="ui selection dropdown">
+        <input type="hidden" id="options_sr_source" value="championgg">
+        <i class="dropdown icon"></i>
+        <div id="sr_source_text" class="text">Champion.gg</div>
+        <div class="menu">
+          <div class="header">Summoners Rift Source</div>
+          <div class="item" data-value="championgg">Champion.gg</div>
+          <div class="item" data-value="lolflavor">Lolflavor</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
 
 <div class="one column row">
-  <div class="submitBtns">
+  <div class="submit_btns">
     <button id="import_btn" class="ui green button">Import</button>
     <button id="delete_btn" class="ui red button" >Delete</button>
   </div>
@@ -87,7 +99,7 @@
     <div class="ui horizontal divider">
       <h2>Status</h2>
     </div>
-    <div id="progress_bar" class="ui indicating progress" data-percent="0">
+    <div id="itemsets_progress_bar" class="ui indicating progress" data-percent="0">
       <div class="bar" style="transition-duration: 300ms; -webkit-transition-duration: 300ms;">
         <div class="progress">0%</div>
       </div>
@@ -95,7 +107,6 @@
   </div>
   <div class="progresslog">
     <div id="cl-progress">
-
     </div>
   </div>
 

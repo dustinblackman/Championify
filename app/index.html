@@ -7,16 +7,31 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <link rel="stylesheet" href="vendor/css/semantic.min.css">
-      <link rel="stylesheet" href="vendor/css/font-awesome.min.css">
-      <link rel="stylesheet" href="css/main.css">
+      <link rel="stylesheet" href="css/index.css">
     </head>
     <body>
       <header>
-        <!-- <div class="system-btns">
-          <a id="closeBtn" href="" class="osx-window-btn red"><span class="text">x</span></a>
-          <a id="minimizeBtn" href="" class="osx-window-btn yellow"><span class="text">-</span></a>
-          <a class="osx-window-btn green"></a>
-        </div> -->
+        <div class="osx_buttons hidden">
+          <div class="clickable_div">
+            <a href="" class="sys_button close"><span>x</span></a>
+          </div>
+          <div class="clickable_div">
+            <a href="" class="sys_button minimize"><span>-</span></a>
+          </div>
+          <a class="sys_button maximize"></a>
+        </div>
+
+        <div class="win_buttons hidden">
+          <div class="sys_button minimize">
+            <img src="img/win_buttons/minimize.png" />
+          </div>
+          <div class="sys_button maximize">
+            <img src="img/win_buttons/maximize.png" />
+          </div>
+          <div class="sys_button close">
+            <img src="img/win_buttons/x.png" />
+          </div>
+        </div>
       </header>
 
       <div id="main_container">
@@ -34,7 +49,7 @@
 
       <footer>
         <div class="github">
-          <a>Help | <i class="fa fa-github"></i>/DustinBlackman</a>
+          <a>Help | <i class="github icon"></i>/DustinBlackman</a>
         </div>
         <div class="version">
           <span></span>
@@ -43,9 +58,7 @@
 
       <script>window.$ = window.jQuery = require('./vendor/js/jquery.min.js');</script>
       <script src="vendor/js/semantic.min.js"></script>
-      <script src="js/deps.js"></script>
-      <script src="js/championify.js"></script>
-      <script src="js/main.js"></script>
+      <script src="js/index.js"></script>
 
       <script src="http://localhost:35729/livereload.js"></script>
     </body>
