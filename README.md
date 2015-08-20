@@ -141,7 +141,7 @@ Well that's great! Put up an Issue, hit me up on Gitter, or send me a message on
 
 <a name="source" />
 ## Build From Source
-You must have iojs 2.3.1 installed on your system (thats what the version of Electron is using), git clone the repo and run the following in the root folder.
+You must have iojs 2.3.1 installed on your system (thats what Electron is using), git clone the repo and run the following in the root folder.
 
 ```console
 npm install -g gulp
@@ -149,7 +149,7 @@ npm install
 npm run build
 ```
 
-You'll find a compiled executable zipped in the releases folder.
+You'll find a Championify/Championify.app in the releases folder.
 
 Wine is required if building on Mac for Windows.
 ```console
@@ -167,4 +167,4 @@ brew install wine
 
 ## [License](LICENSE)
 
-Championify isn't endorsed by Champgion.gg, Lolflavor or Riot Games and doesn't reflect the views or opinions of them or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
+Championify isn't endorsed by any of it's content sources or Riot Games and doesn't reflect the views or opinions of them or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
