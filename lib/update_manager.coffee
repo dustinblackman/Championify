@@ -9,6 +9,10 @@ tar = require 'tar-fs'
 zlib = require 'zlib'
 _ = require 'lodash'
 
+# Windows Specific Dependencies
+if process.platform == 'win32'
+  runas = require 'runas'
+
 cErrors = require './errors'
 hlp = require './helpers'
 preferences = require './preferences'
@@ -126,8 +130,9 @@ majorUpdate = (version) ->
     (step) -> # Extract Tarball
       $('#update_current_file').text('Extracting...')
       stream = fs.createReadStream(tar_path)
-      stream.pipe(zlib.Gunzip()).pipe(tar.extract(update_path))
-      stream.on 'end', ->
+        .pipe(zlib.Gunzip())
+        .pipe(tar.extract(update_path))
+      stream.on 'finish', ->
         step()
     (step) -> # Delete Tarball
       fs.unlink tar_path, (err) ->
@@ -197,7 +202,7 @@ osxMajor = (install_path, update_path) ->
 ###*
  * Function Reboots Championify for updates on Windows
  * @param {String} Current asar archive
- * @param {String} New downloaded asar archive created by runUpdaets
+ * @param {String} New downloaded asar archive created by runUpdates
 ###
 winMinor = (app_asar, update_asar) ->
   cmd = _.template('
@@ -227,7 +232,7 @@ winMinor = (app_asar, update_asar) ->
 ###*
  * Function Reboots Championify for major updates on Windows
  * @param {String} Current asar archive
- * @param {String} New downloaded asar archive created by runUpdaets
+ * @param {String} New downloaded asar archive created by runUpdates
 ###
 winMajor = (install_path, update_path) ->
   cmd = _.template([
@@ -235,16 +240,11 @@ winMajor = (install_path, update_path) ->
     'title Updating Championify'
     'echo Updating Championify, please wait...'
     'taskkill /IM ${process_name} /f'
-    'ping 1.1.1.1 -n 1 -w 3000 > nul'
-    'echo Renaming app.asar'
+    'ping 1.1.1.1 -n 1 -w 1000 > nul'
     'ren "${update_path}\\resources\\app-asar" app.asar'
-    'echo Renaming atom.asar'
     'ren "${update_path}\\resources\\atom-asar" atom.asar'
-    'echo Removing Install Path: ${install_path}'
     'rmdir "${install_path}" /s /q'
-    'echo Moving Championify'
     'move "${update_path}" "${root_path}"'
-    'echo Starting Championify'
     'start "" "${exec_path}"'
     'exit'
   ].join('\n'))
@@ -265,8 +265,8 @@ winMajor = (install_path, update_path) ->
   update_file = path.join(preferences.directory(), 'update_major.bat')
 
   fs.writeFile update_file, cmd(params), 'utf8', (err) ->
-    return window.endSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
-    exec 'START "" "' + update_file + '"'
+    return window.endSession(new cErrors.FileWriteError('Can\'t write update_major.bat').causedBy(err)) if err
+    runas(process.execPath, ['--winMajor'], {hide: false, admin: true})
 
 
 ###*
@@ -279,7 +279,9 @@ check = (done) ->
     return window.endSession(new cErrors.AjaxError('Can\'t access Github package.json').causedBy(err)) if err
 
     data = JSON.parse(data)
-    if versionCompare(data.version, pkg.version) == 1
+    if versionCompare(data.devDependencies['electron-prebuilt'], process.versions.electron) == 1
+      return done(data.version, true)
+    else if versionCompare(data.version, pkg.version) == 1
       return done(data.version)
     else
       return done(null)

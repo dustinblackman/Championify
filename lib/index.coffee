@@ -246,8 +246,10 @@ $(document).on 'click', '#back_to_main', ->
 * Execute ASAP after view load
 ###
 viewManager.init ->
-  updateManager.check (version) ->
-    if version
+  updateManager.check (version, major) ->
+    if version and major
+      updateManager.majorUpdate(version)
+    else if version
       updateManager.minorUpdate(version)
     else
       executeOptionParameters()

@@ -27,9 +27,10 @@
     "lodash": "3.10.0",
     "mkdirp": "0.5.1",
     "open": "0.0.5",
+    "runas": "git://github.com/dustinblackman/node-runas.git#electron-windows",
     "super-error": "1.1.2",
     "tar-fs": "1.8.1",
-    "winston": "git://github.com/dustinblackman/winston.git#master"
+    "winston": "git://github.com/dustinblackman/winston.git#electron"
   },
   "devDependencies": {
     "bower": "1.4.1",
