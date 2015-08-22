@@ -27,15 +27,16 @@
     "lodash": "3.10.0",
     "mkdirp": "0.5.1",
     "open": "0.0.5",
+    "runas": "git://github.com/dustinblackman/node-runas.git#electron-windows",
     "super-error": "1.1.2",
     "tar-fs": "1.8.1",
-    "winston": "git://github.com/dustinblackman/winston.git#master"
+    "winston": "git://github.com/dustinblackman/winston.git#electron"
   },
   "devDependencies": {
     "bower": "1.4.1",
     "coffee-script": "1.9.3",
     "coffeeify": "1.1.0",
-    "electron-prebuilt": "0.30.4",
+    "electron-prebuilt": "0.30.5",
     "github": "0.2.4",
     "gulp": "3.9.0",
     "gulp-asar": "git://github.com/dustinblackman/gulp-asar.git#master",

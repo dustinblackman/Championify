@@ -45,7 +45,6 @@ module.exports = {
   ###
   cl: (text, level='info') ->
     window.log[level](text)
-
     $('#cl-progress').prepend('<span>'+text+'</span><br />')
 
 

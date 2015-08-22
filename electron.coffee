@@ -1,9 +1,21 @@
 app = require 'app'
+exec = require('child_process').exec
 fs = require 'fs'
 path = require 'path'
 _ = require 'lodash'
 BrowserWindow = require('browser-window')
 require('crash-reporter').start()
+
+preferences = require './js/preferences'
+
+
+# If were starting to simply update on windows with admin privileges, execute update and exit.
+# When we do this here when a user is restarting with admin privileges, it'll show it's starting Championify
+# compared to a batch file which would of looked a bit odd.
+if _.contains(process.argv, '--winMajor')
+  update_file = path.join(preferences.directory(), 'update_major.bat')
+  return exec 'START "" "' + update_file + '"', {cwd: path.join(process.cwd(), '..')}
+
 
 # Keep a global reference of the window object, if you don't, the window will
 # be closed automatically when the javascript object is GCed.
@@ -13,7 +25,7 @@ mainWindow = null
 app.on 'window-all-closed', ->
   app.quit()
 
-# This method will be called when atom-shell has done everything
+# This method will be called when electron has done everything
 # initialization and ready for creating browser windows.
 app.on 'ready', ->
   # Create the browser window.
@@ -41,7 +53,4 @@ app.on 'ready', ->
     mainWindow.show() if !_.contains(process.argv, '--autorun')
 
   mainWindow.on 'closed', ->
-    # Dereference the window object, usually you would store windows
-    # in an array if your app supports multi windows, this is the time
-    # when you should delete the corresponding element.
     mainWindow = null
