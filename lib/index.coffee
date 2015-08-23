@@ -140,7 +140,7 @@ importItemSets = (done) ->
   if !window.lol_install_path
     selectFolderWarning()
   else
-    $('.submit_btns').addClass('hidden')
+    $('#btns_versions').addClass('hidden')
     $('.status').transition('fade up', '500ms')
     # TODO: Add new windows admin check before running this.
     championify.run ->
@@ -208,7 +208,7 @@ $('.github > a').click (e) ->
   e.preventDefault()
   open('https://github.com/dustinblackman/Championify#faq')
 
-$('.version > span').click (e) ->
+$('.championify_version > span').click (e) ->
   e.preventDefault()
   open('https://github.com/dustinblackman/Championify/releases/latest')
 

@@ -18,15 +18,14 @@ champData = {}
   * Function Gets current version Champion.GG is using.
   * @callback {Function} Callback.
 ###
-getVersion = (step) ->
-  cl 'Getting Champion.GG Version'
+getVersion = (step, r) ->
+  cl 'Getting Champion.GG Version' if r
   hlp.ajaxRequest 'http://champion.gg/faq/', (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Champion.GG Version').causedBy(err)) if err
 
     $c = cheerio.load(body)
     window.champGGVer = $c(csspaths.version).text()
-    hlp.updateProgressBar(1.5)
-    step null
+    step null, window.champGGVer
 
 
 ###*

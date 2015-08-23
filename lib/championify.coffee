@@ -33,12 +33,11 @@ getSettings = (step) ->
  * Function Gets the latest Riot Version.
  * @callback {Function} Callback.
 ###
-getRiotVer = (step) ->
-  cl 'Getting LoL Version'
+getRiotVer = (step, r) ->
+  cl 'Getting LoL Version' if r
   hlp.ajaxRequest 'https://ddragon.leagueoflegends.com/realms/na.json', (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Riot Version').causedBy(err)) if err
 
-    hlp.updateProgressBar(1.5)
     step null, body.v
 
 
@@ -183,4 +182,5 @@ downloadItemSets = (done) ->
 module.exports = {
   run: downloadItemSets
   delete: deleteOldBuilds
+  version: getRiotVer
 }

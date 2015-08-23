@@ -88,11 +88,21 @@
   </div>
 </div>
 
-
 <div class="one column row">
-  <div class="submit_btns">
-    <button id="import_btn" class="ui green button">Import</button>
-    <button id="delete_btn" class="ui red button" >Delete</button>
+  <div id="btns_versions">
+    <div class="submit_btns">
+      <div class="ui divider"></div>
+      <button id="import_btn" class="ui green button">Import</button>
+      <button id="delete_btn" class="ui red button" >Delete</button>
+    </div>
+
+    <br />
+
+    <div class="versions">
+      <div>LoL Version: <span id="lol_version">Loading...</span></div>
+      <div>Champion.gg Version: <span id="championgg_version">Loading...</span></div>
+      <div>Lolflavor Version: <span id="lolflavor_version">Loading...</span></div>
+    </div>
   </div>
 
   <div class="status hidden">

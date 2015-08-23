@@ -40,6 +40,14 @@ module.exports = {
 
 
   ###*
+   * Splice version number to two.
+   * @param {String} Version number
+  ###
+  spliceVersion: (version) ->
+    return version.split('.').splice(0, 2).join('.')
+
+
+  ###*
    * Function Pretty console log, as well as updates the progress div on interface
    * @param {String} Console Message.
   ###

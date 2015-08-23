@@ -32,7 +32,6 @@ _requestAvailableChamps = (process_name, stats_file, done) ->
 ###
 _requestData = (champs_names, process_name, riotVer, manaless, step) ->
   champs = {}
-  riotVer = riotVer.split('.').splice(0, 2).join('.')
 
   async.eachLimit champs_names, 3, (champ, next) ->
     cl 'Processing ' + process_name + ': ' + champ
@@ -77,6 +76,8 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
 ###
 _processLolflavor = (process_name, stats_file, riotVer, manaless, step) ->
   cl 'Downloading ' + process_name + ' Champs'
+  riotVer = hlp.spliceVersion(riotVer)
+
   _requestAvailableChamps process_name, stats_file, (err, champ_names) ->
     return step(err) if err
 
@@ -106,6 +107,17 @@ summonersRift = (step, r) ->
     champs = _.merge(results.lane, results.jungle, results.support)
     return step(null, champs)
 
+###*
+ * Function Get current Lolflavor version
+ * @callback {Function} Callback.
+###
+getVersion = (step) ->
+  hlp.ajaxRequest 'http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', (err, body) ->
+    return step(null, 'Unknown') if (err)
+
+    version = body.title.split(' ')[3]
+    step(null, version)
+
 
 ###*
  * Export
@@ -113,4 +125,5 @@ summonersRift = (step, r) ->
 module.exports = {
   aram: aram
   sr: summonersRift
+  version: getVersion
 }

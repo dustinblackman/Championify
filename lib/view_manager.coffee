@@ -1,3 +1,7 @@
+championify = require './championify'
+championgg = require './sources/championgg'
+hlp = require './helpers'
+lolflavor = require './sources/lolflavor'
 preferences = require './preferences'
 pkg = require '../package.json'
 sourceUIManager = require './source_ui_manager'
@@ -66,7 +70,7 @@ mainViewBack = ->
 ###*
  * Function Initial view with settings
 ###
-# TODO: This is why I should be using React...
+# TODO: This is why I should be using React... For literally everything...
 _initSettings = ->
   if process.platform == 'darwin'
     window.browse_title = 'Select League of Legends.app'
@@ -76,7 +80,7 @@ _initSettings = ->
     $('.win_buttons').removeClass('hidden')
 
   $('#browse_title').text(window.browse_title)
-  $('.version > span').text('v'+pkg.version)
+  $('.championify_version > span').text('v'+pkg.version)
 
   $(".options_tooltip").popup()
   $('.ui.dropdown').dropdown()
@@ -90,6 +94,15 @@ _initSettings = ->
         sourceUIManager.championgg()
   }
 
+  # Load versions of LoL and sources
+  championify.version (err, version) ->
+    $("#lol_version").text(hlp.spliceVersion(version))
+  championgg.version (err, version) ->
+    $("#championgg_version").text(version)
+  lolflavor.version (err, version) ->
+    $('#lolflavor_version').text(version)
+
+  # Load preferences
   preferences.load()
 
 
