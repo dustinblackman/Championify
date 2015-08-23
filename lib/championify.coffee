@@ -14,7 +14,6 @@ cl = hlp.cl
 
 # Set Defaults
 window.cSettings = {}
-window.undefinedBuilds = []
 
 
 #################
@@ -140,6 +139,9 @@ notProcessed = (step) ->
  * @callback {Function} Callback.
 ###
 downloadItemSets = (done) ->
+  # Reset undefined builds
+  window.undefinedBuilds = []
+
   async_tasks = {
     # Default
     settings: getSettings
