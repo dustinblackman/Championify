@@ -98,10 +98,10 @@ folder_dialog_open = false
 openFolder = ->
   if !folder_dialog_open
     folder_dialog_open = true
-    if process.platform == 'darwin'
-      properties = ['openFile']
-    else
+    if process.platform == 'win32'
       properties = ['openDirectory']
+    else
+      properties = ['openFile']
 
     dialog.showOpenDialog {
       properties: properties
@@ -140,7 +140,7 @@ importItemSets = (done) ->
   if !window.lol_install_path
     selectFolderWarning()
   else
-    $('.submit_btns').addClass('hidden')
+    $('#btns_versions').addClass('hidden')
     $('.status').transition('fade up', '500ms')
     # TODO: Add new windows admin check before running this.
     championify.run ->
@@ -208,7 +208,7 @@ $('.github > a').click (e) ->
   e.preventDefault()
   open('https://github.com/dustinblackman/Championify#faq')
 
-$('.version > span').click (e) ->
+$('.championify_version > span').click (e) ->
   e.preventDefault()
   open('https://github.com/dustinblackman/Championify/releases/latest')
 

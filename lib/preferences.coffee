@@ -12,6 +12,10 @@ load = ->
   preference_file = @file()
   if fs.existsSync(preference_file)
     preferences = JSON.parse(fs.readFileSync(preference_file))
+
+    # Load non-option preferences.
+    $('#local_version').text(preferences.local_is_version || 'Unknown')
+
     pathManager.checkInstallPath preferences.install_path, (err) ->
       if err
         pathManager.findInstallPath()
@@ -25,6 +29,7 @@ load = ->
         $('#options_'+key).find('.'+val).addClass('active selected')
       else
         $('#options_'+key).prop('checked', val)
+
   else
     pathManager.findInstallPath()
 
@@ -67,6 +72,7 @@ preferenceDir = ->
 preferenceFile = ->
   return path.join(preferenceDir(), 'prefs.json')
 
+
 ###*
  * Function gets preferences
 ###
@@ -78,6 +84,7 @@ get = ->
   return {
     install_path: window.lol_install_path
     champ_path: window.lol_champ_path
+    local_is_version: $('#local_version').text()
     options: {
       splititems: $('#options_splititems').is(':checked')
       skillsformat: $('#options_skillsformat').is(':checked')

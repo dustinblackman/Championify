@@ -22,6 +22,43 @@ copyright = ->
   ].join(' ')
 
 
+pkgIdentifier = ->
+  author = pkg.author.replace(/[^a-zA-Z]/g, '').toLowerCase()
+  name = pkg.name.toLowerCase()
+  return ['com', author, name].join('.')
+
+
+helperPList = (tmp_path, name, done) ->
+  split_name = name.split(' ')
+
+  app_path = path.join(tmp_path, 'Contents/Frameworks', name + '.app')
+
+  new_app_name = _.clone(split_name)
+  new_app_name[0] = pkg.name
+  new_app_path = path.join(tmp_path, 'Contents/Frameworks', new_app_name.join(' ') + '.app')
+
+  new_pkg_name = name.replace('Electron', pkg.name)
+
+  identifier = [pkgIdentifier(), 'helper']
+  identifier.push(split_name[2].toLowerCase()) if split_name.length > 2
+
+  plist_file = path.join(app_path, 'Contents/Info.plist')
+  info_plist = plist.parse fs.readFileSync(plist_file, 'utf8')
+  info_plist['CFBundleDisplayName'] = new_pkg_name
+  info_plist['CFBundleExecutable'] = new_pkg_name
+  info_plist['CFBundleName'] = new_pkg_name
+  info_plist['CFBundleIdentifier'] = identifier.join('.')
+
+  fs.writeFile plist_file, plist.build(info_plist), {encoding: 'utf8'}, (err) ->
+    return done(err) if err
+
+    fs.move path.join(app_path, 'Contents/MacOS', name), path.join(app_path, 'Contents/MacOS', new_pkg_name), (err) ->
+      return done(err) if err
+
+      fs.move app_path, new_app_path, (err) ->
+        return done(err)
+
+
 # Build
 gulp.task 'asar', ->
   gulp.src('./dev/**', {base: './dev/'})
@@ -50,11 +87,12 @@ gulp.task '_compileMac', (cb) ->
       fs.move path.join(tmp_path, 'Contents/MacOS/Electron'), path.join(tmp_path, 'Contents/MacOS/', pkg.name), (err) ->
         step(err)
     ]
-    plist: ['electron', (step) ->
+    plist_main: ['electron', (step) ->
       info_plist = plist.parse fs.readFileSync(path.join(tmp_path, 'Contents/Info.plist'), 'utf8')
       info_plist['CFBundleExecutable'] = pkg.name
       info_plist['CFBundleName'] = pkg.name
       info_plist['CFBundleDisplayName'] = pkg.name
+      info_plist['CFBundleIdentifier'] = pkgIdentifier()
       info_plist['CFBundleVersion'] = pkg.version
       info_plist['CFBundleShortVersionString'] = pkg.version
       info_plist['CFBundleIconFile'] = pkg.name + '.icns'
@@ -62,6 +100,9 @@ gulp.task '_compileMac', (cb) ->
       fs.writeFile path.join(tmp_path, 'Contents/Info.plist'), plist.build(info_plist), {encoding: 'utf8'}, (err) ->
         step(err)
     ],
+    plist_helper: ['electron', (step) -> helperPList(tmp_path, 'Electron Helper', step)]
+    plist_helper_eh: ['electron', (step) -> helperPList(tmp_path, 'Electron Helper EH', step)]
+    plist_helper_np: ['electron', (step) -> helperPList(tmp_path, 'Electron Helper NP', step)]
     remove_default: ['electron', (step) ->
       fs.remove path.join(tmp_path, 'Contents/Resources/default_app'), (err) ->
         step(err)

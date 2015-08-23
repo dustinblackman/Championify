@@ -1,6 +1,8 @@
 # Championify
 _Champion-If-Ayyy_
 
+<a href="https://zenhub.io"><img src="https://raw.githubusercontent.com/ZenHubIO/support/master/zenhub-badge.png"></a>
+
 Championify is a little program that downloads all the recent builds from Champion.gg and imports them in to your League of Legends to use within game! No hassle. Now with customization settings and a GUI!
 
 Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.1.
@@ -129,7 +131,7 @@ I use Electron to wrap my GUI, and unfortunately it's a bit big. I'd rather the 
 ---
 
 ## BUT WAIT! I have a suggestion!
-Well that's great! Put up an Issue, hit me up on Gitter, or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
+Well that's great! Put up an Issue, hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
 
 ## Contribute
 If you can code Coffeescript, feel free to make a pull request. Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue. :)
@@ -137,7 +139,6 @@ If you can code Coffeescript, feel free to make a pull request. Make sure to che
 ---
 
 ## Future Plans
-- Automatically elevate when required instead of making the user do it.
 - Proper design.
 - Write testing suite to be run before releases.
 

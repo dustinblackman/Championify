@@ -109,39 +109,12 @@ setInstallPath = (path_err, install_path, champ_path, executable) ->
   window.item_set_path = path.join(install_path, champ_path)
   $('#install_path').val(install_path)
 
-  if process.platform == 'darwin'
-    return pathErr() if path_err
-    foundLeague()
-  else
-    if path_err
-      pathErr()
-    else
-      foundLeague()
-
-
-###*
- * Function If platform is Windows, check if we can write to the user selected directory, and warn if not.
- * @callback {Function} Callback
-###
-isWindowsAdmin = (step) ->
-  if process.platform != 'darwin'
-    test_path = path.join(window.lol_install_path, 'test.txt')
-
-    fs.writeFile test_path, 'Testing Write', (err) ->
-      window.log.warn(err) if err
-
-      if err or !fs.existsSync(test_path)
-        step(new Error('Can not write test file on Windows'))
-      else
-        fs.unlinkSync(test_path)
-        step null
-  else
-    step null
+  return pathErr() if path_err
+  foundLeague()
 
 
 module.exports = {
   findInstallPath: findInstallPath
   checkInstallPath: checkInstallPath
   setInstallPath: setInstallPath
-  isWindowsAdmin: isWindowsAdmin
 }

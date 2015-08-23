@@ -1,5 +1,6 @@
 async = require 'async'
 cheerio = require 'cheerio'
+glob = require 'glob'
 _ = require 'lodash'
 
 hlp = require './helpers'
@@ -9,12 +10,12 @@ cErrors = require './errors'
 champgg = require './sources/championgg'
 lolflavor = require './sources/lolflavor'
 preferences = require './preferences'
+permissions = require './permissions'
 
 cl = hlp.cl
 
 # Set Defaults
 window.cSettings = {}
-window.undefinedBuilds = []
 
 
 #################
@@ -34,12 +35,11 @@ getSettings = (step) ->
  * Function Gets the latest Riot Version.
  * @callback {Function} Callback.
 ###
-getRiotVer = (step) ->
-  cl 'Getting LoL Version'
+getRiotVer = (step, r) ->
+  cl 'Getting LoL Version' if r
   hlp.ajaxRequest 'https://ddragon.leagueoflegends.com/realms/na.json', (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Riot Version').causedBy(err)) if err
 
-    hlp.updateProgressBar(1.5)
     step null, body.v
 
 
@@ -136,14 +136,38 @@ notProcessed = (step) ->
 
 
 ###*
+ * Function Resave preferences with new local version
+###
+resavePreferences = (step, r) ->
+  prefs = preferences.get()
+  prefs.local_is_version = hlp.spliceVersion(r.riotVer)
+  preferences.save(prefs, step)
+
+
+###*
+ * Function Set windows permissions if required
+###
+setWindowsPermissions = (step, r) ->
+  if process.platform == 'win32' and optionsParser.runnedAsAdmin()
+    cl 'Resetting File Permissions'
+    champ_files = glob.sync(path.join(window.item_set_path, '**'))
+    permissions.setWindowsPermissions(champ_files, step)
+  else
+    step()
+
+###*
  * Function Main function that starts up all the magic.
  * @callback {Function} Callback.
 ###
 downloadItemSets = (done) ->
+  # Reset undefined builds
+  window.undefinedBuilds = []
+
   async_tasks = {
     # Default
     settings: getSettings
-    riotVer: getRiotVer
+    championTest: ['settings', permissions.championTest]
+    riotVer: ['championTest', getRiotVer]
     champs_json:  ['riotVer', getChamps]
     champs: ['champs_json', champNames]
     manaless: ['champs_json', genManaless]
@@ -154,6 +178,8 @@ downloadItemSets = (done) ->
     # Utils
     deleteOldBuilds: ['srItemSets', 'aramItemSets', deleteOldBuilds]
     saveBuilds: ['deleteOldBuilds', saveToFile]
+    resavePreferences: ['saveBuilds', resavePreferences]
+    setPermissions: ['saveBuilds', setWindowsPermissions]
     notProcessed: ['saveBuilds', notProcessed]
   }
 
@@ -162,7 +188,7 @@ downloadItemSets = (done) ->
   if sr_source == 'lolflavor'
     async_tasks['srItemSets'] = ['riotVer', 'manaless', lolflavor.sr]
   else
-    async_tasks['champggVer'] = champgg.version
+    async_tasks['champggVer'] = ['championTest', champgg.version]
     async_tasks['srItemSets'] = ['champs', 'champggVer', 'manaless', champgg.sr]
 
   # Initialize progress bar
@@ -181,4 +207,5 @@ downloadItemSets = (done) ->
 module.exports = {
   run: downloadItemSets
   delete: deleteOldBuilds
+  version: getRiotVer
 }
