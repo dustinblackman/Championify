@@ -1,6 +1,8 @@
 # Championify
 _Champion-If-Ayyy_
 
+<a href="https://zenhub.io"><img src="https://raw.githubusercontent.com/ZenHubIO/support/master/zenhub-badge.png"></a>
+
 Championify is a little program that downloads all the recent builds from Champion.gg and imports them in to your League of Legends to use within game! No hassle. Now with customization settings and a GUI!
 
 Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.1.
