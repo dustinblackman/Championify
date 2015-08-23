@@ -134,6 +134,15 @@ notProcessed = (step) ->
 
 
 ###*
+ * Function Resave preferences with new local version
+###
+resavePreferences = (step, r) ->
+  prefs = preferences.get()
+  prefs.local_is_version = hlp.spliceVersion(r.riotVer)
+  preferences.save(prefs, step)
+
+
+###*
  * Function Main function that starts up all the magic.
  * @callback {Function} Callback.
 ###
@@ -155,6 +164,7 @@ downloadItemSets = (done) ->
     # Utils
     deleteOldBuilds: ['srItemSets', 'aramItemSets', deleteOldBuilds]
     saveBuilds: ['deleteOldBuilds', saveToFile]
+    resavePreferences: ['saveBuilds', resavePreferences]
     notProcessed: ['saveBuilds', notProcessed]
   }
 
