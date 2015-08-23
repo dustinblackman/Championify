@@ -109,14 +109,8 @@ setInstallPath = (path_err, install_path, champ_path, executable) ->
   window.item_set_path = path.join(install_path, champ_path)
   $('#install_path').val(install_path)
 
-  if process.platform == 'darwin'
-    return pathErr() if path_err
-    foundLeague()
-  else
-    if path_err
-      pathErr()
-    else
-      foundLeague()
+  return pathErr() if path_err
+  foundLeague()
 
 
 module.exports = {

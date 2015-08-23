@@ -98,10 +98,10 @@ folder_dialog_open = false
 openFolder = ->
   if !folder_dialog_open
     folder_dialog_open = true
-    if process.platform == 'darwin'
-      properties = ['openFile']
-    else
+    if process.platform == 'win32'
       properties = ['openDirectory']
+    else
+      properties = ['openFile']
 
     dialog.showOpenDialog {
       properties: properties
