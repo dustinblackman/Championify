@@ -224,9 +224,11 @@ winMinor = (app_asar, update_asar) ->
     process_name: path.basename(process.execPath)
   }
 
-  fs.writeFile 'update.bat', cmd(params), 'utf8', (err) ->
+  update_file = path.join(preferences.directory(), 'update.bat')
+
+  fs.writeFile update_file, cmd(params), 'utf8', (err) ->
     return window.endSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
-    exec 'START update.bat'
+    exec 'START "" "' + update_file + '"'
 
 
 ###*
