@@ -1,4 +1,6 @@
 # Championify
+
+[![Join the chat at https://gitter.im/dustinblackman/Championify](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dustinblackman/Championify?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 _Champion-If-Ayyy_
 
 Championify is a little program that downloads all the recent builds from Champion.gg and imports them in to your League of Legends to use within game! No hassle. Now with customization settings and a GUI!
