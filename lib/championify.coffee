@@ -1,5 +1,6 @@
 async = require 'async'
 cheerio = require 'cheerio'
+glob = require 'glob'
 _ = require 'lodash'
 
 hlp = require './helpers'
@@ -9,6 +10,7 @@ cErrors = require './errors'
 champgg = require './sources/championgg'
 lolflavor = require './sources/lolflavor'
 preferences = require './preferences'
+permissions = require './permissions'
 
 cl = hlp.cl
 
@@ -143,6 +145,17 @@ resavePreferences = (step, r) ->
 
 
 ###*
+ * Function Set windows permissions if required
+###
+setWindowsPermissions = (step, r) ->
+  if process.platform == 'win32' and optionsParser.runnedAsAdmin()
+    cl 'Resetting File Permissions'
+    champ_files = glob.sync(path.join(window.item_set_path, '**'))
+    permissions.setWindowsPermissions(champ_files, step)
+  else
+    step()
+
+###*
  * Function Main function that starts up all the magic.
  * @callback {Function} Callback.
 ###
@@ -153,7 +166,8 @@ downloadItemSets = (done) ->
   async_tasks = {
     # Default
     settings: getSettings
-    riotVer: getRiotVer
+    championTest: ['settings', permissions.championTest]
+    riotVer: ['championTest', getRiotVer]
     champs_json:  ['riotVer', getChamps]
     champs: ['champs_json', champNames]
     manaless: ['champs_json', genManaless]
@@ -165,6 +179,7 @@ downloadItemSets = (done) ->
     deleteOldBuilds: ['srItemSets', 'aramItemSets', deleteOldBuilds]
     saveBuilds: ['deleteOldBuilds', saveToFile]
     resavePreferences: ['saveBuilds', resavePreferences]
+    setPermissions: ['saveBuilds', setWindowsPermissions]
     notProcessed: ['saveBuilds', notProcessed]
   }
 
@@ -173,7 +188,7 @@ downloadItemSets = (done) ->
   if sr_source == 'lolflavor'
     async_tasks['srItemSets'] = ['riotVer', 'manaless', lolflavor.sr]
   else
-    async_tasks['champggVer'] = champgg.version
+    async_tasks['champggVer'] = ['championTest', champgg.version]
     async_tasks['srItemSets'] = ['champs', 'champggVer', 'manaless', champgg.sr]
 
   # Initialize progress bar

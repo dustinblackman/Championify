@@ -8,6 +8,10 @@ require('crash-reporter').start()
 
 preferences = require './js/preferences'
 
+# Windows Specific Dependencies
+if process.platform == 'win32'
+  runas = require 'runas'
+
 
 # If were starting to simply update on windows with admin privileges, execute update and exit.
 # When we do this here when a user is restarting with admin privileges, it'll show it's starting Championify
@@ -15,6 +19,19 @@ preferences = require './js/preferences'
 if _.contains(process.argv, '--winMajor')
   update_file = path.join(preferences.directory(), 'update_major.bat')
   return exec 'START "" "' + update_file + '"', {cwd: path.join(process.cwd(), '..')}
+
+
+# Reboot if process needs to be runned as admin
+if _.contains(process.argv, '--startAsAdmin')
+  args = _.clone(process.argv)
+  args.shift()
+  args = _.remove args, (item) -> item != '--startAsAdmin'
+  args.push '--runnedAsAdmin'
+
+  params = ['/c', 'taskkill', '/IM', 'championify.exe', '/f', '&', process.execPath].concat(args)
+  params = params.concat(['&', 'exit'])
+
+  return runas('cmd', params, {hide: true, admin: true})
 
 
 # Keep a global reference of the window object, if you don't, the window will

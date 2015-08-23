@@ -139,7 +139,6 @@ If you can code Coffeescript, feel free to make a pull request. Make sure to che
 ---
 
 ## Future Plans
-- Automatically elevate when required instead of making the user do it.
 - Proper design.
 - Write testing suite to be run before releases.
 
