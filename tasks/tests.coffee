@@ -1,5 +1,6 @@
 coffeelint = require 'gulp-coffeelint'
 gulp = require 'gulp'
+jsonlint = require 'gulp-jsonlint'
 path = require 'path'
 runSequence = require 'run-sequence'
 stylish = require 'coffeelint-stylish'
@@ -23,9 +24,14 @@ gulp.task 'stylint', ->
       reporter: 'stylint-stylish'
     }))
 
+gulp.task 'jsonlint', ->
+  return gulp.src('./app/data/*.json')
+    .pipe(jsonlint())
+    .pipe(jsonlint.failOnError())
+
 
 gulp.task 'lint', ->
-  return runSequence('coffeelint', 'stylint')
+  return runSequence('coffeelint', 'stylint', 'jsonlint')
 
 gulp.task 'test', ->
   return runSequence('lint')
