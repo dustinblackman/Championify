@@ -225,7 +225,7 @@ $(document).on 'click', '#delete_btn', ->
   deleteItemSets()
 
 $(document).on 'input', '#install_path', ->
-  pathManager.checkInstallPath($(this).val(), pathManager.setInstallPath)
+  pathManager.checkInstallPath($(@).val(), pathManager.setInstallPath)
 
 $(document).on 'click', '.sys_button.minimize', (e) ->
   e.preventDefault()

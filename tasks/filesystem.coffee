@@ -38,7 +38,7 @@ gulp.task 'symlink:app', (cb) ->
       oldPath = oldPath.replace('./app/', process.cwd()+'/app/')
       fs.symlink oldPath, newPath, (err) ->
         acb null
-    , () ->
+    , ->
       cb()
 
 

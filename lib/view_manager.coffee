@@ -82,7 +82,7 @@ _initSettings = ->
   $('#browse_title').text(window.browse_title)
   $('.championify_version > span').text('v'+pkg.version)
 
-  $(".options_tooltip").popup()
+  $('.options_tooltip').popup()
   $('.ui.dropdown').dropdown()
 
   $('#sr_source').dropdown {
@@ -96,9 +96,9 @@ _initSettings = ->
 
   # Load versions of LoL and sources
   championify.version (err, version) ->
-    $("#lol_version").text(hlp.spliceVersion(version))
+    $('#lol_version').text(hlp.spliceVersion(version))
   championgg.version (err, version) ->
-    $("#championgg_version").text(version)
+    $('#championgg_version').text(version)
   lolflavor.version (err, version) ->
     $('#lolflavor_version').text(version)
 

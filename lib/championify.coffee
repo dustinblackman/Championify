@@ -89,7 +89,7 @@ deleteOldBuilds = (step, deletebtn) ->
       # TODO: Fix
       window.log.warn(err) if err
       next null
-  , () ->
+  , ->
     hlp.updateProgressBar(2.5) if !deletebtn
     step null
 
@@ -168,7 +168,7 @@ downloadItemSets = (done) ->
     settings: getSettings
     championTest: ['settings', permissions.championTest]
     riotVer: ['championTest', getRiotVer]
-    champs_json:  ['riotVer', getChamps]
+    champs_json: ['riotVer', getChamps]
     champs: ['champs_json', champNames]
     manaless: ['champs_json', genManaless]
 

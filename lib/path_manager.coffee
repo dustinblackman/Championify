@@ -8,7 +8,7 @@ findInstallPath = ->
   userHome = process.env.HOME || process.env.USERPROFILE
 
   # TODO: Fix.
-  notFound = ->
+  # notFound = ->
     # $('#input_msg').text(window.browse_title)
 
   if process.platform == 'darwin'
@@ -18,13 +18,13 @@ findInstallPath = ->
     else if fs.existsSync(userHome + '/Applications/League of Legends.app')
       @setInstallPath null, userHome + '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/'
     else
-      notFound()
+      # notFound()
 
   else
     if fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')
       @setInstallPath null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/', 'lol.launcher.exe'
     else
-      notFound()
+      # notFound()
 
 
 ###*
