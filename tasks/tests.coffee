@@ -9,7 +9,7 @@ stylint = require 'gulp-stylint'
 
 gulp.task 'coffeelint', ->
   coffeelint_config = path.resolve(path.join(__dirname, '..', 'coffeelint.json'))
-  return gulp.src('./lib/*.coffee')
+  return gulp.src(['./lib/*.coffee', './electron.coffee'])
     .pipe(coffeelint(coffeelint_config))
     .pipe(coffeelint.reporter(stylish))
     .pipe(coffeelint.reporter('failOnWarning'))
