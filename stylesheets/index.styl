@@ -1,10 +1,9 @@
-vendor-prefixes ?= webkit official
+vendor-prefixes ?= webkit official // @stylint ignore
 @import 'nib'
 
 // Presets
-elemWidth = 95%
-background_color = #222222
-text_color = #eeebeb
+$background_color = #222222
+$text_color = #eeebeb
 
 // Defaults
 @font-face
@@ -12,7 +11,7 @@ text_color = #eeebeb
   font-style normal
   font-weight 400
   src local('Lato Regular'), local('Lato-Regular'), url('../fonts/lato.woff2') format('woff2')
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000
+  unicode-range U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000
 
 @font-face
   font-family 'Roboto'
@@ -31,22 +30,23 @@ text_color = #eeebeb
 @import complete
 
 body
+  background-image url('../img/background.png')
+  background-color $background_color
+  color $text_color
+  font-family 'Lato'
   overflow hidden
   user-select none
-  background-image url('../img/background.png')
-  font-family 'Lato'
-  background-color background_color
-  color text_color
-  -webkit-app-region drag
+  -webkit-app-region drag // @stylint ignore
 
 // Safety for when switching between OSX and Windows buttons
 header
   height 20px
 
 button
-  -webkit-app-region no-drag
+  -webkit-app-region no-drag // @stylint ignore
+
 a
-  -webkit-app-region no-drag
+  -webkit-app-region no-drag // @stylint ignore// @stylint ignore
 
 
 // Helpers
@@ -54,43 +54,43 @@ a
   display none
 
 #main_container
-  top 5px
   position relative
+  top 5px
 
 // Banner
 .banner
   text-align center
 
 // Footer
-footerBottom = 2px
-footerSide = 10px
+$footer_bottom = 2px
+$footer_side = 10px
 
 footer
-  -webkit-app-region no-drag
-  position absolute
+  background-color $background_color
+  bottom 0
   display block
-  background-color background_color
-  height footerBottom + 22px
+  height footer_bottom + 22px
+  position absolute
   width 100%
-  bottom 0px
   z-index 10
+  -webkit-app-region no-drag // @stylint ignore
 
 .github
-  bottom footerBottom
-  left footerSide
+  bottom $footer_bottom
+  left $footer_side
   position inherit
 
   a
-    cursor: pointer
+    cursor pointer
 
   a:hover
-    color text_color
+    color $text_color
 
   i.icon
     margin 0 0 0 0
 
 .championify_version
-  bottom footerBottom
-  right footerSide
+  bottom $footer_bottom
+  right $footer_side
   position absolute
   color #989898

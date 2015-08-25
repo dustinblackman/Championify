@@ -50,6 +50,7 @@
     "gulp-flatten": "0.0.4",
     "gulp-if": "1.2.5",
     "gulp-inno": "0.0.2",
+    "gulp-stylint": "2.0.0",
     "gulp-stylus": "2.0.3",
     "gulp-uglify": "1.2.0",
     "gulp-util": "3.0.5",
@@ -63,6 +64,8 @@
     "request": "2.57.0",
     "require-dir": "0.3.0",
     "run-sequence": "1.1.0",
+    "stylint": "^1.2.2",
+    "stylint-stylish": "^1.2.0",
     "yauzl": "2.3.1"
   }
 }
