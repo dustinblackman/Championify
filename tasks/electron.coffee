@@ -7,9 +7,9 @@ gulpif = require 'gulp-if'
 gutil = require 'gulp-util'
 https = require('follow-redirects').https
 mkdirp = require 'mkdirp'
-npm = require 'npm'
 path = require 'path'
 runSequence = require 'run-sequence'
+shell = require 'gulp-shell'
 uglify = require 'gulp-uglify'
 yauzl = require 'yauzl'
 _ = require 'lodash'
@@ -167,12 +167,8 @@ gulp.task 'electron:deps', (cb) ->
     else
       install_items.push item+'@'+pkg.dependencies[item]
 
-  process.chdir './dev'
-  npm.load ->
-    npm.commands.install install_items, (err, data) ->
-      return cb(err) if err
-      process.chdir '..'
-      cb()
+  return gulp.src('')
+    .pipe shell(['npm install --prefix ./dev ' + install_items.join(' ')])
 
 
 gulp.task 'electron:settings', ->

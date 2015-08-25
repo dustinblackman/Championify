@@ -1,8 +1,14 @@
-language: node_js
-node_js:
-  - '2.3.1'
+language: objective-c # Give me OSX images!
 install:
+  - sw_vers -productVersion
+  - rm -rf ~/.nvm
+  - git clone https://github.com/creationix/nvm.git ~/.nvm
+  - source ~/.nvm/nvm.sh
+  - nvm install 2.3.1
+  - nvm use 2.3.1
   - npm install
+before_script:
+  - node -v
+  - npm -v
 script: npm test
-os:
-  - osx
+os: osx

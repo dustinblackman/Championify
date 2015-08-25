@@ -30,8 +30,8 @@ gulp.task 'jsonlint', ->
     .pipe(jsonlint.failOnError())
 
 
-gulp.task 'lint', ->
-  return runSequence('coffeelint', 'stylint', 'jsonlint')
+gulp.task 'lint', (cb) ->
+  return runSequence('coffeelint', 'stylint', 'jsonlint', cb)
 
-gulp.task 'test', ->
-  return runSequence('lint')
+gulp.task 'test', (cb) ->
+  return runSequence('lint', cb)
