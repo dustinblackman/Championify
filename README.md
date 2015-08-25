@@ -142,6 +142,8 @@ If you can code Coffeescript, feel free to make a pull request. Make sure to che
 ## Future Plans
 - Proper design.
 - Write testing suite to be run before releases.
+- 3v3 Item Sets
+- Better ARAM Item Sets
 
 
 ---
