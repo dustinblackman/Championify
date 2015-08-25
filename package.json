@@ -4,7 +4,7 @@
   "description": "Downloads all the current builds from Champion.gg and imports them in to League of Legends.",
   "main": "electron.coffee",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/gulp test",
     "build": "./node_modules/.bin/gulp build",
     "postinstall": "./node_modules/.bin/gulp setup"
   },

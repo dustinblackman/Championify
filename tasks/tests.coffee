@@ -1,6 +1,7 @@
 coffeelint = require 'gulp-coffeelint'
 gulp = require 'gulp'
 path = require 'path'
+runSequence = require 'run-sequence'
 stylish = require 'coffeelint-stylish'
 
 
@@ -12,3 +13,8 @@ gulp.task 'coffeelint', ->
     .pipe(coffeelint.reporter('failOnWarning'))
 
 
+gulp.task 'lint', ->
+  return runSequence('coffeelint')
+
+gulp.task 'test', ->
+  return runSequence('lint')
