@@ -102,5 +102,15 @@
   },
   "space_operators": {
     "level": "ignore"
+  },
+  "internal_variable_names_usage": {
+      "module": "coffeelint-internal-variable-names-usage",
+      "level": "warn"
+  },
+  "no_trailing_commas": {
+    "module": "coffeelint-no-trailing-commas"
+  },
+  "camel_case_vars": {
+    "module": "coffeelint-camel-case-vars"
   }
 }
