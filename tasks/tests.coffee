@@ -1,5 +1,6 @@
 coffeelint = require 'gulp-coffeelint'
 gulp = require 'gulp'
+htmllint = require 'gulp-htmllint'
 jsonlint = require 'gulp-jsonlint'
 path = require 'path'
 runSequence = require 'run-sequence'
@@ -22,6 +23,13 @@ gulp.task 'stylint', ->
       config: stylint_config
       failOnError: true
       reporter: 'stylint-stylish'
+    }))
+
+gulp.task 'htmllint', ->
+  htmllink_config = path.resolve(path.join(__dirname, '..', '.htmllintrc'))
+  return gulp.src('app/**/*.html')
+    .pipe(htmllint({
+      config: htmllink_config
     }))
 
 gulp.task 'jsonlint', ->
