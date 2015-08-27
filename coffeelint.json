@@ -109,8 +109,5 @@
   },
   "no_trailing_commas": {
     "module": "coffeelint-no-trailing-commas"
-  },
-  "camel_case_vars": {
-    "module": "coffeelint-camel-case-vars"
   }
 }

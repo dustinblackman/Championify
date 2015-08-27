@@ -24,7 +24,7 @@ gulp.task 'virustotal', (cb) ->
           options = {
             formData: {
               file: fs.createReadStream(file_path)
-            },
+            }
             url: upload_url
           }
 
@@ -104,9 +104,9 @@ gulp.task 'github-release', (cb) ->
         async.eachSeries files, (file_path, acb) ->
           console.log '[GITHUB] Uploading: ' + file_path
           upload_file = {
-            owner: 'dustinblackman',
-            repo: 'Championify',
-            id: release_id,
+            owner: 'dustinblackman'
+            repo: 'Championify'
+            id: release_id
             name: path.basename(file_path)
             filePath: file_path
           }

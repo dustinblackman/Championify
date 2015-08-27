@@ -39,7 +39,7 @@ window.log = new (winston.Logger)({
     new winston.transports.File({
       filename: error_log
       handleExceptions: true
-      prettyPrint: true,
+      prettyPrint: true
       level: 'debug'
       options:
         flags: 'w'

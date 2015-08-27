@@ -6,6 +6,8 @@ install:
   - source ~/.nvm/nvm.sh
   - nvm install 2.3.1
   - nvm use 2.3.1
+  - npm install -g npm
+  - npm install || true # Fix electron-prebuilt failing on first install
   - npm install
 before_script:
   - node -v

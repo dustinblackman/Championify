@@ -145,7 +145,7 @@ cache = (os, arch, done) ->
 
   download_link = downloadLink({
     version: pkg.devDependencies['electron-prebuilt']
-    os: os,
+    os: os
     arch: arch
   })
 

@@ -86,7 +86,7 @@ _initSettings = ->
   $('.ui.dropdown').dropdown()
 
   $('#sr_source').dropdown {
-    action: 'activate',
+    action: 'activate'
     onChange: (value) ->
       if value == 'lolflavor'
         sourceUIManager.lolflavor()

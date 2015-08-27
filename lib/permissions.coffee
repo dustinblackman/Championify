@@ -55,7 +55,7 @@ championTest = (step) ->
             next(err)
         else
           next()
-      ],
+      ]
 
       cleanup: ['createFile', (next) ->
         fs.remove path.join(window.item_set_path, 'testme'), (err) ->
