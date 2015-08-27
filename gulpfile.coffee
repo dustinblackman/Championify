@@ -44,21 +44,26 @@ gulp.task 'package-asar', (cb) ->
   )
 
 # Build is meant for building on Mac.
-gulp.task 'build', ->
+gulp.task 'build', (cb) ->
+  if process.platform == 'win32'
+    return runSequence('build:win', cb)
+  else
+    return runSequence('build:mac', cb)
+
+gulp.task 'build:mac', (cb) ->
   runSequence(
     'package-asar'
     'compile:mac'
     'move:compiled-mac:folder'
+    cb
   )
 
-gulp.task 'build:mac', ->
-  runSequence('build')
-
-gulp.task 'build:win', ->
+gulp.task 'build:win', (cb) ->
   runSequence(
     'package-asar'
     'compile:win'
     'move:compiled-win:folder'
+    cb
   )
 
 gulp.task 'release', ->
