@@ -1,0 +1,18 @@
+version: '{build}'
+pull_requests:
+  do_not_increment_build_number: true
+skip_tags: true
+os: Windows Server 2012 R2
+install:
+  - systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"
+  - ps: Install-Product node 2.3.1
+  - npm install -g npm
+  - npm install || Echo First NPM install failed && npm install
+  - node -v
+  - npm -v
+build: off
+platform:
+  - x86
+  - x64
+test_script:
+  - npm test
