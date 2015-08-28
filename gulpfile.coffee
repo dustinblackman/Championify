@@ -30,6 +30,7 @@ gulp.task 'main', (cb) ->
 gulp.task 'dev', ->
   runSequence(
     'main'
+    'copy:data'
     'dev_folder'
     'run-watch')
 
@@ -38,6 +39,7 @@ gulp.task 'package-asar', (cb) ->
     'main'
     'electron:deps'
     'copy:app'
+    'copy:data'
     'removelivereload'
     'asar'
     cb

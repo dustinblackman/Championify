@@ -8,6 +8,11 @@ require('crash-reporter').start()
 
 preferences = require './js/preferences'
 
+dev_enabled = fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
+
+if dev_enabled
+  require('electron-debug')()
+
 # Windows Specific Dependencies
 if process.platform == 'win32'
   runas = require 'runas'
@@ -62,7 +67,7 @@ app.on 'ready', ->
   # Emitted when the window is closed.
 
   # Enable dev stuff if needed.
-  if fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
+  if dev_enabled
     mainWindow.openDevTools()
 
   # Avoid white page on load.
