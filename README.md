@@ -144,6 +144,8 @@ Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Champ
 - Functions must be camel cased. `downloadStuff()`
 - Variables must be underscored. `my_champion = 'teemo'`
 
+I suggest making sure your linters are setup correctly, or run gulp lint every now and again.
+
 ---
 
 ## Future Plans
