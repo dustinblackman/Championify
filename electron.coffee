@@ -68,7 +68,7 @@ app.on 'ready', ->
 
   # Enable dev stuff if needed.
   if dev_enabled
-    mainWindow.openDevTools()
+    mainWindow.openDevTools({detach: true})
 
   # Avoid white page on load.
   mainWindow.webContents.on 'did-finish-load', ->

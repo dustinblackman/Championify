@@ -42,7 +42,7 @@
     "coffeelint-no-trailing-commas": "1.0.2",
     "coffeelint-stylish": "0.1.2",
     "electron-debug": "0.2.0",
-    "electron-mocha": "git+https://github.com/dustinblackman/electron-mocha.git#coffeescript",
+    "electron-mocha": "git://github.com/dustinblackman/electron-mocha.git#championify",
     "electron-prebuilt": "0.30.5",
     "github": "0.2.4",
     "gulp": "3.9.0",

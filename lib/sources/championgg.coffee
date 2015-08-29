@@ -314,8 +314,8 @@ processChamp = (request_params, body, step) ->
       title = _.capitalize(position)
 
     newObj = {
-      champion: champ,
-      title: title + ' ' + window.champGGVer,
+      champion: champ
+      title: title + ' ' + window.champGGVer
       blocks: build
     }
 
@@ -348,8 +348,8 @@ processChamp = (request_params, body, step) ->
   if !request_params.position and positions.length > 0
     positions = positions.map (e) ->
       return {
-        champ: champ,
-        position: e,
+        champ: champ
+        position: e
         manaless: request_params.manaless
       }
 

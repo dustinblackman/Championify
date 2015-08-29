@@ -12,7 +12,12 @@ wait = require 'gulp-wait'
 
 gulp.task 'coffeelint', ->
   coffeelint_config = path.resolve(path.join(__dirname, '..', 'coffeelint.json'))
-  return gulp.src(['./lib/*.coffee', './electron.coffee', './tasks/*.coffee', './tests/*.coffee'])
+  return gulp.src([
+      './electron.coffee'
+      './lib/**/*.coffee'
+      './tasks/**/*.coffee'
+      './tests/**/*.coffee'
+    ])
     .pipe(coffeelint(coffeelint_config))
     .pipe(coffeelint.reporter(stylish))
     .pipe(wait(1500)) # Work around so all stylish linter results come up on top. TODO: Replace.
@@ -20,7 +25,7 @@ gulp.task 'coffeelint', ->
 
 gulp.task 'stylint', ->
   stylint_config = path.resolve(path.join(__dirname, '..', '.stylintrc'))
-  return gulp.src('stylesheets/*.styl')
+  return gulp.src('stylesheets/**/*.styl')
     .pipe(stylint({
       config: stylint_config
       failOnError: true
@@ -35,7 +40,7 @@ gulp.task 'htmllint', ->
     }))
 
 gulp.task 'jsonlint', ->
-  return gulp.src('./data/*.json')
+  return gulp.src('./data/**/*.json')
     .pipe(jsonlint())
     .pipe(jsonlint.failOnError())
 

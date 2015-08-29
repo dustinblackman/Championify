@@ -135,7 +135,14 @@ I use Electron to wrap my GUI, and unfortunately it's a bit big. I'd rather the 
 Well that's great! Put up an Issue, hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
 
 ## Contribute
-If you can code Coffeescript, feel free to make a pull request. Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue. :)
+If you can code Coffeescript, feel free to make a pull request.
+Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue. :)
+
+#### Rules:
+- Must pass all tests. `npm test`
+- Must write tests for all new functions (look at current tests for examples).
+- Functions must be camel cased. `downloadStuff()`
+- Variables must be underscored. `my_champion = 'teemo'`
 
 ---
 
@@ -158,7 +165,7 @@ npm install
 npm run build
 ```
 
-You'll find a Championify/Championify.app in the releases folder.
+You'll find a Championify.exe/Championify.app in the releases folder.
 
 Wine is required if building on Mac for Windows.
 ```console
