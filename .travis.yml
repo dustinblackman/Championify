@@ -13,3 +13,6 @@ before_script:
   - npm -v
 script: npm test
 os: osx
+cache:
+  directories:
+    - node_modules

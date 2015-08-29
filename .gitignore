@@ -9,3 +9,4 @@ cache/
 *.log
 
 test.coffee
+exit.code

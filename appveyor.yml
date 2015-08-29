@@ -15,4 +15,6 @@ platform:
   - x86
   - x64
 test_script:
-  - npm test
+  - npm run appveyor
+cache:
+  - node_modules
