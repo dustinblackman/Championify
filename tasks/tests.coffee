@@ -1,26 +1,25 @@
 coffeelint = require 'gulp-coffeelint'
 gulp = require 'gulp'
-htmllint = require 'gulp-htmllint'
+htmlhint = require 'gulp-htmlhint'
 jsonlint = require 'gulp-jsonlint'
 path = require 'path'
 runSequence = require 'run-sequence'
 shell = require 'gulp-shell'
 stylish = require 'coffeelint-stylish'
 stylint = require 'gulp-stylint'
-wait = require 'gulp-wait'
 
 
 gulp.task 'coffeelint', ->
   coffeelint_config = path.resolve(path.join(__dirname, '..', 'coffeelint.json'))
   return gulp.src([
       './electron.coffee'
+      './gulpfile.coffee'
       './lib/**/*.coffee'
       './tasks/**/*.coffee'
       './tests/**/*.coffee'
     ])
     .pipe(coffeelint(coffeelint_config))
     .pipe(coffeelint.reporter(stylish))
-    .pipe(wait(1500)) # Work around so all stylish linter results come up on top. TODO: Replace.
     .pipe(coffeelint.reporter('failOnWarning'))
 
 gulp.task 'stylint', ->
@@ -32,32 +31,38 @@ gulp.task 'stylint', ->
       reporter: 'stylint-stylish'
     }))
 
-gulp.task 'htmllint', ->
-  htmllink_config = path.resolve(path.join(__dirname, '..', '.htmllintrc'))
+gulp.task 'htmlhint', ->
   return gulp.src('app/**/*.html')
-    .pipe(htmllint({
-      config: htmllink_config
-    }))
+    .pipe(htmlhint('.htmlhintrc'))
+    .pipe(htmlhint.reporter('htmlhint-stylish'))
+    .pipe(htmlhint.failReporter({suppress: true}))
 
 gulp.task 'jsonlint', ->
-  return gulp.src('./data/**/*.json')
+  return gulp.src([
+      './data/**/*.json'
+      './.htmlhintrc'
+      './.stylintrc'
+      './coffeelint.json'
+      './package.json'
+      './bower.json'
+    ])
     .pipe(jsonlint())
     .pipe(jsonlint.failOnError())
 
 
 gulp.task 'lint', (cb) ->
-  return runSequence('coffeelint', 'stylint', 'jsonlint', cb)
+  runSequence('coffeelint', 'stylint', 'jsonlint', cb)
 
 
 gulp.task 'mocha', ->
   if process.platform == 'win32'
-    cmd = 'setlocal ENABLEDELAYEDEXPANSION && set "ELECTRON_PATH=./node_modules/.bin/electron" && ./node_modules/.bin/electron-mocha --renderer ./tests/'
+    electron_path = path.resolve('./node_modules/.bin/electron-mocha')
+    cmd = "setlocal ENABLEDELAYEDEXPANSION && set \"ELECTRON_PATH=./node_modules/.bin/electron\" && \"#{electron_path}\" --renderer ./tests/"
   else
     cmd = 'ELECTRON_PATH=./node_modules/.bin/electron ./node_modules/.bin/electron-mocha --renderer ./tests/'
 
-  return gulp.src('')
-    .pipe shell(cmd)
+  return gulp.src('').pipe shell(cmd)
 
 
 gulp.task 'test', (cb) ->
-  return runSequence('lint', 'mocha', cb)
+  runSequence('lint', 'mocha', cb)

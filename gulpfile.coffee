@@ -17,8 +17,8 @@ gulp.task 'setup', ->
 # Main Tasks
 gulp.task 'main', (cb) ->
   runSequence(
-    'delete-dev',
-    'mkdir:app',
+    'delete-dev'
+    'mkdir:app'
     ['electron:packagejson'
     'electron:settings'
     'bower_copy'
