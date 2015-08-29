@@ -55,13 +55,22 @@ gulp.task 'lint', (cb) ->
 
 
 gulp.task 'mocha', ->
+  options = null
   if process.platform == 'win32'
     electron_path = path.resolve('./node_modules/.bin/electron-mocha')
-    cmd = "setlocal ENABLEDELAYEDEXPANSION && set \"ELECTRON_PATH=./node_modules/.bin/electron\" && \"#{electron_path}\" --renderer ./tests/"
+    cmd = [
+      'echo Booting up Electron...'
+      'echo ELECTRON_PATH=%ELECTRON_PATH%'
+      "echo \"#{electron_path}\" --renderer ./tests/"
+      "\"#{electron_path}\" --renderer ./tests/"
+    ].join(' && ')
+    options = {
+      env: {ELECTRON_PATH: './node_modules/.bin/electron'}
+    }
   else
     cmd = 'ELECTRON_PATH=./node_modules/.bin/electron ./node_modules/.bin/electron-mocha --renderer ./tests/'
 
-  return gulp.src('').pipe shell(cmd)
+  return gulp.src('').pipe shell(cmd, options)
 
 
 gulp.task 'test', (cb) ->
