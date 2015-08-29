@@ -49,9 +49,14 @@ gulp.task 'lint', (cb) ->
   return runSequence('coffeelint', 'stylint', 'jsonlint', cb)
 
 
-gulp.task 'mocha', (cb) ->
-  gulp.src('')
-    .pipe shell(['ELECTRON_PATH=./node_modules/.bin/electron ./node_modules/.bin/electron-mocha --renderer ./tests/'])
+gulp.task 'mocha', ->
+  if process.platform == 'win32'
+    cmd = 'setlocal ENABLEDELAYEDEXPANSION && set "ELECTRON_PATH=./node_modules/.bin/electron" && ./node_modules/.bin/electron-mocha --renderer ./tests/'
+  else
+    cmd = 'ELECTRON_PATH=./node_modules/.bin/electron ./node_modules/.bin/electron-mocha --renderer ./tests/'
+
+  return gulp.src('')
+    .pipe shell(cmd)
 
 
 gulp.task 'test', (cb) ->
