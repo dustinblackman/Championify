@@ -6,6 +6,7 @@
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
     "appveyor": "./node_modules/.bin/gulp test --appveyor",
+    "travis": "./node_modules/.bin/gulp test --travis",
     "build": "./node_modules/.bin/gulp build",
     "postinstall": "./node_modules/.bin/gulp setup"
   },
@@ -15,6 +16,12 @@
   },
   "engines": {
     "iojs": "2.3.1"
+  },
+  "config": {
+    "blanket": {
+      "pattern": "lib",
+      "data-cover-never": "node_modules"
+    }
   },
   "author": "Dustin Blackman",
   "license": "MIT",
@@ -34,6 +41,7 @@
     "winston": "git://github.com/dustinblackman/winston.git#electron"
   },
   "devDependencies": {
+    "blanket": "^1.1.7",
     "bower": "1.4.1",
     "chai": "3.2.0",
     "coffee-script": "1.9.3",
@@ -42,6 +50,7 @@
     "coffeelint-internal-variable-names-usage": "0.0.1",
     "coffeelint-no-trailing-commas": "1.0.2",
     "coffeelint-stylish": "0.1.2",
+    "coveralls": "^2.11.4",
     "electron-debug": "0.2.0",
     "electron-mocha": "git://github.com/dustinblackman/electron-mocha.git#championify",
     "electron-prebuilt": "0.30.5",
@@ -66,6 +75,7 @@
     "gulp-util": "3.0.5",
     "gulp-watch": "4.2.4",
     "htmlhint-stylish": "1.0.3",
+    "mocha-lcov-reporter": "0.0.2",
     "moment": "2.10.6",
     "nib": "1.1.0",
     "plist": "1.1.0",

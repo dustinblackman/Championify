@@ -11,7 +11,7 @@ install:
 before_script:
   - node -v
   - npm -v
-script: npm test
+script: npm run travis
 os: osx
 cache:
   directories:

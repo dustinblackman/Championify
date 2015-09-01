@@ -10,3 +10,4 @@ cache/
 
 test.coffee
 exit.code
+test.sh

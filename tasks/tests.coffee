@@ -57,25 +57,21 @@ gulp.task 'lint', (cb) ->
   runSequence('coffeelint', 'stylint', 'jsonlint', cb)
 
 
-gulp.task 'mocha', (cb) ->
-  env = process.env
-  env['ELECTRON_PATH'] = path.resolve('./node_modules/.bin/electron')
+mochaWindows = (cb) ->
   options = {stdio: [process.stdin, process.stdout, process.stderr]}
+  env = process.env
+  env['ELECTRON_PATH'] = path.resolve('./node_modules/.bin/electron')+'.cmd'
+  env['EXITCODE_PATH'] = path.join(process.cwd(), 'exit.code')
+  options.env = env
 
-  cmd = path.resolve('./node_modules/.bin/electron-mocha')
+  cmd = path.resolve('./node_modules/.bin/electron-mocha') +'.cmd'
   args = ['--renderer', './tests/']
 
-  if process.platform == 'win32'
-    cmd = cmd+'.cmd'
-    env['ELECTRON_PATH'] = env['ELECTRON_PATH']+'.cmd'
-    env['EXITCODE_PATH'] = path.join(process.cwd(), 'exit.code')
-    fs.removeSync(env['EXITCODE_PATH']) if fs.existsSync(env['EXITCODE_PATH'])
-
-  options.env = env
+  fs.removeSync(env['EXITCODE_PATH']) if fs.existsSync(env['EXITCODE_PATH'])
 
   em = spawn(cmd, args, options)
   em.on 'close', (code) ->
-    code = parseInt(fs.readFileSync(env['EXITCODE_PATH'], 'utf8')) if process.platform == 'win32'
+    code = parseInt(fs.readFileSync(env['EXITCODE_PATH'], 'utf8'))
     if code != 0
       if _.contains(process.argv, '--appveyor')
         return cb('Mocha returned an error, and it\'s not displayed here because process spawning on Windows sucks balls. See if the error is happening on Travis-CI, otherwise run tests on a local windows system. https://travis-ci.org/dustinblackman/Championify/builds')
@@ -83,6 +79,37 @@ gulp.task 'mocha', (cb) ->
       cb('Mocha exited with code: ' + code)
     else
       cb()
+
+
+mochaOSX = (cb) ->
+  options = {stdio: [process.stdin, process.stdout, process.stderr]}
+  env = process.env
+  env['ELECTRON_PATH'] = path.resolve('./node_modules/.bin/electron')
+  options.env = env
+
+  cmd = path.resolve('./node_modules/.bin/electron-mocha')
+
+  # if _.contains(process.argv, '--travis')
+  #   env.NODE_ENV = 'test'
+  #   env.CHAMPIONIFY_COVERAGE = 1
+  #   args = '--require blanket --reporter mocha-lcov-reporter --renderer ./tests/ | ./node_modules/coveralls/bin/coveralls.js'
+  # else
+  #   args = '--renderer ./tests/'
+
+  args = ['--renderer', './tests/']
+
+  em = spawn(cmd, args, options)
+  em.on 'close', (code) ->
+    return cb('Mocha exited with code: ' + code) if code != 0
+    cb()
+
+
+gulp.task 'mocha', (cb) ->
+  if process.platform == 'win32'
+    mochaWindows(cb)
+  else
+    mochaOSX(cb)
+
 
 gulp.task 'test', (cb) ->
   runSequence('lint', 'mocha', cb)
