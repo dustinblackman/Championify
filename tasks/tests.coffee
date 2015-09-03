@@ -125,4 +125,4 @@ gulp.task 'test', (cb) ->
   runSequence('lint', 'mocha', cb)
 
 gulp.task 'travis', (cb) ->
-  runSequence('lint', 'mocha', 'istanbul', cb)
+  runSequence('lint', 'mocha', cb)
