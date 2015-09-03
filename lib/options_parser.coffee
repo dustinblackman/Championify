@@ -11,6 +11,6 @@ module.exports = {
   delete: -> return _processArgs('--delete')
   close: -> return _processArgs('--close')
   autorun: -> return _processArgs('--autorun')
-  runnedAsAdmin: () -> return _processArgs('--runnedAsAdmin')
-  startLeague: () -> return _processArgs('--startLeague')
+  runnedAsAdmin: -> return _processArgs('--runnedAsAdmin')
+  startLeague: -> return _processArgs('--startLeague')
 }

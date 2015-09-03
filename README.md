@@ -2,7 +2,12 @@
 
 _Champion-If-Ayyy_
 
-[![Join the chat at https://gitter.im/dustinblackman/Championify](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dustinblackman/Championify?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) <a href="https://zenhub.io"><img src="https://raw.githubusercontent.com/ZenHubIO/support/master/zenhub-badge.png"></a>
+[![Join the chat at https://gitter.im/dustinblackman/Championify](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dustinblackman/Championify?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Travis](https://img.shields.io/travis/dustinblackman/Championify/master.svg)](https://travis-ci.org/dustinblackman/Championify/builds)
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/dt20uyoxt2skgneu/branch/master?svg=true)](https://ci.appveyor.com/project/dustinblackman/championify/branch/master)
+<a href="https://zenhub.io"><img src="https://img.shields.io/badge/KanBan%20Board-Zenhub.io-blue.svg"></a>
+
+Latest Release Downloads: [![Downloads](https://img.shields.io/github/downloads/dustinblackman/Championify/latest/total.svg)](https://github.com/dustinblackman/Championify/releases/latest)
 
 Championify is a little program that downloads all the recent builds from Champion.gg and imports them in to your League of Legends to use within game! No hassle. Now with customization settings and a GUI!
 
@@ -135,13 +140,24 @@ I use Electron to wrap my GUI, and unfortunately it's a bit big. I'd rather the 
 Well that's great! Put up an Issue, hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
 
 ## Contribute
-If you can code Coffeescript, feel free to make a pull request. Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue. :)
+If you can code Coffeescript, feel free to make a pull request.
+Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue. :)
+
+#### Rules:
+- Must pass all tests. `npm test`
+- Must write tests for all new functions (look at current tests for examples).
+- Functions must be camel cased. `downloadStuff()`
+- Variables must be underscored. `my_champion = 'teemo'`
+
+I suggest making sure your linters are setup correctly, or run gulp lint every now and again.
 
 ---
 
 ## Future Plans
 - Proper design.
 - Write testing suite to be run before releases.
+- 3v3 Item Sets
+- Better ARAM Item Sets
 
 
 ---
@@ -156,7 +172,7 @@ npm install
 npm run build
 ```
 
-You'll find a Championify/Championify.app in the releases folder.
+You'll find a Championify.exe/Championify.app in the releases folder.
 
 Wine is required if building on Mac for Windows.
 ```console

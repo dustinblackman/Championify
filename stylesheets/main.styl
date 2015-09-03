@@ -1,16 +1,16 @@
 // Browse/Inputs
 .browse_title
-  text-align center
-  margin-top -10px
   margin-bottom 5px
+  margin-top -10px
+  text-align center
 
 .lol_dir_input
-  -webkit-app-region no-drag
+  -webkit-app-region no-drag // @stylint ignore
 
 .lol_dir_input_msg
-  text-align center
-  margin-top -15px
   height 25px
+  margin-top -15px
+  text-align center
 
   .yellow
     color #fbbd08
@@ -23,14 +23,14 @@
 
 // Options
 .options
-  -webkit-app-region no-drag
+  -webkit-app-region no-drag // @stylint ignore
 
   .rift_source
-    z-index 2
     text-align center
+    z-index 2
 
     .ui.selection.dropdown
-      line-height 0.5em
+      line-height .5em
       height 30px
       min-height .7142em
 
@@ -38,7 +38,7 @@
       padding .48571429em
 
     .ui.selection.active.dropdown .menu
-      -webkit-app-region no-drag
+      -webkit-app-region no-drag // @stylint ignore
 
   .with_dropdown
     display flex
@@ -52,21 +52,22 @@
     .ui.button
       height 20px
     .ui.bottom.pointing.dropdown>.menu
-      margin 0 0 0.1em
+      margin 0 0 .1em
 
   .left
     margin-bottom 5px
+
     label
-      color text_color
+      color $text_color
     label:hover
-      color rgba(text_color, 0.5)
+      color rgba($text_color, .5)
     label:after
-      color text_color
+      color $text_color
     input:focus~label
-      color text_color
+      color $text_color
 
   .ui.disabled.checkbox label
-    color text_color
+    color $text_color
     text-decoration line-through
 
 // Versions
@@ -77,34 +78,35 @@
   div
     display block
   span
-    color text_color
+    color $text_color
     font-weight bold
 
 
 // Submit/Progress
 .submit_btns
-  text-align center
   margin-top 20px
+  text-align center
 
 .status
   text-align center
+
   h2
-    color text_color
+    color $text_color
 
   .ui.progress .bar
     height 1.5em
   .ui.progress:last-child
-    margin 0 0 0.3em
+    margin 0 0 .3em
   .ui.divider
-    margin 0.8rem 0
+    margin .8rem 0
 
 .progresslog
   height 170px
+  margin-top 0
   overflow hidden
   text-align center
-  margin-top 0px
 
-  ::-webkit-scrollbar
+  ::-webkit-scrollbar // @stylint ignore
     display none
 
   div

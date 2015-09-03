@@ -1,9 +1,9 @@
 {
   "arrow_spacing": {
-    "level": "ignore"
+    "level": "error"
   },
   "braces_spacing": {
-    "level": "ignore",
+    "level": "error",
     "spaces": 0,
     "empty_object_spaces": 0
   },
@@ -14,15 +14,15 @@
     "level": "error"
   },
   "colon_assignment_spacing": {
-    "level": "ignore",
+    "level": "error",
     "spacing": {
       "left": 0,
-      "right": 0
+      "right": 1
     }
   },
   "cyclomatic_complexity": {
-    "value": 10,
-    "level": "ignore"
+    "level": "ignore",
+    "value": 10
   },
   "duplicate_key": {
     "level": "error"
@@ -30,56 +30,45 @@
   "empty_constructor_needs_parens": {
     "level": "ignore"
   },
-  "ensure_comprehensions": {
-    "level": "warn"
-  },
-  "eol_last": {
-    "level": "ignore"
-  },
   "indentation": {
-    "value": 2,
-    "level": "error"
+    "level": "error",
+    "value": 2
   },
   "line_endings": {
     "level": "ignore",
     "value": "unix"
   },
   "max_line_length": {
-    "value": 320,
-    "level": "warn",
-    "limitComments": true
+    "level": "error",
+    "value": 300
   },
   "missing_fat_arrows": {
-    "level": "ignore",
-    "is_strict": false
+    "level": "ignore"
   },
   "newlines_after_classes": {
-    "value": 3,
-    "level": "ignore"
+    "level": "error",
+    "value": 1
   },
   "no_backticks": {
     "level": "error"
   },
   "no_debugger": {
-    "level": "warn",
-    "console": false
+    "level": "error"
   },
   "no_empty_functions": {
-    "level": "ignore"
+    "level": "error"
   },
   "no_empty_param_list": {
-    "level": "ignore"
+    "level": "error"
   },
   "no_implicit_braces": {
-    "level": "ignore",
-    "strict": true
+    "level": "ignore"
   },
   "no_implicit_parens": {
-    "strict": true,
     "level": "ignore"
   },
   "no_interpolation_in_single_quotes": {
-    "level": "ignore"
+    "level": "error"
   },
   "no_plusplus": {
     "level": "ignore"
@@ -90,9 +79,6 @@
   "no_tabs": {
     "level": "error"
   },
-  "no_this": {
-    "level": "ignore"
-  },
   "no_throwing_strings": {
     "level": "error"
   },
@@ -100,30 +86,28 @@
     "level": "error"
   },
   "no_trailing_whitespace": {
-    "level": "error",
-    "allowed_in_comments": false,
-    "allowed_in_empty_lines": true
+    "level": "error"
+  },
+  "no_this": {
+    "level": "error"
   },
   "no_unnecessary_double_quotes": {
-    "level": "ignore"
+    "level": "error"
   },
   "no_unnecessary_fat_arrows": {
-    "level": "warn"
+    "level": "error"
   },
   "non_empty_constructor_needs_parens": {
     "level": "ignore"
   },
-  "prefer_english_operator": {
-    "level": "ignore",
-    "doubleNotLevel": "ignore"
-  },
   "space_operators": {
     "level": "ignore"
   },
-  "spacing_after_comma": {
-    "level": "ignore"
-  },
-  "transform_messes_up_line_numbers": {
+  "internal_variable_names_usage": {
+    "module": "coffeelint-internal-variable-names-usage",
     "level": "warn"
+  },
+  "no_trailing_commas": {
+    "module": "coffeelint-no-trailing-commas"
   }
 }

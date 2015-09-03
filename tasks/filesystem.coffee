@@ -9,6 +9,17 @@ runSequence = require 'run-sequence'
 
 pkg = require '../package.json'
 
+symlink = (source, cb) ->
+  glob './' + source + '/**', {nodir: true} , (err, paths) ->
+    console.log paths
+    async.each paths, (oldPath, acb) ->
+      newPath = oldPath.replace('./' + source, './dev')
+      oldPath = oldPath.replace('./' + source + '/', process.cwd()+'/' + source + '/')
+      fs.symlink oldPath, newPath, (err) ->
+        acb null
+    , ->
+      cb()
+
 # Dirs, Copy, Delete, Mk
 gulp.task 'mkdir:app', (cb) ->
   glob './app/**/' , (err, paths) ->
@@ -30,6 +41,9 @@ gulp.task 'copy:app', (cb) ->
     , ->
       cb()
 
+gulp.task 'copy:data', (cb) ->
+  fs.copy './data/', './dev/data', (err) -> cb(err)
+
 
 gulp.task 'symlink:app', (cb) ->
   glob './app/**', {nodir: true} , (err, paths) ->
@@ -38,7 +52,7 @@ gulp.task 'symlink:app', (cb) ->
       oldPath = oldPath.replace('./app/', process.cwd()+'/app/')
       fs.symlink oldPath, newPath, (err) ->
         acb null
-    , () ->
+    , ->
       cb()
 
 

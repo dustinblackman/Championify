@@ -4,8 +4,11 @@ dev/
 bower_components/
 tmp/
 cache/
+coverage/
 
 *.asar
 *.log
 
+exit.code
 test.coffee
+test.sh

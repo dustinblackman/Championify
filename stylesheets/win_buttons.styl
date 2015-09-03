@@ -1,15 +1,15 @@
 .win_buttons
-  button_height = 20px
-  initial_right = 0px
-  close_width = 50px
-  minmax_width = 35px
-  hover_fade_time = 0.05s
+  $button_height = 20px
+  $initial_right = 0
+  $close_width = 50px
+  $minmax_width = 35px
+  $hover_fade_time = .05s
 
-  top 0px
-  height button_height
+  top 0
+  height $button_height
 
   .sys_button
-    -webkit-app-region no-drag
+    -webkit-app-region no-drag // @stylint ignore
 
   img
     position relative
@@ -17,46 +17,46 @@
   .close
     position absolute
     background-color #c75050
-    width close_width
-    height button_height
-    right initial_right
-    transition all hover_fade_time ease-in-out
+    width $close_width
+    height $button_height
+    right $initial_right
+    transition all $hover_fade_time ease-in-out
 
     &:hover
       background-color #e04343
-      transition all hover_fade_time ease-in-out
+      transition all $hover_fade_time ease-in-out
 
     img
-      width 9px
       height 9px
       left 20px
       margin-bottom 1px
+      width 9px
 
   .maximize
     position absolute
-    width minmax_width
-    height button_height
-    right close_width + initial_right
+    width $minmax_width
+    height $button_height
+    right $close_width + $initial_right
 
     img
-      width 11px
       height 11px
       left 12px
-      opacity 0.6
+      opacity .6
+      width 11px
 
 
   .minimize
     position absolute
-    width minmax_width
-    height button_height
-    right close_width + minmax_width + initial_right
-    transition all hover_fade_time ease-in-out
+    width $minmax_width
+    height $button_height
+    right $close_width + $minmax_width + $initial_right
+    transition all $hover_fade_time ease-in-out
 
     &:hover
       background-color #3665b3
-      transition all hover_fade_time ease-in-out
+      transition all $hover_fade_time ease-in-out
 
     img
-      width 25%
       height 25%
       left 13px
+      width 25%

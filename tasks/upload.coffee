@@ -24,7 +24,7 @@ gulp.task 'virustotal', (cb) ->
           options = {
             formData: {
               file: fs.createReadStream(file_path)
-            },
+            }
             url: upload_url
           }
 
@@ -42,12 +42,12 @@ gulp.task 'virustotal', (cb) ->
 gulp.task 'github-release', (cb) ->
   # Setup Github API
   github = new GitHubApi {
-    version: "3.0.0"
+    version: '3.0.0'
     # debug: true
-    protocol: "https"
+    protocol: 'https'
     timeout: 5000
     headers: {
-      "user-agent": "Championify-Gulp-Release"
+      'user-agent': 'Championify-Gulp-Release'
     }
   }
 
@@ -79,9 +79,12 @@ gulp.task 'github-release', (cb) ->
             body += link({name: 'update.asar', link: GLOBAL.vtReports[item]})
 
 
-        body += '\n\
-        ### How to Download: \n
-        Below you\'ll find the download section. If you\'re on Windows, your best bet it to select the "Windows Setup" to get yourself started with Championify. If you have trouble installing you can always try the ".zip" version. For Mac, download the file labeled "OSX", extract the .zip, and you\'ll be good to go!'
+        body += [
+          ''
+          '### How to Download:'
+          'Below you\'ll find the download section. If you\'re on Windows, your best bet it to select the "Windows Setup" to get yourself started with Championify. If you have trouble installing you can always try the ".zip" version.'
+          'For Mac, download the file labeled "OSX", extract the .zip, and you\'ll be good to go!'
+        ].join('\n')
 
         create_release = {
           owner: 'dustinblackman'
@@ -101,9 +104,9 @@ gulp.task 'github-release', (cb) ->
         async.eachSeries files, (file_path, acb) ->
           console.log '[GITHUB] Uploading: ' + file_path
           upload_file = {
-            owner: 'dustinblackman',
-            repo: 'Championify',
-            id: release_id,
+            owner: 'dustinblackman'
+            repo: 'Championify'
+            id: release_id
             name: path.basename(file_path)
             filePath: file_path
           }

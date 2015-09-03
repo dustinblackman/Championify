@@ -59,10 +59,10 @@ compileGGData = ($c) ->
 requestChamps = (step, r) ->
   async.eachLimit r.champs, 2, (champ, next) ->
     hlp.updateProgressBar(90 / r.champs.length)
-    requestPage {champ: champ, manaless: r.manaless}, () ->
+    requestPage {champ: champ, manaless: r.manaless}, ->
       next null
 
-  , () ->
+  , ->
     step null, champData
 
 
@@ -234,7 +234,7 @@ processChamp = (request_params, body, step) ->
     highestStart: _.template('Highest Win % Starters (<%- wins %> wins - <%- games %> games)')
     highestCore: _.template('Highest Win % Core Build (<%- wins %> wins - <%- games %> games)')
   }
-  normalItemSets = () ->
+  normalItemSets = ->
     builds = []
 
     # If freqStart and highestStart are the same, only push once.
@@ -277,7 +277,7 @@ processChamp = (request_params, body, step) ->
 
 
   # Generates a split item sets for Most Frequent and Highest Wins.
-  splitItemSets = () ->
+  splitItemSets = ->
     mfBuild = []
     hwBuild = []
 
@@ -314,8 +314,8 @@ processChamp = (request_params, body, step) ->
       title = _.capitalize(position)
 
     newObj = {
-      champion: champ,
-      title: title + ' ' + window.champGGVer,
+      champion: champ
+      title: title + ' ' + window.champGGVer
       blocks: build
     }
 
@@ -348,16 +348,16 @@ processChamp = (request_params, body, step) ->
   if !request_params.position and positions.length > 0
     positions = positions.map (e) ->
       return {
-        champ: champ,
-        position: e,
+        champ: champ
+        position: e
         manaless: request_params.manaless
       }
 
     async.each positions, (item, next) ->
-      requestPage item, () ->
+      requestPage item, ->
         next null
 
-    , () -> step()
+    , -> step()
 
   else
     step()

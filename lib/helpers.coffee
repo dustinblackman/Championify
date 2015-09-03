@@ -53,7 +53,7 @@ module.exports = {
   ###
   cl: (text, level='info') ->
     window.log[level](text)
-    $('#cl-progress').prepend('<span>'+text+'</span><br />')
+    $('#cl_progress').prepend('<span>'+text+'</span><br />')
 
 
   ###*
@@ -61,14 +61,14 @@ module.exports = {
    * @param {Number} Increment progress bar.
   ###
   updateProgressBar: (incr) ->
-    this.incr = 0 if !this.incr or incr == true
-    this.incr += incr
+    @incr = 0 if !@incr or incr == true
+    @incr += incr
 
-    this.incrUIProgressBar('itemsets_progress_bar', this.incr)
-    if this.incr >= 100
+    @incrUIProgressBar('itemsets_progress_bar', @incr)
+    if @incr >= 100
       remote.getCurrentWindow().setProgressBar(-1)
     else
-      remote.getCurrentWindow().setProgressBar(this.incr / 100)
+      remote.getCurrentWindow().setProgressBar(@incr / 100)
 
 
   incrUIProgressBar: (id, incr) ->

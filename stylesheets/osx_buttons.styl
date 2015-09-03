@@ -1,52 +1,52 @@
 .osx_buttons
-  first = 3px
-  second = first + 20px
-  third = first + 40px
+  $first = 3px
+  $second = $first + 20px
+  $third = $first + 40px
 
-  close = #FF5955
-  minimize = #FFBB09
-  maximize = #17C935
+  $close = #FF5955
+  $minimize = #FFBB09
+  $maximize = #17C935
 
   .clickable_div
-    width 10px
     height 10px
+    width 10px
 
   .sys_button
-    font-family 'Roboto'
-    position absolute
+    border-radius 50%
     color black
+    font-family 'Roboto'
+    height 12px
+    margin-left 5px
+    position absolute
     top 8px
     width 12px
-    height 12px
-    border-radius 50%
-    margin-left 5px
 
   a:hover span
     visibility visible
 
   .close
-    background close
-    left first
+    background $close
+    left $first
 
     span
-      position fixed
       font-size 11px
       margin-left 3.2px
       margin-top -3.7px
+      position fixed
       visibility hidden
 
   .minimize
-    background minimize
-    left second
+    background $minimize
+    left $second
 
     span
-      position fixed
       font-size 18px
       margin-left 3.4px
       margin-top -4px
+      position fixed
       visibility hidden
 
   .maximize
-    opacity 0.4
-    background maximize
-    left third
+    opacity .4
+    background $maximize
+    left $third

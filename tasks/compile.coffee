@@ -99,7 +99,7 @@ gulp.task '_compileMac', (cb) ->
       info_plist['NSHumanReadableCopyright'] = copyright()
       fs.writeFile path.join(tmp_path, 'Contents/Info.plist'), plist.build(info_plist), {encoding: 'utf8'}, (err) ->
         step(err)
-    ],
+    ]
     plist_helper: ['electron', (step) -> helperPList(tmp_path, 'Electron Helper', step)]
     plist_helper_eh: ['electron', (step) -> helperPList(tmp_path, 'Electron Helper EH', step)]
     plist_helper_np: ['electron', (step) -> helperPList(tmp_path, 'Electron Helper NP', step)]

@@ -39,7 +39,7 @@ window.log = new (winston.Logger)({
     new winston.transports.File({
       filename: error_log
       handleExceptions: true
-      prettyPrint: true,
+      prettyPrint: true
       level: 'debug'
       options:
         flags: 'w'
@@ -156,7 +156,7 @@ deleteItemSets = ->
   else
     # TODO: Verify if is Windows admin and can delete.
     championify.delete ->
-      $('#cl-progress > span').append('. Done!')
+      $('#cl_progress > span').append('. Done!')
     , true
 
 
@@ -225,7 +225,7 @@ $(document).on 'click', '#delete_btn', ->
   deleteItemSets()
 
 $(document).on 'input', '#install_path', ->
-  pathManager.checkInstallPath($(this).val(), pathManager.setInstallPath)
+  pathManager.checkInstallPath($(@).val(), pathManager.setInstallPath)
 
 $(document).on 'click', '.sys_button.minimize', (e) ->
   e.preventDefault()
