@@ -58,6 +58,10 @@ gulp.task 'lint', (cb) ->
 
 
 mochaWindows = (cb) ->
+  # TODO: Fix so Mocha results are shown in Appveyor.
+  if _.contains(process.argv, '--appveyor')
+    console.log('Note you can\'t see Mocha tests result in AppVeyor due to how Windows spawns processes')
+
   options = {stdio: [process.stdin, process.stdout, process.stderr]}
   env = process.env
   env.ELECTRON_PATH = path.resolve('./node_modules/.bin/electron') + '.cmd'
