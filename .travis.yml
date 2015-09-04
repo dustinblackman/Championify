@@ -17,4 +17,5 @@ cache:
   directories:
     - node_modules
 after_success:
+  - npm run istanbul
   - 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls'

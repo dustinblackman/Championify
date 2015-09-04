@@ -2,9 +2,9 @@ coffeelint = require 'gulp-coffeelint'
 fs = require 'fs-extra'
 gulp = require 'gulp'
 htmlhint = require 'gulp-htmlhint'
-istanbul = require 'gulp-coffee-istanbul'
 jsonlint = require 'gulp-jsonlint'
 mocha = require 'gulp-mocha'
+open = require 'open'
 path = require 'path'
 runSequence = require 'run-sequence'
 shell = require 'gulp-shell'
@@ -57,19 +57,15 @@ gulp.task 'jsonlint', ->
 gulp.task 'lint', (cb) ->
   runSequence('coffeelint', 'stylint', 'jsonlint', cb)
 
-
 gulp.task 'mocha', ->
-  gulp.src('./lib/*.coffee')
-    .pipe istanbul({includeUntested: true})
-    .on 'finish', ->
-      gulp.src('./tests/*.coffee')
-        .pipe mocha({
-          require: ['./helpers/coffee-coverage']
-        })
-        .pipe istanbul.writeReports({
-          reporters: ['lcov', 'text-summary']
-        })
-        
+  gulp.src('./tests/*.coffee').pipe mocha({require: ['./helpers/register-istanbul.js']})
+
+gulp.task 'istanbul', ->
+  gulp.src('').pipe shell("#{path.resolve('./node_modules/.bin/istanbul')} report lcov text-summary")
+
+gulp.task 'coverage', (cb) ->
+  open path.resolve(path.join(__dirname, '../coverage/lcov-report/index.html'))
+  cb()
 
 gulp.task 'test', (cb) ->
   runSequence('lint', 'mocha', cb)
