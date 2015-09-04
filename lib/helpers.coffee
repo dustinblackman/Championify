@@ -36,7 +36,7 @@ module.exports = {
    * @returns {String} Formated String.
   ###
   wins: (text) ->
-    return text.toString() + '%'
+    return "#{text}%"
 
 
   ###*
@@ -53,7 +53,7 @@ module.exports = {
   ###
   cl: (text, level='info') ->
     window.log[level](text)
-    $('#cl_progress').prepend('<span>'+text+'</span><br />')
+    $('#cl_progress').prepend("<span>#{text}</span><br />")
 
 
   ###*
@@ -77,8 +77,8 @@ module.exports = {
     floored = Math.floor(incr)
     floored = 100 if floored > 100
     $('#' + id).attr('data-percent', floored)
-    $('#' + id).find('.bar').css('width', floored + '%')
-    $('#' + id).find('.progress').text(floored + '%')
+    $('#' + id).find('.bar').css('width', "#{floored}%")
+    $('#' + id).find('.progress').text("#{floored}%")
 
 
   ###*
@@ -97,7 +97,7 @@ module.exports = {
 
       consumables_title = 'Consumables'
       if skills.mostFreq
-        consumables_title += ' | Frequent: ' + skills.mostFreq
+        consumables_title += " | Frequent: #{skills.mostFreq}"
 
       consumables_block = {
         items: consumables
@@ -113,7 +113,7 @@ module.exports = {
     if window.cSettings.trinkets
       trinkets_title = 'Trinkets'
       if skills.highestWin
-        trinkets_title += ' | Wins: ' + skills.highestWin
+        trinkets_title += " | Wins: #{skills.highestWin}"
 
       trinkets_block = {
         items: prebuilts.trinketUpgrades

@@ -50,7 +50,7 @@ save = (preferences, done) ->
     if err
       window.log.warn(err)
     else
-      window.log.info('Saved preference file to ' + preference_file)
+      window.log.info("Saved preference file to #{preference_file}")
     done()
 
 

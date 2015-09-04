@@ -185,15 +185,14 @@ startLeague = ->
     , 500
 
   if process.platform == 'darwin'
-    console.log 'open -n "' + window.lol_install_path + '"'
-    exec 'open -n "' + window.lol_install_path + '"'
+    exec "open -n \"#{window.lol_install_path}\""
     exit()
   else
     if (window.lol_executable)
-      exec '"' + path.join(window.lol_install_path, window.lol_executable) + '"'
+      exec "\"#{path.join(window.lol_install_path, window.lol_executable)}\""
       exit()
     else
-      window.log.error('League of legends executable is not defined. ' + window.lol_executable)
+      window.log.error("League of legends executable is not defined. #{window.lol_executable}")
       $('#start_league').attr('class','ui inverted red button')
       $('#start_league').text('Can\'t start League')
 

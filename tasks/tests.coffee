@@ -64,7 +64,7 @@ gulp.task 'mocha', ->
     .on 'finish', ->
       gulp.src('./tests/*.coffee')
         .pipe mocha({
-          require: ['coffee-coverage/register-istanbul']
+          require: ['./helpers/coffee-coverage']
         })
         .pipe istanbul.writeReports({
           reporters: ['lcov', 'text-summary']

@@ -79,14 +79,14 @@ championTest = (step) ->
 ###
 setWindowsPermissions = (files, next) ->
   cmds = _.map files, (f) ->
-    return 'ICACLS "' +f + '" /grant Users:F'
+    return "ICACLS \"#{f}\" /grant Users:F"
   cmds.push('exit')
 
   permissions_file = path.join(preferences.directory(), 'set_permission.bat')
   fs.writeFile permissions_file, cmds.join('\n'), {encoding: 'utf8'}, (err) ->
     return next(err) if err
 
-    exec 'START "" "' + permissions_file + '"', (err, stdout, stderr) ->
+    exec "START \"\" \"#{permissions_file}\"", (err, stdout, stderr) ->
       next(err)
 
 

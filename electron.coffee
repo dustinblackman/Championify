@@ -10,9 +10,6 @@ preferences = require './js/preferences'
 
 dev_enabled = fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
 
-if dev_enabled
-  require('electron-debug')()
-
 # Windows Specific Dependencies
 if process.platform == 'win32'
   runas = require 'runas'

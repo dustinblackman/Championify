@@ -13,11 +13,11 @@ cl = hlp.cl
  * @callback {Function} Callback.
 ###
 _requestAvailableChamps = (process_name, stats_file, done) ->
-  hlp.ajaxRequest 'http://www.lolflavor.com/data/' + stats_file, (err, body) ->
+  hlp.ajaxRequest "http://www.lolflavor.com/data/#{stats_file}", (err, body) ->
     # Some antivirus' don't like lolfavor. Skip all ARAM builds if so and log error.
     if err
       window.log.warn(err)
-      window.undefinedBuilds.push(process_name + ': All')
+      window.undefinedBuilds.push("#{process_name}: All")
       return done null, []
 
     champs = _.map body.champions, (item) -> return item.name
@@ -34,15 +34,10 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
   champs = {}
 
   async.eachLimit champs_names, 3, (champ, next) ->
-    cl 'Processing ' + process_name + ': ' + champ
+    cl "Processing #{process_name}: #{champ}"
 
-    url = _.template('http://www.lolflavor.com/champions/${c}/Recommended/${c}_${p}_scrape.json')
-    params = {
-      c: champ
-      p: process_name.toLowerCase()
-    }
-
-    hlp.ajaxRequest url(params), (err, data) ->
+    url = "http://www.lolflavor.com/champions/#{champ}/Recommended/#{champ}_#{process_name.toLowerCase()}_scrape.json"
+    hlp.ajaxRequest url, (err, data) ->
       if err
         window.log.warn(err)
         window.undefinedBuilds.push(process_name + ': '+champ)
@@ -75,7 +70,7 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
  * @callback {Function} Callback.
 ###
 _processLolflavor = (process_name, stats_file, riotVer, manaless, step) ->
-  cl 'Downloading ' + process_name + ' Champs'
+  cl "Downloading #{process_name} Champs"
   riotVer = hlp.spliceVersion(riotVer)
 
   _requestAvailableChamps process_name, stats_file, (err, champ_names) ->

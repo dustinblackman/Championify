@@ -43,7 +43,6 @@
     "coffeelint-no-trailing-commas": "1.0.2",
     "coffeelint-stylish": "0.1.2",
     "coveralls": "2.11.4",
-    "electron-debug": "0.2.0",
     "electron-prebuilt": "0.30.5",
     "github": "0.2.4",
     "gulp": "3.9.0",
