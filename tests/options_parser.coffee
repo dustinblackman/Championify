@@ -1,8 +1,21 @@
+mockery = require 'mockery'
+sinon = require 'sinon'
 should = require('chai').should()
 
-optionsParser = require '../lib/options_parser'
+optionsParser = null
 
 describe 'lib/options_parser.coffee', ->
+  before ->
+    mockery.enable({
+      warnOnReplace: false
+      warnOnUnregistered: false
+      useCleanCache: true
+    })
+
+    remoteStub = {process: {argv: []}}
+    mockery.registerMock('remote', remoteStub)
+    optionsParser = require '../lib/options_parser'
+
   describe 'import', ->
     it 'should return false', (done) ->
       optionsParser.import().should.equal(false)
