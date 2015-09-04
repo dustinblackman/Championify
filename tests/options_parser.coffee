@@ -1,5 +1,4 @@
 mockery = require 'mockery'
-sinon = require 'sinon'
 should = require('chai').should()
 
 optionsParser = null

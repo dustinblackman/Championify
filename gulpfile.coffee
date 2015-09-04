@@ -70,6 +70,7 @@ gulp.task 'build:win', (cb) ->
 
 gulp.task 'release', ->
   runSequence(
+    'test'
     'delete-releases'
     'create-releases-folder'
     'package-asar'
