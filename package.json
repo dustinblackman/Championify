@@ -5,6 +5,7 @@
   "main": "electron.coffee",
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
+    "istanbul": "./node_modules/.bin/gulp istanbul",
     "build": "./node_modules/.bin/gulp build",
     "postinstall": "./node_modules/.bin/gulp setup"
   },
@@ -51,7 +52,6 @@
     "gulp-changed": "1.2.1",
     "gulp-clean": "0.3.1",
     "gulp-coffee": "2.3.1",
-    "gulp-coffee-istanbul": "0.7.1",
     "gulp-coffeelint": "0.5.0",
     "gulp-delete-lines": "0.0.7",
     "gulp-flatten": "0.0.4",
@@ -67,6 +67,7 @@
     "gulp-util": "3.0.5",
     "gulp-watch": "4.2.4",
     "htmlhint-stylish": "1.0.3",
+    "istanbul": "0.3.19",
     "mockery": "1.4.0",
     "moment": "2.10.6",
     "nib": "1.1.0",
