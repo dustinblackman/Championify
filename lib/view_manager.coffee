@@ -18,7 +18,7 @@ _viewChanger = (view, process, transition='browse') ->
   $('#view').transition {
     animation: 'fade up'
     onComplete: ->
-      $('#view').load 'views/' + view + '.html', ->
+      $('#view').load "views/#{view}.html", ->
         process ->
           $('#view').transition(transition)
   }
@@ -33,7 +33,7 @@ completeView = ->
       $('#not_available_log').append('<span>Nothing! You get all the builds!</span><br />')
     else
       _.each window.undefinedBuilds, (item) ->
-        $('#not_available_log').append('<span>' + item + '</span><br />')
+        $('#not_available_log').append("<span>#{item}</span><br />")
     done()
 
   _viewChanger 'complete', loadUnavailable
@@ -80,7 +80,7 @@ _initSettings = ->
     $('.win_buttons').removeClass('hidden')
 
   $('#browse_title').text(window.browse_title)
-  $('.championify_version > span').text('v'+pkg.version)
+  $('.championify_version > span').text("v#{pkg.version}")
 
   $('.options_tooltip').popup()
   $('.ui.dropdown').dropdown()

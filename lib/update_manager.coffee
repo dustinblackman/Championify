@@ -83,7 +83,7 @@ download = (url, download_path, done) ->
 minorUpdate = (version) ->
   viewManager.update()
 
-  url = 'https://github.com/dustinblackman/Championify/releases/download/' + version + '/update.asar'
+  url = "https://github.com/dustinblackman/Championify/releases/download/#{version}/update.asar"
   app_asar = path.join(__dirname, '..')
   update_asar = path.join(__dirname, '../../', 'update-asar')
 
@@ -114,7 +114,7 @@ majorUpdate = (version) ->
   install_path = install_path.substring(0, install_path.length - 1)
   update_path = path.join(preferences.directory(), 'major_update')
 
-  url = 'https://github.com/dustinblackman/Championify/releases/download/' + version + '/' + tar_name
+  url = "https://github.com/dustinblackman/Championify/releases/download/#{version}/#{tar_name}"
 
   async.series [
     (step) -> # Delete previous update folder if exists
@@ -228,7 +228,7 @@ winMinor = (app_asar, update_asar) ->
 
   fs.writeFile update_file, cmd(params), 'utf8', (err) ->
     return window.endSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
-    exec 'START "" "' + update_file + '"'
+    exec "START \"\" \"#{update_file}\""
 
 
 ###*

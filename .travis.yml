@@ -11,8 +11,10 @@ install:
 before_script:
   - node -v
   - npm -v
-script: npm run travis
+script: npm test
 os: osx
 cache:
   directories:
     - node_modules
+after_success:
+  - 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls'

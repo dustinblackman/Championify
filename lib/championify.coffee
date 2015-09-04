@@ -49,7 +49,7 @@ getRiotVer = (step, r) ->
 ###
 getChamps = (step, r) ->
   cl 'Downloading Champs from Riot'
-  hlp.ajaxRequest 'http://ddragon.leagueoflegends.com/cdn/'+r.riotVer+'/data/en_US/champion.json', (err, body) ->
+  hlp.ajaxRequest "http://ddragon.leagueoflegends.com/cdn/#{r.riotVer}/data/en_US/champion.json", (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Champs').causedBy(err)) if err
     step null, body.data
 
@@ -81,8 +81,8 @@ genManaless = (step, r) ->
 deleteOldBuilds = (step, deletebtn) ->
   cl 'Deleting Old Builds'
   globbed = [
-    glob.sync(window.item_set_path+'**/CGG_*.json')
-    glob.sync(window.item_set_path+'**/CIFY_*.json')
+    glob.sync("#{window.item_set_path}**/CGG_*.json")
+    glob.sync("#{window.item_set_path}**/CIFY_*.json")
   ]
   async.each _.flatten(globbed), (item, next) ->
     fs.unlink item, (err) ->
@@ -110,7 +110,7 @@ saveToFile = (step, r) ->
       mkdirp folder_path, (err) ->
         window.log.warn(err) if err
 
-        file_path = path.join(window.item_set_path, champ, 'Recommended/CIFY_'+champ+'_'+position+'.json')
+        file_path = path.join(window.item_set_path, champ, "Recommended/CIFY_#{champ}_#{position}.json")
         fs.writeFile file_path, toFileData, (err) ->
           return nextPosition(new cErrors.FileWriteError('Failed to write item set json file').causedBy(err)) if err
           nextPosition null
@@ -130,7 +130,7 @@ saveToFile = (step, r) ->
 ###
 notProcessed = (step) ->
   _.each window.undefinedBuilds, (e) ->
-    cl 'Not Available: '+e, 'warn'
+    cl "Not Available: #{e}", 'warn'
 
   step()
 

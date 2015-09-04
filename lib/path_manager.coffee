@@ -67,7 +67,7 @@ checkInstallPath = (selected_path, done) ->
       executable = 'LoLLauncher.exe'
       garena_split = garena_glob[0].split('/')
       garena_version = garena_split[garena_split.length - 4]
-      done null, selected_path, 'GameData/Apps/' + garena_version + '/Game/Config/Champions/', executable
+      done null, selected_path, "GameData/Apps/#{garena_version}/Game/Config/Champions/", executable
 
     else
       done new Error('Path not found'), selected_path

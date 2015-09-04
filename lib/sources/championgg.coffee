@@ -29,11 +29,11 @@ getVersion = (step, r) ->
 
 
 ###*
- * Function That parses Champion.GG HTML. Kept out of Championify.coffee as it'll rarely ever change.
+ * Function That parses Champion.GG HTML.
  * @param {Function} Cheerio.
  * @returns {Object} Object containing Champion data.
 ###
-compileGGData = ($c) ->
+parseGGData = ($c) ->
   data = $c('script:contains("matchupData.")').text()
   data = data.replace(/;/g, '')
 
@@ -73,12 +73,12 @@ requestChamps = (step, r) ->
 ###
 requestPage = (request_params, step) ->
   champ = request_params.champ
-  url = 'http://champion.gg/champion/'+champ
+  url = "http://champion.gg/champion/#{champ}"
 
   if request_params.position
-    url = url + '/' + request_params.position
+    url = "#{url}/#{request_params.position}"
   else
-    cl 'Processing Rift: '+request_params.champ
+    cl "Processing Rift: #{request_params.champ}"
 
   hlp.ajaxRequest url, (err, body) ->
     window.log.warn(err) if err
@@ -99,7 +99,7 @@ processChamp = (request_params, body, step) ->
   champ = request_params.champ
 
   $c = cheerio.load(body)
-  gg = compileGGData($c)
+  gg = parseGGData($c)
 
   # Check what role were currently grabbing, and what other roles exist.
   currentPosition = ''
@@ -335,8 +335,8 @@ processChamp = (request_params, body, step) ->
   # If split item sets
   if window.cSettings.splititems
     builds = splitItemSets()
-    pushChampData(champ, currentPosition + ' MostFrequent', builds.mfBuild)
-    pushChampData(champ, currentPosition + ' HighestWin', builds.hwBuild)
+    pushChampData(champ, "#{currentPosition} MostFrequent", builds.mfBuild)
+    pushChampData(champ, "#{currentPosition} HighestWin", builds.hwBuild)
 
   # If normal item sets
   else
