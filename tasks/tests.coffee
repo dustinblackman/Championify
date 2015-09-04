@@ -44,6 +44,7 @@ gulp.task 'htmlhint', ->
 gulp.task 'jsonlint', ->
   return gulp.src([
       './data/**/*.json'
+      './i18n/**/*.json'
       './.htmlhintrc'
       './.stylintrc'
       './coffeelint.json'
@@ -51,7 +52,8 @@ gulp.task 'jsonlint', ->
       './bower.json'
     ])
     .pipe(jsonlint())
-    .pipe(jsonlint.failOnError())
+    .pipe(jsonlint.reporter())
+    .pipe(jsonlint.failAfterError())
 
 
 gulp.task 'lint', (cb) ->

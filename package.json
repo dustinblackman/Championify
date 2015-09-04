@@ -46,6 +46,7 @@
     "coveralls": "2.11.4",
     "electron-prebuilt": "0.30.5",
     "github": "0.2.4",
+    "google-translate": "1.0.0",
     "gulp": "3.9.0",
     "gulp-asar": "git://github.com/dustinblackman/gulp-asar.git#master",
     "gulp-bower": "0.0.10",
