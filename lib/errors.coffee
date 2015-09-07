@@ -12,6 +12,7 @@ error_types = [
   'AjaxError'
   'FileWriteError'
   'OperationalError'
+  'TranslationError'
   'UpdateError'
 ]
 

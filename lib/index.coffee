@@ -24,7 +24,6 @@ pkg = require './package.json'
 updateManager = require './js/update_manager'
 viewManager = require './js/view_manager'
 
-
 window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
 
 # Setup logger
