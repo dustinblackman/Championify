@@ -1,3 +1,5 @@
+# File contains everything to initialize the app, plus functions that yet to have a home.
+
 # Electron
 remote = require 'remote'
 app = remote.require 'app'
@@ -111,18 +113,6 @@ openFolder = ->
 
 
 ###*
- * Function Sets platform specific variables.
-###
-setupPlatform = ->
-  if process.platform == 'darwin'
-    window.browse_title = 'Select League of Legends.app'
-    $('.osx_buttons').removeClass('hidden')
-  else
-    window.browse_title = 'Select League of Legends directory'
-    $('.win_buttons').removeClass('hidden')
-
-
-###*
  * Function Warn user if their league folder isn't selected.
 ###
 selectFolderWarning = ->
@@ -194,6 +184,15 @@ startLeague = ->
       window.log.error("League of legends executable is not defined. #{window.lol_executable}")
       $('#start_league').attr('class','ui inverted red button')
       $('#start_league').text('Can\'t start League')
+
+
+###*
+ * Add system buttons
+###
+if process.platform == 'darwin'
+  $('.osx_buttons').removeClass('hidden')
+else
+  $('.win_buttons').removeClass('hidden')
 
 
 ###*

@@ -1,0 +1,97 @@
+.one.column.row
+  .column
+    .browse_title
+      span#browse_title
+    .ui.fluid.action.input.lol_dir_input
+      input#install_path(type='text')
+      button#browse.ui.grey.button(type='button') Browse
+    br
+    .lol_dir_input_msg
+      span#input_msg
+
+br
+
+.one.column.row
+  .column.options
+    .ui.checkbox.left
+      input#options_splititems(type='checkbox')
+      label.options_tooltip(data-content='Create separate item sets for Most Frequent and Highest Win %') Split Up Item Sets
+    
+    .ui.checkbox.left
+      input#options_skillsformat(type='checkbox')
+      label.options_tooltip(data-content='Instead of Q.W.E.Q.W.R.Q.W.Q.W ect') Use Shorthand for Skill Order (Q>W>E)
+    
+    .with_dropdown
+      .ui.checkbox.left
+        input#options_consumables(type='checkbox', checked='')
+        label.options_tooltip(data-content="By disabling consumables, you'll lose the Highest Win % skill order") Enable Consumables
+      .ui.icon.bottom.right.pointing.dropdown.button
+        i.small.wrench.icon
+        #options_consumables_position.menu
+          .header
+            i.resize.vertical.icon
+            |             Select Position
+          .divider
+          .item.beginning Beginning
+          .item.end End
+  
+    .with_dropdown
+      .ui.checkbox.left
+        input#options_trinkets(type='checkbox', checked='')
+        label.options_tooltip(data-content="By disabling trinkets, you'll lose the Most Frequent skill order") Enable Trinkets
+      .ui.icon.bottom.right.pointing.dropdown.button
+        i.small.wrench.icon
+        #options_trinkets_position.menu
+          .header
+            i.resize.vertical.icon
+            |             Select Position
+          .item.beginning Beginning
+          .item.end End
+    .ui.checkbox.left
+      input#options_locksr(type='checkbox')
+      label.options_tooltip(data-content="Champion.gg item sets will only be available on Summoner's Rift") Lock Champion.gg Item Sets to Summoner's Rift
+      br
+  
+    .rift_source
+      #sr_source.ui.selection.dropdown
+        input#options_sr_source(type='hidden', value='championgg')
+        i.dropdown.icon
+        #sr_source_text.text Champion.gg
+        .menu
+          .header Summoners Rift Source
+          .item(data-value='championgg') Champion.gg
+          .item(data-value='lolflavor') Lolflavor
+
+
+.one.column.row
+  #btns_versions
+    .submit_btns
+      .ui.divider
+      button#import_btn.ui.green.button Import
+      button#delete_btn.ui.red.button Delete
+    br
+    .versions
+      div
+        | Item Sets Version: 
+        span#local_version Unknown
+      div
+        | LoL Version: 
+        span#lol_version Loading...
+      div
+        | Champion.gg Version: 
+        span#championgg_version Loading...
+      div
+        | Lolflavor Version: 
+        span#lolflavor_version Loading...
+  
+  
+  .status.hidden
+    .ui.horizontal.divider
+      h2 Status
+    #itemsets_progress_bar.ui.indicating.progress(data-percent='0')
+      .bar(style='transition-duration: 300ms; -webkit-transition-duration: 300ms;')
+        .progress 0%
+  
+  
+  .progresslog
+    #cl_progress

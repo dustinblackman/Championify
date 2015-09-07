@@ -1,0 +1,37 @@
+header
+  case platform
+    when 'darwin'
+      .osx_buttons
+        .clickable_div
+          a.sys_button.close(href='')
+            span x
+        .clickable_div
+          a.sys_button.minimize(href='')
+            span -
+        a.sys_button.maximize
+    
+    when 'win32'
+      .win_buttons
+        .sys_button.minimize
+          img(src='img/win_buttons/minimize.png')
+        .sys_button.maximize
+          img(src='img/win_buttons/maximize.png')
+        .sys_button.close
+          img(src='img/win_buttons/x.png')
+
+#main_container
+  .one.column.row
+    .banner.column
+      h2 Welcome to Championify!
+      .ui.divider
+  #view.ui.container
+    include ./main.jade
+
+footer
+  .github
+    a
+      | Help
+      i.github.icon
+      | /DustinBlackman
+  .championify_version
+    span

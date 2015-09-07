@@ -1,3 +1,6 @@
+jade = require 'jade'
+path = require 'path'
+
 championify = require './championify'
 championgg = require './sources/championgg'
 hlp = require './helpers'
@@ -15,12 +18,13 @@ _viewChanger = (view, process, transition='browse') ->
   if !process
     process = (done) -> done()
 
+  html = jade.renderFile path.resolve(path.join(__dirname, "../views/#{view}.jade"))
+
   $('#view').transition {
     animation: 'fade up'
     onComplete: ->
-      $('#view').load "views/#{view}.html", ->
-        process ->
-          $('#view').transition(transition)
+      $('#view').html(html).promise().done ->
+        process -> $('#view').transition(transition)
   }
 
 
@@ -70,14 +74,11 @@ mainViewBack = ->
 ###*
  * Function Initial view with settings
 ###
-# TODO: This is why I should be using React... For literally everything...
 _initSettings = ->
   if process.platform == 'darwin'
     window.browse_title = 'Select League of Legends.app'
-    $('.osx_buttons').removeClass('hidden')
   else
     window.browse_title = 'Select League of Legends directory'
-    $('.win_buttons').removeClass('hidden')
 
   $('#browse_title').text(window.browse_title)
   $('.championify_version > span').text("v#{pkg.version}")
@@ -107,7 +108,9 @@ _initSettings = ->
 
 
 init = (done) ->
-  $('#view').load 'views/main.html', ->
+  options = {platform: process.platform}
+  html = jade.renderFile path.resolve(path.join(__dirname, '../views/index.jade')), options
+  $('#body').replaceWith(html).promise().done ->
     _initSettings()
     done()
 

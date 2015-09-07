@@ -9,17 +9,6 @@ runSequence = require 'run-sequence'
 
 pkg = require '../package.json'
 
-symlink = (source, cb) ->
-  glob './' + source + '/**', {nodir: true} , (err, paths) ->
-    console.log paths
-    async.each paths, (oldPath, acb) ->
-      newPath = oldPath.replace('./' + source, './dev')
-      oldPath = oldPath.replace('./' + source + '/', process.cwd()+'/' + source + '/')
-      fs.symlink oldPath, newPath, (err) ->
-        acb null
-    , ->
-      cb()
-
 # Dirs, Copy, Delete, Mk
 gulp.task 'mkdir:app', (cb) ->
   glob './app/**/' , (err, paths) ->
@@ -55,13 +44,30 @@ gulp.task 'symlink:app', (cb) ->
     , ->
       cb()
 
+# Views
+gulp.task 'copy:views', (cb) ->
+  mkdirp './dev/views'
+  fs.copy './views/', './dev/views', (err) -> cb(err)
 
+gulp.task 'symlink:views', (cb) ->
+  mkdirp './dev/views'
+  glob './views/**', {nodir: true} , (err, paths) ->
+    async.each paths, (oldPath, acb) ->
+      newPath = oldPath.replace('./views', './dev/views')
+      oldPath = oldPath.replace('./views/', process.cwd()+'/views/')
+      fs.symlink oldPath, newPath, (err) ->
+        acb null
+    , ->
+      cb()
+
+# Windows or OSX
 gulp.task 'dev_folder', (cb) ->
   if process.platform == 'win32'
-    runSequence('copy:app', cb)
+    runSequence(['copy:app', 'copy:views'], cb)
   else
-    runSequence('symlink:app', cb)
+    runSequence(['symlink:app', 'symlink:views'], cb)
 
+# Delete / Create
 gulp.task 'delete-dev', ->
   gulp.src(['./dev', './tmp'])
     .pipe(clean(force: true))
@@ -73,6 +79,7 @@ gulp.task 'delete-releases', ->
 gulp.task 'create-releases-folder', (cb) ->
   mkdirp './releases', -> cb()
 
+# Move
 gulp.task 'move:asar:update', (cb) ->
   fs.copy './tmp/app.asar', './releases/update.asar', -> cb()
 

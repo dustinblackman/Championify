@@ -40,6 +40,7 @@ gulp.task 'package-asar', (cb) ->
     'electron:deps'
     'copy:app'
     'copy:data'
+    'copy:views'
     'removelivereload'
     'asar'
     cb

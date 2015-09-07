@@ -1,0 +1,15 @@
+.one.column.row
+  .updating
+    h3 Downloading Updates...
+    
+    br
+    img(src='img/loading.gif')
+    
+    br
+    br
+  
+    #update_progress_bar.ui.indicating.progress(data-percent='0')
+      .bar(style='transition-duration: 300ms; -webkit-transition-duration: 300ms;')
+        .progress 0%
+  
+    p#update_current_file

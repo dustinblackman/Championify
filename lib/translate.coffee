@@ -15,4 +15,7 @@ Translate::translate = (phrase) ->
 Translate::current = ->
   return @lang
 
+Translate::all = ->
+  return @phrases
+
 module.exports = Translate
