@@ -6,6 +6,8 @@ _Champion-If-Ayyy_
 [![Travis](https://img.shields.io/travis/dustinblackman/Championify/master.svg)](https://travis-ci.org/dustinblackman/Championify/builds)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/dt20uyoxt2skgneu/branch/master?svg=true)](https://ci.appveyor.com/project/dustinblackman/championify/branch/master)
 [![Coverage Status](https://img.shields.io/coveralls/dustinblackman/Championify/master.svg)](https://coveralls.io/github/dustinblackman/Championify?branch=master)
+[![Dependency Status](https://david-dm.org/dustinblackman/Championify.svg)](https://david-dm.org/dustinblackman/Championify)
+[![devDependency Status](https://david-dm.org/dustinblackman/Championify/dev-status.svg)](https://david-dm.org/dustinblackman/Championify#info=devDependencies)
 <a href="https://zenhub.io"><img src="https://img.shields.io/badge/KanBan%20Board-Zenhub.io-blue.svg"></a>
 
 Latest Release Downloads: [![Downloads](https://img.shields.io/github/downloads/dustinblackman/Championify/latest/total.svg)](https://github.com/dustinblackman/Championify/releases/latest)
