@@ -45,7 +45,7 @@ gulp.task 'translate', (cb) ->
       loc = {}
 
     # Translate each phrase. # TODO: Possibly up concurrency if Google's API will allow it.
-    async.eachSeries _.keys(_source), (phrase_key, next) ->
+    async.eachLimit _.keys(_source), 10, (phrase_key, next) ->
       # If it's already been translated, and were not re-translating it when _source is false, then skip.
       return next() if loc[phrase_key] and _source[phrase_key].done
 
@@ -57,8 +57,15 @@ gulp.task 'translate', (cb) ->
       # Translate
       GT.translate _source[phrase_key].msg, 'en', lang, (err, result) ->
         return next(err) if err
-        loc[phrase_key] = result.translatedText
-        next()
+        # If the key is the same, sometimes google translate doens't like how letters are capitialized.
+        if _source[phrase_key].msg == result.translatedText
+          GT.translate _.capitalize(_source[phrase_key].msg.toLowerCase()), 'en', lang, (err, result) ->
+            return next(err) if err
+            loc[phrase_key] = result.translatedText
+            next()
+        else
+          loc[phrase_key] = result.translatedText
+          next()
 
     , (err) ->
       # Sort and save locale
