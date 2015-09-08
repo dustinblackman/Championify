@@ -157,10 +157,7 @@ I suggest making sure your linters are setup correctly, or run gulp lint every n
 ---
 
 ## Future Plans
-- Proper design.
-- Write testing suite to be run before releases.
-- 3v3 Item Sets
-- Better ARAM Item Sets
+Check out the [Features tag in Issues](https://github.com/dustinblackman/Championify/labels/feature) to see all up and  coming ideas.
 
 
 ---
