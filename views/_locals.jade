@@ -1,0 +1,77 @@
+- var windows_class = 'ui icon left pointing dropdown scrolling'
+- var osx_class = 'ui icon right pointing dropdown scrolling'
+
+div.locale_selector(style= platform === 'win32' ? 'left: 10px;' : 'right: 3px;')
+  div(class=platform === 'win32' ? windows_class : osx_class)
+        
+    input(type='hidden', name='locale')
+    i.gb.flag
+    
+    .menu
+      .header
+        i.world.icon
+        | Select Language
+      .divider
+      .item 
+        i.gb.flag
+        | English  
+      .item
+        i.cn.flag
+        | Chinese Simplified
+      .item
+        i.cn.flag
+        | Chinese Traditional
+      .item
+        i.cz.flag
+        | Czech
+      .item
+        i.fr.flag
+        | French
+      .item
+        i.de.flag
+        | German
+      .item
+        i.gr.flag
+        | Greek
+      .item
+        i.hu.flag
+        | Hungarian
+      .item
+        i.id.flag
+        | Indonesian
+      .item
+        i.it.flag
+        | Italian
+      .item
+        i.jp.flag
+        | Japanese
+      .item
+        i.kr.flag
+        | Korean
+      .item
+        i.my.flag
+        | Malay
+      .item
+        i.pl.flag
+        | Polish
+      .item
+        i.pt.flag
+        | Portuguese
+      .item
+        i.ro.flag
+        | Romanian
+      .item
+        i.ru.flag
+        | Russian
+      .item
+        i.es.flag
+        | Spanish
+      .item
+        i.th.flag
+        | Thai
+      .item
+        i.tr.flag
+        | Thurkish
+      .item
+        i.vn.flag
+        | Vietnamese
