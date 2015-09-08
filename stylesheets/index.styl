@@ -29,18 +29,11 @@ body
   font-family 'Lato'
   overflow hidden
   user-select none
-  -webkit-app-region drag // @stylint ignore
 
 // Safety for when switching between OSX and Windows buttons
 header
   height 20px
-
-button
-  -webkit-app-region no-drag // @stylint ignore
-
-a
-  -webkit-app-region no-drag // @stylint ignore// @stylint ignore
-
+  -webkit-app-region drag // @stylint ignore
 
 // Helpers
 .hidden
@@ -53,6 +46,7 @@ a
 // Banner
 .banner
   text-align center
+  -webkit-app-region drag // @stylint ignore
 
 // Footer
 $footer_bottom = 2px
@@ -66,7 +60,6 @@ footer
   position absolute
   width 100%
   z-index 10
-  -webkit-app-region no-drag // @stylint ignore
 
 .github
   bottom $footer_bottom
@@ -83,7 +76,6 @@ footer
     margin 0 0 0 0
 
 .championify_version
-  -webkit-app-region no-drag // @stylint ignore
   bottom $footer_bottom
   right $footer_side
   position absolute
