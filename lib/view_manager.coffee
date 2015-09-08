@@ -122,7 +122,11 @@ _initSettings = ->
 
       local = $selector.attr('data-value')
       window.T = new Translate(local)
-      _viewChanger '_view', reset, {div_id: 'parent_view', jade: {platform: process.platform}}
+      _viewChanger '_view', reset, {
+        div_id: 'parent_view'
+        transition: 'fade' 
+        jade: {platform: process.platform}
+      }
   }
 
   # Load versions of LoL and sources
