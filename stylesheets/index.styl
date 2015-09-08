@@ -39,13 +39,30 @@ header
 .hidden
   display none
 
-#main_container
-  position relative
-  top 5px
+// Locale selector
+.locale_selector
+  .ui.right.pointing.dropdown>.menu:after
+    top 5px
+
+  .item
+    -webkit-app-region no-drag // @stylint ignore// @stylint ignore
+
+  .ui.dropdown .menu
+    -webkit-app-region no-drag // @stylint ignore// @stylint ignore
+
+  .ui.dropdown .scrolling.menu, .ui.scrolling.dropdown .menu
+    max-height 400px
+    -webkit-app-region no-drag // @stylint ignore// @stylint ignore
+
+  -webkit-app-region no-drag // @stylint ignore// @stylint ignore
+  position absolute
+  top 3px
 
 // Banner
 .banner
+  position relative
   text-align center
+  top 5px
   -webkit-app-region drag // @stylint ignore
 
 // Footer

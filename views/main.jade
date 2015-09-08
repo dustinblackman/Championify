@@ -4,7 +4,7 @@
       span#browse_title
     .ui.fluid.action.input.lol_dir_input
       input#install_path(type='text')
-      button#browse.ui.grey.button(type='button') Browse
+      button#browse.ui.grey.button(type='button') #{T.t('browse')}
     br
     .lol_dir_input_msg
       span#input_msg
@@ -15,16 +15,18 @@ br
   .column.options
     .ui.checkbox.left
       input#options_splititems(type='checkbox')
-      label.options_tooltip(data-content='Create separate item sets for Most Frequent and Highest Win %') Split Up Item Sets
+      label.options_tooltip(data-content='Create separate item sets for Most Frequent and Highest Win %') #{T.t('options_splititems')}
+      
+    br
     
     .ui.checkbox.left
       input#options_skillsformat(type='checkbox')
-      label.options_tooltip(data-content='Instead of Q.W.E.Q.W.R.Q.W.Q.W ect') Use Shorthand for Skill Order (Q>W>E)
+      label.options_tooltip(data-content='Instead of Q.W.E.Q.W.R.Q.W.Q.W ect') #{T.t('options_skillsformat')} (Q>W>E)
     
     .with_dropdown
       .ui.checkbox.left
         input#options_consumables(type='checkbox', checked='')
-        label.options_tooltip(data-content="By disabling consumables, you'll lose the Highest Win % skill order") Enable Consumables
+        label.options_tooltip(data-content="By disabling consumables, you'll lose the Highest Win % skill order") #{T.t('options_consumables')}
       .ui.icon.bottom.right.pointing.dropdown.button
         i.small.wrench.icon
         #options_consumables_position.menu
@@ -38,7 +40,7 @@ br
     .with_dropdown
       .ui.checkbox.left
         input#options_trinkets(type='checkbox', checked='')
-        label.options_tooltip(data-content="By disabling trinkets, you'll lose the Most Frequent skill order") Enable Trinkets
+        label.options_tooltip(data-content="By disabling trinkets, you'll lose the Most Frequent skill order") #{T.t('options_trinkets')}
       .ui.icon.bottom.right.pointing.dropdown.button
         i.small.wrench.icon
         #options_trinkets_position.menu
@@ -50,7 +52,7 @@ br
           .item.end End
     .ui.checkbox.left
       input#options_locksr(type='checkbox')
-      label.options_tooltip(data-content="Champion.gg item sets will only be available on Summoner's Rift") Lock Champion.gg Item Sets to Summoner's Rift
+      label.options_tooltip(data-content="Champion.gg item sets will only be available on Summoner's Rift") #{T.t('options_locksr')}
       br
   
     .rift_source
@@ -68,8 +70,8 @@ br
   #btns_versions
     .submit_btns
       .ui.divider
-      button#import_btn.ui.green.button Import
-      button#delete_btn.ui.red.button Delete
+      button#import_btn.ui.green.button #{T.t('import')}
+      button#delete_btn.ui.red.button #{T.t('delete')}
     br
     .versions
       div
@@ -88,7 +90,7 @@ br
   
   .status.hidden
     .ui.horizontal.divider
-      h2 Status
+      h2 #{T.t('status')}
     #itemsets_progress_bar.ui.indicating.progress(data-percent='0')
       .bar(style='transition-duration: 300ms; -webkit-transition-duration: 300ms;')
         .progress 0%

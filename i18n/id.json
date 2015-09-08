@@ -1,4 +1,11 @@
 {
-  "Delete": "Hapus",
-  "Import": "Impor"
+  "browse": "Isi",
+  "delete": "Hapus",
+  "import": "Impor",
+  "options_consumables": "Aktifkan Consumables",
+  "options_locksr": "Mengunci Champion.gg Barang Set ke Rift Summoner ini",
+  "options_skillsformat": "Gunakan Singkatan untuk Keterampilan Orde",
+  "options_splititems": "Berpisah Up Barang Set",
+  "options_trinkets": "Aktifkan Pernak-pernik",
+  "status": "Status"
 }

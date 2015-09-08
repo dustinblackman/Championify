@@ -1,4 +1,11 @@
 {
-  "Delete": "การลบ",
-  "Import": "นำเข้า"
+  "browse": "เรียกดู",
+  "delete": "การลบ",
+  "import": "นำเข้า",
+  "options_consumables": "เปิดการใช้งานวัสดุสิ้นเปลือง",
+  "options_locksr": "ล็อค Champion.gg ชุดรายการที่จะเรียกร้องความแตกแยกของ",
+  "options_skillsformat": "ใช้ชวเลขสำหรับการสั่งซื้อทักษะ",
+  "options_splititems": "แยกชุดรายการ",
+  "options_trinkets": "เปิดใช้งาน Trinkets",
+  "status": "สถานะ"
 }

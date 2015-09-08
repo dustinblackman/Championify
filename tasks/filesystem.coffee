@@ -6,6 +6,7 @@ gulp = require 'gulp'
 mkdirp = require 'mkdirp'
 path = require 'path'
 runSequence = require 'run-sequence'
+_ = require 'lodash'
 
 pkg = require '../package.json'
 
@@ -44,7 +45,7 @@ gulp.task 'symlink:app', (cb) ->
     , ->
       cb()
 
-# Views
+# Views TODO: Cleanup
 gulp.task 'copy:views', (cb) ->
   mkdirp './dev/views'
   fs.copy './views/', './dev/views', (err) -> cb(err)
@@ -60,12 +61,31 @@ gulp.task 'symlink:views', (cb) ->
     , ->
       cb()
 
+# Translations TODO: Cleanup
+gulp.task 'copy:translations', (cb) ->
+  mkdirp './dev/i18n'
+  fs.copy './i18n/', './dev/i18n', (err) ->
+    fs.remove('./dev/i18n/_source.json')
+    cb(err)
+
+gulp.task 'symlink:translations', (cb) ->
+  mkdirp './dev/i18n'
+  glob './i18n/*.json', {nodir: true} , (err, paths) ->
+    async.each paths, (oldPath, acb) ->
+      return acb() if _.contains(oldPath, '_source.json')
+      newPath = oldPath.replace('./i18n', './dev/i18n')
+      oldPath = oldPath.replace('./i18n/', process.cwd()+'/i18n/')
+      fs.symlink oldPath, newPath, (err) ->
+        acb null
+    , ->
+      cb()
+
 # Windows or OSX
 gulp.task 'dev_folder', (cb) ->
   if process.platform == 'win32'
-    runSequence(['copy:app', 'copy:views'], cb)
+    runSequence(['copy:app', 'copy:views', 'copy:translations'], cb)
   else
-    runSequence(['symlink:app', 'symlink:views'], cb)
+    runSequence(['symlink:app', 'symlink:views', 'symlink:translations'], cb)
 
 # Delete / Create
 gulp.task 'delete-dev', ->

@@ -1,4 +1,11 @@
 {
-  "Delete": "删",
-  "Import": "输入"
+  "browse": "浏览",
+  "delete": "删",
+  "import": "输入",
+  "options_consumables": "启用耗材",
+  "options_locksr": "锁定Champion.gg项目集来召唤的裂谷",
+  "options_skillsformat": "使用速记技能订单",
+  "options_splititems": "分手了项目集",
+  "options_trinkets": "启用饰品",
+  "status": "状态"
 }

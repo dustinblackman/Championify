@@ -1,4 +1,11 @@
 {
-  "Delete": "Delete",
-  "Import": "Import"
+  "browse": "Browse",
+  "delete": "Delete",
+  "import": "Import",
+  "options_consumables": "Enable Consumables",
+  "options_locksr": "Lock Champion.gg Item Sets to Summoner's Rift",
+  "options_skillsformat": "Use Shorthand for Skill Order",
+  "options_splititems": "Split Up Item Sets",
+  "options_trinkets": "Enable Trinkets",
+  "status": "Status"
 }

@@ -1,4 +1,11 @@
 {
-  "Delete": "Effacer",
-  "Import": "Importer"
+  "browse": "Parcourir",
+  "delete": "Effacer",
+  "import": "Importer",
+  "options_consumables": "Activer Consommables",
+  "options_locksr": "Verrouillez Champion.gg ensembles d'objets à la Faille de l'invocateur",
+  "options_skillsformat": "Utilisez Raccourci pour ordonner de Skill",
+  "options_splititems": "Subdivisée ensembles d'objets",
+  "options_trinkets": "Activer Bibelots",
+  "status": "Statut"
 }

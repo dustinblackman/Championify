@@ -8,23 +8,38 @@ lolflavor = require './sources/lolflavor'
 preferences = require './preferences'
 pkg = require '../package.json'
 sourceUIManager = require './source_ui_manager'
+Translate = require './translate'
 
 ###*
  * Function To change all views with the same transitions.
  * @param {string} name of view
  * @param {function} function to run before loading in new view.
 ###
-_viewChanger = (view, process, transition='browse') ->
+_viewChanger = (view, process, options={}) ->
+  nub = (done) -> done()
+
+  default_options = {
+    transition: 'browse'
+    div_id: 'view'
+    jade: {}
+  }
+
   if !process
-    process = (done) -> done()
+    options = {}
+    process = nub
 
-  html = jade.renderFile path.resolve(path.join(__dirname, "../views/#{view}.jade"))
+  if !_.isFunction(process)
+    options = process
+    process = nub
 
-  $('#view').transition {
+  options = _.merge _.clone(default_options), options
+
+  $("##{options.div_id}").transition {
     animation: 'fade up'
     onComplete: ->
-      $('#view').html(html).promise().done ->
-        process -> $('#view').transition(transition)
+      html = jade.renderFile path.resolve(path.join(__dirname, "../views/#{view}.jade")), default_options.jade
+      $("##{options.div_id}").html(html).promise().done ->
+        process -> $("##{options.div_id}").transition(options.transition)
   }
 
 
@@ -68,7 +83,7 @@ mainViewBack = ->
     _initSettings()
     next()
 
-  _viewChanger 'main', resetMain, 'fly right'
+  _viewChanger 'main', resetMain, {transition: 'fly right'}
 
 
 ###*
@@ -83,6 +98,9 @@ _initSettings = ->
   $('#browse_title').text(window.browse_title)
   $('.championify_version > span').text("v#{pkg.version}")
 
+  $('#locale_flag').attr('class', "#{T.flag()} flag")
+  $('#locals_select').find(".item[data-value='#{T.current()}']").addClass('active')
+
   $('.options_tooltip').popup()
   $('.ui.dropdown').dropdown()
 
@@ -93,6 +111,18 @@ _initSettings = ->
         sourceUIManager.lolflavor()
       else
         sourceUIManager.championgg()
+  }
+
+  $('#locals_select').dropdown {
+    action: 'activate'
+    onChange: (value, text, $selector) ->
+      reset = (done) ->
+        _initSettings()
+        done()
+
+      local = $selector.attr('data-value')
+      window.T = new Translate(local)
+      _viewChanger '_view', reset, {div_id: 'parent_view', jade: {platform: process.platform}}
   }
 
   # Load versions of LoL and sources
@@ -109,8 +139,9 @@ _initSettings = ->
 
 init = (done) ->
   options = {platform: process.platform}
+
   html = jade.renderFile path.resolve(path.join(__dirname, '../views/index.jade')), options
-  $('#body').replaceWith(html).promise().done ->
+  $('#body').html(html).promise().done ->
     _initSettings()
     done()
 

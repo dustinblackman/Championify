@@ -1,4 +1,11 @@
 {
-  "Delete": "Xóa bỏ",
-  "Import": "Nhập khẩu"
+  "browse": "Duyệt",
+  "delete": "Xóa bỏ",
+  "import": "Nhập khẩu",
+  "options_consumables": "Kích hoạt tính năng tiêu hao",
+  "options_locksr": "Khóa Champion.gg mục Sets để Rift của Summoner",
+  "options_skillsformat": "Sử dụng Shorthand cho Skill thứ tự",
+  "options_splititems": "Chia nhỏ Up khoản Sets",
+  "options_trinkets": "Kích hoạt tính năng trang sức rẻ tiền",
+  "status": "Tình trạng"
 }

@@ -19,13 +19,9 @@ header
         .sys_button.close
           img(src='img/win_buttons/x.png')
 
-#main_container
-  .one.column.row
-    .banner.column
-      h2 Welcome to Championify!
-      .ui.divider
-  #view.ui.container
-    include ./main.jade
+include ./_locals.jade
+#parent_view
+  include ./_view.jade
 
 footer
   .github

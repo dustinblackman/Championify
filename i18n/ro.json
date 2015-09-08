@@ -1,4 +1,11 @@
 {
-  "Delete": "Șterge",
-  "Import": "Import"
+  "browse": "Cautati",
+  "delete": "Șterge",
+  "import": "Import",
+  "options_consumables": "Activați Consumabile",
+  "options_locksr": "Blocare Champion.gg Seturi articol a Rift Summoner lui",
+  "options_skillsformat": "Utilizați prescurtarea pentru Indemanare Ordine",
+  "options_splititems": "Despărțit Seturi articol",
+  "options_trinkets": "Activați Brelocuri",
+  "status": "Stare"
 }

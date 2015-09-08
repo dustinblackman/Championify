@@ -25,7 +25,7 @@
     "semantic": [
       "dist/semantic.min.css",
       "dist/semantic.min.js",
-      "dist/themes/default/assets/fonts/**"
+      "dist/themes/default/assets/**"
     ]
   }
 }

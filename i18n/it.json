@@ -1,4 +1,11 @@
 {
-  "Delete": "Cancellare",
-  "Import": "Importazione"
+  "browse": "Sfoglia",
+  "delete": "Cancellare",
+  "import": "Importazione",
+  "options_consumables": "Abilita consumo",
+  "options_locksr": "Bloccare Champion.gg Item Sets a Rift di Summoner",
+  "options_skillsformat": "Utilizzare Stenografia per Skill Ordine",
+  "options_splititems": "Split Up Item Sets",
+  "options_trinkets": "Abilita Bigiotteria",
+  "status": "Stato"
 }

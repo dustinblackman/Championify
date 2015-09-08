@@ -1,4 +1,38 @@
 {
-  "Delete": true,
-  "Import": true
+  "browse": {
+    "done": true,
+    "msg": "Browse"
+  },
+  "delete": {
+    "done": true,
+    "msg": "Delete"
+  },
+  "import": {
+    "done": true,
+    "msg": "Import"
+  },
+  "options_consumables": {
+    "done": true,
+    "msg": "Enable Consumables"
+  },
+  "options_locksr": {
+    "done": true,
+    "msg": "Lock Champion.gg Item Sets to Summoner's Rift"
+  },
+  "options_skillsformat": {
+    "done": true,
+    "msg": "Use Shorthand for Skill Order"
+  },
+  "options_splititems": {
+    "done": true,
+    "msg": "Split Up Item Sets"
+  },
+  "options_trinkets": {
+    "done": true,
+    "msg": "Enable Trinkets"
+  },
+  "status": {
+    "done": true,
+    "msg": "Status"
+  }
 }

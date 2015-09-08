@@ -1,4 +1,11 @@
 {
-  "Delete": "Törlés",
-  "Import": "Import"
+  "browse": "Böngésszen",
+  "delete": "Törlés",
+  "import": "Import",
+  "options_consumables": "Engedélyezze kellékek",
+  "options_locksr": "Lock Champion.gg pont készletei a Summoner Rift",
+  "options_skillsformat": "Használja rövidítés Tudás Rend",
+  "options_splititems": "Feloszlott Elem szettek",
+  "options_trinkets": "Engedélyezze Trinkets",
+  "status": "Állapot"
 }

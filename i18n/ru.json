@@ -1,4 +1,11 @@
 {
-  "Delete": "Удалить",
-  "Import": "Импорт"
+  "browse": "Просматривать",
+  "delete": "Удалить",
+  "import": "Импорт",
+  "options_consumables": "Включить Расходные",
+  "options_locksr": "Блокировка Champion.gg Комплекты для Rift Призывателей",
+  "options_skillsformat": "Использовать сокращённую для Навык ордена",
+  "options_splititems": "Сплит пункт Наборы",
+  "options_trinkets": "Включить Брелоки",
+  "status": "Статус"
 }

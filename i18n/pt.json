@@ -1,4 +1,11 @@
 {
-  "Delete": "Excluir",
-  "Import": "Importação"
+  "browse": "Procurar",
+  "delete": "Excluir",
+  "import": "Importação",
+  "options_consumables": "Ativar Consumíveis",
+  "options_locksr": "Bloquear Conjuntos de Itens Champion.gg para Rift de Summoner",
+  "options_skillsformat": "Use Abreviação para Competência Ordem",
+  "options_splititems": "Conjuntos de Itens dividir",
+  "options_trinkets": "Ativar Trinkets",
+  "status": "Estatuto"
 }

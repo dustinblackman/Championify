@@ -1,4 +1,11 @@
 {
-  "Delete": "Kasować",
-  "Import": "Import"
+  "browse": "Przeglądaj",
+  "delete": "Kasować",
+  "import": "Import",
+  "options_consumables": "Włącz materiałów eksploatacyjnych",
+  "options_locksr": "Blokada Champion.gg Zestawy przedmiotów do Rift przywoływacza",
+  "options_skillsformat": "Użyj skrótem Skill Zakonu",
+  "options_splititems": "Pozycja podzielona Zestawy",
+  "options_trinkets": "Włącz drobiazgi",
+  "status": "Status"
 }

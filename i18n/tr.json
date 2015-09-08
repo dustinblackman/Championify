@@ -1,4 +1,11 @@
 {
-  "Delete": "Silmek",
-  "Import": "İthalat"
+  "browse": "Araştır",
+  "delete": "Silmek",
+  "import": "İthalat",
+  "options_consumables": "Sarf etkinleştirme",
+  "options_locksr": "Summoner adlı Rift için Champion.gg Öğe Setleri Lock",
+  "options_skillsformat": "Beceri Sipariş için kestirme kullanın",
+  "options_splititems": "Bölünmüş Up Öğe Setleri",
+  "options_trinkets": "Ivır zıvır etkinleştirme",
+  "status": "Statü"
 }

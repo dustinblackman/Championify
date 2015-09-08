@@ -1,4 +1,11 @@
 {
-  "Delete": "Διαγραφή",
-  "Import": "Εισαγωγή"
+  "browse": "Περιήγηση",
+  "delete": "Διαγραφή",
+  "import": "Εισαγωγή",
+  "options_consumables": "Ενεργοποίηση Αναλώσιμα",
+  "options_locksr": "Κλειδώστε Champion.gg Σετ Θέση στην Rift Επικαλεστών",
+  "options_skillsformat": "Χρησιμοποιήστε Στενογραφία για Skill Παραγγελία",
+  "options_splititems": "Χωρίσουν Σετ Θέση",
+  "options_trinkets": "Ενεργοποίηση Μπρελόκ",
+  "status": "Κατάσταση"
 }

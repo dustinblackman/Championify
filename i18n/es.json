@@ -1,4 +1,11 @@
 {
-  "Delete": "Borrar",
-  "Import": "Importación"
+  "browse": "Navega",
+  "delete": "Borrar",
+  "import": "Importación",
+  "options_consumables": "Habilitar Consumibles",
+  "options_locksr": "Bloquee Champion.gg conjuntos de elementos de la Grieta del Invocador",
+  "options_skillsformat": "Utilice la taquigrafía de Habilidad Orden",
+  "options_splititems": "Dividir conjuntos de elementos",
+  "options_trinkets": "Habilitar Baratijas",
+  "status": "Estado"
 }

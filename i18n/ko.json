@@ -1,4 +1,11 @@
 {
-  "Delete": "삭제",
-  "Import": "수입"
+  "browse": "검색",
+  "delete": "삭제",
+  "import": "수입",
+  "options_consumables": "소모품 사용",
+  "options_locksr": "소환사의 리프트에 Champion.gg 항목 세트를 잠금",
+  "options_skillsformat": "스킬 주문 속기를 사용",
+  "options_splititems": "분할 업 아이템 세트",
+  "options_trinkets": "장신구를 사용",
+  "status": "지위"
 }

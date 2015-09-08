@@ -23,10 +23,13 @@ optionsParser = require './js/options_parser'
 preferences = require './js/preferences'
 pathManager = require './js/path_manager'
 pkg = require './package.json'
+Translate = require './js/translate'
 updateManager = require './js/update_manager'
 viewManager = require './js/view_manager'
 
+# Initialize Globals
 window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
+window.T = new Translate('en')
 
 # Setup logger
 error_log = path.join(preferences.directory(), 'championify.log')

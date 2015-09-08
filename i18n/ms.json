@@ -1,4 +1,11 @@
 {
-  "Delete": "Padam",
-  "Import": "Import"
+  "browse": "Semak imbas",
+  "delete": "Padam",
+  "import": "Import",
+  "options_consumables": "Membolehkan Habis",
+  "options_locksr": "Kunci Champion.gg Perkara Set untuk Rift Summoner ini",
+  "options_skillsformat": "Gunakan trengkas untuk Kemahiran Order",
+  "options_splititems": "Split Up Set Perkara",
+  "options_trinkets": "Membolehkan Trinkets",
+  "status": "Status"
 }
