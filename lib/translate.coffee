@@ -31,6 +31,8 @@ Translate::flag = ->
     flag = 'cz'
   else if @lang == 'el'
     flag = 'gr'
+  else if @lang == 'he'
+    flag = 'il'
   else if @lang == 'ko'
     flag = 'kr'
   else if @lang == 'ms'

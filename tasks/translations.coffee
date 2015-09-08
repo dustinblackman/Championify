@@ -12,6 +12,7 @@ supported_languages = [
   'en' # English
   'es' # Spanish
   'fr' # French
+  'he' # Hebrew
   'hu' # Hungarian
   'id' # Indonesian
   'it' # Italian
