@@ -1,4 +1,8 @@
 {
+  "beginning": {
+    "done": true,
+    "msg": "Beginning"
+  },
   "browse": {
     "done": true,
     "msg": "Browse"
@@ -7,32 +11,100 @@
     "done": true,
     "msg": "Delete"
   },
+  "directory": {
+    "done": true,
+    "msg": "directory"
+  },
+  "end": {
+    "done": true,
+    "msg": "End"
+  },
+  "found": {
+    "done": true,
+    "msg": "Found"
+  },
   "import": {
     "done": true,
     "msg": "Import"
+  },
+  "invalid_path": {
+    "done": true,
+    "msg": "Invalid Path"
+  },
+  "loading": {
+    "done": true,
+    "msg": "Loading..."
   },
   "options_consumables": {
     "done": true,
     "msg": "Enable Consumables"
   },
+  "options_consumables_tooltip": {
+    "done": true,
+    "msg": "By disabling consumables, you'll lose the Highest Win % skill order"
+  },
   "options_locksr": {
     "done": true,
     "msg": "Lock Champion.gg Item Sets to Summoner's Rift"
+  },
+  "options_locksr_tooltip": {
+    "done": true,
+    "msg": "Champion.gg item sets will only be available on Summoner's Rift"
   },
   "options_skillsformat": {
     "done": true,
     "msg": "Use Shorthand for Skill Order"
   },
+  "options_skillsformat_tooltip": {
+    "done": true,
+    "msg": "Instead of"
+  },
   "options_splititems": {
     "done": true,
-    "msg": "Dividere insiemi di elementi"
+    "msg": "Split Up Item Sets"
+  },
+  "options_splititems_tooltip": {
+    "done": true,
+    "msg": "Create separate item sets for Most Frequent and Highest Win %"
   },
   "options_trinkets": {
     "done": true,
     "msg": "Enable Trinkets"
   },
+  "options_trinkets_tooltip": {
+    "done": true,
+    "msg": "By disabling trinkets, you'll lose the Most Frequent skill order"
+  },
+  "select": {
+    "done": true,
+    "msg": "Select"
+  },
+  "select_position": {
+    "done": true,
+    "msg": "Select Position"
+  },
   "status": {
     "done": true,
     "msg": "Status"
+  },
+  "summoners_rift_source": {
+    "done": true,
+    "msg": "Summoners Rift Source"
+  },
+  "sure_thats_league": {
+    "done": true,
+    "msg": "You sure that's League?"
+  },
+  "unknown": {
+    "done": true,
+    "msg": "Unknown"
+  },
+  "version": {
+    "done": true,
+    "msg": "Version"
+  },
+  "welcome": {
+    "done": true,
+    "msg": "Welcome to Championify"
   }
 }

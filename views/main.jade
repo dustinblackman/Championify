@@ -15,44 +15,44 @@ br
   .column.options
     .ui.checkbox.left
       input#options_splititems(type='checkbox')
-      label.options_tooltip(data-content='Create separate item sets for Most Frequent and Highest Win %') #{T.t('options_splititems')}
+      label.options_tooltip(data-content="#{T.t('options_splititems_tooltip')}") #{T.t('options_splititems')}
       
     br
     
     .ui.checkbox.left
       input#options_skillsformat(type='checkbox')
-      label.options_tooltip(data-content='Instead of Q.W.E.Q.W.R.Q.W.Q.W ect') #{T.t('options_skillsformat')} (Q>W>E)
+      label.options_tooltip(data-content="#{T.t('options_skillsformat_tooltip')} Q.W.E.Q.W.R.Q.W.Q.W ect") #{T.t('options_skillsformat')} (Q>W>E)
     
     .with_dropdown
       .ui.checkbox.left
         input#options_consumables(type='checkbox', checked='')
-        label.options_tooltip(data-content="By disabling consumables, you'll lose the Highest Win % skill order") #{T.t('options_consumables')}
+        label.options_tooltip(data-content="#{T.t('options_consumables_tooltip')}") #{T.t('options_consumables')}
       .ui.icon.bottom.right.pointing.dropdown.button
         i.small.wrench.icon
         #options_consumables_position.menu
           .header
             i.resize.vertical.icon
-            |             Select Position
+            | #{T.t('select_position')}
           .divider
-          .item.beginning Beginning
-          .item.end End
+          .item.beginning #{T.t('beginning')}
+          .item.end #{T.t('end')}
   
     .with_dropdown
       .ui.checkbox.left
         input#options_trinkets(type='checkbox', checked='')
-        label.options_tooltip(data-content="By disabling trinkets, you'll lose the Most Frequent skill order") #{T.t('options_trinkets')}
+        label.options_tooltip(data-content="#{T.t('options_trinkets_tooltip')}") #{T.t('options_trinkets')}
       .ui.icon.bottom.right.pointing.dropdown.button
         i.small.wrench.icon
         #options_trinkets_position.menu
           .header
             i.resize.vertical.icon
-            |             Select Position
+            | #{T.t('select_position')}
           .divider
-          .item.beginning Beginning
-          .item.end End
+          .item.beginning #{T.t('beginning')}
+          .item.end #{T.t('end')}
     .ui.checkbox.left
       input#options_locksr(type='checkbox')
-      label.options_tooltip(data-content="Champion.gg item sets will only be available on Summoner's Rift") #{T.t('options_locksr')}
+      label.options_tooltip(data-content="#{T.t('options_locksr_tooltip')}") #{T.t('options_locksr')}
       br
   
     .rift_source
@@ -61,7 +61,7 @@ br
         i.dropdown.icon
         #sr_source_text.text Champion.gg
         .menu
-          .header Summoners Rift Source
+          .header #{T.t('summoners_rift_source')}
           .item(data-value='championgg') Champion.gg
           .item(data-value='lolflavor') Lolflavor
 
@@ -75,17 +75,17 @@ br
     br
     .versions
       div
-        | Item Sets Version: 
-        span#local_version Unknown
+        | Item Sets #{T.t('version')}: 
+        span#local_version #{T.t('unknown')}
       div
-        | LoL Version: 
-        span#lol_version Loading...
+        | LoL #{T.t('version')}: 
+        span#lol_version #{T.t('loading')}
       div
-        | Champion.gg Version: 
-        span#championgg_version Loading...
+        | Champion.gg #{T.t('version')}: 
+        span#championgg_version #{T.t('loading')}
       div
-        | Lolflavor Version: 
-        span#lolflavor_version Loading...
+        | Lolflavor #{T.t('version')}: 
+        span#lolflavor_version #{T.t('loading')}
   
   
   .status.hidden

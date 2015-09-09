@@ -91,9 +91,9 @@ mainViewBack = ->
 ###
 _initSettings = ->
   if process.platform == 'darwin'
-    window.browse_title = 'Select League of Legends.app'
+    window.browse_title = "#{T.t('select')} League of Legends.app"
   else
-    window.browse_title = 'Select League of Legends directory'
+    window.browse_title = "#{T.t('select')} League of Legends #{T.t('directory')}"
 
   $('#browse_title').text(window.browse_title)
   $('.championify_version > span').text("v#{pkg.version}")
@@ -124,7 +124,7 @@ _initSettings = ->
       window.T = new Translate(local)
       _viewChanger '_view', reset, {
         div_id: 'parent_view'
-        transition: 'fade' 
+        transition: 'fade'
         jade: {platform: process.platform}
       }
   }
