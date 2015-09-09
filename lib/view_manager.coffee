@@ -131,10 +131,13 @@ _initSettings = ->
 
   # Load versions of LoL and sources
   championify.version (err, version) ->
+    return if err
     $('#lol_version').text(hlp.spliceVersion(version))
   championgg.version (err, version) ->
+    return if err
     $('#championgg_version').text(version)
   lolflavor.version (err, version) ->
+    return if err
     $('#lolflavor_version').text(version)
 
   # Load preferences
