@@ -60,7 +60,7 @@
     "gulp-htmlhint": "0.3.0",
     "gulp-if": "1.2.5",
     "gulp-inno": "0.0.3",
-    "gulp-jadelint": "0.0.1",
+    "gulp-jadelint": "0.1.0",
     "gulp-jsonlint": "1.1.0",
     "gulp-mocha": "2.1.3",
     "gulp-shell": "0.4.2",
