@@ -1,19 +1,19 @@
 .one.column.row
   .error
-    h3 Something broke...
+    h3 #{T.t('something_broke')}
     
     br
     img(src='img/sad.png')
     
     br
     p
-      | Did you try running as admin? 
+      | #{T.t('error_1')}
       br
-      |       Or your antivirus/firewall is blocking Championify? 
+      | #{T.t('error_2')}
       br
-      |       Internet on?
+      | #{T.t('error_3')}
     p
-      | If not, I need your help in fixing and improving Championify! With your permission by hitting "Send Logs" I can look over the log file and see what went wrong on your system. No personal information is ever sent. Thanks!
+      | #{T.t('error_4')}
     
     br
-    button#upload_log.ui.button.green Upload Log
+    button#upload_log.ui.button.green #{T.t('upload_log')}

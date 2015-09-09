@@ -1,4 +1,8 @@
 {
+  "back": {
+    "msg": "Back",
+    "done": true
+  },
   "beginning": {
     "done": true,
     "msg": "Beginning"
@@ -15,13 +19,45 @@
     "done": true,
     "msg": "directory"
   },
+  "done": {
+    "done": true,
+    "msg": "Done!"
+  },
+  "downloading": {
+    "msg": "Downloading",
+    "done": true
+  },
+  "downloading_updates": {
+    "msg": "Downloading Updates...",
+    "done": true
+  },
   "end": {
     "done": true,
     "msg": "End"
   },
+  "error_1": {
+    "msg": "Did you try running as admin?",
+    "done": true
+  },
+  "error_2": {
+    "msg": "Or your antivirus/firewall is blocking Championify?",
+    "done": true
+  },
+  "error_3": {
+    "msg": "Internet on?",
+    "done": true
+  },
+  "error_4": {
+    "msg": "If not, I need your help in fixing and improving Championify! With your permission by hitting 'Upload Log' I can look over the log file and see what went wrong on your system. No personal information is ever sent. Thanks!",
+    "done": true
+  },
   "found": {
     "done": true,
     "msg": "Found"
+  },
+  "help": {
+    "msg": "help",
+    "done": true
   },
   "import": {
     "done": true,
@@ -34,6 +70,10 @@
   "loading": {
     "done": true,
     "msg": "Loading..."
+  },
+  "na": {
+    "msg": "Not Available",
+    "done": true
   },
   "options_consumables": {
     "done": true,
@@ -75,13 +115,29 @@
     "done": true,
     "msg": "By disabling trinkets, you'll lose the Most Frequent skill order"
   },
+  "processing": {
+    "msg": "Processing",
+    "done": true
+  },
   "select": {
     "done": true,
     "msg": "Select"
   },
+  "select_language": {
+    "msg": "Select Language",
+    "done": true
+  },
   "select_position": {
     "done": true,
     "msg": "Select Position"
+  },
+  "something_broke": {
+    "msg": "Something broke...",
+    "done": true
+  },
+  "start_league": {
+    "msg": "Start League of Legends",
+    "done": true
   },
   "status": {
     "done": true,
@@ -98,6 +154,10 @@
   "unknown": {
     "done": true,
     "msg": "Unknown"
+  },
+  "upload_log": {
+    "msg": "Upload Log",
+    "done": true
   },
   "version": {
     "done": true,

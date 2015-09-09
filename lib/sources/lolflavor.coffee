@@ -34,7 +34,7 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
   champs = {}
 
   async.eachLimit champs_names, 3, (champ, next) ->
-    cl "Processing #{process_name}: #{champ}"
+    cl "#{T.t('processing')} #{process_name}: #{champ}"
 
     url = "http://www.lolflavor.com/champions/#{champ}/Recommended/#{champ}_#{process_name.toLowerCase()}_scrape.json"
     hlp.ajaxRequest url, (err, data) ->
@@ -70,7 +70,7 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
  * @callback {Function} Callback.
 ###
 _processLolflavor = (process_name, stats_file, riotVer, manaless, step) ->
-  cl "Downloading #{process_name} Champs"
+  cl "#{T.t('downloading')} #{process_name} Champs"
   riotVer = hlp.spliceVersion(riotVer)
 
   _requestAvailableChamps process_name, stats_file, (err, champ_names) ->
@@ -108,7 +108,7 @@ summonersRift = (step, r) ->
 ###
 getVersion = (step) ->
   hlp.ajaxRequest 'http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', (err, body) ->
-    return step(null, 'Unknown') if (err)
+    return step(null, "#{T.t('unknown')}") if (err)
 
     version = body.title.split(' ')[3]
     step(null, version)

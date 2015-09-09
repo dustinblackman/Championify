@@ -48,19 +48,21 @@ gulp.task 'translate', (cb) ->
     # Translate each phrase. # TODO: Possibly up concurrency if Google's API will allow it.
     async.eachLimit _.keys(_source), 10, (phrase_key, next) ->
       # If it's already been translated, and were not re-translating it when _source is false, then skip.
-      return next() if loc[phrase_key] and _source[phrase_key].done
+      return next() if loc[phrase_key] and _source[phrase_key]?.done
+
+      msg = _source[phrase_key]?.msg or _source[phrase_key]
 
       # Phrases are by default in English, no need to translate them.
       if lang == 'en'
-        loc[phrase_key] = _source[phrase_key].msg
+        loc[phrase_key] = msg
         return next()
 
       # Translate
-      GT.translate _source[phrase_key].msg, 'en', lang, (err, result) ->
+      GT.translate msg, 'en', lang, (err, result) ->
         return next(err) if err
         # If the key is the same, sometimes google translate doens't like how letters are capitialized.
         if _source[phrase_key].msg == result.translatedText
-          GT.translate _.capitalize(_source[phrase_key].msg.toLowerCase()), 'en', lang, (err, result) ->
+          GT.translate _.capitalize(msg.toLowerCase()), 'en', lang, (err, result) ->
             return next(err) if err
             loc[phrase_key] = result.translatedText
             next()
@@ -89,8 +91,14 @@ gulp.task 'translate', (cb) ->
       source_keys.sort()
       new_source = {}
       _.each source_keys, (key) ->
-        new_source[key] = _source[key]
-        new_source[key].done = true
+        if _.isString(_source[key])
+          new_source[key] = {
+            msg: _source[key]
+            done: true
+          }
+        else
+          new_source[key] = _source[key]
+          new_source[key].done = true
 
       json = JSON.stringify(new_source, null, 2)
       fs.writeFile path.join(__dirname, '../i18n/_source.json'), json, {encoding: 'utf8'}, (err) ->
