@@ -101,6 +101,9 @@ _initSettings = ->
   $('#locale_flag').attr('class', "#{T.flag()} flag")
   $('#locals_select').find(".item[data-value='#{T.locale}']").addClass('active')
 
+  # Remove any popups that may of stuck during view changes.
+  $('.ui.popup.top.left.transition.visible').remove()
+
   $('.options_tooltip').popup()
   $('.ui.dropdown').dropdown()
 
