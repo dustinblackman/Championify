@@ -99,7 +99,7 @@ _initSettings = ->
   $('.championify_version > span').text("v#{pkg.version}")
 
   $('#locale_flag').attr('class', "#{T.flag()} flag")
-  $('#locals_select').find(".item[data-value='#{T.current()}']").addClass('active')
+  $('#locals_select').find(".item[data-value='#{T.locale}']").addClass('active')
 
   $('.options_tooltip').popup()
   $('.ui.dropdown').dropdown()
@@ -141,7 +141,7 @@ _initSettings = ->
     $('#lolflavor_version').text(version)
 
   # Load preferences
-  preferences.load()
+  preferences.set(preferences.load())
 
 
 init = (done) ->

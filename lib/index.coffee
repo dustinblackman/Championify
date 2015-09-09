@@ -29,7 +29,7 @@ viewManager = require './js/view_manager'
 
 # Initialize Globals
 window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
-window.T = new Translate('en')
+window.T = new Translate(preferences.load()?.locale || 'en')
 
 # Setup logger
 error_log = path.join(preferences.directory(), 'championify.log')
