@@ -1,4 +1,16 @@
 {
+  "adc": {
+    "msg": "ADC",
+    "done": true
+  },
+  "all": {
+    "msg": "All",
+    "done": true
+  },
+  "aram": {
+    "msg": "ARAM",
+    "done": true
+  },
   "back": {
     "msg": "Back",
     "done": true
@@ -10,6 +22,10 @@
   "browse": {
     "done": true,
     "msg": "Browse"
+  },
+  "champs": {
+    "msg": "Champs",
+    "done": true
   },
   "delete": {
     "done": true,
@@ -67,9 +83,21 @@
     "done": true,
     "msg": "Invalid Path"
   },
+  "jungle": {
+    "msg": "Jungle",
+    "done": true
+  },
+  "lane": {
+    "msg": "Lane",
+    "done": true
+  },
   "loading": {
     "done": true,
     "msg": "Loading..."
+  },
+  "middle": {
+    "msg": "Middle",
+    "done": true
   },
   "na": {
     "msg": "Not Available",
@@ -147,9 +175,17 @@
     "done": true,
     "msg": "Summoners Rift Source"
   },
+  "support": {
+    "msg": "Support",
+    "done": true
+  },
   "sure_thats_league": {
     "done": true,
     "msg": "You sure that's League?"
+  },
+  "top": {
+    "msg": "Top",
+    "done": true
   },
   "unknown": {
     "done": true,

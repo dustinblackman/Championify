@@ -49,7 +49,7 @@ getRiotVer = (step, r) ->
 ###
 getChamps = (step, r) ->
   cl 'Downloading Champs from Riot'
-  hlp.ajaxRequest "http://ddragon.leagueoflegends.com/cdn/#{r.riotVer}/data/en_US/champion.json", (err, body) ->
+  hlp.ajaxRequest "http://ddragon.leagueoflegends.com/cdn/#{r.riotVer}/data/#{T.riotLocale()}/champion.json", (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Champs').causedBy(err)) if err
     step null, body.data
 
@@ -59,6 +59,10 @@ getChamps = (step, r) ->
  * @callback {Function} Callback.
 ###
 champNames = (step, r) ->
+  # Save translated champ names
+  translated_champs = _.mapValues r.champs_json, (data) -> return data.name
+  T.setChamps(translated_champs)
+
   return step null, _.keys(r.champs_json)
 
 
@@ -130,7 +134,7 @@ saveToFile = (step, r) ->
 ###
 notProcessed = (step) ->
   _.each window.undefinedBuilds, (e) ->
-    cl "Not Available: #{e}", 'warn'
+    cl "#{T.t('na')}: #{T.champ(e.champ)} #{T.t(e.position)}", 'warn'
 
   step()
 
@@ -173,7 +177,7 @@ downloadItemSets = (done) ->
     manaless: ['champs_json', genManaless]
 
     # ARAM
-    aramItemSets: ['riotVer', 'manaless', lolflavor.aram]
+    aramItemSets: ['riotVer', 'manaless', 'champs', lolflavor.aram]
 
     # Utils
     deleteOldBuilds: ['srItemSets', 'aramItemSets', deleteOldBuilds]
@@ -186,7 +190,7 @@ downloadItemSets = (done) ->
   # Summoners Rift
   sr_source = $('#options_sr_source').val()
   if sr_source == 'lolflavor'
-    async_tasks['srItemSets'] = ['riotVer', 'manaless', lolflavor.sr]
+    async_tasks['srItemSets'] = ['riotVer', 'manaless', 'champs', lolflavor.sr]
   else
     async_tasks['champggVer'] = ['championTest', champgg.version]
     async_tasks['srItemSets'] = ['champs', 'champggVer', 'manaless', champgg.sr]

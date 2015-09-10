@@ -9,6 +9,7 @@ Translate = (locale) ->
 
 # Translate
 Translate::t = (phrase) ->
+  phrase = phrase.toLowerCase()
   translated_phrase = @phrases[phrase]
   throw new cErrors.TranslationError("Phrase does not exist for #{@locale}: #{phrase}") if !translated_phrase
   return translated_phrase
@@ -39,5 +40,45 @@ Translate::flag = ->
     flag = @locale
 
   return flag
+
+# Set champ name translations
+Translate::setChamps = (champs) ->
+  @champs = champs
+
+# Get champ name translation
+Translate::champ = (champ) ->
+  throw new cErrors.TranslationError('Champs has not been defined') if !@champs
+  return @champs[champ]
+
+# Convert locale for Riot API
+Translate::riotLocale = ->
+  riot_locales = {
+    bg: 'bg_BG'
+    cs: 'cs_CZ'
+    de: 'de_DE'
+    el: 'el_GR'
+    en: 'en_US'
+    es: 'es_ES'
+    fr: 'fr_FR'
+    hu: 'hu_HU'
+    id: 'id_ID'
+    it: 'it_IT'
+    ja: 'ja_JP'
+    ko: 'ko_KR'
+    nl: 'nl_NL'
+    ms: 'ms_MY'
+    pl: 'pl_PL'
+    pt: 'pt_PT'
+    ro: 'ro_RO'
+    ru: 'ru_RU'
+    th: 'th_TH'
+    tr: 'tr_TR'
+    vi: 'vn_VN'
+    'zh-CN': 'zh_CN'
+    'zh-TW': 'zh_CN'
+  }
+
+  return riot_locales[@locale] or 'en_US'
+
 
 module.exports = Translate

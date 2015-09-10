@@ -34,13 +34,13 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
   champs = {}
 
   async.eachLimit champs_names, 3, (champ, next) ->
-    cl "#{T.t('processing')} #{process_name}: #{champ}"
+    cl "#{T.t('processing')} #{T.t(process_name)}: #{T.champ(champ)}"
 
     url = "http://www.lolflavor.com/champions/#{champ}/Recommended/#{champ}_#{process_name.toLowerCase()}_scrape.json"
     hlp.ajaxRequest url, (err, data) ->
       if err
         window.log.warn(err)
-        window.undefinedBuilds.push(process_name + ': '+champ)
+        window.undefinedBuilds.push({champ: champ, position: process_name})
         return next null
 
       if process_name == 'ARAM'
@@ -70,7 +70,7 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
  * @callback {Function} Callback.
 ###
 _processLolflavor = (process_name, stats_file, riotVer, manaless, step) ->
-  cl "#{T.t('downloading')} #{process_name} Champs"
+  cl "#{T.t('downloading')} #{T.t(process_name)} Champs"
   riotVer = hlp.spliceVersion(riotVer)
 
   _requestAvailableChamps process_name, stats_file, (err, champ_names) ->
