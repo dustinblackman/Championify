@@ -51,8 +51,12 @@ window.Log = new (winston.Logger)({
   ]
 })
 # Cheat code to do something when an uncaught exception comes up
-Log.exitOnError = ->
-  EndSession()
+Log.exitOnError = (err) ->
+  if _.isString(err)
+    e = new cErrors.UncaughtException(err)
+  else
+    e = new cErrors.UncaughtException().causedBy(err)
+  EndSession(e)
 
   # Return false so the application doesn't exit.
   return false

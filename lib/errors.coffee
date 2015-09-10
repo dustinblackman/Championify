@@ -13,6 +13,7 @@ error_types = [
   'FileWriteError'
   'OperationalError'
   'TranslationError'
+  'UncaughtException'
   'UpdateError'
 ]
 
