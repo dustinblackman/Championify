@@ -49,9 +49,9 @@ save = (preferences, done) ->
   preference_file = preferenceFile()
   fs.writeFile preference_file, JSON.stringify(preferences, null, 2), {encoding: 'utf8'}, (err) ->
     if err
-      window.log.warn(err)
+      Log.warn(err)
     else
-      window.log.info("Saved preference file to #{preference_file}")
+      Log.info("Saved preference file to #{preference_file}")
     done()
 
 

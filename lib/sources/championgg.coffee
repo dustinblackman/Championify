@@ -81,7 +81,7 @@ requestPage = (request_params, step) ->
     cl "Processing Rift: #{T.t(champ)}"
 
   hlp.ajaxRequest url, (err, body) ->
-    window.log.warn(err) if err
+    Log.warn(err) if err
     if err or _.contains(body, 'We\'re currently in the process of generating stats for')
       window.undefinedBuilds.push({champ: champ, position: 'All'})
       return step()

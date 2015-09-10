@@ -16,7 +16,7 @@ _requestAvailableChamps = (process_name, stats_file, done) ->
   hlp.ajaxRequest "http://www.lolflavor.com/data/#{stats_file}", (err, body) ->
     # Some antivirus' don't like lolfavor. Skip all ARAM builds if so and log error.
     if err
-      window.log.warn(err)
+      Log.warn(err)
       window.undefinedBuilds.push("#{process_name}: All")
       return done null, []
 
@@ -39,7 +39,7 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
     url = "http://www.lolflavor.com/champions/#{champ}/Recommended/#{champ}_#{process_name.toLowerCase()}_scrape.json"
     hlp.ajaxRequest url, (err, data) ->
       if err
-        window.log.warn(err)
+        Log.warn(err)
         window.undefinedBuilds.push({champ: champ, position: process_name})
         return next null
 

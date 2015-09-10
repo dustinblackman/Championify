@@ -24,7 +24,7 @@ module.exports = {
 
     , (err, results) ->
       if err
-        window.log.error(err)
+        Log.error(err)
         return done(new Error(err))
 
       return done null, results
@@ -52,7 +52,7 @@ module.exports = {
    * @param {String} Console Message.
   ###
   cl: (text, level='info') ->
-    window.log[level](text)
+    Log[level](text)
     $('#cl_progress').prepend("<span>#{text}</span><br />")
 
 

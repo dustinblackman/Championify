@@ -91,7 +91,7 @@ deleteOldBuilds = (step, deletebtn) ->
   async.each _.flatten(globbed), (item, next) ->
     fs.unlink item, (err) ->
       # TODO: Fix
-      window.log.warn(err) if err
+      Log.warn(err) if err
       next null
   , ->
     hlp.updateProgressBar(2.5) if !deletebtn
@@ -112,7 +112,7 @@ saveToFile = (step, r) ->
       folder_path = path.join(window.item_set_path, champ, 'Recommended')
 
       mkdirp folder_path, (err) ->
-        window.log.warn(err) if err
+        Log.warn(err) if err
 
         file_path = path.join(window.item_set_path, champ, "Recommended/CIFY_#{champ}_#{position}.json")
         fs.writeFile file_path, toFileData, (err) ->

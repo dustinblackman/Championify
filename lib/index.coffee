@@ -33,7 +33,7 @@ window.T = new Translate(preferences.load()?.locale || 'en')
 
 # Setup logger
 error_log = path.join(preferences.directory(), 'championify.log')
-window.log = new (winston.Logger)({
+window.Log = new (winston.Logger)({
   transports: [
     new winston.transports.Console({
         level: 'debug'
@@ -51,7 +51,7 @@ window.log = new (winston.Logger)({
   ]
 })
 # Cheat code to do something when an uncaught exception comes up
-window.log.exitOnError = ->
+Log.exitOnError = ->
   endSession()
 
   # Return false so the application doesn't exit.
@@ -64,7 +64,7 @@ window.log.exitOnError = ->
 endSession = (c_error) ->
   if c_error
     cause = c_error.cause || c_error.rootCause || {}
-    window.log.error(c_error)
+    Log.error(c_error)
 
   viewManager.error()
 
@@ -80,7 +80,7 @@ uploadLog = ->
   log_server = 'http://clogger.dustinblackman.com'
   log_server = 'http://127.0.0.1:8080' if window.devEnabled
   fs.readFile error_log, 'utf8', (err, data) ->
-    window.log.error(err) if err
+    Log.error(err) if err
     $('#upload_log').attr('class','ui inverted yellow button')
     $('#upload_log').text('Sending...')
 
@@ -184,7 +184,7 @@ startLeague = ->
       exec "\"#{path.join(window.lol_install_path, window.lol_executable)}\""
       exit()
     else
-      window.log.error("League of legends executable is not defined. #{window.lol_executable}")
+      Log.error("League of legends executable is not defined. #{window.lol_executable}")
       $('#start_league').attr('class','ui inverted red button')
       $('#start_league').text('Can\'t start League')
 
