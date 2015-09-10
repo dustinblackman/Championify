@@ -52,7 +52,7 @@ window.Log = new (winston.Logger)({
 })
 # Cheat code to do something when an uncaught exception comes up
 Log.exitOnError = ->
-  endSession()
+  EndSession()
 
   # Return false so the application doesn't exit.
   return false
@@ -61,7 +61,7 @@ Log.exitOnError = ->
  * Function if error exists, enable error view and log error ending the session.
  * @param {Object} Error instance
 ###
-endSession = (c_error) ->
+EndSession = (c_error) ->
   if c_error
     cause = c_error.cause || c_error.rootCause || {}
     Log.error(c_error)
@@ -253,8 +253,3 @@ viewManager.init ->
       updateManager.minorUpdate(version)
     else
       executeOptionParameters()
-
-###*
- * Export
-###
-window.endSession = endSession

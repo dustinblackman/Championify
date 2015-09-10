@@ -199,7 +199,7 @@ downloadItemSets = (done) ->
   hlp.updateProgressBar(true)
 
   async.auto async_tasks, (err) ->
-    return window.endSession(err) if err
+    return EndSession(err) if err
     hlp.updateProgressBar(10) # Just max it.
     cl 'Looks like we\'re all done. Login and enjoy!'
     done()
