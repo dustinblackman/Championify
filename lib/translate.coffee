@@ -1,5 +1,6 @@
 cErrors = require './errors'
 path = require 'path'
+_ = require 'lodash'
 
 Translate = (locale) ->
   @locale = locale
@@ -41,14 +42,10 @@ Translate::flag = ->
 
   return flag
 
-# Set champ name translations
-Translate::setChamps = (champs) ->
-  @champs = champs
-
-# Get champ name translation
-Translate::champ = (champ) ->
-  throw new cErrors.TranslationError('Champs has not been defined') if !@champs
-  return @champs[champ]
+# Merge in new translations to phrases (like Champ names)
+Translate::merge = (translations) ->
+  translations = _.mapKeys translations, (value, key) -> return key.toLowerCase()
+  @phrases = _.merge(@phrases, translations)
 
 # Convert locale for Riot API
 Translate::riotLocale = ->

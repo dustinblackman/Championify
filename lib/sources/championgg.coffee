@@ -78,7 +78,7 @@ requestPage = (request_params, step) ->
   if request_params.position
     url = "#{url}/#{request_params.position}"
   else
-    cl "Processing Rift: #{T.champ(champ)}"
+    cl "Processing Rift: #{T.t(champ)}"
 
   hlp.ajaxRequest url, (err, body) ->
     window.log.warn(err) if err

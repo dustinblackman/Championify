@@ -52,7 +52,7 @@ completeView = ->
       $('#not_available_log').append('<span>Nothing! You get all the builds!</span><br />')
     else
       _.each window.undefinedBuilds, (item) ->
-        $('#not_available_log').append("<span>#{T.champ(item.champ)}: #{T.t(item.position)}</span><br />")
+        $('#not_available_log').append("<span>#{T.t(item.champ)}: #{T.t(item.position)}</span><br />")
     done()
 
   _viewChanger 'complete', loadUnavailable

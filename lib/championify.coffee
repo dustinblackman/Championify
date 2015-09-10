@@ -61,7 +61,7 @@ getChamps = (step, r) ->
 champNames = (step, r) ->
   # Save translated champ names
   translated_champs = _.mapValues r.champs_json, (data) -> return data.name
-  T.setChamps(translated_champs)
+  T.merge(translated_champs)
 
   return step null, _.keys(r.champs_json)
 
@@ -134,7 +134,7 @@ saveToFile = (step, r) ->
 ###
 notProcessed = (step) ->
   _.each window.undefinedBuilds, (e) ->
-    cl "#{T.t('na')}: #{T.champ(e.champ)} #{T.t(e.position)}", 'warn'
+    cl "#{T.t('na')}: #{T.t(e.champ)} #{T.t(e.position)}", 'warn'
 
   step()
 
