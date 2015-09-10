@@ -26,6 +26,7 @@ SolidCompression=yes
 Name: "English"; MessagesFile: "compiler:Default.isl"
 Name: "Arabic"; MessagesFile: "compiler:Languages\Arabic.isl"
 Name: "Brazilian_Portuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
+Name: "Bulgarian"; MessagesFile: "compiler:Languages\Bulgarian.isl"
 Name: "Catalan"; MessagesFile: "compiler:Languages\Catalan.isl"
 Name: "Chinese_Simplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
 Name: "Chinese_Traditional"; MessagesFile: "compiler:Languages\ChineseTraditional.isl"
