@@ -6,6 +6,7 @@ path = require 'path'
 _ = require 'lodash'
 
 supported_languages = [
+  'bg' # Bulgarian
   'cs' # Czech
   'de' # German
   'el' # Greek
@@ -19,6 +20,7 @@ supported_languages = [
   'ja' # Japanese
   'ko' # Korean
   'ms' # Malay
+  'nl' # Dutch
   'pl' # Polish
   'pt' # Portuguese
   'ro' # Romanian
