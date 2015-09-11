@@ -300,8 +300,8 @@ processChamp = (request_params, body, step) ->
     }
 
     return {
-      mfBuild: trinksCon(mfBuild)
-      hwBuild: trinksCon(hwBuild)
+      mfBuild: hlp.trinksCon(mfBuild)
+      hwBuild: hlp.trinksCon(hwBuild)
     }
 
   # Inserts new item sets in to a global object to be used when we get to saving files.
