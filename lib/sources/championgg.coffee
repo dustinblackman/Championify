@@ -305,9 +305,7 @@ processChamp = (request_params, body, step) ->
     }
 
   # Inserts new item sets in to a global object to be used when we get to saving files.
-  pushChampData = (champ, position, build) ->
-    positionForFile = position.replace(/ /g, '_')
-
+  pushChampData = (champ, position, positionForFile, build) ->
     if _.includes(position, 'adc')
       title = position.toUpperCase()
     else
@@ -335,13 +333,13 @@ processChamp = (request_params, body, step) ->
   # If split item sets
   if window.cSettings.splititems
     builds = splitItemSets()
-    pushChampData(champ, "#{currentPosition} MostFrequent", builds.mfBuild)
-    pushChampData(champ, "#{currentPosition} HighestWin", builds.hwBuild)
+    pushChampData(champ, "#{currentPosition} #{T.t('most_freq')}", "#{currentPosition}_mostfreq", builds.mfBuild)
+    pushChampData(champ, "#{currentPosition} #{T.t('highest_win')}", "#{currentPosition}_highwin", builds.hwBuild)
 
   # If normal item sets
   else
     builds = normalItemSets()
-    pushChampData(champ, currentPosition, builds)
+    pushChampData(champ, currentPosition, currentPosition, builds)
 
   # TODO: Lodash map.
   # Now we execute for the other positions for the champs, if there are any.
