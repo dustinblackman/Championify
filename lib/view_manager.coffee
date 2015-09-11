@@ -102,6 +102,7 @@ _initSettings = ->
   $('#locale_flag').attr('class', "#{T.flag()} flag")
   $('#select_language_text').text("#{T.t('select_language')}")
   $('#locals_select').find(".item[data-value='#{T.locale}']").addClass('active')
+  $('#footer_help').text("#{T.t('help')}")
 
   # Remove any popups that may of stuck during view changes.
   $('.ui.popup.top.left.transition.visible').remove()

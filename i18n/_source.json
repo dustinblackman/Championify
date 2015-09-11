@@ -27,6 +27,10 @@
     "done": true,
     "msg": "Browse"
   },
+  "cgg_version": {
+    "msg": "Getting Champion.gg Version",
+    "done": true
+  },
   "champs": {
     "msg": "Champs",
     "done": true
@@ -39,6 +43,10 @@
     "done": true,
     "msg": "Delete"
   },
+  "deleting_old_builds": {
+    "msg": "Deleting Old Builds",
+    "done": true
+  },
   "directory": {
     "done": true,
     "msg": "directory"
@@ -49,6 +57,10 @@
   },
   "downloading": {
     "msg": "Downloading",
+    "done": true
+  },
+  "downloading_champs": {
+    "msg": "Downloading Champs from Riot",
     "done": true
   },
   "downloading_updates": {
@@ -79,6 +91,10 @@
     "msg": "Extracting...",
     "done": true
   },
+  "failed": {
+    "msg": "Failed",
+    "done": true
+  },
   "found": {
     "done": true,
     "msg": "Found"
@@ -87,8 +103,32 @@
     "msg": "Frequent",
     "done": true
   },
+  "games": {
+    "msg": "games",
+    "done": true
+  },
   "help": {
     "msg": "help",
+    "done": true
+  },
+  "highest_core": {
+    "msg": "Highest Core",
+    "done": true
+  },
+  "highest_start": {
+    "msg": "Highest Start",
+    "done": true
+  },
+  "highest_win": {
+    "msg": "Highest Win",
+    "done": true
+  },
+  "hw_core": {
+    "msg": "Highest Win % Core Build",
+    "done": true
+  },
+  "hw_starters": {
+    "msg": "Highest Win % Starters",
     "done": true
   },
   "import": {
@@ -111,8 +151,24 @@
     "done": true,
     "msg": "Loading..."
   },
+  "lol_version": {
+    "msg": "Getting LoL Version",
+    "done": true
+  },
+  "mf_core": {
+    "msg": "Most Frequent Core Build",
+    "done": true
+  },
+  "mf_starters": {
+    "msg": "Most Frequent Starters",
+    "done": true
+  },
   "middle": {
     "msg": "Middle",
+    "done": true
+  },
+  "most_freq": {
+    "msg": "Most Frequent",
     "done": true
   },
   "na": {
@@ -129,11 +185,11 @@
   },
   "options_locksr": {
     "done": true,
-    "msg": "Lock Champion.gg Item Sets to Summoner's Rift"
+    "msg": "Lock Summoner's Rift Item Sets To Map"
   },
   "options_locksr_tooltip": {
     "done": true,
-    "msg": "Champion.gg item sets will only be available on Summoner's Rift"
+    "msg": "Item sets meant for Summoners Rift will only be available on the Summoners Rift map."
   },
   "options_skillsformat": {
     "done": true,
@@ -163,6 +219,10 @@
     "msg": "Processing",
     "done": true
   },
+  "processing_rift": {
+    "msg": "Processing Rift",
+    "done": true
+  },
   "resetting_file_permission": {
     "msg": "Resetting File Permissions",
     "done": true
@@ -182,6 +242,14 @@
   "select_position": {
     "done": true,
     "msg": "Select Position"
+  },
+  "sending": {
+    "msg": "Sending...",
+    "done": true
+  },
+  "sent": {
+    "msg": "Sent!",
+    "done": true
   },
   "something_broke": {
     "msg": "Something broke...",

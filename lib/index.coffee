@@ -79,20 +79,20 @@ EndSession = (c_error) ->
 uploadLog = ->
   onError = ->
     $('#upload_log').attr('class','ui inverted red button')
-    $('#upload_log').text('Failed')
+    $('#upload_log').text("#{T.t('failed')}")
 
   log_server = 'http://clogger.dustinblackman.com'
   log_server = 'http://127.0.0.1:8080' if window.devEnabled
   fs.readFile error_log, 'utf8', (err, data) ->
     Log.error(err) if err
     $('#upload_log').attr('class','ui inverted yellow button')
-    $('#upload_log').text('Sending...')
+    $('#upload_log').text("#{T.t('sending')}")
 
     if !err
       $.post(log_server + '/submit', data)
         .done ->
           $('#upload_log').attr('class', 'ui green button')
-          $('#upload_log').text('Sent!')
+          $('#upload_log').text("#{T.t('sent')}")
         .fail ->
           onError()
     else

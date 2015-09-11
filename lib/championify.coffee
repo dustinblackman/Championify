@@ -36,7 +36,7 @@ getSettings = (step) ->
  * @callback {Function} Callback.
 ###
 getRiotVer = (step, r) ->
-  cl 'Getting LoL Version' if r
+  cl "#{T.t('lol_version')}" if r
   hlp.ajaxRequest 'https://ddragon.leagueoflegends.com/realms/na.json', (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Riot Version').causedBy(err)) if err
 
@@ -48,7 +48,7 @@ getRiotVer = (step, r) ->
  * @callback {Function} Callback.
 ###
 getChamps = (step, r) ->
-  cl 'Downloading Champs from Riot'
+  cl "#{T.t('downloading_champs')}"
   hlp.ajaxRequest "http://ddragon.leagueoflegends.com/cdn/#{r.riotVer}/data/#{T.riotLocale()}/champion.json", (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Champs').causedBy(err)) if err
 
@@ -84,7 +84,7 @@ genManaless = (step, r) ->
  * @callback {Function} Callback.
 ###
 deleteOldBuilds = (step, deletebtn) ->
-  cl 'Deleting Old Builds'
+  cl "#{T.t('deleting_old_builds')}"
   globbed = [
     glob.sync("#{window.item_set_path}**/CGG_*.json")
     glob.sync("#{window.item_set_path}**/CIFY_*.json")

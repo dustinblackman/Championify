@@ -70,7 +70,8 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
  * @callback {Function} Callback.
 ###
 _processLolflavor = (process_name, stats_file, riotVer, manaless, step) ->
-  cl "#{T.t('downloading')} #{T.t(process_name)} Champs"
+  # cl "#{T.t('downloading')} #{T.t(process_name)} #{T.t('champs')}"
+  Log.info "Downloading #{process_name} Champs"
   riotVer = hlp.spliceVersion(riotVer)
 
   _requestAvailableChamps process_name, stats_file, (err, champ_names) ->

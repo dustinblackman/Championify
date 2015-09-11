@@ -19,7 +19,7 @@ champData = {}
   * @callback {Function} Callback.
 ###
 getVersion = (step, r) ->
-  cl 'Getting Champion.GG Version' if r
+  cl "#{T.t('cgg_version')}" if r
   hlp.ajaxRequest 'http://champion.gg/faq/', (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Champion.GG Version').causedBy(err)) if err
 
@@ -78,7 +78,7 @@ requestPage = (request_params, step) ->
   if request_params.position
     url = "#{url}/#{request_params.position}"
   else
-    cl "Processing Rift: #{T.t(champ)}"
+    cl "#{T.t('processing_rift')}: #{T.t(champ)}"
 
   hlp.ajaxRequest url, (err, body) ->
     Log.warn(err) if err
@@ -227,12 +227,12 @@ processChamp = (request_params, body, step) ->
 
   # Generates item set for Combinded sets (with both Most Frequent and Highest Wins on one page)
   templates = {
-    combindedStart: _.template('Frequent/Highest Start (<%- wins %> wins - <%- games %> games)')
-    combinedCore: _.template('Frequent/Highest Core (<%- wins %> wins - <%- games %> games)')
-    freqStart: _.template('Most Frequent Starters (<%- wins %> wins - <%- games %> games)')
-    freqCore: _.template('Most Frequent Core Build (<%- wins %> wins - <%- games %> games)')
-    highestStart: _.template('Highest Win % Starters (<%- wins %> wins - <%- games %> games)')
-    highestCore: _.template('Highest Win % Core Build (<%- wins %> wins - <%- games %> games)')
+    combindedStart: _.template("#{T.t('frequent')}/#{T.t('highest_start')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
+    combinedCore: _.template("#{T.t('frequent')}/#{T.t('highest_core')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
+    freqStart: _.template("#{T.t('mf_starters')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
+    freqCore: _.template("#{T.t('mf_core')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
+    highestStart: _.template("#{T.t('hw_starters')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
+    highestCore: _.template("#{T.t('hw_core')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
   }
   normalItemSets = ->
     builds = []
