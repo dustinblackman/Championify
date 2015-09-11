@@ -11,28 +11,29 @@ sourceUIManager = require './source_ui_manager'
 load = ->
   preference_file = @file()
   if fs.existsSync(preference_file)
-    preferences = JSON.parse(fs.readFileSync(preference_file))
-
-    # Load non-option preferences.
-    $('#local_version').text(preferences.local_is_version || 'Unknown')
-
-    pathManager.checkInstallPath preferences.install_path, (err) ->
-      if err
-        pathManager.findInstallPath()
-      else
-        pathManager.checkInstallPath preferences.install_path, pathManager.setInstallPath
-
-    _.each preferences.options, (val, key) ->
-      if key == 'sr_source' and val == 'lolflavor'
-        sourceUIManager.lolflavor()
-      else if _.contains(key, 'position')
-        $('#options_'+key).find('.'+val).addClass('active selected')
-      else
-        $('#options_'+key).prop('checked', val)
-
+    return JSON.parse(fs.readFileSync(preference_file))
   else
-    pathManager.findInstallPath()
+    return null
 
+set = (preferences) ->
+  return pathManager.findInstallPath() if !preferences
+
+  # Load non-option preferences.
+  $('#local_version').text(preferences.local_is_version || "#{unknown}")
+
+  pathManager.checkInstallPath preferences.install_path, (err) ->
+    if err
+      pathManager.findInstallPath()
+    else
+      pathManager.checkInstallPath preferences.install_path, pathManager.setInstallPath
+
+  _.each preferences.options, (val, key) ->
+    if key == 'sr_source' and val == 'lolflavor'
+      sourceUIManager.lolflavor()
+    else if _.contains(key, 'position')
+      $('#options_'+key).find('.'+val).addClass('active selected')
+    else
+      $('#options_'+key).prop('checked', val)
 
 ###*
  * Function to save preference file
@@ -48,9 +49,9 @@ save = (preferences, done) ->
   preference_file = preferenceFile()
   fs.writeFile preference_file, JSON.stringify(preferences, null, 2), {encoding: 'utf8'}, (err) ->
     if err
-      window.log.warn(err)
+      Log.warn(err)
     else
-      window.log.info("Saved preference file to #{preference_file}")
+      Log.info("Saved preference file to #{preference_file}")
     done()
 
 
@@ -82,6 +83,7 @@ get = ->
   trinkets_position = if $('#options_trinkets_position').find('.beginning').hasClass('selected') then 'beginning' else 'end'
 
   return {
+    locale: T.locale
     install_path: window.lol_install_path
     champ_path: window.lol_champ_path
     local_is_version: $('#local_version').text()
@@ -104,4 +106,5 @@ module.exports = {
   directory: preferenceDir
   file: preferenceFile
   get: get
+  set: set
 }

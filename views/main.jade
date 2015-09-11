@@ -1,0 +1,100 @@
+.one.column.row
+  .column
+    .browse_title
+      span#browse_title
+    .ui.fluid.action.input.lol_dir_input
+      input#install_path(type='text')
+      button#browse.ui.grey.button(type='button') #{T.t('browse')}
+    br
+    .lol_dir_input_msg
+      span#input_msg
+
+br
+
+.one.column.row
+  .column.options
+    .ui.checkbox.left
+      input#options_splititems(type='checkbox')
+      label.options_tooltip(data-content="#{T.t('options_splititems_tooltip')}") #{T.t('options_splititems')}
+      
+    br
+    
+    .ui.checkbox.left
+      input#options_skillsformat(type='checkbox')
+      label.options_tooltip(data-content="#{T.t('options_skillsformat_tooltip')} Q.W.E.Q.W.R.Q.W.Q.W ect") #{T.t('options_skillsformat')} (Q>W>E)
+    
+    .with_dropdown
+      .ui.checkbox.left
+        input#options_consumables(type='checkbox', checked='')
+        label.options_tooltip(data-content="#{T.t('options_consumables_tooltip')}") #{T.t('options_consumables')}
+      .ui.icon.bottom.right.pointing.dropdown.button
+        i.small.wrench.icon
+        #options_consumables_position.menu
+          .header
+            i.resize.vertical.icon
+            | #{T.t('select_position')}
+          .divider
+          .item.beginning #{T.t('beginning')}
+          .item.end #{T.t('end')}
+  
+    .with_dropdown
+      .ui.checkbox.left
+        input#options_trinkets(type='checkbox', checked='')
+        label.options_tooltip(data-content="#{T.t('options_trinkets_tooltip')}") #{T.t('options_trinkets')}
+      .ui.icon.bottom.right.pointing.dropdown.button
+        i.small.wrench.icon
+        #options_trinkets_position.menu
+          .header
+            i.resize.vertical.icon
+            | #{T.t('select_position')}
+          .divider
+          .item.beginning #{T.t('beginning')}
+          .item.end #{T.t('end')}
+    .ui.checkbox.left
+      input#options_locksr(type='checkbox')
+      label.options_tooltip(data-content="#{T.t('options_locksr_tooltip')}") #{T.t('options_locksr')}
+      br
+  
+    .rift_source
+      #sr_source.ui.selection.dropdown
+        input#options_sr_source(type='hidden', value='championgg')
+        i.dropdown.icon
+        #sr_source_text.text Champion.gg
+        .menu
+          .header #{T.t('summoners_rift_source')}
+          .item(data-value='championgg') Champion.gg
+          .item(data-value='lolflavor') Lolflavor
+
+
+.one.column.row
+  #btns_versions
+    .submit_btns
+      .ui.divider
+      button#import_btn.ui.green.button #{T.t('import')}
+      button#delete_btn.ui.red.button #{T.t('delete')}
+    br
+    .versions
+      div
+        | Item Sets #{T.t('version')}: 
+        span#local_version #{T.t('unknown')}
+      div
+        | LoL #{T.t('version')}: 
+        span#lol_version #{T.t('loading')}
+      div
+        | Champion.gg #{T.t('version')}: 
+        span#championgg_version #{T.t('loading')}
+      div
+        | Lolflavor #{T.t('version')}: 
+        span#lolflavor_version #{T.t('loading')}
+  
+  
+  .status.hidden
+    .ui.horizontal.divider
+      h2 #{T.t('status')}
+    #itemsets_progress_bar.ui.indicating.progress(data-percent='0')
+      .bar(style='transition-duration: 300ms; -webkit-transition-duration: 300ms;')
+        .progress 0%
+  
+  
+  .progresslog
+    #cl_progress

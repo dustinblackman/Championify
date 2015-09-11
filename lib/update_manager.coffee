@@ -128,7 +128,7 @@ majorUpdate = (version) ->
         return step(new cErrors.UpdateError('Can\'t write/download update file').causedBy(e)) if err
         step()
     (step) -> # Extract Tarball
-      $('#update_current_file').text('Extracting...')
+      $('#update_current_file').text("#{T.t('extracting')}")
       stream = fs.createReadStream(tar_path)
         .pipe(zlib.Gunzip())
         .pipe(tar.extract(update_path))
@@ -139,7 +139,7 @@ majorUpdate = (version) ->
         return step(new cErrors.UpdateError('Can\'t unlink major update zip').causedBy(err)) if err
         step()
   ], (err) ->
-    return window.endSession(err) if err
+    return EndSession(err) if err
 
     if process.platform == 'darwin'
       osxMajor(install_path, update_path)
@@ -154,10 +154,10 @@ majorUpdate = (version) ->
 ###
 osxMinor = (app_asar, update_asar) ->
   fs.unlink app_asar, (err) ->
-    return window.endSession(new cErrors.UpdateError('Can\'t unlink file').causedBy(err)) if err
+    return EndSession(new cErrors.UpdateError('Can\'t unlink file').causedBy(err)) if err
 
     fs.rename update_asar, app_asar, (err) ->
-      return window.endSession(new cErrors.UpdateError('Can\'t rename app.asar').causedBy(err)) if err
+      return EndSession(new cErrors.UpdateError('Can\'t rename app.asar').causedBy(err)) if err
 
       appPath = __dirname.replace('/Contents/Resources/app.asar/js', '')
       exec 'open -n ' + appPath
@@ -194,7 +194,7 @@ osxMajor = (install_path, update_path) ->
   update_file = path.join(preferences.directory(), 'update_major.sh')
 
   fs.writeFile update_file, cmd(params), 'utf8', (err) ->
-    return window.endSession(new cErrors.UpdateError('Can\'t write update_major.sh').causedBy(err)) if err
+    return EndSession(new cErrors.UpdateError('Can\'t write update_major.sh').causedBy(err)) if err
 
     exec 'bash "' + update_file + '"'
 
@@ -227,7 +227,7 @@ winMinor = (app_asar, update_asar) ->
   update_file = path.join(preferences.directory(), 'update.bat')
 
   fs.writeFile update_file, cmd(params), 'utf8', (err) ->
-    return window.endSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
+    return EndSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err)) if err
     exec "START \"\" \"#{update_file}\""
 
 
@@ -267,7 +267,7 @@ winMajor = (install_path, update_path) ->
   update_file = path.join(preferences.directory(), 'update_major.bat')
 
   fs.writeFile update_file, cmd(params), 'utf8', (err) ->
-    return window.endSession(new cErrors.FileWriteError('Can\'t write update_major.bat').causedBy(err)) if err
+    return EndSession(new cErrors.FileWriteError('Can\'t write update_major.bat').causedBy(err)) if err
     runas(process.execPath, ['--winMajor'], {hide: false, admin: true})
 
 
@@ -278,7 +278,7 @@ winMajor = (install_path, update_path) ->
 check = (done) ->
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
   hlp.ajaxRequest url, (err, data) ->
-    return window.endSession(new cErrors.AjaxError('Can\'t access Github package.json').causedBy(err)) if err
+    return EndSession(new cErrors.AjaxError('Can\'t access Github package.json').causedBy(err)) if err
 
     data = JSON.parse(data)
     if versionCompare(data.devDependencies['electron-prebuilt'], process.versions.electron) == 1

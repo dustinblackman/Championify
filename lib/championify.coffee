@@ -36,7 +36,7 @@ getSettings = (step) ->
  * @callback {Function} Callback.
 ###
 getRiotVer = (step, r) ->
-  cl 'Getting LoL Version' if r
+  cl "#{T.t('lol_version')}" if r
   hlp.ajaxRequest 'https://ddragon.leagueoflegends.com/realms/na.json', (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Riot Version').causedBy(err)) if err
 
@@ -48,9 +48,14 @@ getRiotVer = (step, r) ->
  * @callback {Function} Callback.
 ###
 getChamps = (step, r) ->
-  cl 'Downloading Champs from Riot'
-  hlp.ajaxRequest "http://ddragon.leagueoflegends.com/cdn/#{r.riotVer}/data/en_US/champion.json", (err, body) ->
+  cl "#{T.t('downloading_champs')}"
+  hlp.ajaxRequest "http://ddragon.leagueoflegends.com/cdn/#{r.riotVer}/data/#{T.riotLocale()}/champion.json", (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Champs').causedBy(err)) if err
+
+    # Save translated champ names
+    translated_champs = _.mapValues body.data, (data) -> return data.name
+    T.merge(translated_champs)
+
     step null, body.data
 
 
@@ -79,7 +84,7 @@ genManaless = (step, r) ->
  * @callback {Function} Callback.
 ###
 deleteOldBuilds = (step, deletebtn) ->
-  cl 'Deleting Old Builds'
+  cl "#{T.t('deleting_old_builds')}"
   globbed = [
     glob.sync("#{window.item_set_path}**/CGG_*.json")
     glob.sync("#{window.item_set_path}**/CIFY_*.json")
@@ -87,7 +92,7 @@ deleteOldBuilds = (step, deletebtn) ->
   async.each _.flatten(globbed), (item, next) ->
     fs.unlink item, (err) ->
       # TODO: Fix
-      window.log.warn(err) if err
+      Log.warn(err) if err
       next null
   , ->
     hlp.updateProgressBar(2.5) if !deletebtn
@@ -108,7 +113,7 @@ saveToFile = (step, r) ->
       folder_path = path.join(window.item_set_path, champ, 'Recommended')
 
       mkdirp folder_path, (err) ->
-        window.log.warn(err) if err
+        Log.warn(err) if err
 
         file_path = path.join(window.item_set_path, champ, "Recommended/CIFY_#{champ}_#{position}.json")
         fs.writeFile file_path, toFileData, (err) ->
@@ -125,17 +130,6 @@ saveToFile = (step, r) ->
 
 
 ###*
- * Function To output any champ/positions that were done due to timeouts or undefined builds.
- * @callback {Function} Callback.
-###
-notProcessed = (step) ->
-  _.each window.undefinedBuilds, (e) ->
-    cl "Not Available: #{e}", 'warn'
-
-  step()
-
-
-###*
  * Function Resave preferences with new local version
 ###
 resavePreferences = (step, r) ->
@@ -149,7 +143,7 @@ resavePreferences = (step, r) ->
 ###
 setWindowsPermissions = (step, r) ->
   if process.platform == 'win32' and optionsParser.runnedAsAdmin()
-    cl 'Resetting File Permissions'
+    cl "#{T.t('resetting_file_permission')}"
     champ_files = glob.sync(path.join(window.item_set_path, '**'))
     permissions.setWindowsPermissions(champ_files, step)
   else
@@ -180,7 +174,6 @@ downloadItemSets = (done) ->
     saveBuilds: ['deleteOldBuilds', saveToFile]
     resavePreferences: ['saveBuilds', resavePreferences]
     setPermissions: ['saveBuilds', setWindowsPermissions]
-    notProcessed: ['saveBuilds', notProcessed]
   }
 
   # Summoners Rift
@@ -195,9 +188,8 @@ downloadItemSets = (done) ->
   hlp.updateProgressBar(true)
 
   async.auto async_tasks, (err) ->
-    return window.endSession(err) if err
+    return EndSession(err) if err
     hlp.updateProgressBar(10) # Just max it.
-    cl 'Looks like we\'re all done. Login and enjoy!'
     done()
 
 

@@ -38,8 +38,10 @@ gulp.task 'package-asar', (cb) ->
   runSequence(
     'main'
     'electron:deps'
-    'copy:app'
+    ['copy:app'
     'copy:data'
+    'copy:views'
+    'copy:translations']
     'removelivereload'
     'asar'
     cb

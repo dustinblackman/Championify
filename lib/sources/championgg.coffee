@@ -19,7 +19,7 @@ champData = {}
   * @callback {Function} Callback.
 ###
 getVersion = (step, r) ->
-  cl 'Getting Champion.GG Version' if r
+  cl "#{T.t('cgg_version')}" if r
   hlp.ajaxRequest 'http://champion.gg/faq/', (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Champion.GG Version').causedBy(err)) if err
 
@@ -78,12 +78,12 @@ requestPage = (request_params, step) ->
   if request_params.position
     url = "#{url}/#{request_params.position}"
   else
-    cl "Processing Rift: #{request_params.champ}"
+    cl "#{T.t('processing_rift')}: #{T.t(champ)}"
 
   hlp.ajaxRequest url, (err, body) ->
-    window.log.warn(err) if err
+    Log.warn(err) if err
     if err or _.contains(body, 'We\'re currently in the process of generating stats for')
-      window.undefinedBuilds.push(champ)
+      window.undefinedBuilds.push({champ: champ, position: 'All'})
       return step()
 
     processChamp(request_params, body, step)
@@ -125,7 +125,7 @@ processChamp = (request_params, body, step) ->
   ]
 
   if _.contains(undefArray, true)
-    window.undefinedBuilds.push(champ + ' ' + _.capitalize(currentPosition))
+    window.undefinedBuilds.push({champ: champ, position: currentPosition})
     return step()
 
   # Build objects for each section of item sets.
@@ -227,12 +227,12 @@ processChamp = (request_params, body, step) ->
 
   # Generates item set for Combinded sets (with both Most Frequent and Highest Wins on one page)
   templates = {
-    combindedStart: _.template('Frequent/Highest Start (<%- wins %> wins - <%- games %> games)')
-    combinedCore: _.template('Frequent/Highest Core (<%- wins %> wins - <%- games %> games)')
-    freqStart: _.template('Most Frequent Starters (<%- wins %> wins - <%- games %> games)')
-    freqCore: _.template('Most Frequent Core Build (<%- wins %> wins - <%- games %> games)')
-    highestStart: _.template('Highest Win % Starters (<%- wins %> wins - <%- games %> games)')
-    highestCore: _.template('Highest Win % Core Build (<%- wins %> wins - <%- games %> games)')
+    combindedStart: _.template("#{T.t('frequent')}/#{T.t('highest_start')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
+    combinedCore: _.template("#{T.t('frequent')}/#{T.t('highest_core')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
+    freqStart: _.template("#{T.t('mf_starters')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
+    freqCore: _.template("#{T.t('mf_core')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
+    highestStart: _.template("#{T.t('hw_starters')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
+    highestCore: _.template("#{T.t('hw_core')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
   }
   normalItemSets = ->
     builds = []
@@ -300,14 +300,12 @@ processChamp = (request_params, body, step) ->
     }
 
     return {
-      mfBuild: trinksCon(mfBuild)
-      hwBuild: trinksCon(hwBuild)
+      mfBuild: hlp.trinksCon(mfBuild)
+      hwBuild: hlp.trinksCon(hwBuild)
     }
 
   # Inserts new item sets in to a global object to be used when we get to saving files.
-  pushChampData = (champ, position, build) ->
-    positionForFile = position.replace(/ /g, '_')
-
+  pushChampData = (champ, position, positionForFile, build) ->
     if _.includes(position, 'adc')
       title = position.toUpperCase()
     else
@@ -335,13 +333,13 @@ processChamp = (request_params, body, step) ->
   # If split item sets
   if window.cSettings.splititems
     builds = splitItemSets()
-    pushChampData(champ, "#{currentPosition} MostFrequent", builds.mfBuild)
-    pushChampData(champ, "#{currentPosition} HighestWin", builds.hwBuild)
+    pushChampData(champ, "#{currentPosition} #{T.t('most_freq')}", "#{currentPosition}_mostfreq", builds.mfBuild)
+    pushChampData(champ, "#{currentPosition} #{T.t('highest_win')}", "#{currentPosition}_highwin", builds.hwBuild)
 
   # If normal item sets
   else
     builds = normalItemSets()
-    pushChampData(champ, currentPosition, builds)
+    pushChampData(champ, currentPosition, currentPosition, builds)
 
   # TODO: Lodash map.
   # Now we execute for the other positions for the champs, if there are any.

@@ -27,3 +27,7 @@ gulp.task 'bower_copy', ->
   gulp.src('./bower_components/semantic/dist/themes/default/assets/fonts/**')
     .pipe(flatten())
     .pipe gulp.dest('./dev/vendor/css/themes/default/assets/fonts/')
+
+  gulp.src('./bower_components/semantic/dist/themes/default/assets/images/**')
+    .pipe(flatten())
+    .pipe gulp.dest('./dev/vendor/css/themes/default/assets/images/')

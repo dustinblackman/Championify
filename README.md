@@ -6,7 +6,10 @@ _Champion-If-Ayyy_
 [![Travis](https://img.shields.io/travis/dustinblackman/Championify/master.svg)](https://travis-ci.org/dustinblackman/Championify/builds)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/dt20uyoxt2skgneu/branch/master?svg=true)](https://ci.appveyor.com/project/dustinblackman/championify/branch/master)
 [![Coverage Status](https://img.shields.io/coveralls/dustinblackman/Championify/master.svg)](https://coveralls.io/github/dustinblackman/Championify?branch=master)
+[![Dependency Status](https://david-dm.org/dustinblackman/Championify.svg)](https://david-dm.org/dustinblackman/Championify)
+[![devDependency Status](https://david-dm.org/dustinblackman/Championify/dev-status.svg)](https://david-dm.org/dustinblackman/Championify#info=devDependencies)
 <a href="https://zenhub.io"><img src="https://img.shields.io/badge/KanBan%20Board-Zenhub.io-blue.svg"></a>
+[![Translations](https://img.shields.io/badge/Translations-OneSky-2ea8e6.svg)](https://dustinblackman.oneskyapp.com/collaboration/project/95440)
 
 Latest Release Downloads: [![Downloads](https://img.shields.io/github/downloads/dustinblackman/Championify/latest/total.svg)](https://github.com/dustinblackman/Championify/releases/latest)
 
@@ -155,10 +158,7 @@ I suggest making sure your linters are setup correctly, or run gulp lint every n
 ---
 
 ## Future Plans
-- Proper design.
-- Write testing suite to be run before releases.
-- 3v3 Item Sets
-- Better ARAM Item Sets
+Check out the [Features tag in Issues](https://github.com/dustinblackman/Championify/labels/feature) to see all up and  coming ideas.
 
 
 ---

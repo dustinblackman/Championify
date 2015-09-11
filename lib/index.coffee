@@ -1,3 +1,5 @@
+# File contains everything to initialize the app, plus functions that yet to have a home.
+
 # Electron
 remote = require 'remote'
 app = remote.require 'app'
@@ -21,15 +23,17 @@ optionsParser = require './js/options_parser'
 preferences = require './js/preferences'
 pathManager = require './js/path_manager'
 pkg = require './package.json'
+Translate = require './js/translate'
 updateManager = require './js/update_manager'
 viewManager = require './js/view_manager'
 
-
+# Initialize Globals
 window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
+window.T = new Translate(preferences.load()?.locale || 'en')
 
 # Setup logger
 error_log = path.join(preferences.directory(), 'championify.log')
-window.log = new (winston.Logger)({
+window.Log = new (winston.Logger)({
   transports: [
     new winston.transports.Console({
         level: 'debug'
@@ -47,8 +51,12 @@ window.log = new (winston.Logger)({
   ]
 })
 # Cheat code to do something when an uncaught exception comes up
-window.log.exitOnError = ->
-  endSession()
+Log.exitOnError = (err) ->
+  if _.isString(err)
+    e = new cErrors.UncaughtException(err)
+  else
+    e = new cErrors.UncaughtException().causedBy(err)
+  EndSession(e)
 
   # Return false so the application doesn't exit.
   return false
@@ -57,10 +65,10 @@ window.log.exitOnError = ->
  * Function if error exists, enable error view and log error ending the session.
  * @param {Object} Error instance
 ###
-endSession = (c_error) ->
+EndSession = (c_error) ->
   if c_error
     cause = c_error.cause || c_error.rootCause || {}
-    window.log.error(c_error)
+    Log.error(c_error)
 
   viewManager.error()
 
@@ -71,20 +79,20 @@ endSession = (c_error) ->
 uploadLog = ->
   onError = ->
     $('#upload_log').attr('class','ui inverted red button')
-    $('#upload_log').text('Failed')
+    $('#upload_log').text("#{T.t('failed')}")
 
   log_server = 'http://clogger.dustinblackman.com'
   log_server = 'http://127.0.0.1:8080' if window.devEnabled
   fs.readFile error_log, 'utf8', (err, data) ->
-    window.log.error(err) if err
+    Log.error(err) if err
     $('#upload_log').attr('class','ui inverted yellow button')
-    $('#upload_log').text('Sending...')
+    $('#upload_log').text("#{T.t('sending')}")
 
     if !err
       $.post(log_server + '/submit', data)
         .done ->
           $('#upload_log').attr('class', 'ui green button')
-          $('#upload_log').text('Sent!')
+          $('#upload_log').text("#{T.t('sent')}")
         .fail ->
           onError()
     else
@@ -112,23 +120,11 @@ openFolder = ->
 
 
 ###*
- * Function Sets platform specific variables.
-###
-setupPlatform = ->
-  if process.platform == 'darwin'
-    window.browse_title = 'Select League of Legends.app'
-    $('.osx_buttons').removeClass('hidden')
-  else
-    window.browse_title = 'Select League of Legends directory'
-    $('.win_buttons').removeClass('hidden')
-
-
-###*
  * Function Warn user if their league folder isn't selected.
 ###
 selectFolderWarning = ->
   $('#input_msg').addClass('yellow')
-  $('#input_msg').text('You need to select your folder first!')
+  $('#input_msg').text("#{T.t('select_folder')}")
   $('#input_msg').transition('shake')
 
 
@@ -156,7 +152,7 @@ deleteItemSets = ->
   else
     # TODO: Verify if is Windows admin and can delete.
     championify.delete ->
-      $('#cl_progress > span').append('. Done!')
+      $('#cl_progress > span').append(". #{T.t('done')}")
     , true
 
 
@@ -192,9 +188,18 @@ startLeague = ->
       exec "\"#{path.join(window.lol_install_path, window.lol_executable)}\""
       exit()
     else
-      window.log.error("League of legends executable is not defined. #{window.lol_executable}")
+      Log.error("League of legends executable is not defined. #{window.lol_executable}")
       $('#start_league').attr('class','ui inverted red button')
       $('#start_league').text('Can\'t start League')
+
+
+###*
+ * Add system buttons
+###
+if process.platform == 'darwin'
+  $('.osx_buttons').removeClass('hidden')
+else
+  $('.win_buttons').removeClass('hidden')
 
 
 ###*
@@ -252,8 +257,3 @@ viewManager.init ->
       updateManager.minorUpdate(version)
     else
       executeOptionParameters()
-
-###*
- * Export
-###
-window.endSession = endSession

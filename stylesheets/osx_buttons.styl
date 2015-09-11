@@ -3,9 +3,23 @@
   $second = $first + 20px
   $third = $first + 40px
 
-  $close = #FF5955
-  $minimize = #FFBB09
-  $maximize = #17C935
+  $close = #FF5F52
+  $close_border = #E33E32
+  $minimize = #FFBE05
+  $minimize_border = #E2A100
+  $maximize = #15CC35
+  $maximize_border = #17B230
+
+  img
+    height 12px
+    position fixed
+    visibility hidden
+    width 12px
+    -webkit-app-region no-drag // @stylint ignore// @stylint ignore
+
+  &:hover img
+    visibility visible
+    -webkit-filter brightness(92%)
 
   .clickable_div
     height 10px
@@ -14,37 +28,20 @@
   .sys_button
     border-radius 50%
     color black
-    font-family 'Roboto'
+    cursor default
     height 12px
     margin-left 5px
     position absolute
     top 8px
     width 12px
 
-  a:hover span
-    visibility visible
-
   .close
     background $close
     left $first
 
-    span
-      font-size 11px
-      margin-left 3.2px
-      margin-top -3.7px
-      position fixed
-      visibility hidden
-
   .minimize
     background $minimize
     left $second
-
-    span
-      font-size 18px
-      margin-left 3.4px
-      margin-top -4px
-      position fixed
-      visibility hidden
 
   .maximize
     opacity .4

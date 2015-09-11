@@ -1,0 +1,18 @@
+{
+  "AddValueToSubmit": "ignore",
+  "DontQuoteQTags": "error",
+  "DontUseBTags": "error",
+  "DontUseHgroup": "error",
+  "DontUseITags": "ignore",
+  "DontUseLegacyEncoding": "error",
+  "DontUseSTags": "error",
+  "DontUseUTags": "error",
+  "HTMLRootRequiresLang": "ignore",
+  "NoAttributeWhitespace": "error",
+  "NoXMLAttributeNamespace": "error",
+  "NoXMLTagNamespace": "error",
+  "OmitTypeForCSS": "ignore",
+  "OmitTypeForJS": "ignore",
+  "UseConsistentQuotes": "error",
+  "UseUTF8": "error"
+}

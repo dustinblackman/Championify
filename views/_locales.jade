@@ -1,0 +1,110 @@
+- var windows_class = 'ui icon left pointing dropdown scrolling'
+- var osx_class = 'ui icon right pointing dropdown scrolling'
+
+div.locale_selector(style= platform === 'win32' ? 'left: 10px;' : 'right: 3px;')
+  div#locals_select(class=platform === 'win32' ? windows_class : osx_class)
+        
+    input(type='hidden', name='locale')
+    i#locale_flag
+    
+    .menu
+      .header
+        i.world.icon
+        span#select_language_text #{T.t('select_language')}
+      .divider
+      //- List is sorted alphabetically first by English characters and then others.
+      .item(data-value='en')
+        i.gb.flag
+        | English
+      // Indonesian
+      .item(data-value='id') 
+        i.id.flag
+        | Bahasa Indonesia
+      // Czech
+      .item(data-value='cs') 
+        i.cz.flag
+        | čeština
+      // German
+      .item(data-value='de') 
+        i.de.flag
+        | Deutsche
+      // Spanish
+      .item(data-value='es') 
+        i.es.flag
+        | Español
+      // French
+      .item(data-value='fr')
+        i.fr.flag
+        | Français
+      // Italian
+      .item(data-value='it')
+        i.it.flag
+        | Italiano
+      // Hungarian
+      .item(data-value='hu')
+        i.hu.flag
+        | Magyar
+      // Malay
+      .item(data-value='ms')
+        i.my.flag
+        | Melayu
+      // Dutch
+      .item(data-value='nl')
+        i.nl.flag
+        | Nederlandse
+      // Polish
+      .item(data-value='pl')
+        i.pl.flag
+        | Polskie
+      // Portuguese
+      .item(data-value='pt')
+        i.pt.flag
+        | Português
+      // Romanian
+      .item(data-value='ro')
+        i.ro.flag
+        | Român
+      // Vietnamese
+      .item(data-value='vi')
+        i.vn.flag
+        | Tiếng Việt
+      // Turkish
+      .item(data-value='tr') 
+        i.tr.flag
+        | Türk
+       // Bulgarian
+      .item(data-value='bg')
+        i.bg.flag
+        | български
+      // Chinese Simplified
+      .item(data-value='zh-CN')
+        i.cn.flag
+        | 中国简体
+      // Chinese Traditional
+      .item(data-value='zh-TW')
+        i.cn.flag
+        | 中國傳統
+      // Greek
+      .item(data-value='el')
+        i.gr.flag
+        | Ελληνική
+      // Hebrew
+      .item(data-value='he')
+        i.il.flag
+        | עברית
+      // Japanese
+      .item(data-value='ja')
+        i.jp.flag
+        | 日本語
+      // Korean
+      .item(data-value='ko')
+        i.kr.flag
+        | 한국어
+      // Russian
+      .item(data-value='ru')
+        i.ru.flag
+        | русский
+      // Thai
+      .item(data-value='th')
+        i.th.flag
+        | ภาษาไทย

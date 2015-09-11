@@ -39,7 +39,7 @@ checkInstallPath = (selected_path, done) ->
     fs.lstatSync(selected_path)
   catch e
     $('#input_msg').addClass('red')
-    $('#input_msg').text('Invalid Path')
+    $('#input_msg').text("#{T.t('invalid_path')}")
     return
 
   if process.platform == 'darwin'
@@ -86,12 +86,12 @@ setInstallPath = (path_err, install_path, champ_path, executable) ->
 
   pathErr = ->
     $('#input_msg').addClass('yellow')
-    $('#input_msg').text('You sure that\'s League?')
+    $('#input_msg').text("#{T.t('sure_thats_league')}")
     enableBtns()
 
   foundLeague = ->
     $('#input_msg').addClass('green')
-    $('#input_msg').text('Found League of Legends!')
+    $('#input_msg').text("#{T.t('found')} League of Legends!")
     enableBtns()
 
   $('#input_msg').removeAttr('class')

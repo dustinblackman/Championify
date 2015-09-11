@@ -2,6 +2,7 @@ coffeelint = require 'gulp-coffeelint'
 fs = require 'fs-extra'
 gulp = require 'gulp'
 htmlhint = require 'gulp-htmlhint'
+jadelint = require 'gulp-jadelint'
 jsonlint = require 'gulp-jsonlint'
 mocha = require 'gulp-mocha'
 open = require 'open'
@@ -41,9 +42,14 @@ gulp.task 'htmlhint', ->
     .pipe(htmlhint.reporter('htmlhint-stylish'))
     .pipe(htmlhint.failReporter({suppress: true}))
 
+gulp.task 'jadelint', ->
+  return gulp.src('views/*.jade')
+    .pipe(jadelint())
+
 gulp.task 'jsonlint', ->
   return gulp.src([
       './data/**/*.json'
+      './i18n/**/*.json'
       './.htmlhintrc'
       './.stylintrc'
       './coffeelint.json'
@@ -51,11 +57,12 @@ gulp.task 'jsonlint', ->
       './bower.json'
     ])
     .pipe(jsonlint())
-    .pipe(jsonlint.failOnError())
+    .pipe(jsonlint.reporter())
+    .pipe(jsonlint.failAfterError())
 
 
 gulp.task 'lint', (cb) ->
-  runSequence('coffeelint', 'stylint', 'jsonlint', cb)
+  runSequence('coffeelint', 'stylint', 'htmlhint', 'jadelint', 'jsonlint', cb)
 
 gulp.task 'mocha', ->
   gulp.src('./tests/*.coffee').pipe mocha({require: ['./helpers/register-istanbul.js']})

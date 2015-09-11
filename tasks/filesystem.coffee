@@ -6,19 +6,9 @@ gulp = require 'gulp'
 mkdirp = require 'mkdirp'
 path = require 'path'
 runSequence = require 'run-sequence'
+_ = require 'lodash'
 
 pkg = require '../package.json'
-
-symlink = (source, cb) ->
-  glob './' + source + '/**', {nodir: true} , (err, paths) ->
-    console.log paths
-    async.each paths, (oldPath, acb) ->
-      newPath = oldPath.replace('./' + source, './dev')
-      oldPath = oldPath.replace('./' + source + '/', process.cwd()+'/' + source + '/')
-      fs.symlink oldPath, newPath, (err) ->
-        acb null
-    , ->
-      cb()
 
 # Dirs, Copy, Delete, Mk
 gulp.task 'mkdir:app', (cb) ->
@@ -55,13 +45,49 @@ gulp.task 'symlink:app', (cb) ->
     , ->
       cb()
 
+# Views TODO: Cleanup
+gulp.task 'copy:views', (cb) ->
+  mkdirp './dev/views'
+  fs.copy './views/', './dev/views', (err) -> cb(err)
 
+gulp.task 'symlink:views', (cb) ->
+  mkdirp './dev/views'
+  glob './views/**', {nodir: true} , (err, paths) ->
+    async.each paths, (oldPath, acb) ->
+      newPath = oldPath.replace('./views', './dev/views')
+      oldPath = oldPath.replace('./views/', process.cwd()+'/views/')
+      fs.symlink oldPath, newPath, (err) ->
+        acb null
+    , ->
+      cb()
+
+# Translations TODO: Cleanup
+gulp.task 'copy:translations', (cb) ->
+  mkdirp './dev/i18n'
+  fs.copy './i18n/', './dev/i18n', (err) ->
+    fs.remove('./dev/i18n/_source.json')
+    cb(err)
+
+gulp.task 'symlink:translations', (cb) ->
+  mkdirp './dev/i18n'
+  glob './i18n/*.json', {nodir: true} , (err, paths) ->
+    async.each paths, (oldPath, acb) ->
+      return acb() if _.contains(oldPath, '_source.json')
+      newPath = oldPath.replace('./i18n', './dev/i18n')
+      oldPath = oldPath.replace('./i18n/', process.cwd()+'/i18n/')
+      fs.symlink oldPath, newPath, (err) ->
+        acb null
+    , ->
+      cb()
+
+# Windows or OSX
 gulp.task 'dev_folder', (cb) ->
   if process.platform == 'win32'
-    runSequence('copy:app', cb)
+    runSequence(['copy:app', 'copy:views', 'copy:translations'], cb)
   else
-    runSequence('symlink:app', cb)
+    runSequence(['symlink:app', 'symlink:views', 'symlink:translations'], cb)
 
+# Delete / Create
 gulp.task 'delete-dev', ->
   gulp.src(['./dev', './tmp'])
     .pipe(clean(force: true))
@@ -73,6 +99,7 @@ gulp.task 'delete-releases', ->
 gulp.task 'create-releases-folder', (cb) ->
   mkdirp './releases', -> cb()
 
+# Move
 gulp.task 'move:asar:update', (cb) ->
   fs.copy './tmp/app.asar', './releases/update.asar', -> cb()
 

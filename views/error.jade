@@ -1,0 +1,19 @@
+.one.column.row
+  .error
+    h3 #{T.t('something_broke')}
+    
+    br
+    img(src='img/sad.png')
+    
+    br
+    p
+      | #{T.t('error_1')}
+      br
+      | #{T.t('error_2')}
+      br
+      | #{T.t('error_3')}
+    p
+      | #{T.t('error_4')}
+    
+    br
+    button#upload_log.ui.button.green #{T.t('upload_log')}

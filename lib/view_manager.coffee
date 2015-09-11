@@ -1,3 +1,6 @@
+jade = require 'jade'
+path = require 'path'
+
 championify = require './championify'
 championgg = require './sources/championgg'
 hlp = require './helpers'
@@ -5,22 +8,38 @@ lolflavor = require './sources/lolflavor'
 preferences = require './preferences'
 pkg = require '../package.json'
 sourceUIManager = require './source_ui_manager'
+Translate = require './translate'
 
 ###*
  * Function To change all views with the same transitions.
  * @param {string} name of view
  * @param {function} function to run before loading in new view.
 ###
-_viewChanger = (view, process, transition='browse') ->
-  if !process
-    process = (done) -> done()
+_viewChanger = (view, process, options={}) ->
+  nub = (done) -> done()
 
-  $('#view').transition {
+  default_options = {
+    transition: 'browse'
+    div_id: 'view'
+    jade: {}
+  }
+
+  if !process
+    options = {}
+    process = nub
+
+  if !_.isFunction(process)
+    options = process
+    process = nub
+
+  options = _.merge _.clone(default_options), options
+
+  $("##{options.div_id}").transition {
     animation: 'fade up'
     onComplete: ->
-      $('#view').load "views/#{view}.html", ->
-        process ->
-          $('#view').transition(transition)
+      html = jade.renderFile path.resolve(path.join(__dirname, "../views/#{view}.jade")), default_options.jade
+      $("##{options.div_id}").html(html).promise().done ->
+        process -> $("##{options.div_id}").transition(options.transition)
   }
 
 
@@ -30,10 +49,10 @@ _viewChanger = (view, process, transition='browse') ->
 completeView = ->
   loadUnavailable = (done) ->
     if window.undefinedBuilds.length == 0
-      $('#not_available_log').append('<span>Nothing! You get all the builds!</span><br />')
+      $('#not_available_log').append("<span>#{T.t('all_available')}</span><br />")
     else
       _.each window.undefinedBuilds, (item) ->
-        $('#not_available_log').append("<span>#{item}</span><br />")
+        $('#not_available_log').append("<span>#{T.t(item.champ)}: #{T.t(item.position)}</span><br />")
     done()
 
   _viewChanger 'complete', loadUnavailable
@@ -64,23 +83,29 @@ mainViewBack = ->
     _initSettings()
     next()
 
-  _viewChanger 'main', resetMain, 'fly right'
+  _viewChanger 'main', resetMain, {transition: 'fly right'}
 
 
 ###*
  * Function Initial view with settings
 ###
-# TODO: This is why I should be using React... For literally everything...
 _initSettings = ->
   if process.platform == 'darwin'
-    window.browse_title = 'Select League of Legends.app'
-    $('.osx_buttons').removeClass('hidden')
+    window.browse_title = "#{T.t('select')} League of Legends.app"
   else
-    window.browse_title = 'Select League of Legends directory'
-    $('.win_buttons').removeClass('hidden')
+    window.browse_title = "#{T.t('select')} League of Legends #{T.t('directory')}"
 
   $('#browse_title').text(window.browse_title)
   $('.championify_version > span').text("v#{pkg.version}")
+
+  # Setup flag/language menu
+  $('#locale_flag').attr('class', "#{T.flag()} flag")
+  $('#select_language_text').text("#{T.t('select_language')}")
+  $('#locals_select').find(".item[data-value='#{T.locale}']").addClass('active')
+  $('#footer_help').text("#{T.t('help')}")
+
+  # Remove any popups that may of stuck during view changes.
+  $('.ui.popup.top.left.transition.visible').remove()
 
   $('.options_tooltip').popup()
   $('.ui.dropdown').dropdown()
@@ -94,20 +119,42 @@ _initSettings = ->
         sourceUIManager.championgg()
   }
 
+  $('#locals_select').dropdown {
+    action: 'activate'
+    onChange: (value, text, $selector) ->
+      reset = (done) ->
+        _initSettings()
+        done()
+
+      local = $selector.attr('data-value')
+      window.T = new Translate(local)
+      _viewChanger '_view', reset, {
+        div_id: 'parent_view'
+        transition: 'fade'
+        jade: {platform: process.platform}
+      }
+  }
+
   # Load versions of LoL and sources
   championify.version (err, version) ->
+    return if err
     $('#lol_version').text(hlp.spliceVersion(version))
   championgg.version (err, version) ->
+    return if err
     $('#championgg_version').text(version)
   lolflavor.version (err, version) ->
+    return if err
     $('#lolflavor_version').text(version)
 
   # Load preferences
-  preferences.load()
+  preferences.set(preferences.load())
 
 
 init = (done) ->
-  $('#view').load 'views/main.html', ->
+  options = {platform: process.platform}
+
+  html = jade.renderFile path.resolve(path.join(__dirname, '../views/index.jade')), options
+  $('#body').html(html).promise().done ->
     _initSettings()
     done()
 

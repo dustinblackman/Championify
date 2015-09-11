@@ -1,0 +1,33 @@
+header
+  case platform
+    when 'darwin'
+      .osx_buttons
+        .clickable_div
+          a.sys_button.close(href='')
+            img(src='img/osx_buttons/close.png')
+        .clickable_div
+          a.sys_button.minimize(href='')
+            img(src='img/osx_buttons/minimize.png')
+        a.sys_button.maximize
+    
+    when 'win32'
+      .win_buttons
+        .sys_button.minimize
+          img(src='img/win_buttons/minimize.png')
+        .sys_button.maximize
+          img(src='img/win_buttons/maximize.png')
+        .sys_button.close
+          img(src='img/win_buttons/x.png')
+
+include ./_locales.jade
+#parent_view
+  include ./_view.jade
+
+footer
+  .github
+    a
+      span#footer_help #{T.t('help')}
+      i.github.icon
+      | /DustinBlackman
+  .championify_version
+    span

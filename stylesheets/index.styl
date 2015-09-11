@@ -13,13 +13,6 @@ $text_color = #eeebeb
   src local('Lato Regular'), local('Lato-Regular'), url('../fonts/lato.woff2') format('woff2')
   unicode-range U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000
 
-@font-face
-  font-family 'Roboto'
-  font-style normal
-  font-weight 300
-  src local('Roboto Light'), local('Roboto-Light'), url('../fonts/roboto_light.woff2') format('woff2')
-  unicode-range U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000
-
 
 // Merge
 @import osx_buttons
@@ -36,30 +29,41 @@ body
   font-family 'Lato'
   overflow hidden
   user-select none
-  -webkit-app-region drag // @stylint ignore
 
 // Safety for when switching between OSX and Windows buttons
 header
   height 20px
-
-button
-  -webkit-app-region no-drag // @stylint ignore
-
-a
-  -webkit-app-region no-drag // @stylint ignore// @stylint ignore
-
+  -webkit-app-region drag // @stylint ignore
 
 // Helpers
 .hidden
   display none
 
-#main_container
-  position relative
-  top 5px
+// Locale selector
+.locale_selector
+  .ui.right.pointing.dropdown>.menu:after
+    top 5px
+
+  .item
+    -webkit-app-region no-drag // @stylint ignore// @stylint ignore
+
+  .ui.dropdown .menu
+    -webkit-app-region no-drag // @stylint ignore// @stylint ignore
+
+  .ui.dropdown .scrolling.menu, .ui.scrolling.dropdown .menu
+    max-height 400px
+    -webkit-app-region no-drag // @stylint ignore// @stylint ignore
+
+  -webkit-app-region no-drag // @stylint ignore// @stylint ignore
+  position absolute
+  top 3px
 
 // Banner
 .banner
+  position relative
   text-align center
+  top 5px
+  -webkit-app-region drag // @stylint ignore
 
 // Footer
 $footer_bottom = 2px
@@ -69,11 +73,10 @@ footer
   background-color $background_color
   bottom 0
   display block
-  height footer_bottom + 22px
+  height $footer_bottom + 20px
   position absolute
   width 100%
   z-index 10
-  -webkit-app-region no-drag // @stylint ignore
 
 .github
   bottom $footer_bottom

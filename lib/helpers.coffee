@@ -24,7 +24,7 @@ module.exports = {
 
     , (err, results) ->
       if err
-        window.log.error(err)
+        Log.error(err)
         return done(new Error(err))
 
       return done null, results
@@ -52,7 +52,7 @@ module.exports = {
    * @param {String} Console Message.
   ###
   cl: (text, level='info') ->
-    window.log[level](text)
+    Log[level](text)
     $('#cl_progress').prepend("<span>#{text}</span><br />")
 
 
@@ -95,9 +95,9 @@ module.exports = {
       consumables = _.clone(prebuilts.consumables, true)
       consumables.splice(1, 1) if _.contains(manaless, champ)
 
-      consumables_title = 'Consumables'
+      consumables_title = "#{T.t('consumables')}"
       if skills.mostFreq
-        consumables_title += " | Frequent: #{skills.mostFreq}"
+        consumables_title += " | #{T.t('frequent')}: #{skills.mostFreq}"
 
       consumables_block = {
         items: consumables
@@ -111,9 +111,9 @@ module.exports = {
 
     # Trinkets
     if window.cSettings.trinkets
-      trinkets_title = 'Trinkets'
+      trinkets_title = "#{T.t('trinkets')}"
       if skills.highestWin
-        trinkets_title += " | Wins: #{skills.highestWin}"
+        trinkets_title += " | #{T.t('wins')}: #{skills.highestWin}"
 
       trinkets_block = {
         items: prebuilts.trinketUpgrades

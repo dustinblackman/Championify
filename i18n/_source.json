@@ -1,0 +1,306 @@
+{
+  "adc": {
+    "msg": "ADC",
+    "done": true
+  },
+  "all": {
+    "msg": "All",
+    "done": true
+  },
+  "all_available": {
+    "msg": "Nothing! Everything is available!",
+    "done": true
+  },
+  "aram": {
+    "msg": "ARAM",
+    "done": true
+  },
+  "back": {
+    "msg": "Back",
+    "done": true
+  },
+  "beginning": {
+    "done": true,
+    "msg": "Beginning"
+  },
+  "browse": {
+    "done": true,
+    "msg": "Browse"
+  },
+  "cgg_version": {
+    "msg": "Getting Champion.gg Version",
+    "done": true
+  },
+  "champs": {
+    "msg": "Champs",
+    "done": true
+  },
+  "consumables": {
+    "msg": "Consumables",
+    "done": true
+  },
+  "delete": {
+    "done": true,
+    "msg": "Delete"
+  },
+  "deleting_old_builds": {
+    "msg": "Deleting Old Builds",
+    "done": true
+  },
+  "directory": {
+    "done": true,
+    "msg": "directory"
+  },
+  "done": {
+    "done": true,
+    "msg": "Done!"
+  },
+  "downloading": {
+    "msg": "Downloading",
+    "done": true
+  },
+  "downloading_champs": {
+    "msg": "Downloading Champs from Riot",
+    "done": true
+  },
+  "downloading_updates": {
+    "msg": "Downloading Updates...",
+    "done": true
+  },
+  "end": {
+    "done": true,
+    "msg": "End"
+  },
+  "error_1": {
+    "msg": "Did you try running as admin?",
+    "done": true
+  },
+  "error_2": {
+    "msg": "Or your antivirus/firewall is blocking Championify?",
+    "done": true
+  },
+  "error_3": {
+    "msg": "Internet on?",
+    "done": true
+  },
+  "error_4": {
+    "msg": "If not, I need your help in fixing and improving Championify! With your permission by hitting 'Upload Log' I can look over the log file and see what went wrong on your system. No personal information is ever sent. Thanks!",
+    "done": true
+  },
+  "extracting": {
+    "msg": "Extracting...",
+    "done": true
+  },
+  "failed": {
+    "msg": "Failed",
+    "done": true
+  },
+  "found": {
+    "done": true,
+    "msg": "Found"
+  },
+  "frequent": {
+    "msg": "Frequent",
+    "done": true
+  },
+  "games": {
+    "msg": "games",
+    "done": true
+  },
+  "help": {
+    "msg": "help",
+    "done": true
+  },
+  "highest_core": {
+    "msg": "Highest Core",
+    "done": true
+  },
+  "highest_start": {
+    "msg": "Highest Start",
+    "done": true
+  },
+  "highest_win": {
+    "msg": "Highest Win",
+    "done": true
+  },
+  "hw_core": {
+    "msg": "Highest Win % Core Build",
+    "done": true
+  },
+  "hw_starters": {
+    "msg": "Highest Win % Starters",
+    "done": true
+  },
+  "import": {
+    "done": true,
+    "msg": "Import"
+  },
+  "invalid_path": {
+    "done": true,
+    "msg": "Invalid Path"
+  },
+  "jungle": {
+    "msg": "Jungle",
+    "done": true
+  },
+  "lane": {
+    "msg": "Lane",
+    "done": true
+  },
+  "loading": {
+    "done": true,
+    "msg": "Loading..."
+  },
+  "lol_version": {
+    "msg": "Getting LoL Version",
+    "done": true
+  },
+  "mf_core": {
+    "msg": "Most Frequent Core Build",
+    "done": true
+  },
+  "mf_starters": {
+    "msg": "Most Frequent Starters",
+    "done": true
+  },
+  "middle": {
+    "msg": "Middle",
+    "done": true
+  },
+  "most_freq": {
+    "msg": "Most Frequent",
+    "done": true
+  },
+  "na": {
+    "msg": "Not Available",
+    "done": true
+  },
+  "options_consumables": {
+    "done": true,
+    "msg": "Enable Consumables"
+  },
+  "options_consumables_tooltip": {
+    "done": true,
+    "msg": "By disabling consumables, you'll lose the Highest Win % skill order"
+  },
+  "options_locksr": {
+    "done": true,
+    "msg": "Lock Summoner's Rift Item Sets To Map"
+  },
+  "options_locksr_tooltip": {
+    "done": true,
+    "msg": "Item sets meant for Summoners Rift will only be available on the Summoners Rift map."
+  },
+  "options_skillsformat": {
+    "done": true,
+    "msg": "Use Shorthand for Skill Order"
+  },
+  "options_skillsformat_tooltip": {
+    "done": true,
+    "msg": "Instead of"
+  },
+  "options_splititems": {
+    "done": true,
+    "msg": "Split Up Item Sets"
+  },
+  "options_splititems_tooltip": {
+    "done": true,
+    "msg": "Create separate item sets for Most Frequent and Highest Win %"
+  },
+  "options_trinkets": {
+    "done": true,
+    "msg": "Enable Trinkets"
+  },
+  "options_trinkets_tooltip": {
+    "done": true,
+    "msg": "By disabling trinkets, you'll lose the Most Frequent skill order"
+  },
+  "processing": {
+    "msg": "Processing",
+    "done": true
+  },
+  "processing_rift": {
+    "msg": "Processing Rift",
+    "done": true
+  },
+  "resetting_file_permission": {
+    "msg": "Resetting File Permissions",
+    "done": true
+  },
+  "select": {
+    "done": true,
+    "msg": "Select"
+  },
+  "select_folder": {
+    "msg": "You need to select your folder first!",
+    "done": true
+  },
+  "select_language": {
+    "msg": "Select Language",
+    "done": true
+  },
+  "select_position": {
+    "done": true,
+    "msg": "Select Position"
+  },
+  "sending": {
+    "msg": "Sending...",
+    "done": true
+  },
+  "sent": {
+    "msg": "Sent!",
+    "done": true
+  },
+  "something_broke": {
+    "msg": "Something broke...",
+    "done": true
+  },
+  "start_league": {
+    "msg": "Start League of Legends",
+    "done": true
+  },
+  "status": {
+    "done": true,
+    "msg": "Status"
+  },
+  "summoners_rift_source": {
+    "done": true,
+    "msg": "Summoners Rift Source"
+  },
+  "support": {
+    "msg": "Support",
+    "done": true
+  },
+  "sure_thats_league": {
+    "done": true,
+    "msg": "You sure that's League?"
+  },
+  "top": {
+    "msg": "Top",
+    "done": true
+  },
+  "trinkets": {
+    "msg": "Trinkets",
+    "done": true
+  },
+  "unknown": {
+    "done": true,
+    "msg": "Unknown"
+  },
+  "upload_log": {
+    "msg": "Upload Log",
+    "done": true
+  },
+  "version": {
+    "done": true,
+    "msg": "Version"
+  },
+  "welcome": {
+    "done": true,
+    "msg": "Welcome to Championify"
+  },
+  "wins": {
+    "msg": "Wins",
+    "done": true
+  }
+}
