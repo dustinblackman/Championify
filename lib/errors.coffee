@@ -21,6 +21,6 @@ _.each error_types, (error_name) ->
   errors[error_name] = ChampionifyError.subclass error_name, ->
     @type = error_name
     @ua = [os.platform(), os.release()].join(' ')
-    @locale = T.locale
+    @locale = T.locale or GLOBAL.T.locale
 
 module.exports = errors
