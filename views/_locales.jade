@@ -12,75 +12,99 @@ div.locale_selector(style= platform === 'win32' ? 'left: 10px;' : 'right: 3px;')
         i.world.icon
         span#select_language_text #{T.t('select_language')}
       .divider
+      //- List is sorted alphabetically first by English characters and then others.
       .item(data-value='en')
         i.gb.flag
-        | English  
-      .item(data-value='bg')
-        i.bg.flag
-        | Bulgarian
-      .item(data-value='zh-CN')
-        i.cn.flag
-        | Chinese Simplified
-      .item(data-value='zh-TW')
-        i.cn.flag
-        | Chinese Traditional
-      .item(data-value='cs')
+        | English
+      // Indonesian
+      .item(data-value='id') 
+        i.id.flag
+        | Bahasa Indonesia
+      // Czech
+      .item(data-value='cs') 
         i.cz.flag
-        | Czech
-      .item(data-value='nl')
-        i.nl.flag
-        | Dutch
+        | čeština
+      // German
+      .item(data-value='de') 
+        i.de.flag
+        | Deutsche
+      // Spanish
+      .item(data-value='es') 
+        i.es.flag
+        | Español
+      // French
       .item(data-value='fr')
         i.fr.flag
-        | French
-      .item(data-value='de')
-        i.de.flag
-        | German
-      .item(data-value='el')
-        i.gr.flag
-        | Greek
-      .item(data-value='he')
-        i.il.flag
-        | Hebrew
-      .item(data-value='hu')
-        i.hu.flag
-        | Hungarian
-      .item(data-value='id')
-        i.id.flag
-        | Indonesian
+        | Français
+      // Italian
       .item(data-value='it')
         i.it.flag
-        | Italian
-      .item(data-value='ja')
-        i.jp.flag
-        | Japanese
-      .item(data-value='ko')
-        i.kr.flag
-        | Korean
+        | Italiano
+      // Hungarian
+      .item(data-value='hu')
+        i.hu.flag
+        | Magyar
+      // Malay
       .item(data-value='ms')
         i.my.flag
-        | Malay
+        | Melayu
+      // Dutch
+      .item(data-value='nl')
+        i.nl.flag
+        | Nederlandse
+      // Polish
       .item(data-value='pl')
         i.pl.flag
-        | Polish
+        | Polskie
+      // Portuguese
       .item(data-value='pt')
         i.pt.flag
-        | Portuguese
+        | Português
+      // Romanian
       .item(data-value='ro')
         i.ro.flag
-        | Romanian
-      .item(data-value='ru')
-        i.ru.flag
-        | Russian
-      .item(data-value='es')
-        i.es.flag
-        | Spanish
-      .item(data-value='th')
-        i.th.flag
-        | Thai
-      .item(data-value='tr')
-        i.tr.flag
-        | Thurkish
+        | Român
+      // Vietnamese
       .item(data-value='vi')
         i.vn.flag
-        | Vietnamese
+        | Tiếng Việt
+      // Turkish
+      .item(data-value='tr') 
+        i.tr.flag
+        | Türk
+       // Bulgarian
+      .item(data-value='bg')
+        i.bg.flag
+        | български
+      // Chinese Simplified
+      .item(data-value='zh-CN')
+        i.cn.flag
+        | 中国简体
+      // Chinese Traditional
+      .item(data-value='zh-TW')
+        i.cn.flag
+        | 中國傳統
+      // Greek
+      .item(data-value='el')
+        i.gr.flag
+        | Ελληνική
+      // Hebrew
+      .item(data-value='he')
+        i.il.flag
+        | עברית
+      // Japanese
+      .item(data-value='ja')
+        i.jp.flag
+        | 日本語
+      // Korean
+      .item(data-value='ko')
+        i.kr.flag
+        | 한국어
+      // Russian
+      .item(data-value='ru')
+        i.ru.flag
+        | русский
+      // Thai
+      .item(data-value='th')
+        i.th.flag
+        | ภาษาไทย
