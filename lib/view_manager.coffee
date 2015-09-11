@@ -49,7 +49,7 @@ _viewChanger = (view, process, options={}) ->
 completeView = ->
   loadUnavailable = (done) ->
     if window.undefinedBuilds.length == 0
-      $('#not_available_log').append('<span>Nothing! You get all the builds!</span><br />')
+      $('#not_available_log').append("<span>#{T.t('all_available')}</span><br />")
     else
       _.each window.undefinedBuilds, (item) ->
         $('#not_available_log').append("<span>#{T.t(item.champ)}: #{T.t(item.position)}</span><br />")
@@ -98,7 +98,9 @@ _initSettings = ->
   $('#browse_title').text(window.browse_title)
   $('.championify_version > span').text("v#{pkg.version}")
 
+  # Setup flag/language menu
   $('#locale_flag').attr('class', "#{T.flag()} flag")
+  $('#select_language_text').text("#{T.t('select_language')}")
   $('#locals_select').find(".item[data-value='#{T.locale}']").addClass('active')
 
   # Remove any popups that may of stuck during view changes.

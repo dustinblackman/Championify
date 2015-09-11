@@ -130,17 +130,6 @@ saveToFile = (step, r) ->
 
 
 ###*
- * Function To output any champ/positions that were done due to timeouts or undefined builds.
- * @callback {Function} Callback.
-###
-notProcessed = (step) ->
-  _.each window.undefinedBuilds, (e) ->
-    cl "#{T.t('na')}: #{T.t(e.champ)} #{T.t(e.position)}", 'warn'
-
-  step()
-
-
-###*
  * Function Resave preferences with new local version
 ###
 resavePreferences = (step, r) ->
@@ -154,7 +143,7 @@ resavePreferences = (step, r) ->
 ###
 setWindowsPermissions = (step, r) ->
   if process.platform == 'win32' and optionsParser.runnedAsAdmin()
-    cl 'Resetting File Permissions'
+    cl "#{T.t('resetting_file_permission')}"
     champ_files = glob.sync(path.join(window.item_set_path, '**'))
     permissions.setWindowsPermissions(champ_files, step)
   else
@@ -185,7 +174,6 @@ downloadItemSets = (done) ->
     saveBuilds: ['deleteOldBuilds', saveToFile]
     resavePreferences: ['saveBuilds', resavePreferences]
     setPermissions: ['saveBuilds', setWindowsPermissions]
-    notProcessed: ['saveBuilds', notProcessed]
   }
 
   # Summoners Rift
@@ -202,7 +190,6 @@ downloadItemSets = (done) ->
   async.auto async_tasks, (err) ->
     return EndSession(err) if err
     hlp.updateProgressBar(10) # Just max it.
-    cl 'Looks like we\'re all done. Login and enjoy!'
     done()
 
 

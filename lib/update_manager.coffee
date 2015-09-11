@@ -128,7 +128,7 @@ majorUpdate = (version) ->
         return step(new cErrors.UpdateError('Can\'t write/download update file').causedBy(e)) if err
         step()
     (step) -> # Extract Tarball
-      $('#update_current_file').text('Extracting...')
+      $('#update_current_file').text("#{T.t('extracting')}")
       stream = fs.createReadStream(tar_path)
         .pipe(zlib.Gunzip())
         .pipe(tar.extract(update_path))

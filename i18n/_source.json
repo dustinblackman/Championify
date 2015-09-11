@@ -7,6 +7,10 @@
     "msg": "All",
     "done": true
   },
+  "all_available": {
+    "msg": "Nothing! Everything is available!",
+    "done": true
+  },
   "aram": {
     "msg": "ARAM",
     "done": true
@@ -25,6 +29,10 @@
   },
   "champs": {
     "msg": "Champs",
+    "done": true
+  },
+  "consumables": {
+    "msg": "Consumables",
     "done": true
   },
   "delete": {
@@ -67,9 +75,17 @@
     "msg": "If not, I need your help in fixing and improving Championify! With your permission by hitting 'Upload Log' I can look over the log file and see what went wrong on your system. No personal information is ever sent. Thanks!",
     "done": true
   },
+  "extracting": {
+    "msg": "Extracting...",
+    "done": true
+  },
   "found": {
     "done": true,
     "msg": "Found"
+  },
+  "frequent": {
+    "msg": "Frequent",
+    "done": true
   },
   "help": {
     "msg": "help",
@@ -147,9 +163,17 @@
     "msg": "Processing",
     "done": true
   },
+  "resetting_file_permission": {
+    "msg": "Resetting File Permissions",
+    "done": true
+  },
   "select": {
     "done": true,
     "msg": "Select"
+  },
+  "select_folder": {
+    "msg": "You need to select your folder first!",
+    "done": true
   },
   "select_language": {
     "msg": "Select Language",
@@ -187,6 +211,10 @@
     "msg": "Top",
     "done": true
   },
+  "trinkets": {
+    "msg": "Trinkets",
+    "done": true
+  },
   "unknown": {
     "done": true,
     "msg": "Unknown"
@@ -202,5 +230,9 @@
   "welcome": {
     "done": true,
     "msg": "Welcome to Championify"
+  },
+  "wins": {
+    "msg": "Wins",
+    "done": true
   }
 }

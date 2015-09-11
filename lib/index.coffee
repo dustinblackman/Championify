@@ -124,7 +124,7 @@ openFolder = ->
 ###
 selectFolderWarning = ->
   $('#input_msg').addClass('yellow')
-  $('#input_msg').text('You need to select your folder first!')
+  $('#input_msg').text("#{T.t('select_folder')}")
   $('#input_msg').transition('shake')
 
 
@@ -152,7 +152,7 @@ deleteItemSets = ->
   else
     # TODO: Verify if is Windows admin and can delete.
     championify.delete ->
-      $('#cl_progress > span').append('. Done!')
+      $('#cl_progress > span').append(". #{T.t('done')}")
     , true
 
 
