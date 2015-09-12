@@ -1,25 +1,10 @@
-sinon = require 'sinon'
-mockery = require 'mockery'
 should = require('chai').should()
 
-remoteStub = null
 hlp = null
 
 describe 'lib/helpers.coffee', ->
   before ->
-    mockery.enable({
-      warnOnReplace: false
-      warnOnUnregistered: false
-      useCleanCache: true
-    })
-
-    remoteStub = sinon.stub()
-    mockery.registerMock('remote', remoteStub)
     hlp = require '../lib/helpers'
-
-  after ->
-    mockery.disable()
-
 
   describe 'wins', ->
     it 'should return win precentage', (done) ->

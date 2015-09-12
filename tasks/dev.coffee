@@ -28,5 +28,5 @@ gulp.task 'run-watch', (cb) ->
 
   current_process = spawn(exec_path, ['.'], {'cwd': './dev'})
   current_process.on 'close', (code) ->
-    console.log('child process exited with code ' + code)
+    console.log("child process exited with code #{code}")
     process.exit(0)

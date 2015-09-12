@@ -6,6 +6,7 @@
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
     "istanbul": "./node_modules/.bin/gulp istanbul",
+    "appveyor": "./node_modules/.bin/gulp test --appveyor",
     "build": "./node_modules/.bin/gulp build",
     "postinstall": "./node_modules/.bin/gulp setup"
   },
@@ -45,6 +46,7 @@
     "coffeelint-no-trailing-commas": "1.0.2",
     "coffeelint-stylish": "0.1.2",
     "coveralls": "2.11.4",
+    "electron-mocha": "git://github.com/dustinblackman/electron-mocha.git#championify",
     "electron-prebuilt": "0.30.5",
     "github": "0.2.4",
     "google-translate": "1.0.0",
@@ -62,7 +64,6 @@
     "gulp-inno": "0.0.4",
     "gulp-jadelint": "0.1.0",
     "gulp-jsonlint": "1.1.0",
-    "gulp-mocha": "2.1.3",
     "gulp-shell": "0.4.2",
     "gulp-stylint": "2.0.0",
     "gulp-stylus": "2.0.3",
@@ -71,7 +72,6 @@
     "gulp-watch": "4.2.4",
     "htmlhint-stylish": "1.0.3",
     "istanbul": "0.3.19",
-    "mockery": "1.4.0",
     "moment": "2.10.6",
     "nib": "1.1.0",
     "plist": "1.1.0",
@@ -80,7 +80,6 @@
     "request": "2.57.0",
     "require-dir": "0.3.0",
     "run-sequence": "1.1.2",
-    "sinon": "1.16.1",
     "stylint": "1.2.2",
     "stylint-stylish": "1.2.0",
     "yauzl": "2.3.1"
