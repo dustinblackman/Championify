@@ -1,8 +1,11 @@
+argv = require('yargs').argv
 async = require 'async'
+crypto = require 'crypto'
 fs = require 'fs-extra'
 gulp = require 'gulp'
 GT = require('google-translate')(process.env.GOOGLE_TRANSLATE_API)
 path = require 'path'
+request = require 'request'
 _ = require 'lodash'
 
 supported_languages = [
@@ -47,7 +50,7 @@ gulp.task 'translate', (cb) ->
     else
       loc = {}
 
-    # Translate each phrase. # TODO: Possibly up concurrency if Google's API will allow it.
+    # Translate each phrase.
     async.eachLimit _.keys(_source), 10, (phrase_key, next) ->
       # If it's already been translated, and were not re-translating it when _source is false, then skip.
       return next() if loc[phrase_key] and _source[phrase_key]?.done
@@ -107,3 +110,28 @@ gulp.task 'translate', (cb) ->
         cb(err)
     else
       cb(err)
+
+# Download translations from Onesky. `gulp onesky --lang th`
+gulp.task 'onesky', (cb) ->
+  lang = argv.lang or argv.language
+  return cb(new Error('You need to define a locale to download')) if !lang
+
+  timestamp = Math.floor(Date.now() / 1000)
+  params = {
+    url: 'https://platform.api.onesky.io/1/projects/95440/translations'
+    headers: {'Content-Type': 'application/json'}
+    method: 'GET'
+    qs: {
+      timestamp: timestamp
+      dev_hash: crypto.createHash('md5').update(timestamp + process.env.ONESKY_PRIVATE).digest('hex')
+      api_key: process.env.ONESKY_PUBLIC
+      locale: lang
+      source_file_name: 'en.json'
+    }
+  }
+
+  request params, (err, res, body) ->
+    data = JSON.parse(body)
+    fs.writeFile "./i18n/#{lang}.json", JSON.stringify(data, null, 2), {encoding: 'utf8'}, (err) ->
+      console.log "Wrote ./i18n/#{lang}.json" if !err
+      return cb(err)

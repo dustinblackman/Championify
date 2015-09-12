@@ -82,6 +82,7 @@
     "run-sequence": "1.1.2",
     "stylint": "1.2.2",
     "stylint-stylish": "1.2.0",
+    "yargs": "3.24.0",
     "yauzl": "2.3.1"
   }
 }
