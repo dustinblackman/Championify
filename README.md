@@ -72,8 +72,28 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ---
 
+## BUT WAIT! I have a suggestion!
+Well that's great! Put up an Issue, hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
+
+## Contribute
+If you can code Coffeescript, feel free to make a pull request.
+Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue. :)
+
+#### Rules:
+- Must pass all tests. `npm test`
+- Must write tests for all new functions (look at current tests for examples, still a WIP).
+- Functions must be camel cased. `downloadStuff()`
+- Variables must be underscored. `my_champion = 'teemo'`
+
+I suggest making sure your linters are setup correctly, or run gulp lint every now and again.
+
+### Translations:
+I use a [Onesky](https://dustinblackman.oneskyapp.com/collaboration/project/95440) to manage all my translations, it's super easy, includes initial English text, screenshots, and lets everyone contribute! Check it out. Please prevent from putting translations in PRs, I'd rather keep those for code.
+
+---
+
 <a name="faq" />
-## FAQ
+## Frequently Asked Questions
 #### Be more descriptive, what does this actually do?
 Well it's easy really. Here's a link for [Teemo's most popular build in top lane](http://champion.gg/champion/Teemo) that Champion.gg has tracked. We take this information and save it in a way that League of Legends likes so you can have the exact builds in game!
 
@@ -137,23 +157,6 @@ Well damn, you must be pretty impatient if you think that's slow... The script i
 
 #### Why is the file size so big?
 I use Electron to wrap my GUI, and unfortunately it's a bit big. I'd rather the App just work then worry about size.
-
----
-
-## BUT WAIT! I have a suggestion!
-Well that's great! Put up an Issue, hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
-
-## Contribute
-If you can code Coffeescript, feel free to make a pull request.
-Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue. :)
-
-#### Rules:
-- Must pass all tests. `npm test`
-- Must write tests for all new functions (look at current tests for examples).
-- Functions must be camel cased. `downloadStuff()`
-- Variables must be underscored. `my_champion = 'teemo'`
-
-I suggest making sure your linters are setup correctly, or run gulp lint every now and again.
 
 ---
 
