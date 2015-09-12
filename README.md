@@ -1,4 +1,4 @@
-# Championify
+# Championify. Woo text.
 
 _Champion-If-Ayyy_
 
