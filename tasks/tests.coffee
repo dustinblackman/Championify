@@ -85,9 +85,9 @@ mochaWindows = (cb) ->
     fs.removeSync(options.env.EXITCODE_PATH)
     if code != 0
       if _.contains(process.argv, '--appveyor')
-        return cb('Mocha returned an error, and it\'s not displayed here because process spawning on Windows sucks balls. See if the error is happening on Travis-CI, otherwise run tests on a local windows system. https://travis-ci.org/dustinblackman/Championify/builds')
+        return cb(new Error('Mocha returned an error, and it\'s not displayed here because process spawning on Windows sucks balls. See if the error is happening on Travis-CI, otherwise run tests on a local windows system. https://travis-ci.org/dustinblackman/Championify/builds'))
 
-      cb("Mocha exited with code: #{code}")
+      cb(new Error("Mocha exited with code: #{code}"))
     else
       cb()
 
@@ -101,7 +101,7 @@ mochaOSX = (cb) ->
 
   em = spawn(electron_mocha, args, options)
   em.on 'close', (code) ->
-    return cb("Mocha exited with code: #{code}") if code != 0
+    return cb(new Error("Mocha exited with code: #{code}")) if code != 0
     cb()
 
 
