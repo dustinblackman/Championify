@@ -14,7 +14,15 @@ build: off
 platform:
   - x86
   - x64
+environment:
+  COVERALLS_SERVICE_NAME: appveyor
+  COVERALLS_REPO_TOKEN:
+    secure: QkxS7B6UiQysk6aWhKHQd+36lKw/6pvjC9+wF4v/2RiD5wvoWi0kZJFrHFKpvPOK
+  GITHUB_TOKEN:
+    secure: X/JCTitKeibH9uTyAKi7ED04LT0qACHJonHNCuHVnBHA/GQtsFeNQea21K6QrLYy
 test_script:
   - npm run appveyor
+on_success:
+  - '.\\coveralls.bat'
 cache:
   - node_modules

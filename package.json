@@ -5,7 +5,6 @@
   "main": "electron.coffee",
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
-    "istanbul": "./node_modules/.bin/gulp istanbul",
     "appveyor": "./node_modules/.bin/gulp test --appveyor",
     "build": "./node_modules/.bin/gulp build",
     "postinstall": "./node_modules/.bin/gulp setup"
