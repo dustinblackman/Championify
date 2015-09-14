@@ -93,7 +93,6 @@ describe 'lib/translate.coffee', ->
     try
       T = new Translate('blah')
     catch e
-      console.log(e)
       should.exist(e)
 
   describe 'each language', ->
