@@ -19,7 +19,7 @@ set = (preferences) ->
   return pathManager.findInstallPath() if !preferences
 
   # Load non-option preferences.
-  $('#local_version').text(preferences.local_is_version || "#{unknown}")
+  $('#local_version').text(preferences.local_is_version || "#{T.t('unknown')}")
 
   pathManager.checkInstallPath preferences.install_path, (err) ->
     if err

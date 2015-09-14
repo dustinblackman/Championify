@@ -25,4 +25,4 @@ test_script:
 on_success:
   - '.\\coveralls.bat'
 cache:
-  - node_modules
+  - node_modules -> package.json
