@@ -222,6 +222,9 @@ $(document).on 'click', '#upload_log', (e) ->
   uploadLog() if !log_uploaded
   log_uploaded = true
 
+$(document).on 'click', '#open_log', (e) ->
+  open path.join(preferences.directory(), 'championify.log')
+
 $(document).on 'click', '#import_btn', ->
   importItemSets(viewManager.complete)
 

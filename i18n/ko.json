@@ -43,6 +43,7 @@
   "middle": "중간",
   "most_freq": "가장 빈번한",
   "na": "사용 불가",
+  "open_log": "로그 열기",
   "options_consumables": "소모품 사용",
   "options_consumables_tooltip": "소모품을 사용하지 않도록 설정하면 최고 승률 스킬 순서를 잃게됩니다",
   "options_locksr": "잠금 소환사의 리프트 항목 MAP으로 설정",
