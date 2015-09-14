@@ -89,6 +89,13 @@ describe 'lib/translate.coffee', ->
     catch e
       should.exist(e)
 
+  it 'should throw an error when a language doesn\'t exist', ->
+    try
+      T = new Translate('blah')
+    catch e
+      console.log(e)
+      should.exist(e)
+
   describe 'each language', ->
     it 'should return the correct Riot locale', ->
       _.each riot_locales, (riot_locale, locale) ->

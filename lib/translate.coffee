@@ -1,13 +1,15 @@
 cErrors = require './errors'
+fs = require 'fs'
 path = require 'path'
 _ = require 'lodash'
 
 module.exports = class Translate
   constructor: (locale) ->
     @locale = locale
-    @phrases = require path.join(__dirname, "../i18n/#{locale}.json")
 
-    throw new cErrors.OperationalError("#{lang} does not exist in i18n folder") if !@phrases
+    i18n_path = path.join(__dirname, "../i18n/#{locale}.json")
+    throw new cErrors.OperationalError("#{locale} does not exist in i18n folder") if !fs.existsSync(i18n_path)
+    @phrases = require i18n_path
 
   # Translate
   t: (phrase) ->
