@@ -24,5 +24,5 @@ test_script:
   - npm run appveyor
 on_success:
   - '.\\coveralls.bat'
-cache:
-  - node_modules -> package.json
+# cache:
+#   - node_modules -> package.json
