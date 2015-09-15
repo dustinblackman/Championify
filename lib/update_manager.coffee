@@ -3,8 +3,9 @@ app = remote.require('app')
 async = require 'async'
 exec = require('child_process').exec
 fs = require 'fs-extra'
-https = require('follow-redirects').https
 path = require 'path'
+progress = require 'request-progress'
+request = require 'request'
 tar = require 'tar-fs'
 zlib = require 'zlib'
 _ = require 'lodash'
@@ -49,30 +50,21 @@ versionCompare = (left, right) ->
  * @callback {Function} Callback.
 ###
 download = (url, download_path, done) ->
-  download_precentage = 0
-
   try
     file = fs.createWriteStream(download_path)
   catch e
     return done(err)
 
-  https.get url, (res) ->
-    len = parseInt(res.headers['content-length'], 10)
-    downloaded = 0
-
-    res.pipe file
-    res.on 'data', (chunk) ->
-      downloaded += chunk.length
-      current_precentage = parseInt(100.0 * downloaded / len)
-
-      if current_precentage > download_precentage
-        download_precentage = current_precentage
-        hlp.incrUIProgressBar('update_progress_bar', download_precentage)
-
-    file.on 'error', (err) ->
-      return done(err)
-
-    file.on 'finish', ->
+  last_percent = 0
+  progress(request(url), {throttle: 500})
+    .on 'progress', (state) ->
+      if state.percent > last_percent
+        last_percent = state.percent
+        hlp.incrUIProgressBar('update_progress_bar', last_percent)
+    .on 'error', (err) -> return done(err)
+    .pipe(file)
+    .on 'error', (err) -> return done(err)
+    .on 'close', ->
       file.close()
       done()
 
@@ -280,7 +272,6 @@ check = (done) ->
   hlp.ajaxRequest url, (err, data) ->
     return EndSession(new cErrors.AjaxError('Can\'t access Github package.json').causedBy(err)) if err
 
-    data = JSON.parse(data)
     if versionCompare(data.devDependencies['electron-prebuilt'], process.versions.electron) == 1
       return done(data.version, true)
     else if versionCompare(data.version, pkg.version) == 1
