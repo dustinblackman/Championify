@@ -9,9 +9,9 @@ ChampionifyError = SuperError.subclass('ChampionifyError')
 errors = {ChampionifyError: ChampionifyError}
 
 error_types = [
-  'AjaxError'
   'FileWriteError'
   'OperationalError'
+  'RequestError'
   'TranslationError'
   'UncaughtException'
   'UpdateError'

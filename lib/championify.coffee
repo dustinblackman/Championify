@@ -38,7 +38,7 @@ getSettings = (step) ->
 getRiotVer = (step, r) ->
   cl "#{T.t('lol_version')}" if r
   hlp.request 'https://ddragon.leagueoflegends.com/realms/na.json', (err, body) ->
-    return step(new cErrors.AjaxError('Can\'t get Riot Version').causedBy(err)) if err
+    return step(new cErrors.RequestError('Can\'t get Riot Version').causedBy(err)) if err
 
     step null, body.v
 
@@ -50,7 +50,7 @@ getRiotVer = (step, r) ->
 getChamps = (step, r) ->
   cl "#{T.t('downloading_champs')}"
   hlp.request "http://ddragon.leagueoflegends.com/cdn/#{r.riotVer}/data/#{T.riotLocale()}/champion.json", (err, body) ->
-    return step(new cErrors.AjaxError('Can\'t get Champs').causedBy(err)) if err
+    return step(new cErrors.RequestError('Can\'t get Champs').causedBy(err)) if err
 
     # Save translated champ names
     translated_champs = _.mapValues body.data, (data) -> return data.name

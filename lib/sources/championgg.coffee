@@ -1,4 +1,5 @@
 async = require 'async'
+cErrors = require '../errors'
 cheerio = require 'cheerio'
 _ = require 'lodash'
 
@@ -21,7 +22,7 @@ champData = {}
 getVersion = (step, r) ->
   cl "#{T.t('cgg_version')}" if r
   hlp.request 'http://champion.gg/faq/', (err, body) ->
-    return step(new cErrors.AjaxError('Can\'t get Champion.GG Version').causedBy(err)) if err
+    return step(new cErrors.RequestError('Can\'t get Champion.GG Version').causedBy(err)) if err
 
     $c = cheerio.load(body)
     window.champGGVer = $c(csspaths.version).text()
