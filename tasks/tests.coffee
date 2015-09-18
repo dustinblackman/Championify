@@ -87,6 +87,7 @@ mochaWindows = (cb) ->
 
     if _.contains(process.argv, '--appveyor')
       mocha_log = fs.readFileSync(options.env.MOCHA_LOG, 'utf8')
+      console.log('*** MOCHA OUTPUT ***')
       console.log(mocha_log)
 
     if code != 0
