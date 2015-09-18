@@ -15,7 +15,7 @@ module.exports = {
    * @param {String} URL
    * @callback {Function} Callback
   ###
-  ajaxRequest: (url, done) ->
+  request: (url, done) ->
     async.retry 3, (step) ->
       options = {
         timeout: 10000

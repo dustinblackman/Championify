@@ -269,7 +269,7 @@ winMajor = (install_path, update_path) ->
 ###
 check = (done) ->
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
-  hlp.ajaxRequest url, (err, data) ->
+  hlp.request url, (err, data) ->
     return EndSession(new cErrors.AjaxError('Can\'t access Github package.json').causedBy(err)) if err
 
     if versionCompare(data.devDependencies['electron-prebuilt'], process.versions.electron) == 1

@@ -20,7 +20,7 @@ champData = {}
 ###
 getVersion = (step, r) ->
   cl "#{T.t('cgg_version')}" if r
-  hlp.ajaxRequest 'http://champion.gg/faq/', (err, body) ->
+  hlp.request 'http://champion.gg/faq/', (err, body) ->
     return step(new cErrors.AjaxError('Can\'t get Champion.GG Version').causedBy(err)) if err
 
     $c = cheerio.load(body)
@@ -80,7 +80,7 @@ requestPage = (request_params, step) ->
   else
     cl "#{T.t('processing_rift')}: #{T.t(champ)}"
 
-  hlp.ajaxRequest url, (err, body) ->
+  hlp.request url, (err, body) ->
     Log.warn(err) if err
     if err or _.contains(body, 'We\'re currently in the process of generating stats for')
       window.undefinedBuilds.push({champ: champ, position: 'All'})
