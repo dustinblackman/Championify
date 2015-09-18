@@ -32,10 +32,7 @@ module.exports = {
         step null, body
 
     , (err, results) ->
-      if err
-        Log.error(err)
-        return done(new Error(err))
-
+      return done(err) if err
       return done null, results
 
 
