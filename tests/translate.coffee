@@ -56,14 +56,12 @@ flags = {
   'zh-TW': 'cn'
 }
 
-
-T = null
 count = null
 
 describe 'lib/translate.coffee', ->
   before ->
-    T = new Translate('ko')
-    GLOBAL.T = T
+    window.T = new Translate('ko')
+
     # Minus _source
     count = glob.sync('./i18n/*.json').length - 1
 

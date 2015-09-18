@@ -70,6 +70,7 @@ gulp.task 'lint', (cb) ->
 
 mochaWindows = (cb) ->
   options = {stdio: [process.stdin, process.stdout, process.stderr], env: process.env}
+  options.env.NODE_ENV = 'test'
   options.env.ELECTRON_PATH = "#{path.resolve('./node_modules/.bin/electron')}.cmd"
   options.env.EXITCODE_PATH = path.join process.cwd(), 'exit.code'
   options.env.MOCHA_LOG = path.join(__dirname, '..', 'mocha.log')
@@ -96,10 +97,12 @@ mochaWindows = (cb) ->
 
 mochaOSX = (cb) ->
   options = {stdio: [process.stdin, process.stdout, process.stderr], env: process.env}
+  options.env.NODE_ENV = 'test'
   options.env.ELECTRON_PATH = path.resolve('./node_modules/.bin/electron')
+  options.env.MOCHA_LOG = path.join(__dirname, '..', 'mocha.log')
 
   electron_mocha = path.resolve('./node_modules/.bin/electron-mocha')
-  args = ['--require', './helpers/register-istanbul.js', '--renderer', './tests/']
+  args = ['--require', './helpers/register-istanbul.js', '--renderer', '--recursive', './tests/']
 
   em = spawn(electron_mocha, args, options)
   em.on 'close', (code) ->

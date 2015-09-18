@@ -67,6 +67,8 @@ module.exports = {
    * @param {Number} Increment progress bar.
   ###
   updateProgressBar: (incr) ->
+    return if process.env.NODE_ENV == 'test'
+
     @incr = 0 if !@incr or incr == true
     @incr += incr
 
