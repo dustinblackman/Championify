@@ -21,14 +21,11 @@ describe 'i18n', ->
 
 
   describe 'each locale', ->
-    it 'should have the same length of keys as _source', (done) ->
+    it 'should have the same length of keys as _source', ->
       _.each _.keys(locales), (locale) ->
         _.keys(locales[locale]).length.should.equal(keys_count)
-      done()
 
-    it 'should contain the same keys as _source', (done) ->
+    it 'should contain the same keys as _source', ->
       _.each _.keys(_source), (key) ->
         _.each _.keys(locales), (locale) ->
           expect(locales[locale][key]).to.exist
-
-      done()
