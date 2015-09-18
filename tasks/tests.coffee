@@ -69,16 +69,13 @@ gulp.task 'lint', (cb) ->
 
 
 mochaWindows = (cb) ->
-  # TODO: Fix so Mocha results are shown in Appveyor.
-  if _.contains(process.argv, '--appveyor')
-    console.log('Note: You can\'t see Mocha test results in AppVeyor due to how Windows spawns processes.')
-
   options = {stdio: [process.stdin, process.stdout, process.stderr], env: process.env}
   options.env.ELECTRON_PATH = "#{path.resolve('./node_modules/.bin/electron')}.cmd"
   options.env.EXITCODE_PATH = path.join process.cwd(), 'exit.code'
+  options.env.MOCHA_LOG = path.join(__dirname, '..', 'mocha.log')
 
   cmd = "#{path.resolve('./node_modules/.bin/electron-mocha')}.cmd"
-  args = ['--require', './helpers/register-istanbul.js', '--renderer', './/tests//']
+  args = ['--require', '.\\helpers\\register-istanbul.js', '--renderer', '.\\tests\\']
 
   fs.removeSync(options.env.EXITCODE_PATH) if fs.existsSync(options.env.EXITCODE_PATH)
 
@@ -86,10 +83,12 @@ mochaWindows = (cb) ->
   em.on 'close', (code) ->
     code = parseInt(fs.readFileSync(options.env.EXITCODE_PATH, 'utf8'))
     fs.removeSync(options.env.EXITCODE_PATH)
-    if code != 0
-      if _.contains(process.argv, '--appveyor')
-        return cb(new Error('Mocha returned an error, and it\'s not displayed here because process spawning on Windows sucks balls. See if the error is happening on Travis-CI, otherwise run tests on a local windows system. https://travis-ci.org/dustinblackman/Championify/builds'))
 
+    if _.contains(process.argv, '--appveyor')
+      mocha_log = fs.readFileSync(options.env.MOCHA_LOG, 'utf8')
+      console.log(mocha_log)
+
+    if code != 0
       cb(new Error("Mocha exited with code: #{code}"))
     else
       cb()
