@@ -6,15 +6,12 @@ glob = require 'glob'
 path = require 'path'
 _ = require 'lodash'
 
-_source = null
-keys_count = null
+_source = require '../i18n/_source.json'
+keys_count = _.keys(_source).length
 locales = {}
 
 describe 'i18n', ->
   before ->
-    _source = require '../i18n/_source.json'
-    keys_count = _.keys(_source).length
-
     locales_files = glob.sync './i18n/*.json'
     locales_files.shift()
 
