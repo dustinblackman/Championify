@@ -73,7 +73,10 @@ mochaWindows = (cb) ->
   options.env.NODE_ENV = 'test'
   options.env.ELECTRON_PATH = "#{path.resolve('./node_modules/.bin/electron')}.cmd"
   options.env.EXITCODE_PATH = path.join process.cwd(), 'exit.code'
-  options.env.MOCHA_LOG = path.join(__dirname, '..', 'mocha.log')
+  # options.env.MOCHA_LOG = path.join(__dirname, '..', 'mocha.log')
+
+  if _.contains(process.argv, '--appveyor')
+    console.log('Note: You can\'t see Mocha test results in AppVeyor due to how Windows spawns processes.')
 
   cmd = "#{path.resolve('./node_modules/.bin/electron-mocha')}.cmd"
   args = ['--require', '.\\helpers\\register-istanbul.js', '--renderer', '.\\tests\\']
@@ -85,12 +88,10 @@ mochaWindows = (cb) ->
     code = parseInt(fs.readFileSync(options.env.EXITCODE_PATH, 'utf8'))
     fs.removeSync(options.env.EXITCODE_PATH)
 
-    if _.contains(process.argv, '--appveyor')
-      mocha_log = fs.readFileSync(options.env.MOCHA_LOG, 'utf8')
-      console.log('*** MOCHA OUTPUT ***')
-      console.log(mocha_log)
-
     if code != 0
+      if _.contains(process.argv, '--appveyor')
+        return cb(new Error('Mocha returned an error, and it\'s not displayed here because process spawning on Windows sucks balls. See if the error is happening on Travis-CI, otherwise run tests on a local windows system. https://travis-ci.org/dustinblackman/Championify/builds'))
+
       cb(new Error("Mocha exited with code: #{code}"))
     else
       cb()
@@ -100,7 +101,7 @@ mochaOSX = (cb) ->
   options = {stdio: [process.stdin, process.stdout, process.stderr], env: process.env}
   options.env.NODE_ENV = 'test'
   options.env.ELECTRON_PATH = path.resolve('./node_modules/.bin/electron')
-  options.env.MOCHA_LOG = path.join(__dirname, '..', 'mocha.log')
+  # options.env.MOCHA_LOG = path.join(__dirname, '..', 'mocha.log')
 
   electron_mocha = path.resolve('./node_modules/.bin/electron-mocha')
   args = ['--require', './helpers/register-istanbul.js', '--renderer', '--recursive', './tests/']
