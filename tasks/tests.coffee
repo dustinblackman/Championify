@@ -79,7 +79,7 @@ mochaWindows = (cb) ->
     console.log('Note: You can\'t see Mocha test results in AppVeyor due to how Windows spawns processes.')
 
   cmd = "#{path.resolve('./node_modules/.bin/electron-mocha')}.cmd"
-  args = ['--require', '.\\helpers\\register-istanbul.js', '--renderer', '.\\tests\\']
+  args = ['--require', '.\\helpers\\register-istanbul.js', '--renderer', '--recursive', '.\\tests\\']
 
   fs.removeSync(options.env.EXITCODE_PATH) if fs.existsSync(options.env.EXITCODE_PATH)
 
