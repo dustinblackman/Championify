@@ -175,6 +175,10 @@
     "msg": "Not Available",
     "done": true
   },
+  "open_log": {
+    "msg": "Open Log",
+    "done": true
+  },
   "options_consumables": {
     "done": true,
     "msg": "Enable Consumables"

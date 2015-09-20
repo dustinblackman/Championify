@@ -6,7 +6,7 @@ os: Windows Server 2012 R2
 install:
   - systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"
   - ps: Install-Product node 2.3.1
-  - npm install -g npm
+  - npm install -g npm@2.14.4
   - npm install || Echo First NPM install failed && npm install
   - node -v
   - npm -v
@@ -24,5 +24,5 @@ test_script:
   - npm run appveyor
 on_success:
   - '.\\coveralls.bat'
-cache:
-  - node_modules -> package.json
+# cache:
+#   - node_modules -> package.json

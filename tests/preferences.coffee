@@ -1,12 +1,9 @@
 path = require 'path'
 should = require('chai').should()
 
-preferences = null
+preferences = require '../lib/preferences'
 
 describe 'lib/preferences.coffee', ->
-  before ->
-    preferences = require '../lib/preferences'
-
   describe 'directory', ->
     it 'should return the preferences directory depending on the platform', ->
       if process.platform == 'darwin'

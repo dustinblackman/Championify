@@ -1,6 +1,7 @@
 async = require 'async'
 path = require 'path'
 remote = require 'remote'
+request = require 'request'
 _ = require 'lodash'
 
 cErrors = require './errors'
@@ -14,19 +15,24 @@ module.exports = {
    * @param {String} URL
    * @callback {Function} Callback
   ###
-  ajaxRequest: (url, done) ->
+  request: (url, done) ->
     async.retry 3, (step) ->
-      $.ajax({url: url, timeout: 10000})
-        .fail (err) ->
-          return step err
-        .done (body) ->
-          step null, body
+      options = {
+        timeout: 10000
+        url: url
+      }
+      request options, (err, res, body) ->
+        return step(err) if err
+
+        if _.contains(res.headers?['content-type'], 'text/json') or _.contains(url, '.json')
+          try
+            body = JSON.parse(body)
+          catch e
+            # Do nothing
+        step null, body
 
     , (err, results) ->
-      if err
-        Log.error(err)
-        return done(new Error(err))
-
+      return done(err) if err
       return done null, results
 
 
@@ -61,6 +67,8 @@ module.exports = {
    * @param {Number} Increment progress bar.
   ###
   updateProgressBar: (incr) ->
+    return if process.env.NODE_ENV == 'test'
+
     @incr = 0 if !@incr or incr == true
     @incr += incr
 

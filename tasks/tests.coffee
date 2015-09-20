@@ -69,16 +69,17 @@ gulp.task 'lint', (cb) ->
 
 
 mochaWindows = (cb) ->
-  # TODO: Fix so Mocha results are shown in Appveyor.
+  options = {stdio: [process.stdin, process.stdout, process.stderr], env: process.env}
+  options.env.NODE_ENV = 'test'
+  options.env.ELECTRON_PATH = "#{path.resolve('./node_modules/.bin/electron')}.cmd"
+  options.env.EXITCODE_PATH = path.join process.cwd(), 'exit.code'
+  # options.env.MOCHA_LOG = path.join(__dirname, '..', 'mocha.log')
+
   if _.contains(process.argv, '--appveyor')
     console.log('Note: You can\'t see Mocha test results in AppVeyor due to how Windows spawns processes.')
 
-  options = {stdio: [process.stdin, process.stdout, process.stderr], env: process.env}
-  options.env.ELECTRON_PATH = "#{path.resolve('./node_modules/.bin/electron')}.cmd"
-  options.env.EXITCODE_PATH = path.join process.cwd(), 'exit.code'
-
   cmd = "#{path.resolve('./node_modules/.bin/electron-mocha')}.cmd"
-  args = ['--require', './helpers/register-istanbul.js', '--renderer', './/tests//']
+  args = ['--require', '.\\helpers\\register-istanbul.js', '--renderer', '.\\tests\\']
 
   fs.removeSync(options.env.EXITCODE_PATH) if fs.existsSync(options.env.EXITCODE_PATH)
 
@@ -86,6 +87,7 @@ mochaWindows = (cb) ->
   em.on 'close', (code) ->
     code = parseInt(fs.readFileSync(options.env.EXITCODE_PATH, 'utf8'))
     fs.removeSync(options.env.EXITCODE_PATH)
+
     if code != 0
       if _.contains(process.argv, '--appveyor')
         return cb(new Error('Mocha returned an error, and it\'s not displayed here because process spawning on Windows sucks balls. See if the error is happening on Travis-CI, otherwise run tests on a local windows system. https://travis-ci.org/dustinblackman/Championify/builds'))
@@ -97,10 +99,12 @@ mochaWindows = (cb) ->
 
 mochaOSX = (cb) ->
   options = {stdio: [process.stdin, process.stdout, process.stderr], env: process.env}
+  options.env.NODE_ENV = 'test'
   options.env.ELECTRON_PATH = path.resolve('./node_modules/.bin/electron')
+  # options.env.MOCHA_LOG = path.join(__dirname, '..', 'mocha.log')
 
   electron_mocha = path.resolve('./node_modules/.bin/electron-mocha')
-  args = ['--require', './helpers/register-istanbul.js', '--renderer', './tests/']
+  args = ['--require', './helpers/register-istanbul.js', '--renderer', '--recursive', './tests/']
 
   em = spawn(electron_mocha, args, options)
   em.on 'close', (code) ->

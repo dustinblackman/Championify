@@ -90,14 +90,6 @@ mainViewBack = ->
  * Function Initial view with settings
 ###
 _initSettings = ->
-  if process.platform == 'darwin'
-    window.browse_title = "#{T.t('select')} League of Legends.app"
-  else
-    window.browse_title = "#{T.t('select')} League of Legends #{T.t('directory')}"
-
-  $('#browse_title').text(window.browse_title)
-  $('.championify_version > span').text("v#{pkg.version}")
-
   # Setup flag/language menu
   $('#locale_flag').attr('class', "#{T.flag()} flag")
   $('#select_language_text').text("#{T.t('select_language')}")
@@ -151,7 +143,11 @@ _initSettings = ->
 
 
 init = (done) ->
-  options = {platform: process.platform}
+  if process.platform == 'darwin'
+    window.browse_title = "#{T.t('select')} League of Legends.app"
+  else
+    window.browse_title = "#{T.t('select')} League of Legends #{T.t('directory')}"
+  options = {platform: process.platform, version: pkg.version}
 
   html = jade.renderFile path.resolve(path.join(__dirname, '../views/index.jade')), options
   $('#body').html(html).promise().done ->

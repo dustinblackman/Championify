@@ -13,7 +13,7 @@ cl = hlp.cl
  * @callback {Function} Callback.
 ###
 _requestAvailableChamps = (process_name, stats_file, done) ->
-  hlp.ajaxRequest "http://www.lolflavor.com/data/#{stats_file}", (err, body) ->
+  hlp.request "http://www.lolflavor.com/data/#{stats_file}", (err, body) ->
     # Some antivirus' don't like lolfavor. Skip all ARAM builds if so and log error.
     if err
       Log.warn(err)
@@ -37,7 +37,7 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
     cl "#{T.t('processing')} #{T.t(process_name)}: #{T.t(champ)}"
 
     url = "http://www.lolflavor.com/champions/#{champ}/Recommended/#{champ}_#{process_name.toLowerCase()}_scrape.json"
-    hlp.ajaxRequest url, (err, data) ->
+    hlp.request url, (err, data) ->
       if err
         Log.warn(err)
         window.undefinedBuilds.push({champ: champ, position: process_name})
@@ -108,7 +108,7 @@ summonersRift = (step, r) ->
  * @callback {Function} Callback.
 ###
 getVersion = (step) ->
-  hlp.ajaxRequest 'http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', (err, body) ->
+  hlp.request 'http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', (err, body) ->
     return step(null, "#{T.t('unknown')}") if (err)
 
     version = body.title.split(' ')[3]

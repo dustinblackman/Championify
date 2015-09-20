@@ -43,6 +43,7 @@
   "middle": "Middle",
   "most_freq": "Most Frequent",
   "na": "Not Available",
+  "open_log": "Open Log",
   "options_consumables": "Enable Consumables",
   "options_consumables_tooltip": "By disabling consumables, you'll lose the Highest Win % skill order",
   "options_locksr": "Lock Summoner's Rift Item Sets To Map",

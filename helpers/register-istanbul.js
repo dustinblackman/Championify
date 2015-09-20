@@ -6,11 +6,27 @@ var coffeeCoverage = require('coffee-coverage');
 var coverageVar = coffeeCoverage.findIstanbulVariable();
 var writeOnExit = coverageVar == null ? true : null;
 
+var ignore_list = [
+  '/.git',
+  '/bower_components',
+  '/cache',
+  '/dev',
+  '/helpers',
+  '/node_modules',
+  '/releases',
+  '/resources',
+  '/tasks',
+  '/test',
+  '/tests',
+  'electron.coffee',
+  'gulpfile.coffee'
+];
+
 coffeeCoverage.register({
     instrumentor: 'istanbul',
     basePath: process.cwd(),
-    exclude: ['/test', '/node_modules', '/.git', '/tasks', '/bower_components', '/cache', '/dev', '/releases', '/tests', '/resources', '/helpers', 'electron.coffee', 'gulpfile.coffee'],
+    exclude: ignore_list,
     coverageVar: coverageVar,
-    writeOnExit: writeOnExit ? ((_ref = process.env.COFFEECOV_OUT) != null ? _ref : 'coverage/coverage-coffee.json') : null,
+    writeOnExit: 'coverage/coverage-coffee.json',
     initAll: (_ref = process.env.COFFEECOV_INIT_ALL) != null ? (_ref === 'true') : true
 });

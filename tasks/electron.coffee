@@ -5,9 +5,9 @@ fs = require 'fs-extra'
 gulp = require 'gulp'
 gulpif = require 'gulp-if'
 gutil = require 'gulp-util'
-https = require('follow-redirects').https
 mkdirp = require 'mkdirp'
 path = require 'path'
+request = require 'request'
 runSequence = require 'run-sequence'
 shell = require 'gulp-shell'
 uglify = require 'gulp-uglify'
@@ -114,11 +114,10 @@ download = (url, download_path, done) ->
   catch e
     done(e)
 
-  https.get url, (res) ->
-    res.pipe file
-    file.on 'error', (err) ->
-      done(err)
-    file.on 'finish', ->
+  request(url)
+    .pipe(file)
+    .on 'error', (err) -> return done(err)
+    .on 'close', ->
       file.close()
       done()
 

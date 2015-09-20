@@ -56,14 +56,12 @@ flags = {
   'zh-TW': 'cn'
 }
 
-
-T = null
 count = null
 
 describe 'lib/translate.coffee', ->
   before ->
-    T = new Translate('ko')
-    GLOBAL.T = T
+    window.T = new Translate('ko')
+
     # Minus _source
     count = glob.sync('./i18n/*.json').length - 1
 
@@ -86,6 +84,12 @@ describe 'lib/translate.coffee', ->
   it 'should throw an error when a phrase doesn\'t exist', ->
     try
       T.t('blahblah')
+    catch e
+      should.exist(e)
+
+  it 'should throw an error when a language doesn\'t exist', ->
+    try
+      T = new Translate('blah')
     catch e
       should.exist(e)
 
