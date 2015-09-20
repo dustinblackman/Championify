@@ -58,6 +58,9 @@ parseGGData = ($c) ->
  * @callback {Function} Callback.
 ###
 requestChamps = (step, r) ->
+  # Reset champData
+  champData = {}
+  
   async.eachLimit r.champs, 2, (champ, next) ->
     hlp.updateProgressBar(90 / r.champs.length)
     requestPage {champ: champ, manaless: r.manaless}, ->
