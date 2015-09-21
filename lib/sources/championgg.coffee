@@ -1,6 +1,8 @@
 async = require 'async'
 cErrors = require '../errors'
 cheerio = require 'cheerio'
+escodegen = require 'escodegen'
+esprima = require 'esprima'
 _ = require 'lodash'
 
 hlp = require '../helpers'
@@ -35,21 +37,18 @@ getVersion = (step, r) ->
  * @returns {Object} Object containing Champion data.
 ###
 parseGGData = ($c) ->
-  data = $c('script:contains("matchupData.")').text()
-  data = data.replace(/;/g, '')
+  parsed_data = {}
 
-  processed = {}
+  script_tag = $c('script:contains("matchupData.")').text()
+  script_tag = esprima.parse(script_tag)
 
-  query = _.template('matchupData.<%= q %> = ')
-  _.each data.split('\n'), (line) ->
-    _.each ['championData', 'champion'], (field) ->
-      search = query({q: field})
+  _.each script_tag.body, (line) ->
+    var_name = line.expression.left.property.name
+    if _.contains(['championData', 'champion'], var_name)
+      data = escodegen.generate(line.expression.right, {format: {json: true}})
+      parsed_data[var_name] = JSON.parse(data)
 
-      if _.includes(line, search)
-        line = line.replace(search, '')
-        processed[field] = JSON.parse(line)
-
-  return processed
+  return parsed_data
 
 
 ###*
@@ -60,7 +59,7 @@ parseGGData = ($c) ->
 requestChamps = (step, r) ->
   # Reset champData
   champData = {}
-  
+
   async.eachLimit r.champs, 2, (champ, next) ->
     hlp.updateProgressBar(90 / r.champs.length)
     requestPage {champ: champ, manaless: r.manaless}, ->
