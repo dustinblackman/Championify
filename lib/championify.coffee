@@ -1,6 +1,8 @@
 async = require 'async'
 cheerio = require 'cheerio'
+fs = require 'fs-extra'
 glob = require 'glob'
+path = require 'path'
 _ = require 'lodash'
 
 hlp = require './helpers'
@@ -30,6 +32,18 @@ getSettings = (step) ->
   window.cSettings = preferences.get().options
   preferences.save step
 
+
+###*
+ * Function Clears electrons cache if it exists.
+ * @callback {Function} Callback.
+###
+clearCache = (step) ->
+  cache_directory = path.join preferences.directory(), 'Cache'
+  if fs.existsSync(cache_directory)
+    fs.remove cache_directory, (err) ->
+      step(err)
+  else
+    step()
 
 ###*
  * Function Gets the latest Riot Version.
@@ -160,8 +174,9 @@ downloadItemSets = (done) ->
   async_tasks = {
     # Default
     settings: getSettings
+    clearCache: clearCache,
     championTest: ['settings', permissions.championTest]
-    riotVer: ['championTest', getRiotVer]
+    riotVer: ['clearCache', 'championTest', getRiotVer]
     champs_json: ['riotVer', getChamps]
     champs: ['champs_json', champNames]
     manaless: ['champs_json', genManaless]
