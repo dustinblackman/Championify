@@ -11,7 +11,7 @@ championgg = require '../../lib/sources/championgg'
 nocked = null
 
 RESPONSES_FIXTURES = {
-  champions: JSON.parse fs.readFileSync(path.join(__dirname, '../fixtures/champions.json'))
+  champions: JSON.parse fs.readFileSync(path.join(__dirname, 'fixtures/championgg/responses/champions.json'))
 }
 _.each glob.sync(path.join(__dirname, 'fixtures/championgg/responses/*.html')), (fixture) ->
   var_name = path.basename(fixture).replace('.html', '')
@@ -37,7 +37,7 @@ describe 'lib/sources/championgg.coffee', ->
   afterEach ->
     nock.cleanAll()
 
-  describe 'getVersion', ->
+  describe 'version', ->
     it 'should get the stubbed championgg version', (done) ->
       nocked
         .get('/faq/')

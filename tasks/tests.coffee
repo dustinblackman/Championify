@@ -53,6 +53,7 @@ gulp.task 'jsonlint', ->
   return gulp.src([
       './data/**/*.json'
       './i18n/**/*.json'
+      './tests/**/*.json'
       './.htmlhintrc'
       './.stylintrc'
       './coffeelint.json'
