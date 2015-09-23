@@ -46,6 +46,8 @@
   "open_log": "Apri registro",
   "options_consumables": "Abilita consumo",
   "options_consumables_tooltip": "Disattivando i materiali di consumo, si perde la vincita più alta dell'ordine% abilità",
+  "options_dontdeleteold": "Non eliminare i set obsoleti Voce",
+  "options_dontdeleteold_tooltip": "Oggetti vecchi apparecchi senza non sarà cancellato nuove informazioni sulle patch, tuttavia essi saranno cancellati se articolo imposta più recenti saranno disponibili",
   "options_locksr": "Voce Rift di blocco Summoner set a Mappa",
   "options_locksr_tooltip": "Set di oggetti pensati per Summoner Rift sarà disponibile sulla mappa Summoner Rift solo.",
   "options_skillsformat": "Utilizzare Stenografia per Skill Ordine",

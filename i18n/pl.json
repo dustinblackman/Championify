@@ -46,6 +46,8 @@
   "open_log": "Rozwinąć Zaloguj",
   "options_consumables": "Włącz materiałów eksploatacyjnych",
   "options_consumables_tooltip": "Poprzez wyłączenie materiałów eksploatacyjnych, stracisz na najwyższym poziomie Win% umiejętności",
+  "options_dontdeleteold": "Nie Usuń przestarzałe zestawów przedmiotów",
+  "options_dontdeleteold_tooltip": "Stare elementy ustawia bez nowych informacji poprawki nie zostaną usunięte, jakkolwiek oni zostaną usunięte nowsze zestawów przedmiotów stają się dostępne",
   "options_locksr": "Rift Pozycja zamka przywoływacza Zestawy do mapy",
   "options_locksr_tooltip": "Pozycja zestawy przeznaczone dla przywoływaczy Rift będzie dostępna na mapie Przywoływacze Rift tylko.",
   "options_skillsformat": "Użyj skrótem Skill Zakonu",

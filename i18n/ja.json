@@ -46,6 +46,8 @@
   "open_log": "オープンログイン",
   "options_consumables": "消耗品を有効にします",
   "options_consumables_tooltip": "消耗品を無効にすることにより、あなたは最高の勝利％スキルの順序を失います",
+  "options_dontdeleteold": "古いアイテムのセットを削除しないでください",
+  "options_dontdeleteold_tooltip": "新しいパッチ情報を持たない古いアイテムセットは、新しいアイテムセットが利用可能になっている場合しかし、彼らは削除され、削除されません",
   "options_locksr": "ロックサモナーの裂け目アイテムがマップするために設定します。",
   "options_locksr_tooltip": "サモナーの裂け目のためのものアイテムセットのみサモナー裂け目マップ上で利用できるようになります。",
   "options_skillsformat": "スキル注文の省略形を使用します",

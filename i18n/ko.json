@@ -46,6 +46,8 @@
   "open_log": "로그 열기",
   "options_consumables": "소모품 사용",
   "options_consumables_tooltip": "소모품을 사용하지 않도록 설정하면 최고 승률 스킬 순서를 잃게됩니다",
+  "options_dontdeleteold": "오래된 항목 세트를 삭제하지 마십시오",
+  "options_dontdeleteold_tooltip": "새로운 아이템 세트가 제공 될 경우 오래된 항목은 새로운 패치 정보가 삭제되지 않고, 그러나 그들은 삭제됩니다 설정",
   "options_locksr": "잠금 소환사의 리프트 항목 MAP으로 설정",
   "options_locksr_tooltip": "소환사 리프트에 대한 의미 항목 세트 만 소환사 리프트 맵에서 사용할 수 있습니다.",
   "options_skillsformat": "스킬 주문 속기를 사용",

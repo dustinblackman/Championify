@@ -46,6 +46,8 @@
   "open_log": "Otevřít protokol",
   "options_consumables": "Povolit Spotřební materiál",
   "options_consumables_tooltip": "Vypnutím spotřebního materiálu, ztratíte nejvyšší výhra% dovednost objednávku",
+  "options_dontdeleteold": "Nepoužívejte odstranění zastaralých Položka Sady",
+  "options_dontdeleteold_tooltip": "Staré položky nastaví bez nebudou odstraněny novou náplast informace však budou odstraněny, pokud novější položka soupravy budou k dispozici",
   "options_locksr": "Lock Summoner Rift Položka Slouží k Mapa",
   "options_locksr_tooltip": "Položka sady určeny pro Summoners Rift bude k dispozici na mapě Summoners Rift pouze.",
   "options_skillsformat": "Použijte zkratku pro Skill Order",

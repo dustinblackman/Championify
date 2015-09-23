@@ -46,6 +46,8 @@
   "open_log": "Open Log",
   "options_consumables": "Aktivieren Sie Verbrauchsmaterial",
   "options_consumables_tooltip": "Durch das Deaktivieren Verbrauchsmaterialien, werden Sie der höchste Gewinn% Geschicklichkeit, um zu verlieren,",
+  "options_dontdeleteold": "Veraltete Item Sets Nicht löschen",
+  "options_dontdeleteold_tooltip": "Alte Produkte setzt, ohne neue Patch-Informationen werden nicht gelöscht, aber sie werden gelöscht, wenn neuere Item Sets verfügbar",
   "options_locksr": "Sperre der Kluft der Beschwörer Rüstungssets, um auf der Karte anzeigen",
   "options_locksr_tooltip": "Artikel-Sets für Beschwörer Rift bedeutete nur auf der Beschwörer Rift Karte zur Verfügung stehen.",
   "options_skillsformat": "Kurzschrift verwenden für Übungsreihenfolge",

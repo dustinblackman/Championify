@@ -46,6 +46,8 @@
   "open_log": "打开日志",
   "options_consumables": "启用耗材",
   "options_consumables_tooltip": "通过禁用消耗品，你将失去最高胜率的技能顺序",
+  "options_dontdeleteold": "不要删除过时的项目集",
+  "options_dontdeleteold_tooltip": "老项目不设置新的修补程序信息将不会被删除，但它们将被删除，是否有更新的项目集可用",
   "options_locksr": "锁定召唤的裂谷项目集要地图",
   "options_locksr_tooltip": "意味着召唤师裂谷项目组将只提供了召唤师裂谷地图上。",
   "options_skillsformat": "使用速记技能订单",

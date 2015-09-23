@@ -46,6 +46,8 @@
   "open_log": "Open Log",
   "options_consumables": "Активиране на консумативи",
   "options_consumables_tooltip": "С блокирането консумативи, ще загубят най-високата печалба реда% умение",
+  "options_dontdeleteold": "Не Изтриване Остарели Елемент Комплекти",
+  "options_dontdeleteold_tooltip": "Стари предмети комплекти без нова информация пач няма да бъде изтрит, но въпреки това те ще бъдат изтрити, ако по-новите артикули комплекти станат достъпни",
   "options_locksr": "Rift т Lock Summoner Комплектите Към Карта",
   "options_locksr_tooltip": "Елемент комплекти, предназначени за Summoners Rift ще бъдат на разположение на картата на Summoners Rift само.",
   "options_skillsformat": "Използвайте съкращение за Skill Поръчка",

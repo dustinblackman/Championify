@@ -46,6 +46,8 @@
   "open_log": "Abrir Log",
   "options_consumables": "Ativar Consumíveis",
   "options_consumables_tooltip": "Ao desativar consumíveis, você vai perder o prêmio mais alto fim habilidade%",
+  "options_dontdeleteold": "Não Excluir Conjuntos de Itens desatualizados",
+  "options_dontdeleteold_tooltip": "Itens antigos define sem novas informações patch não serão excluídas, no entanto, eles serão excluídos se conjuntos de itens mais recentes estiverem disponíveis",
   "options_locksr": "Rift item de bloqueio Summoner Define mapear",
   "options_locksr_tooltip": "Conjuntos de itens destinados para Summoners Rift só estarão disponíveis no mapa Summoners Rift.",
   "options_skillsformat": "Use Abreviação para Competência Ordem",

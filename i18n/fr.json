@@ -46,6 +46,8 @@
   "open_log": "Ouvrir le journal",
   "options_consumables": "Activer Consommables",
   "options_consumables_tooltip": "En désactivant les consommables, vous perdrez la plus haute pour Win% des compétences",
+  "options_dontdeleteold": "Ne pas supprimer obsolètes ensembles d'objets",
+  "options_dontdeleteold_tooltip": "Éléments d'anciens jeux sans nouvelle information de patch ne sera pas supprimé, mais ils seront supprimés si les nouveaux ensembles d'objets deviennent disponibles",
   "options_locksr": "Rift Item Lock Summoner sets à Plan",
   "options_locksr_tooltip": "Ensembles d'objets destinés à Faille de l'invocateur ne seront disponibles que sur la carte Faille de l'invocateur.",
   "options_skillsformat": "Utilisez Raccourci pour ordonner de Skill",

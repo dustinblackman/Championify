@@ -46,6 +46,8 @@
   "open_log": "Buka Log",
   "options_consumables": "Aktifkan Consumables",
   "options_consumables_tooltip": "Dengan menonaktifkan habis, Anda akan kehilangan tertinggi Win rangka% skill",
+  "options_dontdeleteold": "Jangan Hapus Usang Barang Set",
+  "options_dontdeleteold_tooltip": "Item lama set tanpa informasi Patch baru tidak akan dihapus, namun mereka akan dihapus jika item set baru menjadi tersedia",
   "options_locksr": "Lock Summoner ini Rift Barang Set Untuk Petakan",
   "options_locksr_tooltip": "Item set dimaksudkan untuk Summoners Rift hanya akan tersedia di peta Summoners Rift.",
   "options_skillsformat": "Gunakan Singkatan untuk Keterampilan Orde",

@@ -46,6 +46,8 @@
   "open_log": "Deschis Log",
   "options_consumables": "Activați Consumabile",
   "options_consumables_tooltip": "Prin dezactivarea consumabile, vei pierde cel mai mare câștig ordinul% calificare",
+  "options_dontdeleteold": "Nu ștergeți Seturi articol învechite",
+  "options_dontdeleteold_tooltip": "Elementele vechi seturi fără informații noi patch nu vor fi șterse, cu toate acestea ele vor fi șterse dacă seturi de elemente noi devin disponibile",
   "options_locksr": "Postul Rift Lock Summoner lui Seturi pentru a harta",
   "options_locksr_tooltip": "Seturi de elemente destinate pentru Summoners Rift va fi disponibil pe hartă Summoners Rift numai.",
   "options_skillsformat": "Utilizați prescurtarea pentru Indemanare Ordine",

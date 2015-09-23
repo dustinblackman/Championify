@@ -97,7 +97,9 @@ genManaless = (step, r) ->
  * Function Deletes all previous Championify builds from client.
  * @callback {Function} Callback.
 ###
-deleteOldBuilds = (step, deletebtn) ->
+deleteOldBuilds = (step, r, deletebtn) ->
+  return step() if window.cSettings.dontdeleteold and !deletebtn
+
   cl "#{T.t('deleting_old_builds')}"
   globbed = [
     glob.sync("#{window.item_set_path}**/CGG_*.json")
@@ -174,7 +176,7 @@ downloadItemSets = (done) ->
   async_tasks = {
     # Default
     settings: getSettings
-    clearCache: clearCache,
+    clearCache: clearCache
     championTest: ['settings', permissions.championTest]
     riotVer: ['clearCache', 'championTest', getRiotVer]
     champs_json: ['riotVer', getChamps]

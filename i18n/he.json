@@ -46,6 +46,8 @@
   "open_log": "יומן פתוח",
   "options_consumables": "אפשר מתכלה",
   "options_consumables_tooltip": "על ידי השבתה מתכלה, תאבד את סדר אחוז הגבוהה ביותר בניצחונות ו מיומנות",
+  "options_dontdeleteold": "אל תמחקו סטי פריט מיושנות",
+  "options_dontdeleteold_tooltip": "פריטים ישן קובע ללא מידע תיקון חדש לא יימחק, אבל הם יימחקו אם סטי פריט חדשים הופכים לזמינים",
   "options_locksr": "תינעל פריטים למפה של Summoners Rift",
   "options_locksr_tooltip": "סטי פריט נועדו ל  Summoners Rift יהיו זמינים על מפת Summoners Rift בלבד.",
   "options_skillsformat": "השתמש בקצרנות ללהזמין מיומנות",
