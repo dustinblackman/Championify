@@ -45,6 +45,7 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
 
       if process_name == 'ARAM'
         data.map = 'HA'
+        data.blocks[0].items.push({count: 1, id: "2047"})
       if process_name != 'ARAM'
         data.map = 'SR' if window.cSettings.locksr
         data.blocks.shift()
