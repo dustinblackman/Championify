@@ -153,7 +153,7 @@ deleteItemSets = ->
     # TODO: Verify if is Windows admin and can delete.
     championify.delete ->
       $('#cl_progress > span').append(". #{T.t('done')}")
-    , true
+    , null, true
 
 
 ###*

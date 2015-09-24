@@ -46,6 +46,8 @@
   "open_log": "Abrir registro",
   "options_consumables": "Habilitar Consumibles",
   "options_consumables_tooltip": "Al desactivar consumibles, perderá el orden habilidad% más alto de victorias",
+  "options_dontdeleteold": "No Eliminar conjuntos de elementos que han sido superados",
+  "options_dontdeleteold_tooltip": "Elementos antiguos conjuntos sin no se eliminará la nueva información de parches, sin embargo, se borrarán si los conjuntos de elementos nuevos estén disponibles",
   "options_locksr": "Artículo Grieta del Invocador Lock Define Para mapa",
   "options_locksr_tooltip": "Los conjuntos de elementos destinados a invocadores Rift sólo estarán disponibles en el mapa invocadores Rift.",
   "options_skillsformat": "Utilice la taquigrafía de Habilidad Orden",

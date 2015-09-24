@@ -46,6 +46,8 @@
   "open_log": "เปิดเข้าสู่ระบบ",
   "options_consumables": "เปิดการใช้งานอุปกรณ์",
   "options_consumables_tooltip": "หากคุณปิดการใช้งานอุปกรณ์ คุณจะไม่เห็นการอัพสกิลที่มีอัตราชนะมากที่สุด",
+  "options_dontdeleteold": "อย่าลบชุดรายการที่ล้าสมัย",
+  "options_dontdeleteold_tooltip": "รายการเก่าชุดโดยไม่มีข้อมูลแพทช์ใหม่จะไม่ถูกลบ แต่พวกเขาจะถูกลบถ้าชุดใหม่รายการกลายเป็นใช้ได้",
   "options_locksr": "ล็อคไอเทมสำหรับ Summoner's Rift",
   "options_locksr_tooltip": "ชุดไอเทมสำหรับ Summoner's Rift จะสามารถใช้งานได้เฉพาะกับ Summoner's Rift เท่านั้น",
   "options_skillsformat": "ใช้ลำดับสกิลแบบย่อ",

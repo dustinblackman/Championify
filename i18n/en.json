@@ -46,6 +46,8 @@
   "open_log": "Open Log",
   "options_consumables": "Enable Consumables",
   "options_consumables_tooltip": "By disabling consumables, you'll lose the Highest Win % skill order",
+  "options_dontdeleteold": "Don't Delete Outdated Item Sets",
+  "options_dontdeleteold_tooltip": "Old items sets without new patch information will not be deleted, however they will be deleted if newer item sets become available",
   "options_locksr": "Lock Summoner's Rift Item Sets To Map",
   "options_locksr_tooltip": "Item sets meant for Summoners Rift will only be available on the Summoners Rift map.",
   "options_skillsformat": "Use Shorthand for Skill Order",

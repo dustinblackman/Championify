@@ -96,6 +96,7 @@ get = ->
       trinkets_position: trinkets_position
       locksr: $('#options_locksr').is(':checked')
       sr_source: $('#options_sr_source').val()
+      dontdeleteold: $('#options_dontdeleteold').is(':checked')
     }
   }
 

@@ -46,6 +46,8 @@
   "open_log": "Mở Log",
   "options_consumables": "Kích hoạt tính năng tiêu hao",
   "options_consumables_tooltip": "Bằng cách vô hiệu hàng tiêu dùng, bạn sẽ mất Win nhằm% kỹ năng cao nhất",
+  "options_dontdeleteold": "Đừng Xóa lỗi thời mục Sets",
+  "options_dontdeleteold_tooltip": "Mục cũ đặt mà không có thông tin bản vá mới sẽ không bị xóa, tuy nhiên chúng sẽ bị xóa nếu bộ item mới trở nên có sẵn",
   "options_locksr": "Khóa Summoner của Rift mục Sets Để đồ",
   "options_locksr_tooltip": "Bộ item có nghĩa là cho Summoner Rift sẽ chỉ có sẵn trên bản đồ Summoner Rift.",
   "options_skillsformat": "Sử dụng Shorthand cho Skill thứ tự",

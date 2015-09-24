@@ -46,6 +46,8 @@
   "open_log": "Açık Günlüğü",
   "options_consumables": "Sarf etkinleştirme",
   "options_consumables_tooltip": "Sarf devre dışı bırakarak en yüksek Win% beceri sırasını kaybedersiniz",
+  "options_dontdeleteold": "Eski Öğe Setleri Sil etmeyin",
+  "options_dontdeleteold_tooltip": "Yeni öğe kümeleri kullanılabilir hale varsa, eski öğeleri yeni yama bilgiler silinir olmayacak olmadan, ancak onlar silinecektir setleri",
   "options_locksr": "Kilit Summoner Rift Öğe haritada için Setleri",
   "options_locksr_tooltip": "Summoners Rift içindir Öğe setleri sadece Summoners Rift harita üzerinde sunulacak.",
   "options_skillsformat": "Beceri Sipariş için kestirme kullanın",

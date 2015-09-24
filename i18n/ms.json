@@ -46,6 +46,8 @@
   "open_log": "Log Terbuka",
   "options_consumables": "Membolehkan Habis",
   "options_consumables_tooltip": "Dengan mematikan habis, anda akan kehilangan Win perintah kemahiran% Tertinggi",
+  "options_dontdeleteold": "Jangan Padam Set Perkara lapuk",
+  "options_dontdeleteold_tooltip": "Barang-barang lama menetapkan tanpa maklumat patch baru tidak akan dipadamkan, namun mereka akan dipadam jika set item baru menjadi sedia",
   "options_locksr": "Perkara Rift Lock Summoner Sets Untuk Peta",
   "options_locksr_tooltip": "Set item bertujuan untuk Summoners Rift hanya boleh didapati di peta Summoners Rift.",
   "options_skillsformat": "Gunakan trengkas untuk Kemahiran Order",

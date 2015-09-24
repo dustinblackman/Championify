@@ -46,6 +46,8 @@
   "open_log": "Open Inloggen",
   "options_consumables": "Inschakelen verbruiksartikelen",
   "options_consumables_tooltip": "Door het uitschakelen van verbruiksgoederen, vindt u de grootste overwinning% vaardigheid orde te verliezen",
+  "options_dontdeleteold": "Heeft Verouderde Item Sets niet verwijderen",
+  "options_dontdeleteold_tooltip": "Oude items zet zonder nieuwe patch gegevens niet worden verwijderd, maar ze zullen worden verwijderd als nieuwere voorwerpsetten beschikbaar komen",
   "options_locksr": "Lock Summoner's Rift Item sets kaart",
   "options_locksr_tooltip": "Voorwerpsetten bedoeld voor Summoners Rift zal alleen beschikbaar zijn op de kaart Summoners Rift zijn.",
   "options_skillsformat": "Gebruik afkorting voor Ervaring Bestel",
