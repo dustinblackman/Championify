@@ -74,7 +74,7 @@ mochaWindows = (cb) ->
   options.env.NODE_ENV = 'test'
   options.env.ELECTRON_PATH = "#{path.resolve('./node_modules/.bin/electron')}.cmd"
   options.env.EXITCODE_PATH = path.join process.cwd(), 'exit.code'
-  # options.env.MOCHA_LOG = path.join(__dirname, '..', 'mocha.log')
+  options.env.MOCHA_LOG = path.join(__dirname, '..', 'mocha.log')
 
   if _.contains(process.argv, '--appveyor')
     console.log('Note: You can\'t see Mocha test results in AppVeyor due to how Windows spawns processes.')

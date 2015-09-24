@@ -24,5 +24,8 @@ test_script:
   - npm run appveyor
 on_success:
   - '.\\coveralls.bat'
+artifacts:
+  - path: mocha.log
+    name: Mocha log
 # cache:
 #   - node_modules -> package.json
