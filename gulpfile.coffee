@@ -52,12 +52,12 @@ gulp.task 'build', (cb) ->
   if process.platform == 'win32'
     return runSequence('build:win', cb)
   else
-    return runSequence('build:mac', cb)
+    return runSequence('build:osx', cb)
 
-gulp.task 'build:mac', (cb) ->
+gulp.task 'build:osx', (cb) ->
   runSequence(
     'package-asar'
-    'compile:mac'
+    'compile:osx'
     'move:compiled-mac:folder'
     cb
   )

@@ -109,7 +109,7 @@ gulp.task '_compileMac', (cb) ->
     ]
   }, (err) -> cb(err)
 
-gulp.task 'compile:mac', (cb) ->
+gulp.task 'compile:osx', (cb) ->
   return runSequence('electron:download:mac', '_compileMac', cb)
 
 gulp.task '_compileWin', (cb) ->
@@ -185,10 +185,10 @@ gulp.task 'compile:win-installer', (cb) ->
 # TODO Deprecated.
 gulp.task 'compile', (cb) ->
   if process.platform == 'darwin'
-    runSequence('compile:mac', cb)
+    runSequence('compile:osx', cb)
   else
     runSequence('compile:win', cb)
 
 
 gulp.task 'compile:all', (cb) ->
-  runSequence(['compile:mac', 'compile:win'], 'compile:win-installer', cb)
+  runSequence(['compile:osx', 'compile:win'], 'compile:win-installer', cb)
