@@ -22,10 +22,11 @@ environment:
     secure: X/JCTitKeibH9uTyAKi7ED04LT0qACHJonHNCuHVnBHA/GQtsFeNQea21K6QrLYy
 test_script:
   - npm run appveyor
+  - npm run build-artifact
 on_success:
   - '.\\coveralls.bat'
 artifacts:
-  - path: mocha.log
-    name: Mocha log
+  - path: download.txt
+    name: Download Build (link within text file)
 # cache:
 #   - node_modules -> package.json

@@ -7,7 +7,8 @@
     "test": "./node_modules/.bin/gulp test",
     "appveyor": "./node_modules/.bin/gulp test --appveyor",
     "build": "./node_modules/.bin/gulp build",
-    "postinstall": "./node_modules/.bin/gulp setup"
+    "postinstall": "./node_modules/.bin/gulp setup",
+    "build-artifact": "./node_modules/.bin/gulp build-artifact"
   },
   "repository": {
     "type": "git",
