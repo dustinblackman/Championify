@@ -34,10 +34,14 @@ gulp.task 'stylint', ->
   stylint_config = path.resolve(path.join(__dirname, '..', '.stylintrc'))
   return gulp.src('stylesheets/**/*.styl')
     .pipe(stylint({
-      config: stylint_config
-      failOnError: true
-      reporter: 'stylint-stylish'
+      config: '.stylintrc'
+      reporter: {
+        reporter: 'stylint-stylish'
+        reporterOptions: {verbose: true}
+      }
     }))
+    .pipe(stylint.reporter())
+    .pipe(stylint.reporter('fail', {failOnWarning: true}))
 
 gulp.task 'htmlhint', ->
   return gulp.src('app/**/*.html')

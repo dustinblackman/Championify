@@ -1,6 +1,7 @@
 try # Avoid conflict when path_manager is loaded from electron.coffee
   remote = require 'remote'
 catch e
+  # Do Nothing
 _ = require 'lodash'
 
 _processArgs = (arg) ->

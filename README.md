@@ -157,7 +157,7 @@ Check out the [Features tag in Issues](https://github.com/dustinblackman/Champio
 
 <a name="source" />
 ## Build From Source
-You must have iojs 2.3.1 installed on your system (thats what Electron is using), git clone the repo and run the following in the root folder.
+You must have Node 4.1.1 and NPM 2.14.4 installed on your system (thats what Electron is using), git clone the repo and run the following in the root folder.
 
 ```console
 npm install -g gulp
