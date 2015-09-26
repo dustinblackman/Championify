@@ -248,6 +248,9 @@ $(document).on 'click', '#start_league', ->
 $(document).on 'click', '#back_to_main', ->
   viewManager.mainBack()
 
+$(document).on 'click', '#release_button', ->
+  open('https://github.com/dustinblackman/Championify/releases/latest')
+
 
 ###*
 * Execute ASAP after view load

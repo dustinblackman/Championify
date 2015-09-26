@@ -23,6 +23,10 @@
     "done": true,
     "msg": "Beginning"
   },
+  "breaking_changes_1": {
+    "msg": "Seems like you have a version of Championify that can't be updated on it's own. Hit the download button to get the latest version!",
+    "done": true
+  },
   "browse": {
     "done": true,
     "msg": "Browse"
@@ -54,6 +58,10 @@
   "done": {
     "done": true,
     "msg": "Done!"
+  },
+  "download": {
+    "msg": "Download",
+    "done": true
   },
   "downloading": {
     "msg": "Downloading",
@@ -153,6 +161,10 @@
   },
   "lol_version": {
     "msg": "Getting LoL Version",
+    "done": true
+  },
+  "manual_update": {
+    "msg": "Manual Update",
     "done": true
   },
   "mf_core": {

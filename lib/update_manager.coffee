@@ -268,6 +268,10 @@ winMajor = (install_path, update_path) ->
   * @callback {Function} Callback, only accepts a single finished parameter as errors are handled with endSession.
 ###
 check = (done) ->
+  # If local version is using 0.26.0 of electron, it means it doesn't have the correct support for the major auto update.
+  if process.versions.electron == '0.26.0'
+    return viewManager.breakingChanges()
+
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
   hlp.request url, (err, data) ->
     return EndSession(new cErrors.RequestError('Can\'t access Github package.json').causedBy(err)) if err
