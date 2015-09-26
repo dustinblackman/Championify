@@ -34,18 +34,6 @@ getSettings = (step) ->
 
 
 ###*
- * Function Clears electrons cache if it exists.
- * @callback {Function} Callback.
-###
-clearCache = (step) ->
-  cache_directory = path.join preferences.directory(), 'Cache'
-  if fs.existsSync(cache_directory)
-    fs.remove cache_directory, (err) ->
-      step(err)
-  else
-    step()
-
-###*
  * Function Gets the latest Riot Version.
  * @callback {Function} Callback.
 ###
@@ -176,9 +164,8 @@ downloadItemSets = (done) ->
   async_tasks = {
     # Default
     settings: getSettings
-    clearCache: clearCache
     championTest: ['settings', permissions.championTest]
-    riotVer: ['clearCache', 'championTest', getRiotVer]
+    riotVer: ['championTest', getRiotVer]
     champs_json: ['riotVer', getChamps]
     champs: ['champs_json', champNames]
     manaless: ['champs_json', genManaless]
