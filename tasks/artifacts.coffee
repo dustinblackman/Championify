@@ -47,6 +47,7 @@ gulp.task 'upload-artifcat', (cb) ->
     req = request options, (err, res, body) ->
       $c = cheerio.load(body)
       download_url = $c('.text_field').val()
+      console.log "Download build based off commit: #{download_url}"
       fs.writeFile './download.txt', download_url, {encoding: 'utf8'}, cb
 
     form = req.form()
