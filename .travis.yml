@@ -1,6 +1,9 @@
 language: objective-c # Give me OSX images!
-install:
+before_install:
   - sw_vers -productVersion
+  - brew update
+  - brew install p7zip
+install:
   - rm -rf ~/.nvm
   - git clone https://github.com/creationix/nvm.git ~/.nvm
   - source ~/.nvm/nvm.sh
