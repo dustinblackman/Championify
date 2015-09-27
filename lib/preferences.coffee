@@ -49,7 +49,7 @@ save = (preferences, done) ->
   preference_file = preferenceFile()
   fs.writeFile preference_file, JSON.stringify(preferences, null, 2), {encoding: 'utf8'}, (err) ->
     if err
-      Log.warn(err)
+      Log.error(err)
     else
       Log.info("Saved preference file to #{preference_file}")
     done()

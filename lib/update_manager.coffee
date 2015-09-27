@@ -16,6 +16,7 @@ if process.platform == 'win32'
 
 cErrors = require './errors'
 hlp = require './helpers'
+optionsParser = require './options_parser'
 preferences = require './preferences'
 viewManager = require './view_manager'
 
@@ -53,7 +54,12 @@ download = (url, download_path, done) ->
   try
     file = fs.createWriteStream(download_path)
   catch e
-    return done(err)
+    error = new cErrors.UpdateError("Can\'t write update file: #{path.basename(download_path)}").causedBy(e)
+
+    if process.platform == 'win32' and !optionsParser.runnedAsAdmin()
+      return runas(process.execPath, ['--startAsAdmin'], {hide: false, admin: true})
+
+    return done(error)
 
   last_percent = 0
   progress(request(url), {throttle: 500})
@@ -112,18 +118,20 @@ majorUpdate = (version) ->
     (step) -> # Delete previous update folder if exists
       if fs.existsSync(update_path)
         fs.remove update_path, (err) ->
-          step(err)
+          step(new cErrors.UpdateError('Can\'t remove previous update path').causedBy(err))
       else
         step()
     (step) -> # Download Tarball
       download url, tar_path, (err) ->
-        return step(new cErrors.UpdateError('Can\'t write/download update file').causedBy(e)) if err
+        return step(new cErrors.UpdateError('Can\'t write/download update file').causedBy(err)) if err
         step()
     (step) -> # Extract Tarball
       $('#update_current_file').text("#{T.t('extracting')}")
       stream = fs.createReadStream(tar_path)
         .pipe(zlib.Gunzip())
         .pipe(tar.extract(update_path))
+      stream.on 'error', (err) ->
+        return step(new cErrors.UpdateError('Can\'t extract update').causedBy(err)) if err
       stream.on 'finish', ->
         step()
     (step) -> # Delete Tarball
