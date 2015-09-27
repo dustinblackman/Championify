@@ -67,9 +67,10 @@ Log.exitOnError = (err) ->
 ###
 EndSession = (c_error) ->
   if c_error
-    cause = c_error.cause || c_error.rootCause || {}
+    cause = c_error.cause or c_error.rootCause or {}
     Log.error(c_error)
 
+  window.error_message = c_error.message or c_error.rootCause.message
   viewManager.error()
 
 

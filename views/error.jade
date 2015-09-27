@@ -1,11 +1,12 @@
 .one.column.row
   .error
     h3 #{T.t('something_broke')}
-    
-    br
     img(src='img/sad.png')
     
-    br
+    if window.error_message
+      br
+      span.message #{window.error_message}
+    
     p
       | #{T.t('error_1')}
       br
