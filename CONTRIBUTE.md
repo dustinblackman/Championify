@@ -12,4 +12,6 @@ Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Champ
 I suggest making sure your linters are setup correctly, or run gulp lint every now and again.
 
 ### Translations
-I use a [Onesky](https://dustinblackman.oneskyapp.com/collaboration/project/95440) to manage all my translations, it's super easy, includes initial English text, screenshots, and lets everyone contribute! Check it out. Please prevent from putting translations in PRs, I'd rather keep those for code.
+I use a [Onesky](https://dustinblackman.oneskyapp.com/collaboration/project/95440) to manage all my translations, it's super easy, includes initial English text, screenshots, and lets everyone contribute! Check it out. Make sure to check if a translation has been done already before writing it over again, as it does take me quite a bit of time if there's a lot to go over.
+
+Please prevent from putting translations in PRs, I'd rather keep those for code.
