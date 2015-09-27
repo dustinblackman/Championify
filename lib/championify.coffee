@@ -99,7 +99,7 @@ deleteOldBuilds = (step, r, deletebtn) ->
   ]
   async.each _.flatten(globbed), (item, next) ->
     fs.unlink item, (err) ->
-      return next(new cErrors.FileWriteError("Can\'t unlink file: #{item}").causedBy(err))
+      return next(new cErrors.FileWriteError("Can\'t unlink file: #{item}").causedBy(err)) if err
       next null
   , ->
     hlp.updateProgressBar(2.5) if !deletebtn
