@@ -5,10 +5,10 @@
   "main": "electron.coffee",
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
-    "appveyor": "./node_modules/.bin/gulp test --appveyor",
     "build": "./node_modules/.bin/gulp build",
     "postinstall": "./node_modules/.bin/gulp setup",
-    "build-artifact": "./node_modules/.bin/gulp build-artifact"
+    "build-artifact": "./node_modules/.bin/gulp build-artifact",
+    "coveralls": "./node_modules/.bin/gulp coveralls"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "winston": "git://github.com/dustinblackman/winston.git#electron"
   },
   "devDependencies": {
+    "aws-sdk": "2.2.4",
     "bower": "1.5.3",
     "chai": "3.3.0",
     "coffee-coverage": "0.6.3",
