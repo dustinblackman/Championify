@@ -97,7 +97,7 @@ coverageDownload = (done) ->
   getCoverage (err, coverage_json) ->
     if err or !coverage_json
       console.log(err) if err
-      return done(new SkipCoverallsError('Other CI is not ready yet.'))
+      return done(new SkipCoverallsError('Other CI is not ready yet, skipping...'))
 
     converted_coverage = {}
     _.each coverage_json, (coverage_data) ->
@@ -155,6 +155,7 @@ coverallsSetup = (done) ->
     ], (err) ->
       return done(err) if err
       _exec '.\\coveralls.bat', done
+
 
 gulp.task 'istanbul', (cb) ->
   _istanbul('text-summary', cb)

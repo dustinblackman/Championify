@@ -131,7 +131,9 @@ gulp.task 'onesky', (cb) ->
   }
 
   request params, (err, res, body) ->
-    data = JSON.parse(body)
-    fs.writeFile "./i18n/#{lang}.json", JSON.stringify(data, null, 2), {encoding: 'utf8'}, (err) ->
+    previous_translations = JSON.parse fs.readFileSync("./i18n/#{lang}.json")
+    translations = _.merge(previous_translations, JSON.parse(body))
+
+    fs.writeFile "./i18n/#{lang}.json", JSON.stringify(translations, null, 2), {encoding: 'utf8'}, (err) ->
       console.log "Wrote ./i18n/#{lang}.json" if !err
       return cb(err)
