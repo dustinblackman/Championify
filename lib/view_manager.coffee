@@ -73,6 +73,13 @@ updateView = ->
 
 
 ###*
+ * Function Change to breaking changes view with transitions.
+###
+breakingChangesView = ->
+  _viewChanger 'breaking_changes'
+
+
+###*
  * Function Change to main view with reverse transitions.
 ###
 mainViewBack = ->
@@ -160,5 +167,6 @@ module.exports = {
   error: errorView
   update: updateView
   mainBack: mainViewBack
+  breakingChanges: breakingChangesView
   init: init
 }

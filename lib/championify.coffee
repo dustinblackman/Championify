@@ -14,6 +14,10 @@ lolflavor = require './sources/lolflavor'
 preferences = require './preferences'
 permissions = require './permissions'
 
+# Windows Specific Dependencies
+if process.platform == 'win32'
+  runas = require 'runas'
+
 cl = hlp.cl
 
 # Set Defaults
@@ -32,18 +36,6 @@ getSettings = (step) ->
   window.cSettings = preferences.get().options
   preferences.save step
 
-
-###*
- * Function Clears electrons cache if it exists.
- * @callback {Function} Callback.
-###
-clearCache = (step) ->
-  cache_directory = path.join preferences.directory(), 'Cache'
-  if fs.existsSync(cache_directory)
-    fs.remove cache_directory, (err) ->
-      step(err)
-  else
-    step()
 
 ###*
  * Function Gets the latest Riot Version.
@@ -107,8 +99,7 @@ deleteOldBuilds = (step, r, deletebtn) ->
   ]
   async.each _.flatten(globbed), (item, next) ->
     fs.unlink item, (err) ->
-      # TODO: Fix
-      Log.warn(err) if err
+      return next(new cErrors.FileWriteError("Can\'t unlink file: #{item}").causedBy(err)) if err
       next null
   , ->
     hlp.updateProgressBar(2.5) if !deletebtn
@@ -176,9 +167,8 @@ downloadItemSets = (done) ->
   async_tasks = {
     # Default
     settings: getSettings
-    clearCache: clearCache
     championTest: ['settings', permissions.championTest]
-    riotVer: ['clearCache', 'championTest', getRiotVer]
+    riotVer: ['championTest', getRiotVer]
     champs_json: ['riotVer', getChamps]
     champs: ['champs_json', champNames]
     manaless: ['champs_json', genManaless]
@@ -205,7 +195,13 @@ downloadItemSets = (done) ->
   hlp.updateProgressBar(true)
 
   async.auto async_tasks, (err) ->
+    # If it's a file write problem and is windows, then run as admin.
+    if err instanceof cErrors.FileWriteError and process.platform == 'win32' and !optionsParser.runnedAsAdmin()
+      Log.error(err)
+      return runas(process.execPath, ['--startAsAdmin', '--import'], {hide: false, admin: true})
+
     return EndSession(err) if err
+
     hlp.updateProgressBar(10) # Just max it.
     done()
 

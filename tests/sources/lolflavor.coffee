@@ -20,6 +20,21 @@ _.each glob.sync(path.join(__dirname, 'fixtures/lolflavor/results/*.json')), (fi
   var_name = path.basename(fixture).replace('.json', '')
   RESULTS_FIXTURES[var_name] = require(fixture)
 
+nockSummonersRift = ->
+  nocked
+    .get('/data/statsLane.json')
+    .reply(200, RESPONSES_FIXTURES.stats)
+    .get('/data/statsJungle.json')
+    .reply(200, RESPONSES_FIXTURES.stats)
+    .get('/data/statsSupport.json')
+    .reply(200, RESPONSES_FIXTURES.stats)
+    .get('/champions/Katarina/Recommended/Katarina_lane_scrape.json')
+    .reply(200, RESPONSES_FIXTURES.katarina_lane_scrape)
+    .get('/champions/Katarina/Recommended/Katarina_jungle_scrape.json')
+    .reply(200, RESPONSES_FIXTURES.katarina_jungle_scrape)
+    .get('/champions/Katarina/Recommended/Katarina_support_scrape.json')
+    .reply(200, RESPONSES_FIXTURES.katarina_support_scrape)
+
 describe 'lib/sources/lolflavor.coffee', ->
   before ->
     nocked = nock('http://www.lolflavor.com')
@@ -46,13 +61,53 @@ describe 'lib/sources/lolflavor.coffee', ->
     it 'should get default ARAM item sets for Katarina', (done) ->
       nocked
         .get('/data/statsARAM.json')
-        .reply(200, RESPONSES_FIXTURES.statsARAM)
+        .reply(200, RESPONSES_FIXTURES.stats)
         .get('/champions/Katarina/Recommended/Katarina_aram_scrape.json')
         .reply(200, RESPONSES_FIXTURES.katarina_aram_scrape)
 
       lolflavor.aram (err, results) ->
         should.not.exist(err)
         results.should.eql(RESULTS_FIXTURES.katarina_aram)
+        done()
+
+      , {riotVer: '5.18', manaless: ['katarina']}
+
+  describe 'summonersRift', ->
+    beforeEach ->
+      window.cSettings = {}
+      nock.cleanAll()
+
+    it 'should get default Summoners Rift sets for Katarina', (done) ->
+      nockSummonersRift()
+
+      lolflavor.sr (err, results) ->
+        should.not.exist(err)
+        results.should.eql(RESULTS_FIXTURES.katarina_default)
+        done()
+
+      , {riotVer: '5.18', manaless: ['katarina']}
+
+    it 'should get consumables and tickets with Summoners Rift sets for Katarina', (done) ->
+      nockSummonersRift()
+      window.cSettings = {
+        consumables: true
+        trinkets: true
+      }
+
+      lolflavor.sr (err, results) ->
+        should.not.exist(err)
+        results.should.eql(RESULTS_FIXTURES.katarina_trinkcon)
+        done()
+
+      , {riotVer: '5.18', manaless: ['katarina']}
+
+    it 'should get default Summoners Rift sets for Katarina and lock them to SR', (done) ->
+      nockSummonersRift()
+      window.cSettings = {locksr: true}
+
+      lolflavor.sr (err, results) ->
+        should.not.exist(err)
+        results.should.eql(RESULTS_FIXTURES.katarina_locksr)
         done()
 
       , {riotVer: '5.18', manaless: ['katarina']}

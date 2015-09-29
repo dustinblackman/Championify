@@ -9,10 +9,6 @@ _ = require 'lodash'
 optionsParser = require './options_parser'
 preferences = require './preferences'
 
-# Windows Specific Dependencies
-if process.platform == 'win32'
-  runas = require 'runas'
-
 
 ###*
  * Function If platform is Windows, check if we can write to the user selected directory, and restart as admin if not.
@@ -62,10 +58,8 @@ championTest = (step) ->
           next(err)
       ]
     }, (err) ->
-      if err
-        runas(process.execPath, ['--startAsAdmin', '--import'], {hide: false, admin: true})
-      else
-        step null
+      return step(new cErrors.FileWriteError('Permissions test failed').causedBy(err)) if err
+      step null
 
   else
     step null
@@ -84,7 +78,7 @@ setWindowsPermissions = (files, next) ->
 
   permissions_file = path.join(preferences.directory(), 'set_permission.bat')
   fs.writeFile permissions_file, cmds.join('\n'), {encoding: 'utf8'}, (err) ->
-    return next(err) if err
+    return next(new cErrors.FileWriteError('Can\'t write set_permission.bat').causedBy(err)) if err
 
     exec "START \"\" \"#{permissions_file}\"", (err, stdout, stderr) ->
       next(err)

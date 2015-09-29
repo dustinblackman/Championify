@@ -3,6 +3,7 @@
 _Champion-If-Ayyy_
 
 [![Join the chat at https://gitter.im/dustinblackman/Championify](https://img.shields.io/badge/%E2%8A%AA%20GITTER%20-JOIN%20CHAT%20%E2%86%92-brightgreen.svg?style=flat)](https://gitter.im/dustinblackman/Championify?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![ProjectTalk](http://www.projecttalk.io/images/gh_badge-3e578a9f437f841de7446bab9a49d103.svg?vsn=d)](http://www.projecttalk.io/boards/dustinblackman%2FChampionify?utm_campaign=gh-badge&utm_medium=badge&utm_source=github)
 [![Travis](https://img.shields.io/travis/dustinblackman/Championify/master.svg)](https://travis-ci.org/dustinblackman/Championify/builds)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/dt20uyoxt2skgneu/branch/master?svg=true)](https://ci.appveyor.com/project/dustinblackman/championify/branch/master)
 [![Coverage Status](https://img.shields.io/coveralls/dustinblackman/Championify/master.svg)](https://coveralls.io/github/dustinblackman/Championify?branch=master)
@@ -76,20 +77,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 Well that's great! Put up an Issue, hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
 
 ## Contribute
-If you can code Coffeescript, feel free to make a pull request.
-Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue. :)
-
-#### Rules:
-- Must pass all tests. `npm test`
-- Must write tests for all new functions (look at current tests for examples, still a WIP).
-- Functions must be camel cased. `downloadStuff()`
-- Variables must be underscored. `my_champion = 'teemo'`
-- PR must be off and back to master branch.
-
-I suggest making sure your linters are setup correctly, or run gulp lint every now and again.
-
-### Translations
-I use a [Onesky](https://dustinblackman.oneskyapp.com/collaboration/project/95440) to manage all my translations, it's super easy, includes initial English text, screenshots, and lets everyone contribute! Check it out. Please prevent from putting translations in PRs, I'd rather keep those for code.
+Please see [CONTRIBUTE.md](CONTRIBUTE.md)
 
 ---
 
@@ -169,7 +157,7 @@ Check out the [Features tag in Issues](https://github.com/dustinblackman/Champio
 
 <a name="source" />
 ## Build From Source
-You must have iojs 2.3.1 installed on your system (thats what Electron is using), git clone the repo and run the following in the root folder.
+You must have Node 4.1.1 and NPM 2.14.4 installed on your system (thats what Electron is using), git clone the repo and run the following in the root folder.
 
 ```console
 npm install -g gulp

@@ -1,12 +1,14 @@
 language: objective-c # Give me OSX images!
-install:
+before_install:
   - sw_vers -productVersion
+  - brew update
+  - brew install p7zip
+install:
   - rm -rf ~/.nvm
   - git clone https://github.com/creationix/nvm.git ~/.nvm
   - source ~/.nvm/nvm.sh
-  - nvm install 2.3.1
-  - nvm use 2.3.1
-  - npm install -g npm@2.14.4
+  - nvm install 4.1.1 # Must match package.json
+  - npm install -g npm@2.14.4 # Must match package.json
   - npm install || echo First NPM install failed && npm install # Fix electron-prebuilt failing on first install
 before_script:
   - node -v
@@ -17,4 +19,11 @@ cache:
   directories:
     - node_modules
 after_success:
-  - 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls'
+  - npm run coveralls
+  - npm run build-artifact
+addons:
+  s3_region: 'us-est-1'
+  artifacts:
+    paths:
+    - ./download.txt
+    - ./coverage/coverage-coffee.json
