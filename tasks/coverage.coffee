@@ -101,10 +101,7 @@ coverageDownload = (done) ->
 
     converted_coverage = {}
     _.each coverage_json, (coverage_data) ->
-      if process.platform == 'win32'
-        file = coverage_data.path.split('\\lib\\')[1]
-      else
-        file = coverage_data.path.replace(/\\/g, '/').split('/lib/')[1]
+      file = coverage_data.path.split('lib')[1]
 
       coverage_data.path = path.join(__dirname, '..', 'lib', file)
       converted_coverage[coverage_data.path] = coverage_data
