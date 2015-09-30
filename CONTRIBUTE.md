@@ -19,7 +19,7 @@ I suggest making sure your linters are setup correctly, or run `gulp lint` every
 ---
 
 ### Translations
-I use a [Transifex](https://www.transifex.com/dustinblackman/championify) to manage all my translations, it's super easy and lets everyone contribute!
+I use [Transifex](https://www.transifex.com/dustinblackman/championify) to manage all my translations, it's super easy and lets everyone contribute!
 
 
 __Rules__
