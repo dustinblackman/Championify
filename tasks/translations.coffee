@@ -2,6 +2,7 @@ argv = require('yargs').argv
 async = require 'async'
 crypto = require 'crypto'
 fs = require 'fs-extra'
+glob = require 'glob'
 gulp = require 'gulp'
 GT = require('google-translate')(process.env.GOOGLE_TRANSLATE_API)
 path = require 'path'
@@ -111,29 +112,39 @@ gulp.task 'translate', (cb) ->
     else
       cb(err)
 
-# Download translations from Onesky. `gulp onesky --lang th`
-gulp.task 'onesky', (cb) ->
+# Download translations from Transifex. `gulp transifex:download --lang th`
+gulp.task 'transifex:download', (cb) ->
   lang = argv.lang or argv.language
   return cb(new Error('You need to define a locale to download')) if !lang
 
-  timestamp = Math.floor(Date.now() / 1000)
-  params = {
-    url: 'https://platform.api.onesky.io/1/projects/95440/translations'
-    headers: {'Content-Type': 'application/json'}
-    method: 'GET'
-    qs: {
-      timestamp: timestamp
-      dev_hash: crypto.createHash('md5').update(timestamp + process.env.ONESKY_PRIVATE).digest('hex')
-      api_key: process.env.ONESKY_PUBLIC
-      locale: lang
-      source_file_name: 'en.json'
-    }
-  }
+  url = "https://#{process.env.TRANSIFEX_KEY}@www.transifex.com/api/2/project/championify/resource/english-source/translation/#{lang}/?mode=default&file"
+  request url, (err, res, body) ->
+    return cb(err) if err
 
-  request params, (err, res, body) ->
     previous_translations = JSON.parse fs.readFileSync("./i18n/#{lang}.json")
     translations = _.merge(previous_translations, JSON.parse(body))
 
     fs.writeFile "./i18n/#{lang}.json", JSON.stringify(translations, null, 2), {encoding: 'utf8'}, (err) ->
       console.log "Wrote ./i18n/#{lang}.json" if !err
       return cb(err)
+
+# Uploads all translations except English.
+gulp.task 'transifex:upload', (cb) ->
+  async.eachLimit glob.sync('./i18n/*.json'), 5, (translation_path, next) ->
+    lang = path.basename(translation_path).replace('.json', '')
+    return next() if _.contains(['_source', 'en'], lang)
+    
+    console.log "Uploading #{lang}..."
+    data = JSON.parse fs.readFileSync(path.join(__dirname, '..', translation_path))
+    options = {
+      url: "https://#{process.env.TRANSIFEX_KEY}@www.transifex.com/api/2/project/championify/resource/english-source/translation/#{lang}/"
+      method: 'PUT'
+      headers: {'Content-Type': 'application/json'}
+      form: {content: data}
+    }
+
+    request options, (err, res, body) ->
+      console.log body
+      next(err)
+
+  , cb
