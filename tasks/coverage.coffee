@@ -34,6 +34,7 @@ fromTravis = (done) ->
 
   s3 = new aws.S3({params: {Bucket: 'dustinblackman-travis-artifacts'}})
   s3.listObjects {Prefix: "dustinblackman/Championify/#{process.env.APPVEYOR_BUILD_NUMBER}"}, (err, data) ->
+    return done(err) if err
     coverage_key = null
 
     # TODO: Might have to reserve this array first.
@@ -101,7 +102,8 @@ coverageDownload = (done) ->
 
     converted_coverage = {}
     _.each coverage_json, (coverage_data) ->
-      file = coverage_data.path.split('lib')[1]
+      file = coverage_data.path.split('lib')[1].replace(/\\/g, '/')
+      file = file.substring(1) if file[0] == '/'
 
       coverage_data.path = path.join(__dirname, '..', 'lib', file)
       converted_coverage[coverage_data.path] = coverage_data
@@ -158,6 +160,10 @@ gulp.task 'istanbul', (cb) ->
   _istanbul('text-summary', cb)
 
 gulp.task 'coveralls', (cb) ->
+  if (process.env.APPVEYOR and !process.env.AWS_KEY) or (process.env.TRAVIS and !process.env.APPVEYOR_KEY)
+    console.log('Coveralls is disabled for pull requests')
+    return cb()
+
   async.series [
     (step) -> onCoveralls(step)
     (step) -> coverageDownload(step)
