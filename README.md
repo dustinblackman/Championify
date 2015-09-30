@@ -90,10 +90,6 @@ Well it's easy really. Here's a link for [Teemo's most popular build in top lane
 #### Is it safe?
 Yep it's safe! Were not modifying League of Legends at all, so no rules broken there. And my code is clean and free to browse, so no smelly virus' or surprises. I've added VirusTotal report to all my recent releases just to be sure. If you still don't trust my executables, have a tech buddy look over my code themselves and you can build from [source](#source).
 
-<a name="autoupdate_error" />
-#### I just opened Championify to find a black window, or just an error pop up?
-If you have version 0.2.0 or lower, that's my fault, sorry about that. I made a mistake with my Auto Updater that caused the issue. Redownload the latest version and this shouldn't happen again. Found [here](https://github.com/dustinblackman/Championify/releases/latest).
-
 
 #### How do I make this work on Windows?
 Run Championify.exe, the app will try and look for your League of Legends folder for you. If the app can't find it, browse to your League of Legends folder where lol.launcher.exe is saved (LoLLauncher.exe for Garena installations).
@@ -108,7 +104,7 @@ Due to Riot restrictions, you can only see the item sets in game, you won't see 
 
 
 #### Why does this not work on XP, Vista, or OSX Lion?
-Sorry, Electron doesn't support anything below 7 or Mountain Lion. There's no plans to support it.
+Sorry, Electron doesn't support anything below Windows 7 or Mountain Lion. There's no plans to support it.
 
 
 #### "App can’t be opened because it is from an unidentified developer"
@@ -128,8 +124,12 @@ I'm sorry you don't like it, hopefully I'll have it live up to your expectations
 Oh no not at all, that's the last thing you want to do. The best time to run Championify is 3-4 day after a major patch comes out. Only got to do it once.
 
 
-#### Why do you force auto updates?
-If something was to change on Riots end and Championify's item sets broke your client or completely screwed up one of your games, you'd be pretty pissed right? I know I would be. This is just one method to make sure you run in to the least amount of problems possible, plus the update are under ~4MB anyway.
+#### Why do you force auto updates of Championify?
+If something was to change on Riots end and Championify's item sets broke your client or completely screwed up one of your games, you'd be pretty pissed right? I know I would be. This is just one method to make sure you run in to the least amount of problems possible, plus the updates are under ~8MB anyway.
+
+
+#### How to I auto update item sets?
+It's currently not supported but is planned! If you would like to try a bit of automation yourself you can try the [command line parameters](#clp)
 
 
 #### Why is my antivirus complaining about lolflavor?
@@ -152,6 +152,40 @@ I use Electron to wrap my GUI, and unfortunately it's a bit big. I'd rather the 
 ## Future Plans
 Check out the [Features tag in Issues](https://github.com/dustinblackman/Championify/labels/feature) to see all up and  coming ideas.
 
+
+---
+
+<a name="clp" />
+## Command Line Parameters
+Championify supports a few command line parameters for those who would like to automate a few tasks before it's official supported within the app. Params work on both Windows and OSX, and uses the last saved preferences made on the app (preferences are saved each time you hit import).
+
+__Params__
+
+- `--import` Imports item sets
+- `--delete` Deletes item sets
+- `--autorun` Silently (without loading the UI) imports item sets
+- `--startLeague` Starts League of Legends after import
+
+__Example__
+
+Silently imports and starts League afterwards.
+
+```bash
+C:/Championify/championify.exe --autorun --startLeague
+```
+
+---
+
+## Bleeding Edge
+For the adventurous, bleeding edge builds are available of each branch through CIs.
+
+__Windows__
+
+Open [Appveyor](https://ci.appveyor.com/project/dustinblackman/championify/branch/master) and select the the latest master branch commit, then `Platform: x86`, then `artifacts`. You'll find `download.txt` that contains a Zippyshare link to the build off that commit.
+
+__OSX__
+
+Open [Travis](https://travis-ci.org/dustinblackman/Championify/branches) and select the the latest master branch commit, scroll down through the test log until you see `npm run build-artifact`, a few lines down you should see a Zippyshare link to the build off that commit.
 
 ---
 
