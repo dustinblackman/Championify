@@ -164,6 +164,7 @@ __Params__
 - `--import` Imports item sets
 - `--delete` Deletes item sets
 - `--autorun` Silently (without loading the UI) imports item sets
+- `--close` Closes Championify when finished
 - `--startLeague` Starts League of Legends after import
 
 __Example__
@@ -177,7 +178,7 @@ C:/Championify/championify.exe --autorun --startLeague
 ---
 
 ## Bleeding Edge
-For the adventurous, bleeding edge builds are available of each branch through CIs.
+For the adventurous, bleeding edge builds are available of each branch through CIs. A simpler method will be available once a website is built.
 
 __Windows__
 
