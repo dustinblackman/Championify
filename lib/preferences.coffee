@@ -1,6 +1,7 @@
 _ = require 'lodash'
 cErrors = require './errors'
 fs = require 'fs'
+mkdirp = require 'mkdirp'
 path = require 'path'
 pathManager = require './path_manager'
 sourceUIManager = require './source_ui_manager'
@@ -47,6 +48,7 @@ save = (preferences, done) ->
   return done(cErrors.OperationalError('Preferences object does not exist')) if !preferences
 
   preference_file = preferenceFile()
+  mkdirp(preferenceDir())
   fs.writeFile preference_file, JSON.stringify(preferences, null, 2), {encoding: 'utf8'}, (err) ->
     if err
       Log.error(err)

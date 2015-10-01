@@ -18,6 +18,7 @@ cErrors = require './errors'
 hlp = require './helpers'
 optionsParser = require './options_parser'
 preferences = require './preferences'
+pkg = require '../package.json'
 viewManager = require './view_manager'
 
 
