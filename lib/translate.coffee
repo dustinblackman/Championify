@@ -20,30 +20,20 @@ module.exports = class Translate
 
   # To set flag class for jade template
   flag: ->
-    flag = ''
+    flags = {
+      en: 'gb'
+      'zh-CN': 'cn'
+      'zh-TW': 'cn'
+      cs: 'cz'
+      el: 'gr'
+      he: 'il'
+      ja: 'jp'
+      ko: 'kr'
+      ms: 'my'
+      vi: 'vn'
+    }
 
-    if @locale == 'en'
-      flag = 'gb'
-    else if @locale == 'zh-CN' or @locale == 'zh-TW'
-      flag = 'cn'
-    else if @locale == 'cs'
-      flag = 'cz'
-    else if @locale == 'el'
-      flag = 'gr'
-    else if @locale == 'he'
-      flag = 'il'
-    else if @locale == 'ja'
-      flag = 'jp'
-    else if @locale == 'ko'
-      flag = 'kr'
-    else if @locale == 'ms'
-      flag = 'my'
-    else if @locale == 'vi'
-      flag = 'vn'
-    else
-      flag = @locale
-
-    return flag
+    return flags[@locale] or @locale
 
   # Merge in new translations to phrases (like Champ names)
   merge: (translations) ->
