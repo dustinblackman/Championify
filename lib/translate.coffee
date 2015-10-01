@@ -31,6 +31,7 @@ module.exports = class Translate
       ko: 'kr'
       ms: 'my'
       vi: 'vn'
+      'pt-BR': 'br'
     }
 
     return flags[@locale] or @locale
@@ -59,6 +60,7 @@ module.exports = class Translate
       ms: 'ms_MY'
       pl: 'pl_PL'
       pt: 'pt_PT'
+      'pt-BR': 'pt_BR'
       ro: 'ro_RO'
       ru: 'ru_RU'
       th: 'th_TH'
