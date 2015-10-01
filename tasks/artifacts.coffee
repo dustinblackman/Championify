@@ -11,7 +11,7 @@ gulp.task 'build-artifact:osx', ->
     'package-asar'
     'compile:osx'
     'zip:osx'
-    'upload-artifcat'
+    'upload-artifact'
   )
 
 gulp.task 'build-artifact:win', ->
@@ -19,7 +19,7 @@ gulp.task 'build-artifact:win', ->
     'package-asar'
     'compile:win'
     'zip:win'
-    'upload-artifcat'
+    'upload-artifact'
   )
 
 gulp.task 'build-artifact', (cb) ->
@@ -28,7 +28,7 @@ gulp.task 'build-artifact', (cb) ->
   else
     return runSequence('build-artifact:osx', cb)
 
-gulp.task 'upload-artifcat', (cb) ->
+gulp.task 'upload-artifact', (cb) ->
   commit = process.env.APPVEYOR_REPO_COMMIT or process.env.TRAVIS_COMMIT or 'NO_COMMIT'
   file = glob.sync('./releases/*.zip')[0]
   file_name = "Championify-#{process.platform}-#{commit}.zip"

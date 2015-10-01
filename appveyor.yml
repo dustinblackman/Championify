@@ -1,6 +1,6 @@
 version: '{branch}-{build}'
 pull_requests:
-  do_not_increment_build_number: true
+  do_not_increment_build_number: false
 skip_tags: true
 os: Windows Server 2012 R2
 install:
