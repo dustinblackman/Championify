@@ -25,6 +25,7 @@ I use [Transifex](https://www.transifex.com/dustinblackman/championify) to manag
 __Rules__
 - Make sure to check if a translation has been done already before writing it over again.
 - If you have an issue with someone elses translation, please use the comments section.
+- Don't add extra punctuations (such as `...`) to the end of translations if the English version doesn't have it.
 
 __Setup__
 - Create an account with [Transifex](https://www.transifex.com/signin/) (Or login with Github/Google/Facebook/ect)
