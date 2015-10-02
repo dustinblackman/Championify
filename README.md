@@ -72,6 +72,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 - Fix black text sticking on highlight
 - Allow the ability to copy/paste your League directory
 - Garena path patches
+- Fix UI differences between OSX and Windows
 
 #### Technical Features
 - Complete code rework (nearly written from the ground up)
