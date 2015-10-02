@@ -16,15 +16,11 @@ Latest Release Downloads: [![Downloads](https://img.shields.io/github/downloads/
 
 Championify is a little program that downloads all the recent builds from Champion.gg and imports them in to your League of Legends to use within game! No hassle. Now with customization settings and a GUI!
 
-Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.1.
+Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.3.
 
 ![screenshot](https://i.imgur.com/2W3rKzK.png)
 
 Check out some more screenshots [here](https://imgur.com/2W3rKzK,ADYZ9ED,KNVRFs7,umDkx5j,scpQPBH,GpHtwKt#0)!
-
-Note this application is still in development, as far as I've tested it's worked great, but don't get overly surprised if you find a bug or two.
-
-This application is inspired by [ebildude123](https://github.com/ebildude123/champion.gg-item-set-creator) item set creator done in PHP.
 
 ---
 
@@ -98,11 +94,11 @@ Well it's easy really. Here's a link for [Teemo's most popular build in top lane
 
 
 #### Is it safe?
-Yep it's safe! Were not modifying League of Legends at all, so no rules broken there. And my code is clean and free to browse, so no smelly virus' or surprises. I've added VirusTotal report to all my recent releases just to be sure. If you still don't trust my executables, have a tech buddy look over my code themselves and you can build from [source](#source).
+Yep it's safe! Were not modifying League of Legends at all, and got the clear thanks to [Riot's item sets docs](https://developer.riotgames.com/docs/item-sets) . And my code is clean and free to browse, so no smelly virus' or surprises. I've added VirusTotal report to all my recent releases just to be sure. If you still don't trust my executables, have a tech buddy look over my code themselves and you can build from [source](#source).
 
 
 #### How do I make this work on Windows?
-Run Championify.exe, the app will try and look for your League of Legends folder for you. If the app can't find it, browse to your League of Legends folder where lol.launcher.exe is saved (LoLLauncher.exe for Garena installations).
+Run Championify.exe, the app will try and look for your League of Legends folder for you. If the app can't find it, browse to your League of Legends folder where `lol.launcher.exe` is saved (`LoLLauncher.exe` or `lol.exe` for Garena installations).
 
 
 #### How do I make this work on Mac?
@@ -138,20 +134,16 @@ Oh no not at all, that's the last thing you want to do. The best time to run Cha
 If something was to change on Riots end and Championify's item sets broke your client or completely screwed up one of your games, you'd be pretty pissed right? I know I would be. This is just one method to make sure you run in to the least amount of problems possible, plus the updates are under ~8MB anyway.
 
 
-#### How to I auto update item sets?
+#### How do I auto update item sets?
 It's currently not supported but is planned! If you would like to try a bit of automation yourself you can try the [command line parameters](#clp)
 
 
 #### Why is my antivirus complaining about lolflavor?
-Let me guess, BitDefender? I know, I got it running too. For some reason they have lolflavor marked as malware, which I've checked myself and it's not. To add, Championify never loads a lolflavor page, so even if there was malware laying around Championify would never open it. See [virus total report here](https://www.virustotal.com/en/url/576b112b6ae43a58f00176c5efe8f9456fa16dcfcf4e341e17f6c68c6a5e0e88/analysis/1435015572/). To fix the issue, add "lolflavor.com" to your exceptions in your anti virus.
-
-
-#### If this has been done before, why did you do it again?
-Well for a few reasons. [ebildude123](https://github.com/ebildude123/champion.gg-item-set-creator) original script is in PHP, and I wanted to do some changes and I don't like PHP in the slightest. Another issue is that the greater part of the world doesn't have PHP installed by default making the use of his script very difficult, plus you have a good number of people who automatically run in fear when they have to open a command prompt. My solution is a simple .exe/.app where you run and follow the instructions. Much easier.
+Let me guess, BitDefender? I know, I got it running too. For some reason they have lolflavor marked as malware, which I've checked myself and it's not. To add, Championify never loads a lolflavor page, so even if there was malware laying around Championify would never open it. See [virus total report here](https://www.virustotal.com/en/url/576b112b6ae43a58f00176c5efe8f9456fa16dcfcf4e341e17f6c68c6a5e0e88/analysis/1435015572/). To fix the issue, add "lolflavor.com" to your exceptions in your anti virus. [Tutorial here](http://www.bitdefender.com/support/what-to-do-when-bitdefender-2015-blocks-a-safe-website-or-online-application-1294.html)
 
 
 #### Why is your script so slow?
-Well damn, you must be pretty impatient if you think that's slow... The script is slowed on purpose so users don't spam Champion.gg's servers. They're doing great great stuff over there and the last thing I'd want to do is cause them trouble. However if it's REALLY slow, then you should consider upgrading your dial up connection.
+Well damn, you must be pretty impatient if you think that's slow... The script is slowed on purpose so users don't spam other peoples servers. They're doing great great stuff over there and the last thing I'd want to do is cause them trouble. However if it's REALLY slow, then you should consider upgrading your dial up connection.
 
 
 #### Why is the file size so big?
