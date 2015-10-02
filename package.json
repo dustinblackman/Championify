@@ -52,7 +52,7 @@
     "coffeelint-stylish": "0.1.2",
     "coveralls": "2.11.4",
     "electron-mocha": "git://github.com/dustinblackman/electron-mocha.git#championify",
-    "electron-prebuilt": "0.33.3",
+    "electron-prebuilt": "0.33.4",
     "github": "0.2.4",
     "google-translate": "1.0.0",
     "gulp": "3.9.0",
