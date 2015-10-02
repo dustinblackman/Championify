@@ -18,6 +18,7 @@
 - Deleting old items sets that don't have new versions is now an option instead of forced
 - Open log button
 - Show error message on error view
+- Add progress bar to updates view
 
 #### Bug Fixes
 - Faster app loading time
