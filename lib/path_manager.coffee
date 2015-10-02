@@ -1,5 +1,7 @@
 fs = require 'fs'
+glob = require 'glob'
 path = require 'path'
+_ = require 'lodash'
 
 ###*
  * Function Auto discovery of League installation.
@@ -60,7 +62,7 @@ checkInstallPath = (selected_path, done) ->
 
     # Default install,
     if fs.existsSync(default_path)
-      done null, selected_path, 'Config/Champions/', path.basename(garena_check_one)
+      done null, selected_path, 'Config/Champions/', path.basename(default_path)
 
     # Garena Check 1
     else if fs.existsSync(garena_check_one)

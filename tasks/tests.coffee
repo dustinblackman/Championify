@@ -114,6 +114,9 @@ mochaOSX = (cb) ->
 
 
 gulp.task 'mocha', (cb) ->
+  tmp_dir = path.join(__dirname, '..', 'tmp')
+  fs.removeSync(tmp_dir) if fs.existsSync(tmp_dir)
+  
   if process.platform == 'win32'
     mochaWindows(cb)
   else
