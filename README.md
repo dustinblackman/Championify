@@ -42,34 +42,42 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 ---
 
 ## [Change Log](CHANGELOG.md)
-<a name="0.4.1" />
-### 0.4.1 (July 20th, 2015)
+<a name="1.0.0" />
+### 1.0.0 (October ??th, 2015)
 
-### Bug Fixes
-- Grammar fixes (thanks iKevinY!)
-- Mark log upload as failed if it can't be opened
-- AJAX requests error instance (cause there was none...)
-- Update error message for tips on how to fix
+#### Breaking Changes
+- Auto updater will not work with older versions of Championify for Windows users.
 
-<a name="0.4.0" />
-### 0.4.0 (July 20th, 2015)
+#### Features
+- Supports 25 (kinda badly translated...) languages
+- New borderless window design
+- Brand new animations, because they're pretty
+- Select either Champion.gg or Lolflavor for Item Sets source
+- Command line parameters for automation
+- ARAM starters now have Oracle's Extract
+- Add complete view, with a close button and start League button
+- Shows versions on main view. You can now see Champion.gg's, LolFlavors, Riots, and your own item sets patch version when you start the app.
+- Deleting old items sets that don't have new versions is now an option instead of forced
+- Open log button
+- Show error message on error view
 
-### Features
-- Give user ability to set Trinkets and/or Consumables to top or bottom of item set
-- Automatically save preferences and League directory
-- Item sets file structure now follows Riot standards
-- Add error/crash message for when something breaks
-- New error log reporting system
-- Switch from Bootstrap to Semantic UI (New buttons, progress bar, layout)
+#### Bug Fixes
+- Faster app loading time
+- Less errors when scraping Champion.gg
+- Windows installer supports all languages the app supports.
+- Bash script not always starting for updates on Windows.
+- Permissions errors on Windows now asks to be runned as admin automatically.
+- Importer tests write permissions before running import, and elevates when needed.
+- Auto updater checks for write permissions
+- Fix black text sticking on highlight
+- Allow the ability to copy/paste your League directory
+- Garena path patches
 
-### Bug Fixes
-- Multiple windows opening when clicking browse
-- Improved path handling
-- Grammar fixes
-- Tooltips so they're easier to view
-
-### Notes
-- ARAM builds still in Beta, still haven't decided what I want to do with them.
+#### Technical Features
+- Complete code rework (nearly written from the ground up)
+- Auto updater now supports complete client replacements (major updates)
+- Test suite, CI, and coverage integrations to simplify and encourage PRs
+- Bleeding edge builds (off all branches)
 
 ---
 
