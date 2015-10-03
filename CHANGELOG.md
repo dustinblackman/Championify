@@ -4,7 +4,7 @@
 ## 1.0.0 (October ??th, 2015)
 
 #### Breaking Changes
-- Auto updater will not work with older versions of Championify for Windows users.
+- Auto updater will not work with older versions of Championify for Windows users. __Please manually redownload.__
 
 #### Features
 - Supports 25 (kinda badly translated...) languages
