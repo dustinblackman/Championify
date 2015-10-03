@@ -19,14 +19,14 @@ I suggest making sure your linters are setup correctly, or run `gulp lint` every
 ---
 
 ### Translations
-I use [Transifex](https://www.transifex.com/dustinblackman/championify) to manage all my translations, it's super easy and lets everyone contribute!
+I use [Transifex](https://www.transifex.com/dustinblackman/championify) to manage all my translations, it's super easy and lets everyone contribute! The initial translations were done with Google Translate, so just because a translation exists doesn't mean it's correct.
 
 
 __Rules__
 - Make sure to check if a translation has been done already before writing it over again.
 - If you have an issue with someone elses translation, please use the comments section.
 - Don't add extra punctuations (such as `...`) to the end of translations if the English version doesn't have it.
-- Take a look at the screenshot links you'll find with each translation, or check out the [screenshot folder](resources/screenshots/)
+- Take a look at the screenshot links you'll find with each translation (if they're available), or check out the [screenshot folder](resources/screenshots/)
 
 __Setup__
 - Create an account with [Transifex](https://www.transifex.com/signin/) (Or login with Github/Google/Facebook/ect)
