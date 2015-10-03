@@ -39,6 +39,16 @@
 - Test suite, CI, and coverage integrations to simplify and encourage PRs
 - Bleeding edge builds (off all branches)
 
+#### Translations
+
+__Thanks to__
+- [@OmerValentine](https://github.com/OmerValentine) for the Hebrew translations
+- [@secretdataz](https://github.com/secretdataz) for the Thai translations
+- [@FreakyDeluxe](https://github.com/FreakyDeluxe) for the French translations
+- [@PrototypeGR](https://github.com/PrototypeGR) for the Greek translations
+- [@pcastro94](https://github.com/pcastro94) for the Portuguese and Brazilian Portuguese translations
+
+
 <a name="0.4.1" />
 ## 0.4.1 (July 20th, 2015)
 

@@ -77,6 +77,15 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 - Test suite, CI, and coverage integrations to simplify and encourage PRs
 - Bleeding edge builds (off all branches)
 
+#### Translations
+
+__Thanks to__
+- [@OmerValentine](https://github.com/OmerValentine) for the Hebrew translations
+- [@secretdataz](https://github.com/secretdataz) for the Thai translations
+- [@FreakyDeluxe](https://github.com/FreakyDeluxe) for the French translations
+- [@PrototypeGR](https://github.com/PrototypeGR) for the Greek translations
+- [@pcastro94](https://github.com/pcastro94) for the Portuguese and Brazilian Portuguese translations
+
 ---
 
 ## BUT WAIT! I have a suggestion!
@@ -212,9 +221,19 @@ brew install wine
 ---
 
 ## Credit
-- Icon by [OmerValentine](https://twitter.com/omervalentine)
+- Icon by [OmerValentine](http://github.com/OmerValentine)
 - [Joeldo](https://www.reddit.com/user/joeldo) of [Champion.gg](http://champion.gg)
 - [Lolflavor](http://www.lolflavor.com/)
+
+---
+
+## Thank yous
+- [@sargonas](https://github.com/sargonas) and the rest of the Riot API team for unlocking item sets
+- [@OmerValentine](https://github.com/OmerValentine) for the Hebrew translations
+- [@secretdataz](https://github.com/secretdataz) for his help with Garena and Thai translations
+- [@FreakyDeluxe](https://github.com/FreakyDeluxe) for the French translations
+- [@PrototypeGR](https://github.com/PrototypeGR) for the Greek translations
+- [@pcastro94](https://github.com/pcastro94) for the Portuguese and Brazilian Portuguese translations
 
 ---
 
