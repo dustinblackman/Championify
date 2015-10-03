@@ -303,8 +303,8 @@ processChamp = (request_params, body, step) ->
     }
 
     return {
-      mfBuild: hlp.trinksCon(mfBuild)
-      hwBuild: hlp.trinksCon(hwBuild)
+      mfBuild: hlp.trinksCon(mfBuild, champ, request_params.manaless, skills)
+      hwBuild: hlp.trinksCon(hwBuild, champ, request_params.manaless, skills)
     }
 
   # Inserts new item sets in to a global object to be used when we get to saving files.

@@ -66,6 +66,10 @@ describe 'lib/sources/championgg.coffee', ->
         window.cSettings = {splititems: true}
         testWithFixture(RESULTS_FIXTURES.brand_result_splititems, done)
 
+      it 'should return with item sets locked to Summoners Rift map', (done) ->
+        window.cSettings = {locksr: true}
+        testWithFixture(RESULTS_FIXTURES.brand_result_locksr, done)
+
       it 'should return with consumables enabled and at the beginning', (done) ->
         window.cSettings = {
           consumables: true
@@ -94,6 +98,20 @@ describe 'lib/sources/championgg.coffee', ->
         }
         testWithFixture(RESULTS_FIXTURES.brand_result_trinkets_end, done)
 
-      it 'should return with item sets locked to Summoners Rift map', (done) ->
-        window.cSettings = {locksr: true}
-        testWithFixture(RESULTS_FIXTURES.brand_result_locksr, done)
+
+      it 'should return with consumables enabled and split item sets', (done) ->
+        window.cSettings = {
+          splititems: true
+          consumables: true
+          consumables_position: 'beginning'
+        }
+        testWithFixture(RESULTS_FIXTURES.brand_result_splititems_consumables, done)
+
+
+      it 'should return with trinkets enabled and split item sets', (done) ->
+        window.cSettings = {
+          splititems: true
+          trinkets: true
+          trinkets_position: 'beginning'
+        }
+        testWithFixture(RESULTS_FIXTURES.brand_result_splititems_trinkets, done)
