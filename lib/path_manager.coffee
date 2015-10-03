@@ -1,5 +1,7 @@
 fs = require 'fs'
+glob = require 'glob'
 path = require 'path'
+_ = require 'lodash'
 
 ###*
  * Function Auto discovery of League installation.
@@ -53,21 +55,23 @@ checkInstallPath = (selected_path, done) ->
       done new Error('Path not found'), selected_path
 
   else
-    garena_glob = glob.sync(path.join(selected_path, 'GameData/Apps/**/Game/Config/'))
-    garena_path = path.join(selected_path, 'League of Legends.exe')
+    # Riot
     default_path = path.join(selected_path, 'lol.launcher.exe')
+    garena_check_one = path.join(selected_path, 'lol.exe')
+    garena_check_two = glob.sync(path.join(selected_path, 'LoL*Launcher.exe'))[0]
 
-    # Default install, Garena Check 1
-    if fs.existsSync(default_path) or fs.existsSync(garena_path)
-      executable = if fs.existsSync(garena_path) then 'League of Legends.exe' else 'lol.launcher.exe'
-      done null, selected_path, 'Config/Champions/', executable
+    # Default install,
+    if fs.existsSync(default_path)
+      done null, selected_path, 'Config/Champions/', path.basename(default_path)
 
-    # Garena Installation Check 2
-    else if fs.existsSync(path.join(selected_path, 'LoLLauncher.exe')) and garena_glob
-      executable = 'LoLLauncher.exe'
-      garena_split = garena_glob[0].split('/')
-      garena_version = garena_split[garena_split.length - 4]
-      done null, selected_path, "GameData/Apps/#{garena_version}/Game/Config/Champions/", executable
+    # Garena Check 1
+    else if fs.existsSync(garena_check_one)
+      done null, selected_path, 'Game/Config/Champions/', path.basename(garena_check_one)
+
+    # Garena Check 2
+    else if garena_check_two
+      garena_version = path.basename glob.sync(path.join(selected_path, 'GameData/Apps/*'))[0]
+      done null, selected_path, "GameData/Apps/#{garena_version}/Game/Config/Champions/", path.basename(garena_check_two)
 
     else
       done new Error('Path not found'), selected_path
