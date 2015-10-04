@@ -62,7 +62,7 @@ gulp.task 'github-release', (cb) ->
     (step) ->
       fs.readFile './CHANGELOG.md', {encoding: 'utf8'}, (err, changelog) ->
         body = changelog.split(/<a name="*.*.*" \/>/g)[1]
-        body += '\n\n#### Virus Total Reports\n'
+        body += '\n\n## Virus Total Reports\n'
 
         link = _.template('[<%- name %> | VirusTotal Report](<%- link %>)\n')
         _.each _.keys(GLOBAL.vtReports), (item) ->
@@ -81,7 +81,7 @@ gulp.task 'github-release', (cb) ->
 
         body += [
           ''
-          '### How to Download:'
+          '## How to Download:'
           'Below you\'ll find the download section. If you\'re on Windows, your best bet it to select the "Windows Setup" to get yourself started with Championify. If you have trouble installing you can always try the ".zip" version.'
           'For Mac, download the file labeled "OSX", extract the .zip, and you\'ll be good to go!'
         ].join('\n')
