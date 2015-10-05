@@ -142,6 +142,7 @@ coverallsSetup = (done) ->
 
       (job_id, step) -> # Set enviroment variables.
         cmds = [
+          '@echo off'
           "SET COVERALLS_RUN_AT=#{moment().format('YYYY-MM-DDTHH:mm:ssZ')}"
           "SET COVERALLS_SERVICE_JOB_ID=#{job_id}"
           "SET COVERALLS_GIT_BRANCH=#{process.env.APPVEYOR_REPO_BRANCH}"
