@@ -14,7 +14,7 @@ _Champion-If-Ayyy_
 
 Latest Release Downloads: [![Downloads](https://img.shields.io/github/downloads/dustinblackman/Championify/latest/total.svg)](https://github.com/dustinblackman/Championify/releases/latest)
 
-Championify is a little program that downloads all the recent builds websites like Champion.gg or Lolflavor and imports them in to your League of Legends to use within game! No hassle. Now with 25 languages and new features!
+Championify is a little program that downloads all the recent builds from websites like Champion.gg or Lolflavor and imports them in to your League of Legends to use within game! No hassle. Now with 25 languages and new features!
 
 Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.3.
 
