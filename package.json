@@ -1,7 +1,7 @@
 {
   "name": "Championify",
-  "version": "0.4.1",
-  "description": "Downloads all the current builds from Champion.gg and imports them in to League of Legends.",
+  "version": "1.0.0",
+  "description": "Downloads all the recent builds from websites like Champion.gg or Lolflavor and imports them in to your League of Legends.",
   "main": "electron.coffee",
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
