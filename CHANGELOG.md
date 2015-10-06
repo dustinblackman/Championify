@@ -1,7 +1,7 @@
 # Changelog
 
 <a name="1.0.0" />
-## 1.0.0 (October ??th, 2015)
+## 1.0.0 (October 6th, 2015)
 
 #### Breaking Changes
 - Auto updater will not work with older versions of Championify for Windows users. __Please manually redownload.__
@@ -33,7 +33,7 @@
 - Garena path patches
 - Fix UI differences between OSX and Windows
 
-#### Technical Features
+#### Technical Notes and Features
 - Complete code rework (nearly written from the ground up)
 - Auto updater now supports complete client replacements (major updates)
 - Test suite, CI, and coverage integrations to simplify and encourage PRs

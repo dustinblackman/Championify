@@ -14,35 +14,37 @@ _Champion-If-Ayyy_
 
 Latest Release Downloads: [![Downloads](https://img.shields.io/github/downloads/dustinblackman/Championify/latest/total.svg)](https://github.com/dustinblackman/Championify/releases/latest)
 
-Championify is a little program that downloads all the recent builds from Champion.gg and imports them in to your League of Legends to use within game! No hassle. Now with customization settings and a GUI!
+Championify is a little program that downloads all the recent builds websites like Champion.gg or Lolflavor and imports them in to your League of Legends to use within game! No hassle. Now with 25 languages and new features!
 
 Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.3.
 
-![screenshot](https://i.imgur.com/2W3rKzK.png)
+<img src="https://i.imgur.com/iexHBvL.png">
 
-Check out some more screenshots [here](https://imgur.com/2W3rKzK,ADYZ9ED,KNVRFs7,umDkx5j,scpQPBH,GpHtwKt#0)!
+Check out some more screenshots [here](https://imgur.com/a/zL0R2/all)!
 
 ---
 
 ## Features
 - Summoners Rift and ARAM Item Sets
-- Skill Priorities lists
+- Skill Priorities lists (Q.W.E.Q.E.R ect)
+- 25 Languages
+- Bunch of preferences to display item sets in the way you prefer
+- Automation using command line preferences (simpler system coming soon)
 - Automatically save preference settings
+- Garena support
 - Does not touch other item sets that you or other applications create
 
----
 
 ## Downloads
 Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
----
 
 ## [Change Log](CHANGELOG.md)
 <a name="1.0.0" />
-### 1.0.0 (October ??th, 2015)
+### 1.0.0 (October 6th, 2015)
 
 #### Breaking Changes
-- Auto updater will not work with older versions of Championify for Windows users.  __Please manually redownload.__
+- Auto updater will not work with older versions of Championify for Windows users.  __Please manually [redownload](https://github.com/dustinblackman/Championify/releases/latest).__
 
 #### Features
 - Supports 25 (kinda badly translated...) languages
@@ -71,7 +73,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 - Garena path patches
 - Fix UI differences between OSX and Windows
 
-#### Technical Features
+#### Technical Notes and Features
 - Complete code rework (nearly written from the ground up)
 - Auto updater now supports complete client replacements (major updates)
 - Test suite, CI, and coverage integrations to simplify and encourage PRs
@@ -86,7 +88,6 @@ __Thanks to__
 - [@PrototypeGR](https://github.com/PrototypeGR) for the Greek translations
 - [@pcastro94](https://github.com/pcastro94) for the Portuguese and Brazilian Portuguese translations
 
----
 
 ## BUT WAIT! I have a suggestion!
 Well that's great! Put up an Issue, hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
@@ -94,7 +95,6 @@ Well that's great! Put up an Issue, hit me up on [Gitter](https://gitter.im/dust
 ## Contribute
 Please see [CONTRIBUTE.md](CONTRIBUTE.md)
 
----
 
 <a name="faq" />
 ## Frequently Asked Questions
@@ -158,13 +158,11 @@ Well damn, you must be pretty impatient if you think that's slow... The script i
 #### Why is the file size so big?
 I use Electron to wrap my GUI, and unfortunately it's a bit big. I'd rather the App just work then worry about size.
 
----
 
 ## Future Plans
 Check out the [Features tag in Issues](https://github.com/dustinblackman/Championify/labels/feature) to see all up and  coming ideas.
 
 
----
 
 <a name="clp" />
 ## Command Line Parameters
@@ -186,7 +184,6 @@ Silently imports and starts League afterwards.
 C:/Championify/championify.exe --autorun --startLeague
 ```
 
----
 
 ## Bleeding Edge
 For the adventurous, bleeding edge builds are available of each branch through CIs. A simpler method will be available once a website is built.
@@ -199,7 +196,6 @@ __OSX__
 
 Open [Travis](https://travis-ci.org/dustinblackman/Championify/branches) and select the the latest master branch commit, scroll down through the test log until you see `npm run build-artifact`, a few lines down you should see a Zippyshare link to the build off that commit.
 
----
 
 <a name="source" />
 ## Build From Source
@@ -218,14 +214,12 @@ Wine is required if building on Mac for Windows.
 brew install wine
 ```
 
----
 
 ## Credit
 - Icon by [OmerValentine](http://github.com/OmerValentine)
 - [Joeldo](https://www.reddit.com/user/joeldo) of [Champion.gg](http://champion.gg)
 - [Lolflavor](http://www.lolflavor.com/)
 
----
 
 ## Thank yous
 - [@sargonas](https://github.com/sargonas) and the rest of the Riot API team for unlocking item sets
@@ -235,7 +229,6 @@ brew install wine
 - [@PrototypeGR](https://github.com/PrototypeGR) for the Greek translations
 - [@pcastro94](https://github.com/pcastro94) for the Portuguese and Brazilian Portuguese translations
 
----
 
 ## [License](LICENSE)
 
