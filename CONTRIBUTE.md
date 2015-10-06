@@ -17,8 +17,7 @@ I suggest making sure your linters are setup correctly, or run `gulp lint` every
 ---
 
 ### Translations
-I use [Transifex](https://www.transifex.com/dustinblackman/championify) to manage all my translations, it's super easy and lets everyone contribute! The initial translations were done with Google Translate, so just because a translation exists doesn't mean it's correct.
-
+I use [Transifex](https://www.transifex.com/dustinblackman/championify) to manage all my translations, it's super easy and lets everyone contribute! The initial translations were done with Google Translate, so just because a translation exists doesn't mean it's correct. You can also check out the language status list below to see which have been done by Google, and which has had attention from a native speaker.
 
 __Rules__
 - Make sure to check if a translation has been done already before writing it over again.
@@ -30,5 +29,33 @@ __Setup__
 - Create an account with [Transifex](https://www.transifex.com/signin/) (Or login with Github/Google/Facebook/ect)
 - Join the Championify team with the language you'd like to work on
 - Start!
+
+__Langauge Status__
+| Language | Finished |
+| ------------- | -----:|
+| English | Yes |
+| Bulgarian | No |
+| Chinese Simplified | No |
+| Chinese Traditional | No |
+| Dutch | No |
+| French | Yes |
+| German | No |
+| Greek | Yes |
+| Hebrew | Yes |
+| Hungarian | No |
+| Indonesian | No |
+| Italian | No |
+| Japanese | No |
+| Korean | No |
+| Malay | No |
+| Polish | No |
+| Portuguese | Yes |
+| Portuguese Brazil | Yes |
+| Romanian | No |
+| Russian | No |
+| Spanish | No |
+| Thai | Yes |
+| Turkish | No |
+| Vietnamese | No |
 
 Please prevent from putting translations in PRs, I'd rather keep those for code. I check Transifex every other day, but if you'd like me to get a look at your translations quickly then hit me up on [Gitter](https://gitter.im/dustinblackman/Championify).
