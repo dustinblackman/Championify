@@ -173,7 +173,7 @@ gulp.task 'electron:deps', (cb) ->
 gulp.task 'electron:settings', ->
   gulp.src(['./electron.coffee'], {base: './'})
     .pipe(coffee(bare: true).on('error', gutil.log))
-    .pipe(gulpif(GLOBAL.ifRelease, uglify({mangle: false})))
+    # .pipe(gulpif(GLOBAL.ifRelease, uglify({mangle: false})))
     .pipe gulp.dest('./dev')
 
 

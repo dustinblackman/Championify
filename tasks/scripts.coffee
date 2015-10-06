@@ -14,7 +14,7 @@ gulp.task 'coffee', ->
   gulp.src('./lib/**', {base: './lib'})
     .pipe(changed('./lib/**'))
     .pipe(coffee({bare: true}).on('error', gutil.log))
-    .pipe(gulpif(GLOBAL.ifRelease, uglify({mangle: false})))
+    # .pipe(gulpif(GLOBAL.ifRelease, uglify({mangle: false})))
     # .pipe(flatten())
     .pipe gulp.dest('./dev/js/')
 
