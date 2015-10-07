@@ -41,7 +41,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 <a name="1.0.1" />
-## 1.0.1 (October 7th, 2015)
+### 1.0.1 (October 7th, 2015)
 
 #### Bug Fixes
 - Fix `cannot read property split of undefined` when checking for Lolflavor version
@@ -139,6 +139,7 @@ Read [this](http://osxdaily.com/2012/07/27/app-cant-be-opened-because-it-is-from
 I'm a bit lost why this is happening on some system, give this a try. Delete the following folders depending on your operating system, and then try Championify again.
 
 __Windows:__ `C:\Users\YOURNAME\AppData\Roaming\Championify`
+
 __OSX:__ `/Users/YOURNAME/Library/Application Support/Championify`
 
 
