@@ -32,7 +32,7 @@ window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync(path.join(__
 window.T = new Translate(preferences.load()?.locale || 'en')
 
 # Setup logger
-error_log = path.join(preferences.directory(), 'championify.log')
+error_log = path.join(preferences.directory(), 'championify.log.txt')
 window.Log = new (winston.Logger)({
   transports: [
     new winston.transports.Console({
@@ -224,7 +224,7 @@ $(document).on 'click', '#upload_log', (e) ->
   log_uploaded = true
 
 $(document).on 'click', '#open_log', (e) ->
-  open path.join(preferences.directory(), 'championify.log')
+  open path.join(preferences.directory(), 'championify.log.txt')
 
 $(document).on 'click', '#import_btn', ->
   importItemSets(viewManager.complete)

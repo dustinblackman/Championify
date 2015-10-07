@@ -36,6 +36,7 @@ gulp.task 'virustotal', (cb) ->
         , (err) ->
           step null
   ], (err) ->
+    console.log GLOBAL.vtReports
     cb null
 
 
@@ -69,7 +70,7 @@ gulp.task 'github-release', (cb) ->
           if _.includes(item, 'Windows_Setup')
             body += link({name: 'Windows Setup', link: GLOBAL.vtReports[item]})
 
-          if _.includes(item, '.Windows.')
+          if _.includes(item, '.WIN.')
             body += link({name: 'Windows ZIP', link: GLOBAL.vtReports[item]})
 
           if _.includes(item, 'OSX')
@@ -77,6 +78,12 @@ gulp.task 'github-release', (cb) ->
 
           if _.includes(item, 'asar')
             body += link({name: 'update.asar', link: GLOBAL.vtReports[item]})
+
+          if _.includes(item, 'u_osx')
+            body += link({name: 'u_osx.tar.gz', link: GLOBAL.vtReports[item]})
+
+          if _.includes(item, 'u_win')
+            body += link({name: 'u_win.tar.gz', link: GLOBAL.vtReports[item]})
 
 
         body += [

@@ -40,6 +40,15 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 
 ## [Change Log](CHANGELOG.md)
+<a name="1.0.1" />
+## 1.0.1 (October 7th, 2015)
+
+#### Bug Fixes
+- Fix `cannot read property split of undefined` when checking for Lolflavor version
+- Lolflavor ARAM builds are skipped if there's a firewall issue instead of app crashing (temporary fix)
+- Fix `Open Log` button on Windows
+- Fix crash when importing in Portuguese
+
 <a name="1.0.0" />
 ### 1.0.0 (October 6th, 2015)
 
