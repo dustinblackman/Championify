@@ -15,7 +15,7 @@ cl = hlp.cl
 _requestAvailableChamps = (process_name, stats_file, done) ->
   hlp.request "http://www.lolflavor.com/data/#{stats_file}", (err, body) ->
     # Some antivirus' don't like lolfavor. Skip all ARAM builds if so and log error.
-    if err
+    if err or !body.champions
       Log.warn(err)
       window.undefinedBuilds.push("#{process_name}: All")
       return done null, []
