@@ -59,7 +59,7 @@ module.exports = class Translate
       nl: 'nl_NL'
       ms: 'ms_MY'
       pl: 'pl_PL'
-      pt: 'pt_PT'
+      pt: 'pt_BR'
       'pt-BR': 'pt_BR'
       ro: 'ro_RO'
       ru: 'ru_RU'
