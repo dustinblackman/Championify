@@ -135,6 +135,13 @@ Sorry, Electron doesn't support anything below Windows 7 or Mountain Lion. There
 Read [this](http://osxdaily.com/2012/07/27/app-cant-be-opened-because-it-is-from-an-unidentified-developer/) to fix it.
 
 
+#### The app opens with a white box, or nothing happens
+I'm a bit lost why this is happening on some system, give this a try. Delete the following folders depending on your operating system, and then try Championify again.
+
+__Windows:__ `C:\Users\YOURNAME\AppData\Roaming\Championify`
+__OSX:__ `/Users/YOURNAME/Library/Application Support/Championify`
+
+
 #### AAHHHH! SOMETHING BROKE! IT'S ALL MESSED UP!
 Calm down, I gotcha! If something went wrong it means something has changed that I did not expect. Follow the steps [below](#uninstall) in the next FAQ question to remove Championify's builds.
 
