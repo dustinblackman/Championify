@@ -36,6 +36,7 @@ gulp.task 'virustotal', (cb) ->
         , (err) ->
           step null
   ], (err) ->
+    console.log GLOBAL.vtReports
     cb null
 
 
