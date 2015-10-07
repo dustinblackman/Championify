@@ -112,7 +112,10 @@ getVersion = (step) ->
   hlp.request 'http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', (err, body) ->
     return step(null, "#{T.t('unknown')}") if (err)
 
-    version = body.title.split(' ')[3]
+    body_title = body?.title
+    return step(null, "#{T.t('unknown')}") if !body_title
+
+    version = body_title.split(' ')[3]
     step(null, version)
 
 
