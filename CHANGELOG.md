@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="1.0.2" />
+### 1.0.2 (October 8th, 2015)
+
+#### Bug Fixes
+- Fixed translation issue with ARAM item sets fail due to antivirus
+
 <a name="1.0.1" />
 ## 1.0.1 (October 7th, 2015)
 
