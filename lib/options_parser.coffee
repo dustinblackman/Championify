@@ -16,4 +16,5 @@ module.exports = {
   startLeague: -> return _processArgs('--startLeague')
   # Private Use
   runnedAsAdmin: -> return _processArgs('--runnedAsAdmin')
+  update: -> return _processArgs('--update')
 }
