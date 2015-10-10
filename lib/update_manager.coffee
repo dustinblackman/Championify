@@ -86,7 +86,10 @@ minorUpdate = (version) ->
   app_asar = path.join(__dirname, '..')
   update_asar = path.join(__dirname, '../../', 'update-asar')
 
-  download url, update_asar, ->
+  download url, update_asar, (err) ->
+    return EndSession(err) if err instanceof cErrors.UpdateError
+    return EndSession(new cErrors.UpdateError('Can\'t write/download update file').causedBy(err)) if err
+
     if process.platform == 'darwin'
       osxMinor(app_asar, update_asar)
     else
@@ -214,7 +217,7 @@ winMinor = (app_asar, update_asar) ->
     ping 1.1.1.1 -n 1 -w 1000 > nul\n
     del "${app_asar}"\n
     ren "${update_asar}" app.asar\n
-    start "" "${exec_path}"\n
+    start "" "${exec_path}" --update\n
     exit\n
   ')
 
@@ -248,7 +251,7 @@ winMajor = (install_path, update_path) ->
     'ren "${update_path}\\resources\\atom-asar" atom.asar'
     'rmdir "${install_path}" /s /q'
     'move "${update_path}" "${root_path}"'
-    'start "" "${exec_path}"'
+    'start "" "${exec_path}" --update'
     'exit'
   ].join('\n'))
 
@@ -281,16 +284,24 @@ check = (done) ->
   if process.versions.electron == '0.26.0'
     return viewManager.breakingChanges()
 
+  version = false
+  major_update = false
+
   url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json'
   hlp.request url, (err, data) ->
     return EndSession(new cErrors.RequestError('Can\'t access Github package.json').causedBy(err)) if err
 
     if versionCompare(data.devDependencies['electron-prebuilt'], process.versions.electron) == 1
-      return done(data.version, true)
-    else if versionCompare(data.version, pkg.version) == 1
-      return done(data.version)
-    else
-      return done(null)
+      version = data.version
+      major_update = true
+
+    if versionCompare(data.version, pkg.version) == 1
+      version = data.version
+
+    if (version and optionsParser.update())
+      return EndSession(new cErrors.UpdateError('New version did not install correctly'))
+
+    return done(version, major_update)
 
 
 module.exports = {

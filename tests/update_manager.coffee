@@ -17,8 +17,8 @@ describe 'lib/update_manager.coffee', ->
         .reply(200, pkg)
 
       updateManager.check (version, is_major) ->
-        should.not.exist(version)
-        should.not.exist(is_major)
+        version.should.equal(false)
+        is_major.should.equal(false)
         done()
 
     it 'should say a minor update is required', (done) ->
@@ -29,7 +29,7 @@ describe 'lib/update_manager.coffee', ->
 
       updateManager.check (version, is_major) ->
         version.should.equal(pkg.version)
-        should.not.exist(is_major)
+        is_major.should.equal(false)
         done()
 
     it 'should say a major update is required', (done) ->
