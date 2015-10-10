@@ -40,6 +40,12 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 
 ## [Change Log](CHANGELOG.md)
+<a name="1.0.3" />
+### 1.0.3 (October 10th, 2015)
+
+#### Bug Fixes
+- Fixed infinite loop on updates for Windows
+
 <a name="1.0.2" />
 ### 1.0.2 (October 8th, 2015)
 
