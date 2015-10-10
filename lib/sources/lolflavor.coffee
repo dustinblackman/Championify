@@ -17,7 +17,7 @@ _requestAvailableChamps = (process_name, stats_file, done) ->
     # Some antivirus' don't like lolfavor. Skip all ARAM builds if so and log error.
     if err or !body.champions
       Log.warn(err)
-      window.undefinedBuilds.push("#{process_name}: All")
+      window.undefinedBuilds.push(champ: T.t(process_name), position: 'All')
       return done null, []
 
     champs = _.map body.champions, (item) -> return item.name
