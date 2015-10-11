@@ -1,11 +1,13 @@
 argv = require('yargs').argv
 async = require 'async'
+colors = require 'colors'
 crypto = require 'crypto'
 fs = require 'fs-extra'
 glob = require 'glob'
 gulp = require 'gulp'
 GT = require('google-translate')(process.env.GOOGLE_TRANSLATE_API)
 path = require 'path'
+prompt = require 'prompt'
 request = require 'request'
 _ = require 'lodash'
 
@@ -133,7 +135,7 @@ gulp.task 'transifex:upload', (cb) ->
   async.eachLimit glob.sync('./i18n/*.json'), 5, (translation_path, next) ->
     lang = path.basename(translation_path).replace('.json', '')
     return next() if _.contains(['_source', 'en'], lang)
-    
+
     console.log "Uploading #{lang}..."
     data = JSON.parse fs.readFileSync(path.join(__dirname, '..', translation_path))
     options = {
@@ -148,3 +150,80 @@ gulp.task 'transifex:upload', (cb) ->
       next(err)
 
   , cb
+
+# Downloads all translations from Transifex and shows changed items in a table for review.
+gulp.task 'transifex:review', (cb) ->
+  to_review = {}
+  all_translations = {}
+  source = JSON.parse fs.readFileSync('./i18n/_source.json')
+
+  async.series [
+    (step) ->
+      async.each supported_languages, (lang, next) ->
+        return next() if lang == 'en'
+
+        previous_translations = JSON.parse fs.readFileSync("./i18n/#{lang}.json")
+        url = "https://#{process.env.TRANSIFEX_KEY}@www.transifex.com/api/2/project/championify/resource/english-source/translation/#{lang}/?mode=default&file"
+        request url, (err, res, body) ->
+          return next(err) if err
+
+          new_translations = JSON.parse body
+          all_translations[lang] = new_translations
+
+          _.each new_translations, (translation, key) ->
+            if translation != previous_translations[key]
+              to_review[lang] = {} if !to_review[lang]
+              to_review[lang][key] = {
+                translation: translation
+                original: previous_translations[key]
+              }
+
+          return next()
+      , (err) ->
+        return step(err) if (err)
+        return step(null)
+
+    (step) ->
+      async.eachSeries _.keys(to_review), (lang, next) ->
+        async.eachLimit _.keys(to_review[lang]), 5, (trans_key, nextTrans) ->
+          GT.translate to_review[lang][trans_key].translation, lang, 'en', (err, result) ->
+            return nextTrans(err) if (err)
+
+            to_review[lang][trans_key].reverse = result.translatedText
+            return nextTrans()
+        , (err) ->
+          return next(err) if err
+
+          _.each to_review[lang], (val, key) ->
+            console.log("Lang       | #{lang.bold.white}")
+            console.log("Key        | #{key.bold.red}")
+            console.log("English    | #{source[key].msg.bold.blue}")
+            console.log("Reverse    | #{val.reverse.bold.green}")
+            console.log("Old Trans  | #{val.original.bold.yellow}")
+            console.log("New Trans  | #{val.translation.bold.magenta}")
+            console.log('------------------------------------'.bold.white)
+
+          prompt.start()
+          params = {
+            properties: {
+              answer: {
+                message: 'Would you like to save these translations? [y/n]'
+                required: true
+              }
+            }
+          }
+          prompt.get params, (err, results) ->
+            return next(err) if err
+
+            if results.answer == 'y'
+              previous_translations = JSON.parse fs.readFileSync("./i18n/#{lang}.json")
+              translations = _.merge(previous_translations, all_translations[lang])
+
+              fs.writeFile "./i18n/#{lang}.json", JSON.stringify(translations, null, 2), {encoding: 'utf8'}, next
+            else
+              return next()
+
+      , (err) ->
+        return step(err) if err
+
+  ], cb
