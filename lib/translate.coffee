@@ -23,7 +23,7 @@ module.exports = class Translate
     flags = {
       en: 'gb'
       'zh-CN': 'cn'
-      'zh-TW': 'cn'
+      'zh-TW': 'tw'
       cs: 'cz'
       el: 'gr'
       he: 'il'
@@ -67,7 +67,7 @@ module.exports = class Translate
       tr: 'tr_TR'
       vi: 'vn_VN'
       'zh-CN': 'zh_CN'
-      'zh-TW': 'zh_CN'
+      'zh-TW': 'zh_TW'
     }
 
     return riot_locales[@locale] or 'en_US'
