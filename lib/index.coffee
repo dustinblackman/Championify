@@ -209,13 +209,13 @@ else
 $(document).on 'click', '#browse', ->
   openFolder()
 
-$('.github > a').click (e) ->
+$(document).on 'click', '.github > a', (e) ->
   e.preventDefault()
   open('https://github.com/dustinblackman/Championify#faq')
 
-$('.championify_version > span').click (e) ->
+$(document).on 'click', '.championify_version > span', (e) ->
   e.preventDefault()
-  open('https://github.com/dustinblackman/Championify/releases/latest')
+  open('https://github.com/dustinblackman/Championify/blob/master/CHANGELOG.md')
 
 log_uploaded = false
 $(document).on 'click', '#upload_log', (e) ->
