@@ -157,13 +157,18 @@ gulp.task 'transifex:review', (cb) ->
   all_translations = {}
   source = JSON.parse fs.readFileSync('./i18n/_source.json')
 
+  transifex_langs = {
+    'zh-CN': 'zh-Hans',
+    'zh-TW': 'zh-Hant'
+  }
+
   async.series [
     (step) ->
       async.each supported_languages, (lang, next) ->
         return next() if lang == 'en'
 
         previous_translations = JSON.parse fs.readFileSync("./i18n/#{lang}.json")
-        url = "https://#{process.env.TRANSIFEX_KEY}@www.transifex.com/api/2/project/championify/resource/english-source/translation/#{lang}/?mode=default&file"
+        url = "https://#{process.env.TRANSIFEX_KEY}@www.transifex.com/api/2/project/championify/resource/english-source/translation/#{transifex_langs[lang] or lang}/?mode=default&file"
         request url, (err, res, body) ->
           return next(err) if err
 
@@ -221,6 +226,7 @@ gulp.task 'transifex:review', (cb) ->
 
               fs.writeFile "./i18n/#{lang}.json", JSON.stringify(translations, null, 2), {encoding: 'utf8'}, next
             else
+              console.log 'Translation not saved...'.bold.red
               return next()
 
       , (err) ->
