@@ -27,7 +27,7 @@ riot_locales = {
   tr: 'tr_TR'
   vi: 'vn_VN'
   'zh-CN': 'zh_CN'
-  'zh-TW': 'zh_CN'
+  'zh-TW': 'zh_TW'
 }
 
 flags = {
@@ -55,7 +55,7 @@ flags = {
   tr: 'tr'
   vi: 'vn'
   'zh-CN': 'cn'
-  'zh-TW': 'cn'
+  'zh-TW': 'tw'
 }
 
 count = null
