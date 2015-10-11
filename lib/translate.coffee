@@ -32,6 +32,13 @@ module.exports = class Translate
       ms: 'my'
       vi: 'vn'
       'pt-BR': 'br'
+      bs: 'ba'
+      ca: 'es'
+      da: 'dk'
+      ka: 'ge'
+      sr: 'cs'
+      sl: 'si'
+      sv: 'se'
     }
 
     return flags[@locale] or @locale

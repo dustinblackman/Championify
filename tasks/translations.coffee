@@ -12,25 +12,38 @@ request = require 'request'
 _ = require 'lodash'
 
 supported_languages = [
+  'bs' # Bosnian
   'bg' # Bulgarian
+  'ca' # Catalan
   'cs' # Czech
+  'da' # Danish
   'de' # German
   'el' # Greek
   'en' # English
   'es' # Spanish
+  'fi' # Finish
   'fr' # French
   'he' # Hebrew
+  'hr' # Croatian
   'hu' # Hungarian
   'id' # Indonesian
   'it' # Italian
   'ja' # Japanese
+  'ka' # Georgian
   'ko' # Korean
   'ms' # Malay
+  'no' # Norwegian
+  'lt' # Lithuanian
+  'lv' # Latvian
   'nl' # Dutch
   'pl' # Polish
   'pt' # Portuguese
   'ro' # Romanian
   'ru' # Russian
+  'sk' # Slovak
+  'sl' # Slovenian
+  'sr' # Serbian
+  'sv' # Swedish
   'th' # Thai
   'tr' # Turkish
   'vi' # Vietnamese
@@ -158,7 +171,7 @@ gulp.task 'transifex:review', (cb) ->
   source = JSON.parse fs.readFileSync('./i18n/_source.json')
 
   transifex_langs = {
-    'zh-CN': 'zh-Hans',
+    'zh-CN': 'zh-Hans'
     'zh-TW': 'zh-Hant'
   }
 
