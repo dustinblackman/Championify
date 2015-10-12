@@ -32,18 +32,27 @@ riot_locales = {
 
 flags = {
   bg: 'bg'
+  bs: 'ba'
+  ca: 'es'
   cs: 'cz'
+  da: 'dk'
   de: 'de'
   el: 'gr'
   en: 'gb'
   es: 'es'
+  fi: 'fi'
   fr: 'fr'
   he: 'il'
+  hr: 'hr'
   hu: 'hu'
   id: 'id'
   it: 'it'
   ja: 'jp'
+  ka: 'ge'
   ko: 'kr'
+  lt: 'lt'
+  lv: 'lv'
+  no: 'no'
   nl: 'nl'
   ms: 'my'
   pl: 'pl'
@@ -51,6 +60,10 @@ flags = {
   'pt-BR': 'br'
   ro: 'ro'
   ru: 'ru'
+  sl: 'si'
+  sk: 'sk'
+  sr: 'cs'
+  sv: 'se'
   th: 'th'
   tr: 'tr'
   vi: 'vn'
@@ -69,10 +82,6 @@ describe 'lib/translate.coffee', ->
 
   it 'should have the same amount of locales and flags', ->
     _.size(flags).should.equal(count)
-
-  it 'should have the same amount of locales and riot locales', ->
-    # Minus Hebrew
-    _.size(riot_locales).should.equal(count - 1)
 
   it 'should return the set locale', ->
     T.locale.should.equal('ko')

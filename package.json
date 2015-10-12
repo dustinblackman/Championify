@@ -67,7 +67,7 @@
     "gulp-flatten": "0.2.0",
     "gulp-htmlhint": "0.3.0",
     "gulp-if": "1.2.5",
-    "gulp-inno": "0.0.6",
+    "gulp-inno": "0.0.7",
     "gulp-jadelint": "0.1.0",
     "gulp-jsonlint": "1.1.0",
     "gulp-shell": "0.4.3",
