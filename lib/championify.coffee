@@ -29,11 +29,10 @@ window.cSettings = {}
 #################
 
 ###*
- * Function Collects options from the Frontend.
+ * Function Saves options from the frontend.
  * @callback {Function} Callback.
 ###
-getSettings = (step) ->
-  window.cSettings = preferences.get().options
+saveSettings = (step) ->
   preferences.save step
 
 
@@ -161,31 +160,35 @@ setWindowsPermissions = (step, r) ->
  * @callback {Function} Callback.
 ###
 downloadItemSets = (done) ->
+  # Get settings
+  window.cSettings = preferences.get().options
+
   # Reset undefined builds
   window.undefinedBuilds = []
 
   async_tasks = {
     # Default
-    settings: getSettings
+    settings: saveSettings
     championTest: ['settings', permissions.championTest]
     riotVer: ['championTest', getRiotVer]
     champs_json: ['riotVer', getChamps]
     champs: ['champs_json', champNames]
     manaless: ['champs_json', genManaless]
 
-    # ARAM
-    aramItemSets: ['riotVer', 'manaless', lolflavor.aram]
-
     # Utils
-    deleteOldBuilds: ['srItemSets', 'aramItemSets', deleteOldBuilds]
+    deleteOldBuilds: ['srItemSets', deleteOldBuilds]
     saveBuilds: ['deleteOldBuilds', saveToFile]
     resavePreferences: ['saveBuilds', resavePreferences]
     setPermissions: ['saveBuilds', setWindowsPermissions]
   }
 
+    # ARAM
+  if cSettings.aram
+    async_tasks['aramItemSets'] = ['riotVer', 'manaless', lolflavor.aram]
+    async_tasks.deleteOldBuilds.unshift('aramItemSets')
+
   # Summoners Rift
-  sr_source = $('#options_sr_source').val()
-  if sr_source == 'lolflavor'
+  if cSettings.sr_source == 'lolflavor'
     async_tasks['srItemSets'] = ['riotVer', 'manaless', lolflavor.sr]
   else
     async_tasks['champggVer'] = ['championTest', champgg.version]

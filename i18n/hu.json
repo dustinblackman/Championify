@@ -47,6 +47,8 @@
   "most_freq": "Leggyakoribb",
   "na": "Nem elérhető",
   "open_log": "Napló megnyitása",
+  "options_aram": "Töltse ARAM Elem szettek",
+  "options_aram_tooltip": "Töltse ARAM elem szetteket LolFlavor",
   "options_consumables": "A fogyóeszközök engedélyezése",
   "options_consumables_tooltip": "A fogyóeszközök letiltásával el fog tűnni a legnagyobb győzelmi százalékkal rendelkező képességi sorrend",
   "options_dontdeleteold": "Ne törölje ki az elavult Tárgykészleteket",

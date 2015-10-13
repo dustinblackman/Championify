@@ -47,6 +47,8 @@
   "most_freq": "Visbiežākā",
   "na": "Nav pieejams",
   "open_log": "Atvērt Log",
+  "options_aram": "Lejupielādēt Aram postenis Komplekti",
+  "options_aram_tooltip": "Lejupielādēt Aram postenis kopas no LolFlavor",
   "options_consumables": "Ieslēgt palīgmateriāli",
   "options_consumables_tooltip": "Ar invaliditāti palīgmateriāli, jūs zaudējat augstākais Win% prasmju pasūtījumu",
   "options_dontdeleteold": "Nedzēst novecojis postenis Komplekti",

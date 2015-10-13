@@ -47,6 +47,8 @@
   "most_freq": "El més freqüent",
   "na": "No disponible",
   "open_log": "Obrir registre",
+  "options_aram": "Descàrrega ARAM conjunts d'elements",
+  "options_aram_tooltip": "Descarrega els conjunts d'elements ARAM de LolFlavor",
   "options_consumables": "Habilitar Consumibles",
   "options_consumables_tooltip": "En desactivar consumibles, perdrà l'ordre habilitat% més alt de victòries",
   "options_dontdeleteold": "No Eliminar conjunts d'elements que han estat superats",

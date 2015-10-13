@@ -47,6 +47,8 @@
   "most_freq": "Най-честите",
   "na": "Не е наличен",
   "open_log": "Отвори log",
+  "options_aram": "Свали Арам Елемент Комплекти",
+  "options_aram_tooltip": "Свали Арам т комплекти от LolFlavor",
   "options_consumables": "Активиране на консумативи",
   "options_consumables_tooltip": "Със забраната на консумативи, ще загубите редът на уменията (Q,W,E,R) с най-висок процент победи.",
   "options_dontdeleteold": "Не изтривай стари Item Sets",

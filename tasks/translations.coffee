@@ -38,6 +38,7 @@ supported_languages = [
   'nl' # Dutch
   'pl' # Polish
   'pt' # Portuguese
+  'pt-BR' # Brazillian Portuguese
   'ro' # Romanian
   'ru' # Russian
   'sk' # Slovak
