@@ -47,6 +47,8 @@
   "most_freq": "משומשת ביותר",
   "na": "לא זמין",
   "open_log": "יומן פתוח",
+  "options_aram": "הורד סטי פריט ארם",
+  "options_aram_tooltip": "הורד סטי פריט ארם מLolFlavor",
   "options_consumables": "אפשר מתכלה",
   "options_consumables_tooltip": "על ידי השבתה מתכלה, תאבד את סדר אחוז הגבוהה ביותר בניצחונות ו מיומנות",
   "options_dontdeleteold": "אל תמחקו סטי פריט מיושנות",

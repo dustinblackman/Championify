@@ -47,6 +47,8 @@
   "most_freq": "Najbolj pogoste",
   "na": "Ni na razpolago",
   "open_log": "Odpri Dnevnik",
+  "options_aram": "Naložite Aram Element Scena",
+  "options_aram_tooltip": "Naložite Aram točko sklopov iz LolFlavor",
   "options_consumables": "Omogoči potrošnih",
   "options_consumables_tooltip": "Onemogočite potrošni material, boste izgubili zmaga% spretnost red",
   "options_dontdeleteold": "Ne črtanje zastarelih Element Scena",

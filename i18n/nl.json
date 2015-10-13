@@ -47,6 +47,8 @@
   "most_freq": "Meest Frequent",
   "na": "Niet Beschikbaar",
   "open_log": "Open Log bestand",
+  "options_aram": "Download Aram voorwerpsetten",
+  "options_aram_tooltip": "Download ARAM voorwerpsetten van LolFlavor",
   "options_consumables": "Schakel Consumables In",
   "options_consumables_tooltip": "Door het uitschakelen van consumables, verliest u de Grootste Win % vaardigheidsvolgorde",
   "options_dontdeleteold": "Verouderde Itemsets Niet Verwijderen",

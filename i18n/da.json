@@ -47,6 +47,8 @@
   "most_freq": "Hyppigste",
   "na": "Ikke tilgængelig",
   "open_log": "Åbent Log",
+  "options_aram": "Hent Aram Item Sets",
+  "options_aram_tooltip": "Hent Aram item sæt fra LolFlavor",
   "options_consumables": "Aktiver forbrugsartikler",
   "options_consumables_tooltip": "Ved at deaktivere hjælpematerialer, mister du den højeste gevinst% dygtighed orden",
   "options_dontdeleteold": "Slet ikke Forældede Item Sets",

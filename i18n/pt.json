@@ -47,6 +47,8 @@
   "most_freq": "Mais frequentes",
   "na": "Não disponível",
   "open_log": "Abrir Log",
+  "options_aram": "Baixe Conjuntos de Itens Aram",
+  "options_aram_tooltip": "Baixar conjuntos de itens de Aram LolFlavor",
   "options_consumables": "Ativar Consumíveis",
   "options_consumables_tooltip": "Ao desativar os consumíveis, vai perder o skill order com Maior % vitória",
   "options_dontdeleteold": "Não Apagar os Conjuntos de Itens desatualizados",

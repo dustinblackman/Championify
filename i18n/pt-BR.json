@@ -1,4 +1,3 @@
-
 {
   "adc": "ADC",
   "all": "Tudo",
@@ -48,6 +47,8 @@
   "most_freq": "Mais frequentes",
   "na": "Não disponível",
   "open_log": "Abrir Log",
+  "options_aram": "Baixe Conjuntos de Itens Aram",
+  "options_aram_tooltip": "Baixar conjuntos de itens de Aram LolFlavor",
   "options_consumables": "Ativar Consumíveis",
   "options_consumables_tooltip": "Ao desabilitar os consumíveis, você vai perder a ordem das skills com Maior % vitória",
   "options_dontdeleteold": "Não Excluir Conjuntos de Itens desatualizados",

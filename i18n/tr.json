@@ -47,6 +47,8 @@
   "most_freq": "En Sık",
   "na": "Müsait değil",
   "open_log": "Kaydedilen veriyi aç",
+  "options_aram": "ARAM Öğe Setleri İndir",
+  "options_aram_tooltip": "LolFlavor adlı ARAM item setleri indir",
   "options_consumables": "Tek kullanımlık eşyaları aktif et",
   "options_consumables_tooltip": "Tek kullanımlık eşyaları kapalı konuma getirirseniz, en fazla kazanan yetenek dizimini kaybedersiniz.",
   "options_dontdeleteold": "Eski eşya setlerini silme",

@@ -99,6 +99,7 @@ get = ->
       locksr: $('#options_locksr').is(':checked')
       sr_source: $('#options_sr_source').val()
       dontdeleteold: $('#options_dontdeleteold').is(':checked')
+      aram: $('#options_aram').is(':checked')
     }
   }
 

@@ -47,6 +47,8 @@
   "most_freq": "Yleisimpiä",
   "na": "Ei saatavana",
   "open_log": "Avaa loki",
+  "options_aram": "Lataa ARAM esinesarjaa",
+  "options_aram_tooltip": "Lataa ARAM esinesarjaa maasta LolFlavor",
   "options_consumables": "Ota Tarvikkeiden",
   "options_consumables_tooltip": "Poistamalla kulutustavarat, menetät Korkein Voitto-% taito järjestys",
   "options_dontdeleteold": "Älä poista vanhentuneita esinesarjaa",

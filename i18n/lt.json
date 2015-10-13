@@ -47,6 +47,8 @@
   "most_freq": "Dažniausi",
   "na": "Negalimas",
   "open_log": "Atidaryti Prisijungti",
+  "options_aram": "Parsisiųsti Aram Elementą Komplektai",
+  "options_aram_tooltip": "Parsisiųsti Aram pkt rinkinius iš LolFlavor",
   "options_consumables": "Įjungti Vartojimo",
   "options_consumables_tooltip": "Išjungus vartojimo, jūs prarasite Aukščiausia Win% įgūdžių tvarką",
   "options_dontdeleteold": "Negalima Ištrinti pasenusi Elementą Komplektai",

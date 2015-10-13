@@ -47,6 +47,8 @@
   "most_freq": "最も使用されている",
   "na": "利用不可",
   "open_log": "ログを開く",
+  "options_aram": "ARAMのアイテムセットをダウンロード",
+  "options_aram_tooltip": "LolFlavorからARAMのアイテムセットをダウンロード",
   "options_consumables": "消耗品を有効にします",
   "options_consumables_tooltip": "消耗品を無効にすると、「最も勝率の高いスキルの順序」が表示されなくなります",
   "options_dontdeleteold": "古いアイテムセットを削除しない",

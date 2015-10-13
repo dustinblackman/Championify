@@ -21,16 +21,24 @@
           .item(data-value='championgg') Champion.gg
           .item(data-value='lolflavor') Lolflavor
     
+          
+    .ui.checkbox.left
+      input#options_aram(type='checkbox')
+      label.options_tooltip(data-content="#{T.t('options_aram_tooltip')}") #{T.t('options_aram_tooltip')}
+      
+    br
+  
     .ui.checkbox.left
       input#options_splititems(type='checkbox')
       label.options_tooltip(data-content="#{T.t('options_splititems_tooltip')}") #{T.t('options_splititems')}
     
-    //- Fix for some languages  
     br
     
     .ui.checkbox.left
       input#options_skillsformat(type='checkbox')
       label.options_tooltip(data-content="#{T.t('options_skillsformat_tooltip')} Q.W.E.Q.W.R.Q.W.Q.W ect") #{T.t('options_skillsformat')} (Q>W>E)
+    
+    br
     
     .with_dropdown
       .ui.checkbox.left
@@ -59,9 +67,12 @@
           .divider
           .item.beginning #{T.t('beginning')}
           .item.end #{T.t('end')}
+            
     .ui.checkbox.left
       input#options_locksr(type='checkbox')
       label.options_tooltip(data-content="#{T.t('options_locksr_tooltip')}") #{T.t('options_locksr')}
+      
+    br  
       
     .ui.checkbox.left
       input#options_dontdeleteold(type='checkbox')
