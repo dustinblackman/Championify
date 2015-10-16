@@ -27,7 +27,7 @@ Check out some more screenshots [here](https://imgur.com/a/zL0R2/all)!
 ## Features
 - Summoners Rift and ARAM Item Sets
 - Skill Priorities lists (Q.W.E.Q.E.R ect)
-- 25 Languages
+- 38 Languages
 - Bunch of preferences to display item sets in the way you prefer
 - Automation using command line preferences (simpler system coming soon)
 - Automatically save preference settings
