@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="1.1.0" />
+### 1.1.0 (October 13th, 2015)
+
+#### Features
+- Added 13 new languages. Bosnian, Catalan, Croatian, Danish, Finnish, Georgian, Lithuanian, Latvian, Norwegian, Slovak, Slovenian, Serbian, and Swedish.
+
+#### Bug Fixes
+- Github link not working
+- ARAM item sets are now optional (will fix users having issues with Lolflavor and their antivirus)
+
+#### Updates
+- All languages with user submitted translations have been reviewed and added.
+
+
 <a name="1.0.3" />
 ### 1.0.3 (October 10th, 2015)
 

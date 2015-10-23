@@ -35,28 +35,41 @@ __Langauge Status__
 | Language | Finished |
 | ------------- | -----:|
 | English | Yes |
-| Bulgarian | No |
-| Chinese Simplified | No |
-| Chinese Traditional | No |
-| Dutch | No |
+| Bosnian | No |
+| Bulgarian | Yes |
+| Catalan | No |
+| Croatian | No |
+| Chinese Simplified | Yes |
+| Chinese Traditional | Yes |
+| Danish | No |
+| Dutch | Yes |
+| Finnish | No |
 | French | Yes |
-| German | No |
+| German | Yes |
+| Georgian | No |
 | Greek | Yes |
 | Hebrew | Yes |
-| Hungarian | No |
-| Indonesian | No |
-| Italian | No |
-| Japanese | No |
-| Korean | No |
-| Malay | No |
-| Polish | No |
+| Hungarian | Yes |
+| Indonesian | Yes |
+| Italian | Yes |
+| Japanese | Yes |
+| Korean | Yes |
+| Latvian | No |
+| Lithuanian | No |
+| Malay | Yes |
+| Norwegian | No |
+| Polish | Yes |
 | Portuguese | Yes |
 | Portuguese Brazil | Yes |
-| Romanian | No |
-| Russian | No |
-| Spanish | No |
+| Romanian | Yes |
+| Russian | Yes |
+| Serbian | No |
+| Slovak | No |
+| Slovenian | No |
+| Spanish | Yes |
+| Swedish | No |
 | Thai | Yes |
-| Turkish | No |
-| Vietnamese | No |
+| Turkish | Yes |
+| Vietnamese | Yes |
 
 Please prevent from putting translations in PRs, I'd rather keep those for code. I check Transifex every other day, but if you'd like me to get a look at your translations quickly then hit me up on [Gitter](https://gitter.im/dustinblackman/Championify).

@@ -14,7 +14,7 @@ _Champion-If-Ayyy_
 
 Latest Release Downloads: [![Downloads](https://img.shields.io/github/downloads/dustinblackman/Championify/latest/total.svg)](https://github.com/dustinblackman/Championify/releases/latest)
 
-Championify is a little program that downloads all the recent builds from websites like Champion.gg or Lolflavor and imports them in to your League of Legends to use within game! No hassle. Now with 25 languages and new features!
+Championify is a little program that downloads all the recent builds from websites like Champion.gg or Lolflavor and imports them in to your League of Legends to use within game! No hassle. Now with 38 languages and new features!
 
 Windows and OSX are both supported, tested on Windows 8.1 and OSX 10.10.3.
 
@@ -27,7 +27,7 @@ Check out some more screenshots [here](https://imgur.com/a/zL0R2/all)!
 ## Features
 - Summoners Rift and ARAM Item Sets
 - Skill Priorities lists (Q.W.E.Q.E.R ect)
-- 25 Languages
+- 38 Languages
 - Bunch of preferences to display item sets in the way you prefer
 - Automation using command line preferences (simpler system coming soon)
 - Automatically save preference settings
@@ -40,74 +40,18 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 
 ## [Change Log](CHANGELOG.md)
-<a name="1.0.3" />
-### 1.0.3 (October 10th, 2015)
-
-#### Bug Fixes
-- Fixed infinite loop on updates for Windows
-
-<a name="1.0.2" />
-### 1.0.2 (October 8th, 2015)
-
-#### Bug Fixes
-- Fixed translation issue with ARAM item sets fail due to antivirus
-
-<a name="1.0.1" />
-### 1.0.1 (October 7th, 2015)
-
-#### Bug Fixes
-- Fix `cannot read property split of undefined` when checking for Lolflavor version
-- Lolflavor ARAM builds are skipped if there's a firewall issue instead of app crashing (temporary fix)
-- Fix `Open Log` button on Windows
-- Fix crash when importing in Portuguese
-
-<a name="1.0.0" />
-### 1.0.0 (October 6th, 2015)
-
-#### Breaking Changes
-- Auto updater will not work with older versions of Championify for Windows users.  __Please manually [redownload](https://github.com/dustinblackman/Championify/releases/latest).__
+<a name="1.1.0" />
+### 1.1.0 (October 13th, 2015)
 
 #### Features
-- Supports 25 (kinda badly translated...) languages
-- New borderless window design
-- Brand new animations, because they're pretty
-- Select either Champion.gg or Lolflavor for Item Sets source
-- Command line parameters for automation
-- ARAM starters now have Oracle's Extract
-- Add complete view, with a close button and start League button
-- Shows versions on main view. You can now see Champion.gg's, LolFlavors, Riots, and your own item sets patch version when you start the app.
-- Deleting old items sets that don't have new versions is now an option instead of forced
-- Open log button
-- Show error message on error view
-- Add progress bar to updates view
+- Added 13 new languages. Bosnian, Catalan, Croatian, Danish, Finnish, Georgian, Lithuanian, Latvian, Norwegian, Slovak, Slovenian, Serbian, and Swedish.
 
 #### Bug Fixes
-- Faster app loading time
-- Less errors when scraping Champion.gg
-- Windows installer supports all languages the app supports.
-- Bash script not always starting for updates on Windows.
-- Permissions errors on Windows now asks to be runned as admin automatically.
-- Importer tests write permissions before running import, and elevates when needed.
-- Auto updater checks for write permissions
-- Fix black text sticking on highlight
-- Allow the ability to copy/paste your League directory
-- Garena path patches
-- Fix UI differences between OSX and Windows
+- Github link not working
+- ARAM item sets are now optional (will fix users having issues with Lolflavor and their antivirus)
 
-#### Technical Notes and Features
-- Complete code rework (nearly written from the ground up)
-- Auto updater now supports complete client replacements (major updates)
-- Test suite, CI, and coverage integrations to simplify and encourage PRs
-- Bleeding edge builds (off all branches)
-
-#### Translations
-
-__Thanks to__
-- [@OmerValentine](https://github.com/OmerValentine) for the Hebrew translations
-- [@secretdataz](https://github.com/secretdataz) for the Thai translations
-- [@FreakyDeluxe](https://github.com/FreakyDeluxe) for the French translations
-- [@PrototypeGR](https://github.com/PrototypeGR) for the Greek translations
-- [@pcastro94](https://github.com/pcastro94) for the Portuguese and Brazilian Portuguese translations
+#### Updates
+- All languages with user submitted translations have been reviewed and added.
 
 
 ## BUT WAIT! I have a suggestion!
@@ -252,11 +196,7 @@ brew install wine
 
 ## Thank yous
 - [@sargonas](https://github.com/sargonas) and the rest of the Riot API team for unlocking item sets
-- [@OmerValentine](https://github.com/OmerValentine) for the Hebrew translations
-- [@secretdataz](https://github.com/secretdataz) for his help with Garena and Thai translations
-- [@FreakyDeluxe](https://github.com/FreakyDeluxe) for the French translations
-- [@PrototypeGR](https://github.com/PrototypeGR) for the Greek translations
-- [@pcastro94](https://github.com/pcastro94) for the Portuguese and Brazilian Portuguese translations
+- All the wonderful people on my [Transifex team](https://www.transifex.com/dustinblackman/championify/) (all 180 of you) for helping translate Championify!
 
 
 ## [License](LICENSE)
