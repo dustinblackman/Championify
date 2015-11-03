@@ -40,6 +40,12 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 
 ## [Change Log](CHANGELOG.md)
+<a name="1.1.2" />
+### 1.1.2 (November 3rd, 2015)
+
+#### Updates
+- Updated translations
+
 <a name="1.1.1" />
 ### 1.1.1 (October 23rd, 2015)
 
