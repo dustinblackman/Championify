@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "jquery": "2.1.3",
-    "semantic": "2.1.3"
+    "semantic": "2.1.5"
   },
   "preen": {
     "jquery": [
