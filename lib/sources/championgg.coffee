@@ -308,11 +308,9 @@ processChamp = (request_params, body, step) ->
     }
 
   # Inserts new item sets in to a global object to be used when we get to saving files.
-  pushChampData = (champ, position, positionForFile, build) ->
-    if _.includes(position, 'adc')
-      title = position.toUpperCase()
-    else
-      title = _.capitalize(position)
+  pushChampData = (champ, position, set_type=null, position_for_file, build) ->
+    title = T.t(position)
+    title += " #{set_type}" if set_type
 
     newObj = {
       champion: champ
@@ -325,7 +323,7 @@ processChamp = (request_params, body, step) ->
     if window.cSettings.locksr
       riot_json.map = 'SR'
 
-    champData[champ][positionForFile] = riot_json
+    champData[champ][position_for_file] = riot_json
 
   # Save data to Global object for saving to disk later.
   # We do this incase people cancel the function half way though.
@@ -336,13 +334,13 @@ processChamp = (request_params, body, step) ->
   # If split item sets
   if window.cSettings.splititems
     builds = splitItemSets()
-    pushChampData(champ, "#{currentPosition} #{T.t('most_freq')}", "#{currentPosition}_mostfreq", builds.mfBuild)
-    pushChampData(champ, "#{currentPosition} #{T.t('highest_win')}", "#{currentPosition}_highwin", builds.hwBuild)
+    pushChampData(champ, "#{currentPosition}", "#{T.t('most_freq')}", "#{currentPosition}_mostfreq", builds.mfBuild)
+    pushChampData(champ, "#{currentPosition}", "#{T.t('highest_win')}", "#{currentPosition}_highwin", builds.hwBuild)
 
   # If normal item sets
   else
     builds = normalItemSets()
-    pushChampData(champ, currentPosition, currentPosition, builds)
+    pushChampData(champ, currentPosition, null, currentPosition, builds)
 
   # TODO: Lodash map.
   # Now we execute for the other positions for the champs, if there are any.
