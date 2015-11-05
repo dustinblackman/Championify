@@ -33,6 +33,17 @@ _requestAvailableChamps = (process_name, stats_file, done) ->
 _requestData = (champs_names, process_name, riotVer, manaless, step) ->
   champs = {}
 
+  title_translations = {
+    core_items: "#{T.t('core_items')} - #{T.t('max_skill')}: "
+    'Consumable': T.t('consumables')
+    'Starter': T.t('starter')
+    'Core Alternatives - Endgame Items ': "#{T.t('core_alternatives')} - #{T.t('endgame_items')}"
+    'Boots': T.t('boots')
+    'Situational Items': T.t('situational_items')
+    'Elixir': T.t('elixir'),
+    'Upgrade Ultimate': T.t('upgrade_ultimate')
+  }
+
   async.eachLimit champs_names, 3, (champ, next) ->
     cl "#{T.t('processing')} #{T.t(process_name)}: #{T.t(champ)}"
 
@@ -43,6 +54,17 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
         window.undefinedBuilds.push({champ: champ, position: process_name})
         return next null
 
+      data.blocks = _.map data.blocks, (block) ->
+        if _.contains(block.type, 'Core Items')
+          block.type = title_translations.core_items + block.type.split(': ')[1]
+        else
+          if title_translations[block.type]
+            block.type = title_translations[block.type]
+          else
+            Log.warn("Lolflavor: '#{block.type}' does not exist in preset translations for #{champ}")
+
+        return block
+
       if process_name == 'ARAM'
         data.map = 'HA'
         data.blocks[0].items.push({count: 1, id: '2047'})
@@ -51,7 +73,7 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
         data.blocks.shift()
         data.blocks = hlp.trinksCon(data.blocks, champ, manaless)
 
-      data.title = process_name + ' ' + riotVer
+      data.title = T.t(process_name.toLowerCase()) + ' ' + riotVer
       champs[champ] = {}
       champs[champ][process_name.toLowerCase()] = data
 

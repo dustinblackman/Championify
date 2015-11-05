@@ -35,15 +35,16 @@ __Langauge Status__
 | Language | Finished |
 | ------------- | -----:|
 | English | Yes |
+| Arabic | No |
 | Bosnian | No |
 | Bulgarian | Yes |
-| Catalan | No |
+| Catalan | Yes |
 | Croatian | No |
 | Chinese Simplified | Yes |
 | Chinese Traditional | Yes |
-| Danish | No |
+| Danish | Yes |
 | Dutch | Yes |
-| Finnish | No |
+| Finnish | Yes |
 | French | Yes |
 | German | Yes |
 | Georgian | No |
@@ -55,9 +56,9 @@ __Langauge Status__
 | Japanese | Yes |
 | Korean | Yes |
 | Latvian | No |
-| Lithuanian | No |
+| Lithuanian | Yes |
 | Malay | Yes |
-| Norwegian | No |
+| Norwegian | Yes |
 | Polish | Yes |
 | Portuguese | Yes |
 | Portuguese Brazil | Yes |
@@ -67,7 +68,7 @@ __Langauge Status__
 | Slovak | No |
 | Slovenian | No |
 | Spanish | Yes |
-| Swedish | No |
+| Swedish | Yes |
 | Thai | Yes |
 | Turkish | Yes |
 | Vietnamese | Yes |
