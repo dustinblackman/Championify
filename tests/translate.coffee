@@ -31,6 +31,7 @@ riot_locales = {
 }
 
 flags = {
+  ar: 'eg'
   bg: 'bg'
   bs: 'ba'
   ca: 'es'

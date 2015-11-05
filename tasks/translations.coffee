@@ -12,6 +12,7 @@ request = require 'request'
 _ = require 'lodash'
 
 supported_languages = [
+  'ar' # Arabic
   'bs' # Bosnian
   'bg' # Bulgarian
   'ca' # Catalan
