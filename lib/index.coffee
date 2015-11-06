@@ -209,9 +209,13 @@ else
 $(document).on 'click', '#browse', ->
   openFolder()
 
+$(document).on 'click', '.donate > a', (e) ->
+  e.preventDefault()
+  open('https://salt.bountysource.com/teams/championify')
+
 $(document).on 'click', '.github > a', (e) ->
   e.preventDefault()
-  open('https://github.com/dustinblackman/Championify#faq')
+  open('https://github.com/dustinblackman/Championify#championify')
 
 $(document).on 'click', '.championify_version > span', (e) ->
   e.preventDefault()

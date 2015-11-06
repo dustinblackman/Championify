@@ -2,6 +2,7 @@
 
 _Champion-If-Ayyy_
 
+[![Donate](https://img.shields.io/badge/Donate-BountySource-5cb85c.svg)](https://salt.bountysource.com/teams/championify)
 [![Join the chat at https://gitter.im/dustinblackman/Championify](https://img.shields.io/badge/%E2%8A%AA%20GITTER%20-JOIN%20CHAT%20%E2%86%92-brightgreen.svg?style=flat)](https://gitter.im/dustinblackman/Championify?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![ProjectTalk](http://www.projecttalk.io/images/gh_badge-3e578a9f437f841de7446bab9a49d103.svg?vsn=d)](http://www.projecttalk.io/boards/dustinblackman%2FChampionify?utm_campaign=gh-badge&utm_medium=badge&utm_source=github)
 [![Travis](https://img.shields.io/travis/dustinblackman/Championify/master.svg)](https://travis-ci.org/dustinblackman/Championify/builds)
@@ -199,6 +200,13 @@ Wine is required if building on Mac for Windows.
 brew install wine
 ```
 
+## [Donate](https://salt.bountysource.com/teams/championify)
+
+Soon Championify will be expanding, big! With plenty of suggestions and new ideas, Championify will be making it's way to the web and mobile. This will unfortunately have server costs in order to get started and keep running. A couple bucks is more then enough to help! :) [Donate here!](https://salt.bountysource.com/teams/championify)
+
+## Backers
+
+See [BACKERS.md](BACKERS)
 
 ## Credit
 - Icon by [OmerValentine](http://github.com/OmerValentine)
