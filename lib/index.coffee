@@ -27,6 +27,10 @@ Translate = require './js/translate'
 updateManager = require './js/update_manager'
 viewManager = require './js/view_manager'
 
+# Windows Specific Dependencies
+if process.platform == 'win32'
+  runas = require 'runas'
+
 # Initialize Globals
 window.devEnabled = fs.existsSync('./dev_enabled') or fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
 window.T = new Translate(preferences.load()?.locale || 'en')
@@ -262,7 +266,12 @@ $(document).on 'click', '#release_button', ->
 ###
 viewManager.init ->
   updateManager.check (version, major) ->
-    if version and major
+    if version and optionsParser.update()
+      if process.platform == 'win32' and !optionsParser.runnedAsAdmin()
+        return runas(process.execPath, ['--startAsAdmin'], {hide: false, admin: true})
+      else
+        return EndSession(new cErrors.UpdateError('Can\'t auto update, please redownload'))
+    else if version and major
       updateManager.majorUpdate(version)
     else if version
       updateManager.minorUpdate(version)
