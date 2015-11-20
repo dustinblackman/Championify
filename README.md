@@ -197,7 +197,7 @@ Soon Championify will be expanding, big! With plenty of suggestions and new idea
 
 ## Backers
 
-See [BACKERS.md](BACKERS)
+See [BACKERS.md](BACKERS.md)
 
 ## Credit
 - Icon by [OmerValentine](http://github.com/OmerValentine)
