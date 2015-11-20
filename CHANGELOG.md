@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="1.2.0" />
+### 1.2.0 (November 20th, 2015)
+
+#### Features
+- Added Arabic
+- Translated item sets titles for Champion.gg and Lolflavor
+- Added donation button
+
+#### Bug Fixes
+- Infinite black box loop on some Windows machines
+
+#### Updates
+- Updated translations
+
 <a name="1.1.2" />
 ### 1.1.2 (November 3rd, 2015)
 
