@@ -55,7 +55,7 @@ __Langauge Status__
 | Italian | Yes |
 | Japanese | Yes |
 | Korean | Yes |
-| Latvian | No |
+| Latvian | Yes |
 | Lithuanian | Yes |
 | Malay | Yes |
 | Norwegian | Yes |

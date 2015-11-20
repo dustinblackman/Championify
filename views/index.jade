@@ -24,10 +24,15 @@ include ./_locales.jade
   include ./_view.jade
 
 footer
+  .donate
+    a 
+      i.heart.icon
+      | Donate
+    
   .github
     a
-      span#footer_help #{T.t('help')}
       i.github.icon
-      | /DustinBlackman
+      | DustinBlackman
+  
   .championify_version
     span v#{version}
