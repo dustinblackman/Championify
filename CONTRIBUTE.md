@@ -6,6 +6,7 @@ Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Champ
 
 __Rules__
 
+- New features must be discussed in an issue first before a PR. This prevents wasting anyones time.
 - Must pass all tests. `npm test`
 - Must write tests for all new functions (look at current tests for examples, still a WIP).
 - Functions must be camel cased. `downloadStuff()`
