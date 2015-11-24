@@ -30,7 +30,7 @@ __Setup__
 - Join the Championify team with the language you'd like to work on
 - Start!
 
-__Langauge Status__
+__Language Status__
 
 | Language | Finished |
 | ------------- | -----:|
