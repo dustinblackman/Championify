@@ -25,6 +25,10 @@ Check out some more screenshots [here](https://imgur.com/a/zL0R2/all)!
 
 ---
 
+## Announcement
+
+Championify is not dead! For all those concerned that Championify would stop working with the new server side item sets, don't you worry, everything is still working as expected. :)
+
 ## Features
 - Summoners Rift and ARAM Item Sets
 - Skill Priorities lists (Q.W.E.Q.E.R ect)
@@ -41,6 +45,12 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 
 ## [Change Log](CHANGELOG.md)
+
+<a name="1.2.1" />
+### 1.2.1 (November 24th, 2015)
+
+#### Bug Fixes
+- Fix Champion.gg 404 error
 
 <a name="1.2.0" />
 ### 1.2.0 (November 20th, 2015)

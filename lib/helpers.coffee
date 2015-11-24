@@ -23,6 +23,7 @@ module.exports = {
       }
       request options, (err, res, body) ->
         return step(err) if err
+        return step(new cErrors.RequestError(404)) if (res.statusCode == 404)
 
         if _.contains(res.headers?['content-type'], 'text/json') or _.contains(url, '.json')
           try

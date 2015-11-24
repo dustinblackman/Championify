@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="1.2.1" />
+### 1.2.1 (November 24th, 2015)
+
+#### Bug Fixes
+- Fix Champion.gg 404 error
+
 <a name="1.2.0" />
 ### 1.2.0 (November 20th, 2015)
 
