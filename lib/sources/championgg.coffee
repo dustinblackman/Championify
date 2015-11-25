@@ -86,10 +86,14 @@ requestPage = (request_params, step) ->
   hlp.request url, (err, body) ->
     Log.warn(err) if err
     if err or _.contains(body, 'We\'re currently in the process of generating stats for')
-      window.undefinedBuilds.push({champ: champ, position: 'All'})
+      window.undefinedBuilds.push({champ: champ, position: request_params.position or 'All'})
       return step()
 
-    processChamp(request_params, body, step)
+    processChamp request_params, body, (err) ->
+      if err
+        window.undefinedBuilds.push({champ: champ, position: request_params.position or 'All'})
+        Log.error(err)
+      return step()
 
 
 ###*
@@ -102,7 +106,12 @@ processChamp = (request_params, body, step) ->
   champ = request_params.champ
 
   $c = cheerio.load(body)
-  gg = parseGGData($c)
+  # This try/catch is a temporary fix for parsing errors.
+  # TODO: Fix when replaced with Bluebird.
+  try
+    gg = parseGGData($c)
+  catch err
+    return step(new cErrors.ParsingError("Couldn\'t parse champion.gg script tag for #{champ}"))
 
   # Check what role were currently grabbing, and what other roles exist.
   currentPosition = ''
