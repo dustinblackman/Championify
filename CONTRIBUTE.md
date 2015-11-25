@@ -36,8 +36,8 @@ __Language Status__
 | Language | Finished |
 | ------------- | -----:|
 | English | Yes |
-| Arabic | No |
-| Bosnian | No |
+| Arabic | Yes |
+| Bosnian | Yes |
 | Bulgarian | Yes |
 | Catalan | Yes |
 | Croatian | No |
@@ -65,9 +65,9 @@ __Language Status__
 | Portuguese Brazil | Yes |
 | Romanian | Yes |
 | Russian | Yes |
-| Serbian | No |
+| Serbian | Yes |
 | Slovak | No |
-| Slovenian | No |
+| Slovenian | Yes |
 | Spanish | Yes |
 | Swedish | Yes |
 | Thai | Yes |
