@@ -11,7 +11,7 @@ errors = {ChampionifyError: ChampionifyError}
 error_types = [
   'FileWriteError'
   'OperationalError'
-  'RequestError'
+  'ParsingError'
   'TranslationError'
   'UncaughtException'
   'UpdateError'
@@ -22,5 +22,14 @@ _.each error_types, (error_name) ->
     @type = error_name
     @ua = [os.platform(), os.release()].join(' ')
     @locale = T.locale or GLOBAL.T.locale
+
+
+errors.RequestError = ChampionifyError.subclass 'RequestError', (code, url) ->
+  @code = code
+  @url = url
+  @type = 'RequestError'
+  @ua = [os.platform(), os.release()].join(' ')
+  @locale = T.locale or GLOBAL.T.locale
+
 
 module.exports = errors
