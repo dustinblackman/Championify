@@ -46,6 +46,15 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
+<a name="1.2.2" />
+### 1.2.2 (November 25th, 2015)
+
+#### Bug Fixes
+- Temporary fix for users with `Unexpected end of input` errors
+
+#### Updates
+- Updated translations
+
 <a name="1.2.1" />
 ### 1.2.1 (November 24th, 2015)
 

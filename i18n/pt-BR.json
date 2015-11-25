@@ -59,7 +59,7 @@
   "options_consumables_tooltip": "Ao desabilitar os consumíveis, você vai perder a ordem das habilidades com Maior % de vitória",
   "options_dontdeleteold": "Não excluir conjuntos de itens desatualizados",
   "options_dontdeleteold_tooltip": "Conjuntos de itens antigos sem novas informações de patch não serão excluídos, no entanto, eles serão excluídos se novas informações estiverem disponíveis",
-  "options_locksr": "Travar conjuntos de items de Summoner's Rift ao mapa.",
+  "options_locksr": "Travar conjuntos de items de Summoner's Rift ao mapa",
   "options_locksr_tooltip": "Conjuntos de itens destinados para Summoners Rift só estarão disponíveis no mapa Summoners Rift.",
   "options_skillsformat": "Abreviar a ordem das habilidades",
   "options_skillsformat_tooltip": "Ao envés de",
