@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="1.2.3" />
+### 1.2.3 (November 26th, 2015)
+
+#### Bug Fixes
+- Another temporary fix for users with `Unexpected end of input` errors
+
 <a name="1.2.2" />
 ### 1.2.2 (November 25th, 2015)
 
