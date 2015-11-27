@@ -113,6 +113,11 @@ processChamp = (request_params, body, step) ->
   catch err
     return step(new cErrors.ParsingError("Couldn\'t parse champion.gg script tag for #{champ}"))
 
+  # TODO: Another quick fix for users who seem to have some kind of software that is
+  # altering the response
+  if !gg.champion?.roles
+    return step(new cErrors.ParsingError("Couldn\'t parse roles from champion.gg script tag for #{champ}"))
+
   # Check what role were currently grabbing, and what other roles exist.
   currentPosition = ''
 

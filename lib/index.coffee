@@ -65,6 +65,9 @@ Log.exitOnError = (err) ->
   # Return false so the application doesn't exit.
   return false
 
+# Send version to log
+Log.info("Version: #{pkg.version}")
+
 ###*
  * Function if error exists, enable error view and log error ending the session.
  * @param {Object} Error instance

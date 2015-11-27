@@ -171,11 +171,11 @@ gulp.task 'coveralls', (cb) ->
     (step) -> _istanbul('lcov text-summary', step)
     (step) -> coverallsSetup(step)
   ], (err) ->
+    console.log(err) if err
     if err instanceof SkipCoverallsError
       console.log(err.message)
-      return cb()
-    else
-      return cb(err)
+
+    return cb()
 
 gulp.task 'coverage', (cb) ->
   open path.resolve(path.join(__dirname, '../coverage/lcov-report/index.html'))
