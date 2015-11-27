@@ -50,7 +50,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 ### 1.2.3 (November 26th, 2015)
 
 #### Bug Fixes
-- Another temporary fix for users with `Unexpected end of input` errors
+- Another temporary fix for users with `Unexpected end of input` and `roles` errors
 
 <a name="1.2.2" />
 ### 1.2.2 (November 25th, 2015)
