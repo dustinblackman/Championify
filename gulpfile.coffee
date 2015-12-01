@@ -72,6 +72,7 @@ gulp.task 'build:win', (cb) ->
 
 gulp.task 'release', ->
   runSequence(
+    'transifex:review'
     'test'
     'delete-releases'
     'create-releases-folder'
