@@ -46,35 +46,18 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
+<a name="1.2.5" />
+### 1.2.5 (December 14th, 2015)
+
+#### Bug Fixes
+- Fixed `causedBy` error
+
 <a name="1.2.4" />
 ### 1.2.4 (December 13th, 2015)
 
 #### Updates
 - Updated translations
 
-<a name="1.2.3" />
-### 1.2.3 (November 26th, 2015)
-
-#### Bug Fixes
-- Another temporary fix for users with `Unexpected end of input` and `roles` errors
-
-<a name="1.2.2" />
-### 1.2.2 (November 25th, 2015)
-
-#### Bug Fixes
-- Temporary fix for users with `Unexpected end of input` errors
-
-#### Updates
-- Updated translations
-
-<a name="1.2.1" />
-### 1.2.1 (November 24th, 2015)
-
-#### Bug Fixes
-- Fix Champion.gg 404 error
-
-<a name="1.2.0" />
-### 1.2.0 (November 20th, 2015)
 
 #### Features
 - Added Arabic
