@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="1.2.5" />
+### 1.2.5 (December 14th, 2015)
+
+#### Bug Fixes
+- Fixed `causedBy` error
+
 <a name="1.2.4" />
 ### 1.2.4 (December 13th, 2015)
 

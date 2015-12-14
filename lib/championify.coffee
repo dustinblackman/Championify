@@ -55,7 +55,10 @@ getRiotVer = (step, r) ->
 getChamps = (step, r) ->
   cl "#{T.t('downloading_champs')}"
   hlp.request "http://ddragon.leagueoflegends.com/cdn/#{r.riotVer}/data/#{T.riotLocale()}/champion.json", (err, body) ->
-    return step(new cErrors.RequestError('Can\'t get Champs').causedBy(err)) if err or !body.data
+    if err && !body.data
+      return step(new cErrors.RequestError('Can\'t get Champs').causedBy(err))
+    if !body.data
+      return step(new cErrors.RequestError('Can\'t get Champs'))
 
     # Save translated champ names
     translated_champs = _.mapValues body.data, (data) -> return data.name
