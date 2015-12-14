@@ -127,7 +127,10 @@ majorUpdate = (version) ->
     (step) -> # Delete previous update folder if exists
       if fs.existsSync(update_path)
         fs.remove update_path, (err) ->
-          step(new cErrors.UpdateError('Can\'t remove previous update path').causedBy(err))
+          if err
+            step(new cErrors.UpdateError('Can\'t remove previous update path').causedBy(err))
+          else
+            step()
       else
         step()
     (step) -> # Download Tarball
