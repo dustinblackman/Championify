@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="1.2.7" />
+### 1.2.7 (Janurary 2nd, 2016)
+
+#### Bug Fixe
+- Disabled `causedBy` error on updates once and for all.
+
 <a name="1.2.6" />
 ### 1.2.6 (Janurary 2nd, 2016)
 

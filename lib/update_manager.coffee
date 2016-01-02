@@ -87,13 +87,14 @@ minorUpdate = (version) ->
   update_asar = path.join(__dirname, '../../', 'update-asar')
 
   download url, update_asar, (err) ->
-    if !(err instanceof cErrors.UpdateError)
+    if (err && !(err instanceof cErrors.UpdateError))
       err = new cErrors.UpdateError('Can\'t write/download update file').causedBy(err)
 
-    if process.platform == 'win32' and !optionsParser.runnedAsAdmin()
-      return runas(process.execPath, ['--startAsAdmin'], {hide: false, admin: true})
-    else
-      return EndSession(err)
+    if err
+      if process.platform == 'win32' and !optionsParser.runnedAsAdmin()
+        return runas(process.execPath, ['--startAsAdmin'], {hide: false, admin: true})
+      else
+        return EndSession(err)
 
     if process.platform == 'darwin'
       osxMinor(app_asar, update_asar)
