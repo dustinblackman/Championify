@@ -1,6 +1,6 @@
 {
   "name": "Championify",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Downloads all the recent builds from websites like Champion.gg or Lolflavor and imports them in to your League of Legends.",
   "main": "electron.coffee",
   "scripts": {

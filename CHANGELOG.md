@@ -1,5 +1,12 @@
 # Changelog
 
+<a name="1.2.6" />
+### 1.2.6 (Janurary 2nd, 2016)
+
+#### Updates
+- Disabled `Send Log`
+- Updated Translations
+
 <a name="1.2.5" />
 ### 1.2.5 (December 14th, 2015)
 
