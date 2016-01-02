@@ -46,30 +46,12 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
-<a name="1.2.5" />
-### 1.2.5 (December 14th, 2015)
-
-#### Bug Fixes
-- Fixed `causedBy` error
-
-<a name="1.2.4" />
-### 1.2.4 (December 13th, 2015)
+<a name="1.2.6" />
+### 1.2.6 (Janurary 2nd, 2016)
 
 #### Updates
-- Updated translations
-
-
-#### Features
-- Added Arabic
-- Translated item sets titles for Champion.gg and Lolflavor
-- Added donation button
-
-#### Bug Fixes
-- Infinite black box loop on some Windows machines
-
-#### Updates
-- Updated translations
-
+- Disabled `Send Log`
+- Updated Translations
 
 
 ## BUT WAIT! I have a suggestion!
