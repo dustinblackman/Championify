@@ -46,10 +46,16 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
+<a name="1.2.8" />
+### 1.2.8 (Janurary 26th, 2016)
+
+#### Bug Fixes
+- Lolflavor import failing due to missing Nami item sets
+
 <a name="1.2.7" />
 ### 1.2.7 (Janurary 2nd, 2016)
 
-#### Bug Fixe
+#### Bug Fixes
 - Disabled `causedBy` error on updates once and for all.
 
 <a name="1.2.6" />
