@@ -3,6 +3,14 @@ fs = require 'fs'
 path = require 'path'
 _ = require 'lodash'
 
+
+# Some languages aren't supported in the league client due to lack of character support.
+# Default to english if in this list, but keep the ui in the native language.
+ingame_locals = [
+  'ar'
+  'ja'
+]
+
 module.exports = class Translate
   constructor: (locale) ->
     @locale = locale
@@ -10,11 +18,16 @@ module.exports = class Translate
     i18n_path = path.join(__dirname, "../i18n/#{locale}.json")
     throw new cErrors.OperationalError("#{locale} does not exist in i18n folder") if !fs.existsSync(i18n_path)
     @phrases = require i18n_path
+    @english_phrases = require path.join(__dirname, '../i18n/en.json')
 
   # Translate
-  t: (phrase) ->
+  t: (phrase, ingame) ->
     phrase = phrase.toLowerCase()
     translated_phrase = @phrases[phrase]
+
+    if ingame and _.includes(ingame_locals, @locale)
+      translated_phrase = @english_phrases[phrase]
+
     throw new cErrors.TranslationError("Phrase does not exist for #{@locale}: #{phrase}") if !translated_phrase
     return translated_phrase
 

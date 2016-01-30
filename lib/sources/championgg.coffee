@@ -244,12 +244,12 @@ processChamp = (request_params, body, step) ->
 
   # Generates item set for Combinded sets (with both Most Frequent and Highest Wins on one page)
   templates = {
-    combindedStart: _.template("#{T.t('frequent')}/#{T.t('highest_start')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
-    combinedCore: _.template("#{T.t('frequent')}/#{T.t('highest_core')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
-    freqStart: _.template("#{T.t('mf_starters')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
-    freqCore: _.template("#{T.t('mf_core')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
-    highestStart: _.template("#{T.t('hw_starters')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
-    highestCore: _.template("#{T.t('hw_core')} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games')})")
+    combindedStart: _.template("#{T.t('frequent', true)}/#{T.t('highest_start', true)} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games', true)})")
+    combinedCore: _.template("#{T.t('frequent', true)}/#{T.t('highest_core', true)} (<%- wins %> #{T.t('wins').toLowerCase()} - <%- games %> #{T.t('games', true)})")
+    freqStart: _.template("#{T.t('mf_starters', true)} (<%- wins %> #{T.t('wins', true).toLowerCase()} - <%- games %> #{T.t('games', true)})")
+    freqCore: _.template("#{T.t('mf_core', true)} (<%- wins %> #{T.t('wins', true).toLowerCase()} - <%- games %> #{T.t('games', true)})")
+    highestStart: _.template("#{T.t('hw_starters', true)} (<%- wins %> #{T.t('wins', true).toLowerCase()} - <%- games %> #{T.t('games', true)})")
+    highestCore: _.template("#{T.t('hw_core', true)} (<%- wins %> #{T.t('wins', true).toLowerCase()} - <%- games %> #{T.t('games', true)})")
   }
   normalItemSets = ->
     builds = []
@@ -323,7 +323,7 @@ processChamp = (request_params, body, step) ->
 
   # Inserts new item sets in to a global object to be used when we get to saving files.
   pushChampData = (champ, position, set_type=null, position_for_file, build) ->
-    title = T.t(position)
+    title = T.t(position, true)
     title += " #{set_type}" if set_type
 
     newObj = {
@@ -348,8 +348,8 @@ processChamp = (request_params, body, step) ->
   # If split item sets
   if window.cSettings.splititems
     builds = splitItemSets()
-    pushChampData(champ, "#{currentPosition}", "#{T.t('most_freq')}", "#{currentPosition}_mostfreq", builds.mfBuild)
-    pushChampData(champ, "#{currentPosition}", "#{T.t('highest_win')}", "#{currentPosition}_highwin", builds.hwBuild)
+    pushChampData(champ, "#{currentPosition}", "#{T.t('most_freq', true)}", "#{currentPosition}_mostfreq", builds.mfBuild)
+    pushChampData(champ, "#{currentPosition}", "#{T.t('highest_win', true)}", "#{currentPosition}_highwin", builds.hwBuild)
 
   # If normal item sets
   else
