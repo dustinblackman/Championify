@@ -34,14 +34,14 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
   champs = {}
 
   title_translations = {
-    core_items: "#{T.t('core_items')} - #{T.t('max_skill')}: "
-    'Consumable': T.t('consumables')
-    'Starter': T.t('starter')
-    'Core Alternatives - Endgame Items ': "#{T.t('core_alternatives')} - #{T.t('endgame_items')}"
-    'Boots': T.t('boots')
-    'Situational Items': T.t('situational_items')
-    'Elixir': T.t('elixir'),
-    'Upgrade Ultimate': T.t('upgrade_ultimate')
+    core_items: "#{T.t('core_items', true)} - #{T.t('max_skill', true)}: "
+    'Consumable': T.t('consumables', true)
+    'Starter': T.t('starter', true)
+    'Core Alternatives - Endgame Items ': "#{T.t('core_alternatives', true)} - #{T.t('endgame_items', true)}"
+    'Boots': T.t('boots', true)
+    'Situational Items': T.t('situational_items', true)
+    'Elixir': T.t('elixir', true),
+    'Upgrade Ultimate': T.t('upgrade_ultimate', true)
   }
 
   async.eachLimit champs_names, 3, (champ, next) ->
@@ -73,7 +73,7 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
         data.blocks.shift()
         data.blocks = hlp.trinksCon(data.blocks, champ, manaless)
 
-      data.title = T.t(process_name.toLowerCase()) + ' ' + riotVer
+      data.title = T.t(process_name.toLowerCase(), true) + ' ' + riotVer
       champs[champ] = {}
       champs[champ][process_name.toLowerCase()] = data
 

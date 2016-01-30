@@ -104,9 +104,9 @@ module.exports = {
       consumables = _.clone(prebuilts.consumables, true)
       consumables.splice(1, 1) if _.contains(manaless, champ)
 
-      consumables_title = "#{T.t('consumables')}"
+      consumables_title = "#{T.t('consumables', true)}"
       if skills.mostFreq
-        consumables_title += " | #{T.t('frequent')}: #{skills.mostFreq}"
+        consumables_title += " | #{T.t('frequent', true)}: #{skills.mostFreq}"
 
       consumables_block = {
         items: consumables
@@ -120,9 +120,9 @@ module.exports = {
 
     # Trinkets
     if window.cSettings.trinkets
-      trinkets_title = "#{T.t('trinkets')}"
+      trinkets_title = "#{T.t('trinkets', true)}"
       if skills.highestWin
-        trinkets_title += " | #{T.t('wins')}: #{skills.highestWin}"
+        trinkets_title += " | #{T.t('wins', true)}: #{skills.highestWin}"
 
       trinkets_block = {
         items: prebuilts.trinketUpgrades
