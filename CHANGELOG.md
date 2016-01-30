@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="1.2.9" />
+### 1.2.9 (Janurary 30th, 2016)
+
+#### Bug Fixes
+- Added Arabic and Japanese to a whitelist so that it defaults to English when in game, gets rid of block text.
+
 <a name="1.2.8" />
 ### 1.2.8 (Janurary 26th, 2016)
 
