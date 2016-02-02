@@ -121,6 +121,7 @@ _initSettings = ->
   $('#locals_select').dropdown {
     action: 'activate'
     onChange: (value, text, $selector) ->
+      return null if GLOBAL.importing
       reset = (done) ->
         _initSettings()
         done()

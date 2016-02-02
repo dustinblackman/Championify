@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="1.2.10" />
+### 1.2.10 (February 1st, 2016)
+
+#### Bug Fixes
+- Disable changing languages during import
+
 <a name="1.2.9" />
 ### 1.2.9 (Janurary 30th, 2016)
 

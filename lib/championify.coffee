@@ -163,6 +163,8 @@ setWindowsPermissions = (step, r) ->
  * @callback {Function} Callback.
 ###
 downloadItemSets = (done) ->
+  window.importing = true
+
   # Get settings
   window.cSettings = preferences.get().options
 
@@ -201,6 +203,7 @@ downloadItemSets = (done) ->
   hlp.updateProgressBar(true)
 
   async.auto async_tasks, (err) ->
+    window.importing = false
     # If it's a file write problem and is windows, then run as admin.
     if err instanceof cErrors.FileWriteError and process.platform == 'win32' and !optionsParser.runnedAsAdmin()
       Log.error(err)
