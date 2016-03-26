@@ -52,9 +52,6 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 #### Bug Fixes
 - Fix lolflavor import bug
 
-#### Bug Fixes
-- Lolflavor import failing due to missing Nami item sets
-
 
 ## BUT WAIT! I have a suggestion!
 Well that's great! Put up an Issue, hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
