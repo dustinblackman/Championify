@@ -22,7 +22,7 @@ gulp.task 'main', (cb) ->
     ['electron:packagejson'
     'electron:settings'
     'bower_copy'
-    'coffee'
+    'babel'
     'stylus']
     cb
   )
