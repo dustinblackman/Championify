@@ -45,7 +45,7 @@ _requestData = (champs_names, process_name, riotVer, manaless, step) ->
   }
 
   async.eachLimit champs_names, 3, (champ, next) ->
-    cl "#{T.t('processing')} #{T.t(process_name)}: #{T.t(champ)}"
+    cl "#{T.t('processing')} #{T.t(process_name)}: #{T.t(champ.replace(/ /g, ''))}"
 
     url = "http://www.lolflavor.com/champions/#{champ}/Recommended/#{champ}_#{process_name.toLowerCase()}_scrape.json"
     hlp.request url, (err, data) ->

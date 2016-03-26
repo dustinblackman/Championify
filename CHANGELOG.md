@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="1.2.11" />
+### 1.2.11 (March 26th, 2016)
+
+#### Bug Fixes
+- Fix inconsistent ID format for Champions
+
 <a name="1.2.10" />
 ### 1.2.10 (February 1st, 2016)
 

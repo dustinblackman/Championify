@@ -59,7 +59,7 @@ module.exports = class Translate
 
   # Merge in new translations to phrases (like Champ names)
   merge: (translations) ->
-    translations = _.mapKeys translations, (value, key) -> return key.toLowerCase()
+    translations = _.mapKeys translations, (value, key) -> return key.toLowerCase().replace(/ /g, '')
     @phrases = _.merge(@phrases, translations)
 
   # Convert locale for Riot API

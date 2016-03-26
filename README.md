@@ -46,20 +46,11 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
-<a name="1.2.10" />
-### 1.2.10 (February 1st, 2016)
+<a name="1.2.11" />
+### 1.2.11 (March 26th, 2016)
 
 #### Bug Fixes
-- Disable changing languages during import
-
-<a name="1.2.9" />
-### 1.2.9 (Janurary 30th, 2016)
-
-#### Bug Fixes
-- Added Arabic and Japanese to a whitelist so that it defaults to English when in game, gets rid of block text.
-
-<a name="1.2.8" />
-### 1.2.8 (Janurary 26th, 2016)
+- Fix lolflavor import bug
 
 #### Bug Fixes
 - Lolflavor import failing due to missing Nami item sets
