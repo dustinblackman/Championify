@@ -19,7 +19,7 @@ gulp.task 'removelivereload', ->
 gulp.task 'run-watch', (cb) ->
   fs.writeFileSync('./dev/dev_enabled', 'dev enabled', 'utf8')
   gulp.watch './stylesheets/*.styl', ['stylus']
-  gulp.watch './lib/**/*.coffee', ['coffee']
+  gulp.watch './lib/**/*.js', ['babel']
   if process.platform == 'win32'
     gulp.watch './app/**', ['copy:app']
 
