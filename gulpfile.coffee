@@ -11,9 +11,6 @@ GLOBAL.releaseFile = _.template('./releases/' + pkg.release_file_template)
 GLOBAL.ifRelease = (process.argv.indexOf('release') > -1)
 
 
-gulp.task 'setup', ->
-  runSequence('bower', 'preen')
-
 # Main Tasks
 gulp.task 'main', (cb) ->
   runSequence(
@@ -21,7 +18,6 @@ gulp.task 'main', (cb) ->
     'mkdir:app'
     ['electron:packagejson'
     'electron:settings'
-    'bower_copy'
     'babel'
     'stylus']
     cb

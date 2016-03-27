@@ -9,7 +9,7 @@ nib = require 'nib'
 uglify = require 'gulp-uglify'
 changed = require 'gulp-changed'
 
-pkg = require('../package.json');
+pkg = require('../package.json')
 
 gulp.task 'babel', ->
   gulp.src('./lib/**', {base: './lib'})
