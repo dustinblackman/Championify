@@ -8,7 +8,8 @@
     "build": "./node_modules/.bin/gulp build",
     "build-artifact": "./node_modules/.bin/gulp build-artifact",
     "coveralls": "./node_modules/.bin/gulp coveralls",
-    "dev": "gulp dev"
+    "dev": "gulp dev",
+    "lint": "eslint ./src"
   },
   "repository": {
     "type": "git",

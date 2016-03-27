@@ -7,7 +7,7 @@ path = require 'path'
 should = require('chai').should()
 _ = require('lodash')
 
-championgg = require '../../lib/sources/championgg'
+championgg = require '../../src/sources/championgg'
 nocked = null
 
 RESPONSES_FIXTURES = {
@@ -30,7 +30,7 @@ testWithFixture = (fixture, done) ->
 
   , {champs: _.keys(RESPONSES_FIXTURES.champions.data)}
 
-describe 'lib/sources/championgg.coffee', ->
+describe 'src/sources/championgg.coffee', ->
   before ->
     nocked = nock('http://champion.gg')
 

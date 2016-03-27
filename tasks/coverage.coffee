@@ -102,10 +102,10 @@ coverageDownload = (done) ->
 
     converted_coverage = {}
     _.each coverage_json, (coverage_data) ->
-      file = coverage_data.path.split('lib')[1].replace(/\\/g, '/')
+      file = coverage_data.path.split('src')[1].replace(/\\/g, '/')
       file = file.substring(1) if file[0] == '/'
 
-      coverage_data.path = path.join(__dirname, '..', 'lib', file)
+      coverage_data.path = path.join(__dirname, '..', 'src', file)
       converted_coverage[coverage_data.path] = coverage_data
 
     coverage_path = path.join(__dirname, '..', 'coverage/coverage-other.json')

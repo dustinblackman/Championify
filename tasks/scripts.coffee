@@ -12,8 +12,8 @@ changed = require 'gulp-changed'
 pkg = require('../package.json')
 
 gulp.task 'babel', ->
-  gulp.src('./lib/**', {base: './lib'})
-    .pipe(changed('./lib/**'))
+  gulp.src('./src/**', {base: './src'})
+    .pipe(changed('./src/**'))
     .pipe(babel(pkg.babel))
     .pipe gulp.dest('./dev/js/')
 

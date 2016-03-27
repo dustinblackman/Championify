@@ -1,8 +1,8 @@
 should = require('chai').should()
 
-optionsParser = require '../lib/options_parser'
+optionsParser = require '../src/options_parser'
 
-describe 'lib/options_parser.coffee', ->
+describe 'src/options_parser.coffee', ->
   describe 'import', ->
     it 'should return false', ->
       optionsParser.import().should.equal(false)

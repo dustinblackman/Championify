@@ -1,7 +1,7 @@
 should = require('chai').should()
 glob = require 'glob'
 _ = require 'lodash'
-Translate = require '../lib/translate'
+Translate = require '../src/translate'
 
 riot_locales = {
   bg: 'bg_BG'
@@ -74,7 +74,7 @@ flags = {
 
 count = null
 
-describe 'lib/translate.coffee', ->
+describe 'src/translate.coffee', ->
   before ->
     window.T = new Translate('ko')
 

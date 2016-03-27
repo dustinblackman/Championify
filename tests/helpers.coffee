@@ -1,8 +1,8 @@
 should = require('chai').should()
 
-hlp = require '../lib/helpers'
+hlp = require '../src/helpers'
 
-describe 'lib/helpers.coffee', ->
+describe 'src/helpers.coffee', ->
   describe 'wins', ->
     it 'should return win precentage', ->
       hlp.wins(1).should.equal('1%')

@@ -2,11 +2,11 @@ fs = require 'fs'
 nock = require 'nock'
 should = require('chai').should()
 
-updateManager = require '../lib/update_manager'
+updateManager = require '../src/update_manager'
 pkg = JSON.parse fs.readFileSync('./package.json')
 nocked = null
 
-describe 'lib/update_manager.coffee', ->
+describe 'src/update_manager.coffee', ->
   before ->
     nocked = nock('https://raw.githubusercontent.com')
 

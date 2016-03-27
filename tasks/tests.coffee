@@ -18,7 +18,7 @@ gulp.task 'coffeelint', ->
   return gulp.src([
       './electron.coffee'
       './gulpfile.coffee'
-      './lib/**/*.coffee'
+      './src/**/*.coffee'
       './tasks/**/*.coffee'
       './tests/**/*.coffee'
     ])
@@ -116,7 +116,7 @@ mochaOSX = (cb) ->
 gulp.task 'mocha', (cb) ->
   tmp_dir = path.join(__dirname, '..', 'tmp')
   fs.removeSync(tmp_dir) if fs.existsSync(tmp_dir)
-  
+
   if process.platform == 'win32'
     mochaWindows(cb)
   else

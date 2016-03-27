@@ -1,7 +1,7 @@
 # This inits the global properties within electron to prevent any errors.
 
 champions = require './fixtures/all_champions.json'
-Translate = require '../lib/translate'
+Translate = require '../src/translate'
 sinon = require 'sinon'
 _ = require 'lodash'
 
