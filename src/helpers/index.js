@@ -1,5 +1,6 @@
 import async from 'async';
 import _request from 'request';
+import remote from 'remote';
 import $ from './jquery';
 import _ from 'lodash';
 
@@ -7,13 +8,6 @@ import cErrors from '../errors';
 import Log from '../logger';
 import T from '../translate';
 import viewManager from '../view_manager';
-
-let remote;
-try {
-  remote = require('remote');
-} catch (_error) {
-  // Do nothing;
-}
 
 const prebuilts = require('../../data/prebuilts.json');
 

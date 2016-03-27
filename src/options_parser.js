@@ -1,11 +1,6 @@
+import remote from 'remote';
 import _ from 'lodash';
 
-let remote;
-try {
-  remote = require('remote');
-} catch (_error) {
-  // Do nothing;
-}
 
 function _processArgs(arg) {
   return _.contains(remote.process.argv, arg);
