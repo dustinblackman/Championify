@@ -1,5 +1,5 @@
 async = require 'async'
-coffee = require 'gulp-coffee'
+babel = require 'gulp-babel'
 exec = require('child_process').exec
 fs = require 'fs-extra'
 gulp = require 'gulp'
@@ -171,9 +171,8 @@ gulp.task 'electron:deps', (cb) ->
 
 
 gulp.task 'electron:settings', ->
-  gulp.src(['./electron.coffee'], {base: './'})
-    .pipe(coffee(bare: true).on('error', gutil.log))
-    # .pipe(gulpif(GLOBAL.ifRelease, uglify({mangle: false})))
+  gulp.src(['./electron.js'], {base: './'})
+    .pipe(babel(pkg.babel))
     .pipe gulp.dest('./dev')
 
 
