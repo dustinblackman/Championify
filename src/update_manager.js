@@ -288,22 +288,21 @@ function check(done) {
   let version = false;
   let major_update = false;
   const url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json';
-  return cRequest(url, function(err, data) {
-    if (err) {
-      return EndSession(new cErrors.RequestError('Can\'t access Github package.json').causedBy(err));
-    }
-    if (semver.gt(data.devDependencies['electron-prebuilt'], process.versions.electron)) {
-      version = data.version;
-      major_update = true;
-    }
-    if (semver.gt(data.version, pkg.version) === 1) {
-      version = data.version;
-    }
-    if (version && optionsParser.update()) {
-      return EndSession(new cErrors.UpdateError('New version did not install correctly'));
-    }
-    return done(version, major_update);
-  });
+  return cRequest({url, json: true})
+    .then(data => {
+      if (semver.gt(data.devDependencies['electron-prebuilt'], process.versions.electron)) {
+        version = data.version;
+        major_update = true;
+      }
+      if (semver.gt(data.version, pkg.version) === 1) version = data.version;
+      if (version && optionsParser.update()) {
+        return EndSession(new cErrors.UpdateError('New version did not install correctly'));
+      }
+      return done(version, major_update);
+    })
+    .catch(err => {
+      EndSession(new cErrors.RequestError('Can\'t access Github package.json').causedBy(err));
+    });
 }
 
 export default {

@@ -22,17 +22,18 @@ let champData = {};
  */
 
 function getVersion(step, r) {
-  if (r) {
-    cl(T.t('cgg_version'));
-  }
-  return request('http://champion.gg/faq/', function(err, body) {
-    if (err) {
-      return step(new cErrors.RequestError('Can\'t get Champion.GG Version').causedBy(err));
-    }
-    const $c = cheerio.load(body);
-    window.champGGVer = $c(csspaths.version).text();
-    return step(null, window.champGGVer);
-  });
+  if (r) cl(T.t('cgg_version'));
+
+  return request('http://champion.gg/faq/')
+    .then(body => {
+      const $c = cheerio.load(body);
+      window.champGGVer = $c(csspaths.version).text();
+      return window.champGGVer;
+    })
+    .catch(err => {
+      throw new cErrors.RequestError('Can\'t get Champion.GG Version').causedBy(err);
+    })
+    .asCallback(step);
 }
 
 
@@ -99,29 +100,34 @@ function requestPage(request_params, step) {
   } else {
     cl((T.t('processing_rift')) + ': ' + T.t(champ));
   }
-  return request(url, function(err, body) {
-    if (err) {
-      Log.warn(err);
-    }
 
-    if (err || _.contains(body, 'We\'re currently in the process of generating stats for')) {
-      window.undefinedBuilds.push({
-        champ: champ,
-        position: request_params.position || 'All'
-      });
-      return step();
-    }
-    processChamp(request_params, body, function(err) {
-      if (err) {
-        window.undefinedBuilds.push({
-          champ: champ,
-          position: request_params.position || 'All'
-        });
-        Log.error(err);
-      }
-      return step();
+  function markUndefined() {
+    window.undefinedBuilds.push({
+      champ: champ,
+      position: request_params.position || 'All'
     });
-  });
+  }
+
+  return request(url)
+    .then(body => {
+      if (_.contains(body, 'We\'re currently in the process of generating stats for')) {
+        markUndefined();
+        step();
+      }
+
+      processChamp(request_params, body, function(err) {
+        if (err) {
+          Log.error(err);
+          markUndefined();
+        }
+        return step();
+      });
+    })
+    .catch(err => {
+      Log.warn(err);
+      markUndefined();
+      step();
+    });
 }
 
 

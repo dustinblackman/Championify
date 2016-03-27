@@ -1,6 +1,7 @@
-import async from 'async';
-import _request from 'request';
+import Promise from 'bluebird';
+import R from 'ramda';
 import remote from 'remote';
+import retry from 'bluebird-retry';
 import $ from './jquery';
 import _ from 'lodash';
 
@@ -9,6 +10,7 @@ import Log from '../logger';
 import T from '../translate';
 import viewManager from '../view_manager';
 
+const requester = Promise.promisify(require('request'));
 const prebuilts = require('../../data/prebuilts.json');
 
 
@@ -31,34 +33,22 @@ export function EndSession(c_error) {
  * @callback {Function} Callback
  */
 
-export function request(url, done) {
-  async.retry(3, function(step) {
-    const options = {
-      timeout: 10000,
-      url: url
-    };
-    _request(options, function(err, res, body) {
-      if (err) {
-        return step(err);
-      }
-      if (res.statusCode === 404) {
-        return step(new cErrors.RequestError(404, url));
-      }
-      if (res.headers && res.headers['content-type'] && res.headers['content-type'].indexOf('text/json') || _.contains(url, '.json')) {
-        try {
-          body = JSON.parse(body);
-        } catch (_error) {
-          // Do nothing
-        }
-      }
-      return step(null, body);
-    });
-  }, function(err, results) {
-    if (err) {
-      return done(err);
-    }
-    return done(null, results);
-  });
+export function request(options, done) {
+  let params = {timeout: 10000};
+  if (R.is(String, options)) {
+    params.url = options;
+  } else {
+    params = R.merge(params, options);
+  }
+
+  return retry(retry => {
+    return requester(params)
+      .tap(res => {
+        if (res.statusCode >= 400) throw new cErrors.RequestError(res.statusCode, options.url);
+      })
+      .then(R.prop('body'))
+      .catch(retry);
+  }, {max_tries: 3});
 }
 
 /**

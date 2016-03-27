@@ -1,8 +1,10 @@
+import Promise from 'bluebird';
 import async from 'async';
 import fs from 'fs-extra';
 import glob from 'glob';
 import mkdirp from 'mkdirp';
 import path from 'path';
+import R from 'ramda';
 import _ from 'lodash';
 
 import { cl, EndSession, request, spliceVersion, updateProgressBar } from './helpers';
@@ -38,11 +40,12 @@ function saveSettings(next) {
 */
 function getRiotVer(next, r) {
   if (r) cl(`${T.t('lol_version')}`);
-  request('https://ddragon.leagueoflegends.com/realms/na.json', (err, body) => {
-    if (err) return next(new cErrors.RequestError('Can\'t get Riot Version').causedBy(err));
-
-    next(null, body.v);
-  });
+  request({url: 'https://ddragon.leagueoflegends.com/realms/na.json', json: true})
+    .then(R.prop('v'))
+    .catch(err => {
+      throw new cErrors.RequestError('Can\'t get Riot Version').causedBy(err);
+    })
+    .asCallback(next);
 }
 
 /*
@@ -51,16 +54,22 @@ function getRiotVer(next, r) {
 */
 function getChamps(step, r) {
   cl(`${T.t('downloading_champs')}`);
-  request(`http://ddragon.leagueoflegends.com/cdn/${r.riotVer}/data/${T.riotLocale()}/champion.json`, (err, body) => {
-    if (err && !body.data) return step(new cErrors.RequestError('Can\'t get Champs').causedBy(err));
-    if (!body.data) return step(new cErrors.RequestError('Can\'t get Champs'));
+  const params = {
+    url: `http://ddragon.leagueoflegends.com/cdn/${r.riotVer}/data/${T.riotLocale()}/champion.json`,
+    json: true
+  };
 
-    // Save translated champ names
-    const translated_champs = _.mapValues(body.data, data => data.name);
-    T.merge(translated_champs);
-
-    step(null, body.data);
-  });
+  return request(params)
+    .then(R.prop('data'))
+    .tap(data => {
+      if (!data) throw new cErrors.RequestError('Can\'t get Champs');
+      T.merge(R.zipObj(R.keys(data), R.pluck('name')(R.values(data))));
+    })
+    .catch(err => {
+      if (err instanceof cErrors.ChampionifyError) throw err;
+      new cErrors.RequestError('Can\'t get Champs').causedBy(err);
+    })
+    .asCallback(step);
 }
 
 /*
@@ -120,8 +129,8 @@ function deleteOldBuilds(step, r, deletebtn) {
 
 function saveToFile(step, r) {
   let champData = _.merge(_.clone(r.srItemSets, true), r.aramItemSets);
-  return async.each(_.keys(champData), function(champ, next) {
-    return async.each(_.keys(champData[champ]), function(position, nextPosition) {
+  async.each(_.keys(champData), function(champ, next) {
+    async.each(_.keys(champData[champ]), function(position, nextPosition) {
       let toFileData = JSON.stringify(champData[champ][position], null, 4);
       let folder_path = path.join(window.item_set_path, champ, 'Recommended');
       return mkdirp(folder_path, function(err) {
@@ -210,7 +219,7 @@ function downloadItemSets(done) {
     async_tasks['srItemSets'] = ['champs', 'champggVer', 'manaless', champgg.sr];
   }
   updateProgressBar(true);
-  return async.auto(async_tasks, function(err) {
+  async.auto(async_tasks, function(err) {
     window.importing = false;
     if (err instanceof cErrors.FileWriteError && process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
       Log.error(err);

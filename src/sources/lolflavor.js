@@ -14,21 +14,31 @@ import T from '../translate';
  */
 
 function _requestAvailableChamps(process_name, stats_file, done) {
-  return request('http://www.lolflavor.com/data/' + stats_file, function(err, body) {
-    if (err || !body.champions) {
-      Log.warn(err);
-      window.undefinedBuilds.push({
-        champ: T.t(process_name),
-        position: 'All'
-      });
-      return done(null, []);
-    }
-    let champs = _.map(body.champions, function(item) {
-      return item.name;
+  function markUndefined() {
+    window.undefinedBuilds.push({
+      champ: T.t(process_name),
+      position: 'All'
     });
-    champs.sort();
-    return done(null, champs);
-  });
+  }
+
+  return request({url: `http://www.lolflavor.com/data/${stats_file}`, json: true})
+    .then(body => {
+      if (!body.champions) {
+        markUndefined();
+        return [];
+      }
+      let champs = _.map(body.champions, function(item) {
+        return item.name;
+      });
+      champs.sort();
+      return champs;
+    })
+    .catch(err => {
+      Log.warn(err);
+      markUndefined();
+      return [];
+    })
+    .asCallback(done);
 }
 
 
@@ -52,49 +62,63 @@ function _requestData(champs_names, process_name, riotVer, manaless, step) {
   };
   async.eachLimit(champs_names, 3, function(champ, next) {
     cl((T.t('processing')) + " " + (T.t(process_name)) + ": " + (T.t(champ.replace(/ /g, ''))));
-    const url = "http://www.lolflavor.com/champions/" + champ + "/Recommended/" + champ + "_" + (process_name.toLowerCase()) + "_scrape.json";
-    return request(url, function(err, data) {
-      if (err || !data.blocks) {
-        Log.warn(err);
-        window.undefinedBuilds.push({
-          champ: champ,
-          position: process_name
-        });
-        return next(null);
-      }
-      data.blocks = _.map(data.blocks, function(block) {
-        if (_.contains(block.type, 'Core Items')) {
-          block.type = title_translations.core_items + block.type.split(': ')[1];
-        } else if (title_translations[block.type]) {
-          block.type = title_translations[block.type];
-        } else {
-          Log.warn("Lolflavor: '" + block.type + "' does not exist in preset translations for " + champ);
+
+    function markUndefined() {
+      window.undefinedBuilds.push({
+        champ: champ,
+        position: process_name
+      });
+    }
+
+    const params = {
+      url: `http://www.lolflavor.com/champions/${champ}/Recommended/${champ}_${process_name.toLowerCase()}_scrape.json`,
+      json: true
+    };
+    return request(params)
+      .then(data => {
+        if (!data.blocks) {
+          markUndefined();
+          return;
         }
 
-        return block;
-      });
-      if (process_name === 'ARAM') {
-        data.map = 'HA';
-        data.blocks[0].items.push({
-          count: 1,
-          id: '2047'
+        data.blocks = _.map(data.blocks, function(block) {
+          if (_.contains(block.type, 'Core Items')) {
+            block.type = title_translations.core_items + block.type.split(': ')[1];
+          } else if (title_translations[block.type]) {
+            block.type = title_translations[block.type];
+          } else {
+            Log.warn("Lolflavor: '" + block.type + "' does not exist in preset translations for " + champ);
+          }
+
+          return block;
         });
-      }
-      if (process_name !== 'ARAM') {
-        if (window.cSettings.locksr) {
-          data.map = 'SR';
+        if (process_name === 'ARAM') {
+          data.map = 'HA';
+          data.blocks[0].items.push({
+            count: 1,
+            id: '2047'
+          });
         }
-        data.blocks.shift();
-        data.blocks = trinksCon(data.blocks, champ, manaless);
-      }
-      data.title = T.t(process_name.toLowerCase(), true) + ' ' + riotVer;
-      champs[champ] = {};
-      champs[champ][process_name.toLowerCase()] = data;
-      if (process_name !== 'ARAM') {
-        updateProgressBar(30 / champs_names.length);
-      }
-      return next(null);
-    });
+        if (process_name !== 'ARAM') {
+          if (window.cSettings.locksr) {
+            data.map = 'SR';
+          }
+          data.blocks.shift();
+          data.blocks = trinksCon(data.blocks, champ, manaless);
+        }
+        data.title = T.t(process_name.toLowerCase(), true) + ' ' + riotVer;
+        champs[champ] = {};
+        champs[champ][process_name.toLowerCase()] = data;
+        if (process_name !== 'ARAM') {
+          updateProgressBar(30 / champs_names.length);
+        }
+        return;
+      })
+      .catch(err => {
+        Log.warn(err);
+        markUndefined();
+      })
+      .asCallback(next);
   }, function(err) {
     if (err) {
       return step(err);
@@ -168,18 +192,16 @@ function summonersRift(step, r) {
  */
 
 function getVersion(step) {
-  return request('http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', function(err, body) {
-    var body_title, version;
-    if (err) {
-      return step(null, T.t('unknown'));
-    }
-    body_title = body != null ? body.title : void 0;
-    if (!body_title) {
-      return step(null, T.t('unknown'));
-    }
-    version = body_title.split(' ')[3];
-    return step(null, version);
-  });
+  return request({url: 'http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', json: true})
+    .then(body => {
+      if (!body || !body.title) return T.t('unknown');
+      return body.title.split(' ')[3];
+    })
+    .catch(err => {
+      Log.warn(err);
+      return T.t('unknown');
+    })
+    .asCallback(step);
 }
 
 
