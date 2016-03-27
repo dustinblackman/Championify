@@ -6,12 +6,12 @@ import T from '../translate';
 import _ from 'lodash';
 
 import cErrors from '../errors.js';
-import hlp from '../helpers';
+import { cl, request, trinksCon, updateProgressBar, wins } from '../helpers';
+import Log from '../logger';
 
 const defaultSchema = require('../../data/default.json');
 const csspaths = require('../../data/csspaths.json');
 const prebuilts = require('../../data/prebuilts.json');
-const cl = hlp.cl;
 
 let champData = {};
 
@@ -25,7 +25,7 @@ function getVersion(step, r) {
   if (r) {
     cl(T.t('cgg_version'));
   }
-  return hlp.request('http://champion.gg/faq/', function(err, body) {
+  return request('http://champion.gg/faq/', function(err, body) {
     if (err) {
       return step(new cErrors.RequestError('Can\'t get Champion.GG Version').causedBy(err));
     }
@@ -72,7 +72,7 @@ function parseGGData($c) {
 function requestChamps(step, r) {
   champData = {};
   async.eachLimit(r.champs, 2, function(champ, next) {
-    hlp.updateProgressBar(90 / r.champs.length);
+    updateProgressBar(90 / r.champs.length);
     return requestPage({
       champ: champ,
       manaless: r.manaless
@@ -99,7 +99,7 @@ function requestPage(request_params, step) {
   } else {
     cl((T.t('processing_rift')) + ': ' + T.t(champ));
   }
-  return hlp.request(url, function(err, body) {
+  return request(url, function(err, body) {
     if (err) {
       Log.warn(err);
     }
@@ -176,22 +176,22 @@ function processChamp(request_params, body, step) {
   }
   const freqCore = {
     items: gg.championData.items.mostGames.items,
-    wins: hlp.wins(gg.championData.items.mostGames.winPercent),
+    wins: wins(gg.championData.items.mostGames.winPercent),
     games: gg.championData.items.mostGames.games
   };
   const freqStart = {
     items: gg.championData.firstItems.mostGames.items,
-    wins: hlp.wins(gg.championData.firstItems.mostGames.winPercent),
+    wins: wins(gg.championData.firstItems.mostGames.winPercent),
     games: gg.championData.firstItems.mostGames.games
   };
   const highestCore = {
     items: gg.championData.items.highestWinPercent.items,
-    wins: hlp.wins(gg.championData.items.highestWinPercent.winPercent),
+    wins: wins(gg.championData.items.highestWinPercent.winPercent),
     games: gg.championData.items.highestWinPercent.games
   };
   const highestStart = {
     items: gg.championData.firstItems.highestWinPercent.items,
-    wins: hlp.wins(gg.championData.firstItems.highestWinPercent.winPercent),
+    wins: wins(gg.championData.firstItems.highestWinPercent.winPercent),
     games: gg.championData.firstItems.highestWinPercent.games
   };
   function processSkills(skills) {
@@ -323,7 +323,7 @@ function processChamp(request_params, body, step) {
         })
       });
     }
-    builds = hlp.trinksCon(builds, champ, request_params.manaless, skills);
+    builds = trinksCon(builds, champ, request_params.manaless, skills);
     return builds;
   }
 
@@ -359,8 +359,8 @@ function processChamp(request_params, body, step) {
       })
     });
     return {
-      mfBuild: hlp.trinksCon(mfBuild, champ, request_params.manaless, skills),
-      hwBuild: hlp.trinksCon(hwBuild, champ, request_params.manaless, skills)
+      mfBuild: trinksCon(mfBuild, champ, request_params.manaless, skills),
+      hwBuild: trinksCon(hwBuild, champ, request_params.manaless, skills)
     };
   }
 
@@ -420,7 +420,7 @@ function processChamp(request_params, body, step) {
  * Export
  */
 
-module.exports = {
+export default {
   sr: requestChamps,
   version: getVersion
 };

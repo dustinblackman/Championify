@@ -5,6 +5,7 @@ import $ from './helpers/jquery';
 import _ from 'lodash';
 
 import cErrors from './errors';
+import Log from './logger';
 import pathManager from './path_manager';
 import sourceUIManager from './source_ui_manager';
 import T from './translate';
@@ -128,7 +129,7 @@ function get() {
   };
 }
 
-module.exports = {
+export default {
   load: load,
   save: save,
   directory: preferenceDir,

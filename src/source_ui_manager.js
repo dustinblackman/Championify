@@ -20,7 +20,7 @@ function championgg() {
   $('#options_skillsformat').removeAttr('disabled', 'disabled');
 }
 
-module.exports = {
-  championgg: championgg,
-  lolflavor: lolflavor
+export default {
+  championgg,
+  lolflavor
 };

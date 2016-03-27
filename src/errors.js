@@ -26,4 +26,4 @@ errors.RequestError = ChampionifyError.subclass('RequestError', function(code, u
   this.locale = T.locale;
 });
 
-module.exports = errors;
+export default errors;

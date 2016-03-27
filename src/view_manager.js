@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import championify from './championify';
 import championgg from './sources/championgg';
-import hlp from './helpers';
+import { spliceVersion } from './helpers';
 import lolflavor from './sources/lolflavor';
 import preferences from './preferences';
 import sourceUIManager from './source_ui_manager';
@@ -171,7 +171,7 @@ function _initSettings() {
     if (err) {
       return;
     }
-    $('#lol_version').text(hlp.spliceVersion(version));
+    $('#lol_version').text(spliceVersion(version));
   });
 
   championgg.version(function(err, version) {
@@ -208,7 +208,7 @@ function init(done) {
   });
 }
 
-module.exports = {
+export default {
   complete: completeView,
   error: errorView,
   update: updateView,

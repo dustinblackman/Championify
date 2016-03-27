@@ -6,8 +6,6 @@ _ = require 'lodash'
 BrowserWindow = require('browser-window')
 require('crash-reporter').start()
 
-preferences = require './js/preferences'
-
 dev_enabled = fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'))
 
 # Windows Specific Dependencies
@@ -18,8 +16,13 @@ if process.platform == 'win32'
 # If were starting to simply update on windows with admin privileges, execute update and exit.
 # When we do this here when a user is restarting with admin privileges, it'll show it's starting Championify
 # compared to a batch file which would of looked a bit odd.
+if process.platform == 'darwin'
+  preference_dir = path.join(process.env.HOME, 'Library/Application Support/Championify/')
+else
+  preference_dir = path.join(process.env.APPDATA, 'Championify')
+
 if _.contains(process.argv, '--winMajor')
-  update_file = path.join(preferences.directory(), 'update_major.bat')
+  update_file = path.join(preference_dir, 'update_major.bat')
   return exec 'START "" "' + update_file + '"', {cwd: path.join(process.cwd(), '..')}
 
 

@@ -112,7 +112,7 @@ function setInstallPath(path_err, install_path, champ_path, executable) {
   return foundLeague();
 }
 
-module.exports = {
+export default {
   findInstallPath: findInstallPath,
   checkInstallPath: checkInstallPath,
   setInstallPath: setInstallPath

@@ -5,17 +5,17 @@ import mkdirp from 'mkdirp';
 import path from 'path';
 import _ from 'lodash';
 
-import hlp from './helpers';
+import { cl, EndSession, request, spliceVersion, updateProgressBar } from './helpers';
 
 import cErrors from './errors';
 import champgg from './sources/championgg';
+import Log from './logger';
 import lolflavor from './sources/lolflavor';
 import optionsParser from './options_parser';
 import preferences from './preferences';
 import permissions from './permissions';
 import T from './translate';
 
-const cl = hlp.cl;
 
 // Windows Specific Dependencies
 let runas;
@@ -38,7 +38,7 @@ function saveSettings(next) {
 */
 function getRiotVer(next, r) {
   if (r) cl(`${T.t('lol_version')}`);
-  hlp.request('https://ddragon.leagueoflegends.com/realms/na.json', (err, body) => {
+  request('https://ddragon.leagueoflegends.com/realms/na.json', (err, body) => {
     if (err) return next(new cErrors.RequestError('Can\'t get Riot Version').causedBy(err));
 
     next(null, body.v);
@@ -51,7 +51,7 @@ function getRiotVer(next, r) {
 */
 function getChamps(step, r) {
   cl(`${T.t('downloading_champs')}`);
-  hlp.request(`http://ddragon.leagueoflegends.com/cdn/${r.riotVer}/data/${T.riotLocale()}/champion.json`, (err, body) => {
+  request(`http://ddragon.leagueoflegends.com/cdn/${r.riotVer}/data/${T.riotLocale()}/champion.json`, (err, body) => {
     if (err && !body.data) return step(new cErrors.RequestError('Can\'t get Champs').causedBy(err));
     if (!body.data) return step(new cErrors.RequestError('Can\'t get Champs'));
 
@@ -106,7 +106,7 @@ function deleteOldBuilds(step, r, deletebtn) {
     });
   }, function() {
     if (!deletebtn) {
-      hlp.updateProgressBar(2.5);
+      updateProgressBar(2.5);
     }
     return step(null);
   });
@@ -157,7 +157,7 @@ function saveToFile(step, r) {
 
 function resavePreferences(step, r) {
   let prefs = preferences.get();
-  prefs.local_is_version = hlp.spliceVersion(r.riotVer);
+  prefs.local_is_version = spliceVersion(r.riotVer);
   return preferences.save(prefs, step);
 }
 
@@ -209,7 +209,7 @@ function downloadItemSets(done) {
     async_tasks['champggVer'] = ['championTest', champgg.version];
     async_tasks['srItemSets'] = ['champs', 'champggVer', 'manaless', champgg.sr];
   }
-  hlp.updateProgressBar(true);
+  updateProgressBar(true);
   return async.auto(async_tasks, function(err) {
     window.importing = false;
     if (err instanceof cErrors.FileWriteError && process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
@@ -222,7 +222,7 @@ function downloadItemSets(done) {
     if (err) {
       return EndSession(err);
     }
-    hlp.updateProgressBar(10);
+    updateProgressBar(10);
     return done();
   });
 }
@@ -231,7 +231,7 @@ function downloadItemSets(done) {
 /**
  * Export.
  */
-module.exports = {
+export default {
   run: downloadItemSets,
   delete: deleteOldBuilds,
   version: getRiotVer

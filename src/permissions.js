@@ -114,7 +114,7 @@ function setWindowsPermissions(files, next) {
   });
 }
 
-module.exports = {
+export default {
   championTest: championTest,
   setWindowsPermissions: setWindowsPermissions
 };

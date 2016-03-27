@@ -3,17 +3,14 @@ import remote from 'remote';
 
 import { exec } from 'child_process';
 import fs from 'fs';
-import glob from 'glob';
-import mkdirp from 'mkdirp';
 import open from 'open';
 import path from 'path';
-import winston from 'winston';
 import $ from './js/helpers/jquery';
-import _ from 'lodash';
 
 import championify from './js/championify';
 import cErrors from './js/errors';
-import hlp from './js/helpers';
+import { EndSession } from './js/helpers';
+import Log from './js/logger';
 import optionsParser from './js/options_parser';
 import preferences from './js/preferences';
 import pathManager from './js/path_manager';
@@ -33,52 +30,9 @@ if (process.platform === 'win32') {
 window.devEnabled = fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'));
 const loadedPrefs = preferences.load();
 if (loadedPrefs && loadedPrefs.locale !== 'en') T.loadPhrases(loadedPrefs.locale);
-const error_log = path.join(preferences.directory(), 'championify.log.txt');
-
-window.Log = new winston.Logger({
-  transports: [
-    new winston.transports.Console({
-      level: 'debug',
-      handleExceptions: true,
-      json: true
-    }), new winston.transports.File({
-      filename: error_log,
-      handleExceptions: true,
-      prettyPrint: true,
-      level: 'debug',
-      options: {
-        flags: 'w'
-      }
-    })
-  ]
-});
-
-Log.exitOnError = function(err) {
-  let e;
-  if (_.isString(err)) {
-    e = new cErrors.UncaughtException(err);
-  } else {
-    e = new cErrors.UncaughtException().causedBy(err);
-  }
-  EndSession(e);
-  return false;
-};
 
 Log.info('Version: ' + pkg.version);
 
-
-/**
- * Function if error exists, enable error view and log error ending the session.
- * @param {Object} Error instance
- */
-
-function EndSession(c_error) {
-  if (c_error) {
-    Log.error(c_error);
-  }
-  window.error_message = c_error.message || c_error.rootCause.message;
-  return viewManager.error();
-}
 
 /**
  * Function to call Electrons OpenDialog. Sets title based on Platform.
@@ -173,7 +127,7 @@ function executeOptionParameters() {
       }
     });
   }
-};
+}
 
 
 /**
@@ -234,16 +188,6 @@ $(document).on('click', '.github > a', function(e) {
 $(document).on('click', '.championify_version > span', function(e) {
   e.preventDefault();
   return open('https://github.com/dustinblackman/Championify/blob/master/CHANGELOG.md');
-});
-
-let log_uploaded = false;
-
-$(document).on('click', '#upload_log', function(e) {
-  e.preventDefault();
-  if (!log_uploaded) {
-    uploadLog();
-  }
-  return log_uploaded = true;
 });
 
 $(document).on('click', '#open_log', function(e) {

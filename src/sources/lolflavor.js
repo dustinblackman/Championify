@@ -1,10 +1,9 @@
 import async from 'async';
 import _ from 'lodash';
 
-import hlp from '../helpers';
+import { cl, request, spliceVersion, trinksCon, updateProgressBar } from '../helpers';
+import Log from '../logger';
 import T from '../translate';
-
-const cl = hlp.cl;
 
 
 /**
@@ -15,7 +14,7 @@ const cl = hlp.cl;
  */
 
 function _requestAvailableChamps(process_name, stats_file, done) {
-  return hlp.request('http://www.lolflavor.com/data/' + stats_file, function(err, body) {
+  return request('http://www.lolflavor.com/data/' + stats_file, function(err, body) {
     if (err || !body.champions) {
       Log.warn(err);
       window.undefinedBuilds.push({
@@ -54,7 +53,7 @@ function _requestData(champs_names, process_name, riotVer, manaless, step) {
   async.eachLimit(champs_names, 3, function(champ, next) {
     cl((T.t('processing')) + " " + (T.t(process_name)) + ": " + (T.t(champ.replace(/ /g, ''))));
     const url = "http://www.lolflavor.com/champions/" + champ + "/Recommended/" + champ + "_" + (process_name.toLowerCase()) + "_scrape.json";
-    return hlp.request(url, function(err, data) {
+    return request(url, function(err, data) {
       if (err || !data.blocks) {
         Log.warn(err);
         window.undefinedBuilds.push({
@@ -86,13 +85,13 @@ function _requestData(champs_names, process_name, riotVer, manaless, step) {
           data.map = 'SR';
         }
         data.blocks.shift();
-        data.blocks = hlp.trinksCon(data.blocks, champ, manaless);
+        data.blocks = trinksCon(data.blocks, champ, manaless);
       }
       data.title = T.t(process_name.toLowerCase(), true) + ' ' + riotVer;
       champs[champ] = {};
       champs[champ][process_name.toLowerCase()] = data;
       if (process_name !== 'ARAM') {
-        hlp.updateProgressBar(30 / champs_names.length);
+        updateProgressBar(30 / champs_names.length);
       }
       return next(null);
     });
@@ -116,7 +115,7 @@ function _requestData(champs_names, process_name, riotVer, manaless, step) {
 
 function _processLolflavor(process_name, stats_file, riotVer, manaless, step) {
   Log.info("Downloading " + process_name + " Champs");
-  riotVer = hlp.spliceVersion(riotVer);
+  riotVer = spliceVersion(riotVer);
   return _requestAvailableChamps(process_name, stats_file, function(err, champ_names) {
     if (err) {
       return step(err);
@@ -169,7 +168,7 @@ function summonersRift(step, r) {
  */
 
 function getVersion(step) {
-  return hlp.request('http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', function(err, body) {
+  return request('http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', function(err, body) {
     var body_title, version;
     if (err) {
       return step(null, T.t('unknown'));
@@ -188,7 +187,7 @@ function getVersion(step) {
  * Export
  */
 
-module.exports = {
+export default {
   aram: aram,
   sr: summonersRift,
   version: getVersion

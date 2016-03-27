@@ -11,7 +11,7 @@ function _processArgs(arg) {
   return _.contains(remote.process.argv, arg);
 }
 
-module.exports = {
+export default {
   import: function() {
     return _processArgs('--import');
   },

@@ -12,7 +12,7 @@ import $ from './helpers/jquery';
 import _ from 'lodash';
 
 import cErrors from './errors';
-import hlp from './helpers';
+import { EndSession, incrUIProgressBar, request as cRequest } from './helpers';
 import optionsParser from './options_parser';
 import preferences from './preferences';
 import T from './translate';
@@ -51,7 +51,7 @@ function download(url, download_path, done) {
   }).on('progress', function(state) {
     if (state.percent > last_percent) {
       last_percent = state.percent;
-      return hlp.incrUIProgressBar('update_progress_bar', last_percent);
+      return incrUIProgressBar('update_progress_bar', last_percent);
     }
   }).on('error', function(err) {
     return done(err);
@@ -169,7 +169,7 @@ function majorUpdate(version) {
       winMajor(install_path, update_path);
     }
   });
-};
+}
 
 
 /**
@@ -288,7 +288,7 @@ function check(done) {
   let version = false;
   let major_update = false;
   const url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json';
-  return hlp.request(url, function(err, data) {
+  return cRequest(url, function(err, data) {
     if (err) {
       return EndSession(new cErrors.RequestError('Can\'t access Github package.json').causedBy(err));
     }
@@ -306,7 +306,7 @@ function check(done) {
   });
 }
 
-module.exports = {
+export default {
   check: check,
   minorUpdate: minorUpdate,
   majorUpdate: majorUpdate
