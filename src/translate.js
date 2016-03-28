@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import R from 'ramda';
 
-import cErrors from './errors';
+import ChampionifyErrors from './errors';
 
 // Ingame locales are locals that LoL does not support, and instead default to English.
 const ingame_locals = ['ar', 'ja'];
@@ -15,7 +15,7 @@ class Translate {
   loadPhrases(locale) {
     this.locale = locale;
     const i18n_path = path.join(__dirname, `../i18n/${locale}.json`);
-    if (!fs.existsSync(i18n_path)) throw new cErrors.OperationalError(locale + ' does not exist in i18n folder');
+    if (!fs.existsSync(i18n_path)) throw new ChampionifyErrors.OperationalError(locale + ' does not exist in i18n folder');
 
     this.phrases = require(i18n_path);
     this.english_phrases = require(path.join(__dirname, '../i18n/en.json'));
@@ -27,7 +27,7 @@ class Translate {
     if (ingame && R.contains(this.locale, ingame_locals)) {
       translated_phrase = this.english_phrases[phrase];
     }
-    if (!translated_phrase) throw new cErrors.TranslationError(`Phrase does not exist for ${this.locale}: ${phrase}`);
+    if (!translated_phrase) throw new ChampionifyErrors.TranslationError(`Phrase does not exist for ${this.locale}: ${phrase}`);
     return translated_phrase;
   }
 

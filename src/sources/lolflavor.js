@@ -1,8 +1,10 @@
+import Promise from 'bluebird';
 import async from 'async';
 import _ from 'lodash';
 
 import { cl, request, spliceVersion, trinksCon, updateProgressBar } from '../helpers';
 import Log from '../logger';
+import store from '../store_manager';
 import T from '../translate';
 
 
@@ -15,7 +17,7 @@ import T from '../translate';
 
 function _requestAvailableChamps(process_name, stats_file, done) {
   function markUndefined() {
-    window.undefinedBuilds.push({
+    store.push('undefined_builds', {
       champ: T.t(process_name),
       position: 'All'
     });
@@ -64,7 +66,7 @@ function _requestData(champs_names, process_name, riotVer, manaless, step) {
     cl((T.t('processing')) + " " + (T.t(process_name)) + ": " + (T.t(champ.replace(/ /g, ''))));
 
     function markUndefined() {
-      window.undefinedBuilds.push({
+      store.push('undefined_builds', {
         champ: champ,
         position: process_name
       });
@@ -100,7 +102,7 @@ function _requestData(champs_names, process_name, riotVer, manaless, step) {
           });
         }
         if (process_name !== 'ARAM') {
-          if (window.cSettings.locksr) {
+          if (store.get('settings').locksr) {
             data.map = 'SR';
           }
           data.blocks.shift();
@@ -154,8 +156,15 @@ function _processLolflavor(process_name, stats_file, riotVer, manaless, step) {
  * @callback {Function} Callback.
  */
 
-function aram(step, r) {
-  return _processLolflavor('ARAM', 'statsARAM.json', r.riotVer, r.manaless, step);
+function aram() {
+  const riot_ver = store.get('riot_ver');
+  const manaless = store.get('manaless');
+  return Promise.fromCallback(step => {
+    _processLolflavor('ARAM', 'statsARAM.json', riot_ver, manaless, (err, champs) => {
+      store.set('aram_itemsets', champs);
+      step();
+    });
+  });
 }
 
 
@@ -164,24 +173,29 @@ function aram(step, r) {
  * @callback {Function} Callback.
  */
 
-function summonersRift(step, r) {
-  async.series({
-    lane: function(next) {
-      return _processLolflavor('Lane', 'statsLane.json', r.riotVer, r.manaless, next);
-    },
-    jungle: function(next) {
-      return _processLolflavor('Jungle', 'statsJungle.json', r.riotVer, r.manaless, next);
-    },
-    support: function(next) {
-      return _processLolflavor('Support', 'statsSupport.json', r.riotVer, r.manaless, next);
-    }
-  }, function(err, results) {
-    var champs;
-    if (err) {
-      return step(err);
-    }
-    champs = _.merge(results.lane, results.jungle, results.support);
-    return step(null, champs);
+function summonersRift() {
+  const riot_ver = store.get('riot_ver');
+  const manaless = store.get('manaless');
+
+  return Promise.fromCallback(step => {
+    async.series({
+      lane: function(next) {
+        return _processLolflavor('Lane', 'statsLane.json', riot_ver, manaless, next);
+      },
+      jungle: function(next) {
+        return _processLolflavor('Jungle', 'statsJungle.json', riot_ver, manaless, next);
+      },
+      support: function(next) {
+        return _processLolflavor('Support', 'statsSupport.json', riot_ver, manaless, next);
+      }
+    }, function(err, results) {
+      if (err) {
+        return step(err);
+      }
+      const champs = _.merge(results.lane, results.jungle, results.support);
+      store.set('sr_itemsets', champs);
+      return step();
+    });
   });
 }
 

@@ -1,51 +1,46 @@
 import Promise from 'bluebird';
-import async from 'async';
-import fs from 'fs-extra';
 import glob from 'glob';
-import mkdirp from 'mkdirp';
 import path from 'path';
 import R from 'ramda';
-import _ from 'lodash';
 
 import { cl, EndSession, request, spliceVersion, updateProgressBar } from './helpers';
 
-import cErrors from './errors';
+import ChampionifyErrors from './errors';
 import champgg from './sources/championgg';
 import Log from './logger';
 import lolflavor from './sources/lolflavor';
 import optionsParser from './options_parser';
 import preferences from './preferences';
 import permissions from './permissions';
+import store from './store_manager';
 import T from './translate';
 
+const fs = Promise.promisifyAll(require('fs-extra'));
 
 // Windows Specific Dependencies
 let runas;
 if (process.platform === 'win32') runas = require('runas');
 
-// Set defaults
-window.cSettings = {};
-
 /*
  * Function Saves options from the frontend.
  * @callback {Function} Callback.
 */
-function saveSettings(next) {
-  preferences.save(next);
+function saveSettings() {
+  return preferences.save();
 }
 
 /*
  * Function Gets the latest Riot Version.
  * @callback {Function} Callback.
 */
-function getRiotVer(next, r) {
-  if (r) cl(`${T.t('lol_version')}`);
-  request({url: 'https://ddragon.leagueoflegends.com/realms/na.json', json: true})
+function getRiotVer() {
+  if (store.get('importing')) cl(`${T.t('lol_version')}`);
+  return request({url: 'https://ddragon.leagueoflegends.com/realms/na.json', json: true})
     .then(R.prop('v'))
+    .tap(version => store.set('riot_ver', version))
     .catch(err => {
-      throw new cErrors.RequestError('Can\'t get Riot Version').causedBy(err);
-    })
-    .asCallback(next);
+      throw new ChampionifyErrors.RequestError('Can\'t get Riot Version').causedBy(err);
+    });
 }
 
 /*
@@ -55,70 +50,46 @@ function getRiotVer(next, r) {
 function getChamps(step, r) {
   cl(`${T.t('downloading_champs')}`);
   const params = {
-    url: `http://ddragon.leagueoflegends.com/cdn/${r.riotVer}/data/${T.riotLocale()}/champion.json`,
+    url: `http://ddragon.leagueoflegends.com/cdn/${store.get('riot_ver')}/data/${T.riotLocale()}/champion.json`,
     json: true
   };
 
   return request(params)
     .then(R.prop('data'))
     .tap(data => {
-      if (!data) throw new cErrors.RequestError('Can\'t get Champs');
+      if (!data) throw new ChampionifyErrors.RequestError('Can\'t get Champs');
       T.merge(R.zipObj(R.keys(data), R.pluck('name')(R.values(data))));
+
+      store.set('manaless', R.pluck('id')(R.filter(champ => champ.partype !== 'Mana')));
+      store.set('champs', R.keys(data));
     })
     .catch(err => {
-      if (err instanceof cErrors.ChampionifyError) throw err;
-      new cErrors.RequestError('Can\'t get Champs').causedBy(err);
+      if (err instanceof ChampionifyErrors.ChampionifyError) throw err;
+      new ChampionifyErrors.RequestError('Can\'t get Champs').causedBy(err);
     })
     .asCallback(step);
 }
-
-/*
- * Function Returns array of champs
- * @callback {Function} Callback.
-*/
-function champNames(next, r) {
-  next(null, _.keys(r.champs_json));
-}
-
-/**
- * Function Generate manaless champs array
- * @callback {Function} Callback.
- */
-
-function genManaless(next, r) {
-  let manaless = _.map(r.champs_json, function(champ_obj) {
-    if (champ_obj.partype !== 'Mana') {
-      return champ_obj.id;
-    }
-  });
-  return next(null, _.compact(manaless));
-}
-
 
 /**
  * Function Deletes all previous Championify builds from client.
  * @callback {Function} Callback.
  */
 
-function deleteOldBuilds(step, r, deletebtn) {
-  if (window.cSettings.dontdeleteold && !deletebtn) {
-    return step();
-  }
+function deleteOldBuilds(deletebtn) {
+  if (store.get('settings') && store.get('settings').dontdeleteold || deletebtn !== true) return Promise.resolve();
+
   cl(T.t('deleting_old_builds'));
-  let globbed = [glob.sync(window.item_set_path + '**/CGG_*.json'), glob.sync(window.item_set_path + '**/CIFY_*.json')];
-  return async.each(_.flatten(globbed), function(item, next) {
-    return fs.unlink(item, function(err) {
-      if (err) {
-        return next(new cErrors.FileWriteError("Can\'t unlink file: " + item).causedBy(err));
-      }
-      return next(null);
+  const globbed = [
+    glob.sync(`${store.get('itemset_path')}**/CGG_*.json`),
+    glob.sync(`${store.get('itemset_path')}**/CIFY_*.json`)
+  ];
+
+  return Promise.resolve(R.flatten(globbed))
+    .each(f => fs.unlinkAsync(f))
+    .catch(err => Log.warn(err))
+    .then(() => {
+      if (!deletebtn) updateProgressBar(2.5);
     });
-  }, function() {
-    if (!deletebtn) {
-      updateProgressBar(2.5);
-    }
-    return step(null);
-  });
 }
 
 
@@ -127,47 +98,40 @@ function deleteOldBuilds(step, r, deletebtn) {
  * @callback {Function} Callback.
  */
 
-function saveToFile(step, r) {
-  let champData = _.merge(_.clone(r.srItemSets, true), r.aramItemSets);
-  async.each(_.keys(champData), function(champ, next) {
-    async.each(_.keys(champData[champ]), function(position, nextPosition) {
-      let toFileData = JSON.stringify(champData[champ][position], null, 4);
-      let folder_path = path.join(window.item_set_path, champ, 'Recommended');
-      return mkdirp(folder_path, function(err) {
-        if (err) {
-          Log.warn(err);
-        }
-        let file_path = path.join(window.item_set_path, champ, 'Recommended/CIFY_' + champ + '_' + position + '.json');
-        return fs.writeFile(file_path, toFileData, function(err) {
-          if (err) {
-            return nextPosition(new cErrors.FileWriteError('Failed to write item set json file').causedBy(err));
-          }
-          return nextPosition(null);
-        });
+function saveToFile() {
+  // TODO: This could be cleaner.
+  function _saveToFile(champ_data) {
+    return Promise.resolve(R.keys(champ_data))
+      .each(champ => {
+        return Promise.resolve(R.keys(champ_data[champ]))
+          .each(position => {
+            const itemset_data = JSON.stringify(champ_data[champ][position], null, 4);
+            const folder_path = path.join(store.get('itemset_path'), champ, 'Recommended');
+            const file_path = path.join(folder_path, `CIFY_${champ}_${position}.json`);
+            return fs.mkdirsAsync(folder_path)
+              .catch(err => Log.warn(err))
+              .then(() => fs.writeFileAsync(file_path, itemset_data, 'utf8'))
+              .catch(err => {
+                throw new ChampionifyErrors.FileWriteError('Failed to write item set json file').causedBy(err);
+              });
+          });
       });
-    }, function(err) {
-      if (err) {
-        return next(err);
-      }
-      return next(null);
-    });
-  }, function(err) {
-    if (err) {
-      return step(err);
-    }
-    return step(null);
-  });
-}
+  }
 
+  return Promise.resolve(R.reject(R.isNil)([
+    store.get('sr_itemsets'),
+    store.get('aram_itemsets')
+  ])).each(_saveToFile);
+}
 
 /**
  * Function Resave preferences with new local version
  */
 
-function resavePreferences(step, r) {
-  let prefs = preferences.get();
-  prefs.local_is_version = spliceVersion(r.riotVer);
-  return preferences.save(prefs, step);
+function resavePreferences() {
+  const prefs = preferences.get();
+  prefs.local_is_version = spliceVersion(store.get('riot_ver'));
+  return preferences.save(prefs);
 }
 
 
@@ -175,13 +139,11 @@ function resavePreferences(step, r) {
  * Function Set windows permissions if required
  */
 
-function setWindowsPermissions(step, r) {
+function setWindowsPermissions() {
   if (process.platform === 'win32' && optionsParser.runnedAsAdmin()) {
     cl(T.t('resetting_file_permission'));
-    let champ_files = glob.sync(path.join(window.item_set_path, '**'));
-    permissions.setWindowsPermissions(champ_files, step);
-  } else {
-    step();
+    const champ_files = glob.sync(path.join(store.get('itemset_path'), '**'));
+    return permissions.setWindowsPermissions(champ_files);
   }
 }
 
@@ -191,51 +153,46 @@ function setWindowsPermissions(step, r) {
  * @callback {Function} Callback.
  */
 
-function downloadItemSets(done) {
-  window.importing = true;
-  window.cSettings = preferences.get().options;
-  window.undefinedBuilds = [];
+function downloadItemSets() {
+  store.set('importing', true);
+  store.set('settings', preferences.get().options);
 
-  const async_tasks = {
-    settings: saveSettings,
-    championTest: ['settings', permissions.championTest],
-    riotVer: ['championTest', getRiotVer],
-    champs_json: ['riotVer', getChamps],
-    champs: ['champs_json', champNames],
-    manaless: ['champs_json', genManaless],
-    deleteOldBuilds: ['srItemSets', deleteOldBuilds],
-    saveBuilds: ['deleteOldBuilds', saveToFile],
-    resavePreferences: ['saveBuilds', resavePreferences],
-    setPermissions: ['saveBuilds', setWindowsPermissions]
-  };
-  if (window.cSettings.aram) {
-    async_tasks['aramItemSets'] = ['riotVer', 'manaless', lolflavor.aram];
-    async_tasks.deleteOldBuilds.unshift('aramItemSets');
-  }
-  if (window.cSettings.sr_source === 'lolflavor') {
-    async_tasks['srItemSets'] = ['riotVer', 'manaless', lolflavor.sr];
-  } else {
-    async_tasks['champggVer'] = ['championTest', champgg.version];
-    async_tasks['srItemSets'] = ['champs', 'champggVer', 'manaless', champgg.sr];
-  }
   updateProgressBar(true);
-  async.auto(async_tasks, function(err) {
-    window.importing = false;
-    if (err instanceof cErrors.FileWriteError && process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-      Log.error(err);
-      return runas(process.execPath, ['--startAsAdmin', '--import'], {
-        hide: false,
-        admin: true
-      });
-    }
-    if (err) {
-      return EndSession(err);
-    }
-    updateProgressBar(10);
-    return done();
-  });
-}
 
+  const toProcess = [];
+  if (store.get('settings').aram) toProcess.push(lolflavor.aram);
+  if (store.get('settings').sr_source === 'lolflavor') {
+    toProcess.push(lolflavor.sr);
+  } else {
+    toProcess.push(champgg.sr);
+  }
+
+  return saveSettings()
+    .then(permissions.championTest)
+    .then(getRiotVer)
+    .then(getChamps)
+    .then(() => Promise.all(R.map(fn => fn(), toProcess)))
+    .then(deleteOldBuilds)
+    .then(saveToFile)
+    .then(resavePreferences)
+    .then(setWindowsPermissions)
+    .then(() => {
+      store.set('importing', false);
+      updateProgressBar(10);
+    })
+    .catch(err => {
+      Log.error(err);
+      if (err instanceof ChampionifyErrors.FileWriteError && process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
+        return runas(process.execPath, ['--startAsAdmin', '--import'], {
+          hide: false,
+          admin: true
+        });
+      }
+
+      // If not a file write error, end session.
+      throw err;
+    });
+}
 
 /**
  * Export.

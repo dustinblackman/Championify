@@ -1,16 +1,43 @@
-import fs from 'fs-extra';
+import Promise from 'bluebird';
 import mkdirp from 'mkdirp';
 import path from 'path';
 import $ from './helpers/jquery';
 import _ from 'lodash';
 
-import cErrors from './errors';
+import ChampionifyErrors from './errors';
 import Log from './logger';
 import pathManager from './path_manager';
 import sourceUIManager from './source_ui_manager';
+import store from './store_manager';
 import T from './translate';
 
+const fs = Promise.promisifyAll(require('fs-extra'));
+
 // TODO: rewrite all of this.
+
+/**
+ * Function set preference directory
+ */
+
+function preferenceDir() {
+  let preference_dir;
+  if (process.platform === 'darwin') {
+    preference_dir = path.join(process.env.HOME, 'Library/Application Support/Championify/');
+  } else {
+    preference_dir = path.join(process.env.APPDATA, 'Championify');
+  }
+  return preference_dir;
+}
+
+
+/**
+ * Function set preference file path
+ */
+
+function preferenceFile() {
+  return path.join(preferenceDir(), 'prefs.json');
+}
+
 
 /**
  * Function to loads and applies preference files
@@ -49,70 +76,18 @@ function set(preferences) {
   });
 }
 
-
-/**
- * Function to save preference file
- */
-
-function save(preferences, done) {
-  if (_.isFunction(preferences)) {
-    done = preferences;
-    preferences = null;
-  }
-  preferences = preferences || get();
-  if (!preferences) {
-    return done(cErrors.OperationalError('Preferences object does not exist'));
-  }
-  const preference_file = preferenceFile();
-  mkdirp(preferenceDir());
-  return fs.writeFile(preference_file, JSON.stringify(preferences, null, 2), {
-    encoding: 'utf8'
-  }, function(err) {
-    if (err) {
-      Log.error(err);
-    } else {
-      Log.info('Saved preference file to ' + preference_file);
-    }
-    return done();
-  });
-}
-
-
-/**
- * Function set preference directory
- */
-
-function preferenceDir() {
-  let preference_dir;
-  if (process.platform === 'darwin') {
-    preference_dir = path.join(process.env.HOME, 'Library/Application Support/Championify/');
-  } else {
-    preference_dir = path.join(process.env.APPDATA, 'Championify');
-  }
-  return preference_dir;
-}
-
-
-/**
- * Function set preference file path
- */
-
-function preferenceFile() {
-  return path.join(preferenceDir(), 'prefs.json');
-}
-
-
 /**
  * Function gets preferences
  */
 
+// TODO: Rewrite.
 function get() {
   const consumables_position = $('#options_consumables_position').find('.beginning').hasClass('selected') ? 'beginning' : 'end';
   const trinkets_position = $('#options_trinkets_position').find('.beginning').hasClass('selected') ? 'beginning' : 'end';
   return {
     locale: T.locale,
-    install_path: window.lol_install_path,
-    champ_path: window.lol_champ_path,
+    install_path: store.get('lol_install_path'),
+    champ_path: store.get('lol_champ_path'),
     local_is_version: $('#local_version').text(),
     options: {
       splititems: $('#options_splititems').is(':checked'),
@@ -127,6 +102,21 @@ function get() {
       aram: $('#options_aram').is(':checked')
     }
   };
+}
+
+
+/**
+ * Function to save preference file
+ */
+
+function save(preferences) {
+  preferences = preferences || get();
+  if (!preferences) throw new ChampionifyErrors.OperationalError('Preferences object does not exist');
+  const preference_file = preferenceFile();
+  mkdirp(preferenceDir());
+  return fs.writeFileAsync(preference_file, JSON.stringify(preferences, null, 2), 'utf8')
+    .tap(() => Log.info('Saved preference file to ' + preference_file))
+    .catch(err => Log.error(err));
 }
 
 export default {

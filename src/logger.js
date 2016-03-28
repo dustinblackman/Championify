@@ -2,7 +2,7 @@ import path from 'path';
 import R from 'ramda';
 import winston from 'winston';
 
-import cErrors from './errors';
+import ChampionifyErrors from './errors';
 import { EndSession } from './helpers';
 import preferences from './preferences';
 
@@ -26,9 +26,9 @@ const Log = new winston.Logger({
 Log.exitOnError = function(err) {
   let e;
   if (R.is(String, err)) {
-    e = new cErrors.UncaughtException(err);
+    e = new ChampionifyErrors.UncaughtException(err);
   } else {
-    e = new cErrors.UncaughtException().causedBy(err);
+    e = new ChampionifyErrors.UncaughtException().causedBy(err);
   }
   EndSession(e);
   return false;

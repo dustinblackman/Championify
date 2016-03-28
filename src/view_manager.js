@@ -7,9 +7,11 @@ import _ from 'lodash';
 import championify from './championify';
 import championgg from './sources/championgg';
 import { spliceVersion } from './helpers';
+import Log from './logger';
 import lolflavor from './sources/lolflavor';
 import preferences from './preferences';
 import sourceUIManager from './source_ui_manager';
+import store from './store_manager';
 import T from './translate';
 
 const pkg = require('../package.json');
@@ -63,12 +65,14 @@ function _viewChanger(view, process, options) {
  * Function Change to complete view with transitions.
  */
 
+// TODO: rewrite
 function completeView() {
   function loadUnavailable(done) {
-    if (window.undefinedBuilds.length === 0) {
+    const undefined_builds = store.get('undefined_builds');
+    if (!undefined_builds || !undefined_builds.length) {
       $('#not_available_log').append('<span>' + T.t('all_available') + '</span><br />');
     } else {
-      _.each(window.undefinedBuilds, function(item) {
+      _.each(undefined_builds, function(item) {
         return $('#not_available_log').append('<span>' + T.t(item.champ) + ': ' + T.t(item.position) + '</span><br />');
       });
     }
@@ -167,19 +171,13 @@ function _initSettings() {
     }
   });
 
-  championify.version(function(err, version) {
-    if (err) {
-      return;
-    }
-    $('#lol_version').text(spliceVersion(version));
-  });
+  championify.version()
+    .then(version => $('#lol_version').text(spliceVersion(version)))
+    .catch(Log.warn);
 
-  championgg.version(function(err, version) {
-    if (err) {
-      return;
-    }
-    $('#championgg_version').text(version);
-  });
+  championgg.version()
+    .then(version => $('#championgg_version').text(version))
+    .catch(Log.warn);
 
   lolflavor.version(function(err, version) {
     if (err) {

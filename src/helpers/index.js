@@ -5,8 +5,9 @@ import retry from 'bluebird-retry';
 import $ from './jquery';
 import _ from 'lodash';
 
-import cErrors from '../errors';
+import ChampionifyErrors from '../errors';
 import Log from '../logger';
+import store from '../store_manager';
 import T from '../translate';
 import viewManager from '../view_manager';
 
@@ -44,7 +45,7 @@ export function request(options, done) {
   return retry(retry => {
     return requester(params)
       .tap(res => {
-        if (res.statusCode >= 400) throw new cErrors.RequestError(res.statusCode, options.url);
+        if (res.statusCode >= 400) throw new ChampionifyErrors.RequestError(res.statusCode, options.url);
       })
       .then(R.prop('body'))
       .catch(retry);
@@ -114,7 +115,7 @@ export function updateProgressBar(incr) {
  * @param {Object} Formatted skill priorities
  */
 export function trinksCon(builds, champ, manaless, skills = {}) {
-  if (window.cSettings.consumables) {
+  if (store.get('settings').consumables) {
     let consumables = _.clone(prebuilts.consumables, true);
     if (_.contains(manaless, champ)) {
       consumables.splice(1, 1);
@@ -126,14 +127,14 @@ export function trinksCon(builds, champ, manaless, skills = {}) {
       items: consumables,
       type: consumables_title
     };
-    if (window.cSettings.consumables_position === 'beginning') {
+    if (store.get('settings').consumables_position === 'beginning') {
       builds.unshift(consumables_block);
     } else {
       builds.push(consumables_block);
     }
   }
 
-  if (window.cSettings.trinkets) {
+  if (store.get('settings').trinkets) {
     let trinkets_title = T.t('trinkets', true);
     if (skills.highestWin) trinkets_title += ` | ${T.t('wins', true)}: ${skills.highestWin}`;
 
@@ -141,7 +142,7 @@ export function trinksCon(builds, champ, manaless, skills = {}) {
       items: prebuilts.trinketUpgrades,
       type: trinkets_title
     };
-    if (window.cSettings.trinkets_position === 'beginning') {
+    if (store.get('settings').trinkets_position === 'beginning') {
       builds.unshift(trinkets_block);
     } else {
       builds.push(trinkets_block);

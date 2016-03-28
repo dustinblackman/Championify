@@ -8,13 +8,14 @@ import path from 'path';
 import $ from './js/helpers/jquery';
 
 import championify from './js/championify';
-import cErrors from './js/errors';
+import ChampionifyErrors from './js/errors';
 import { EndSession } from './js/helpers';
 import Log from './js/logger';
 import optionsParser from './js/options_parser';
 import preferences from './js/preferences';
 import pathManager from './js/path_manager';
 import pkg from './package.json';
+import store from './js/store_manager';
 import T from './js/translate';
 import updateManager from './js/update_manager';
 import viewManager from './js/view_manager';
@@ -78,17 +79,16 @@ function selectFolderWarning() {
  * @callback {Function} Optional callback called after importing is done
  */
 
+// TODO: rewrite
 function importItemSets(done) {
-  if (!window.lol_install_path) {
+  if (!store.get('lol_install_path')) {
     selectFolderWarning();
   } else {
     $('#btns_versions').addClass('hidden');
     $('.status').transition('fade up', '500ms');
-    championify.run(function() {
-      if (done) {
-        return done();
-      }
-    });
+    championify.run()
+      .then(() => done())
+      .catch(err => EndSession(err));
   }
 }
 
@@ -98,12 +98,10 @@ function importItemSets(done) {
  */
 
 function deleteItemSets() {
-  if (!window.lol_install_path) {
+  if (!store.get('lol_install_path')) {
     selectFolderWarning();
   } else {
-    championify['delete'](function() {
-      $('#cl_progress > span').append('. ' + T.t('done'));
-    }, null, true);
+    championify['delete'](true).then(() => $('#cl_progress > span').append(`. ${T.t('done')}`));
   }
 }
 
@@ -141,14 +139,14 @@ function startLeague() {
     }, 500);
   };
   if (process.platform === 'darwin') {
-    exec('open -n "' + window.lol_install_path + '"');
+    exec('open -n "' + store.get('lol_install_path') + '"');
     exit();
   } else {
-    if (window.lol_executable) {
-      exec('"' + path.join(window.lol_install_path, window.lol_executable) + '"');
+    if (store.get('lol_executable')) {
+      exec('"' + path.join(store.get('lol_install_path'), store.get('lol_executable')) + '"');
       exit();
     } else {
-      Log.error('League of legends executable is not defined. ' + window.lol_executable);
+      Log.error('League of legends executable is not defined. ' + store.get('lol_executable'));
       $('#start_league').attr('class', 'ui inverted red button');
       $('#start_league').text('Can\'t start League');
     }
@@ -242,7 +240,7 @@ viewManager.init(function() {
           admin: true
         });
       } else {
-        return EndSession(new cErrors.UpdateError('Can\'t auto update, please redownload'));
+        return EndSession(new ChampionifyErrors.UpdateError('Can\'t auto update, please redownload'));
       }
     } else if (version && major) {
       updateManager.majorUpdate(version);

@@ -4,6 +4,7 @@ import path from 'path';
 import $ from './helpers/jquery';
 import _ from 'lodash';
 
+import store from './store_manager';
 import T from './translate';
 
 
@@ -101,10 +102,10 @@ function setInstallPath(path_err, install_path, champ_path, executable) {
       champ_path = 'Config/Champions/';
     }
   }
-  window.lol_install_path = install_path;
-  window.lol_champ_path = champ_path;
-  window.lol_executable = executable;
-  window.item_set_path = path.join(install_path, champ_path);
+  store.set('lol_install_path', install_path);
+  store.set('lol_champ_path', champ_path);
+  store.set('lol_executable', executable);
+  store.set('itemset_path', path.join(install_path, champ_path));
   $('#install_path').val(install_path);
   if (path_err) {
     return pathErr();

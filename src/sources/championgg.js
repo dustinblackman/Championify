@@ -1,13 +1,15 @@
+import Promise from 'bluebird';
 import async from 'async';
 import cheerio from 'cheerio';
 import escodegen from 'escodegen';
 import esprima from 'esprima';
-import T from '../translate';
 import _ from 'lodash';
 
-import cErrors from '../errors.js';
+import ChampionifyErrors from '../errors.js';
 import { cl, request, trinksCon, updateProgressBar, wins } from '../helpers';
 import Log from '../logger';
+import store from '../store_manager';
+import T from '../translate';
 
 const defaultSchema = require('../../data/default.json');
 const csspaths = require('../../data/csspaths.json');
@@ -21,19 +23,18 @@ let champData = {};
   * @callback {Function} Callback.
  */
 
-function getVersion(step, r) {
-  if (r) cl(T.t('cgg_version'));
-
+function getVersion() {
+  if (store.get('importing')) cl(T.t('cgg_version'));
   return request('http://champion.gg/faq/')
     .then(body => {
       const $c = cheerio.load(body);
-      window.champGGVer = $c(csspaths.version).text();
-      return window.champGGVer;
+      const champgg_ver = $c(csspaths.version).text();
+      store.set('champgg_ver', champgg_ver);
+      return champgg_ver;
     })
     .catch(err => {
-      throw new cErrors.RequestError('Can\'t get Champion.GG Version').causedBy(err);
-    })
-    .asCallback(step);
+      throw new ChampionifyErrors.RequestError('Can\'t get Champion.GG Version').causedBy(err);
+    });
 }
 
 
@@ -70,19 +71,24 @@ function parseGGData($c) {
  * @callback {Function} Callback.
  */
 
-function requestChamps(step, r) {
+function requestChamps() {
   champData = {};
-  async.eachLimit(r.champs, 2, function(champ, next) {
-    updateProgressBar(90 / r.champs.length);
-    return requestPage({
-      champ: champ,
-      manaless: r.manaless
-    }, function() {
-      return next(null);
+  const champs = store.get('champs');
+  const manaless = store.get('manaless');
+
+  return Promise.resolve(['Annie'])
+    .map(champ => {
+      updateProgressBar(90 / champs.length);
+      return new Promise((resolve, reject) => { // TODO: Convert all in to promise.
+        requestPage({champ, manaless}, () => {
+          return resolve();
+        });
+      });
+    }, {concurrency: 2})
+    .then(() => {
+      // TODO: This needs to change.
+      store.set('sr_itemsets', champData);
     });
-  }, function() {
-    return step(null, champData);
-  });
 }
 
 
@@ -102,7 +108,7 @@ function requestPage(request_params, step) {
   }
 
   function markUndefined() {
-    window.undefinedBuilds.push({
+    store.push('undefined_builds', {
       champ: champ,
       position: request_params.position || 'All'
     });
@@ -145,10 +151,10 @@ function processChamp(request_params, body, step) {
   try {
     gg = parseGGData($c);
   } catch (_error) {
-    return step(new cErrors.ParsingError("Couldn\'t parse champion.gg script tag for " + champ));
+    return step(new ChampionifyErrors.ParsingError("Couldn\'t parse champion.gg script tag for " + champ));
   }
   if (!gg.champion || !gg.champion.roles) {
-    return step(new cErrors.ParsingError("Couldn\'t parse roles from champion.gg script tag for " + champ));
+    return step(new ChampionifyErrors.ParsingError("Couldn\'t parse roles from champion.gg script tag for " + champ));
   }
 
   let currentPosition = '';
@@ -174,7 +180,7 @@ function processChamp(request_params, body, step) {
     !gg.championData.firstItems.highestWinPercent.winPercent
   ];
   if (_.contains(undefArray, true)) {
-    window.undefinedBuilds.push({
+    store.push('undefined_builds', {
       champ: champ,
       position: currentPosition
     });
@@ -213,7 +219,7 @@ function processChamp(request_params, body, step) {
     });
 
     let formatted_skills;
-    if (window.cSettings.skillsformat) {
+    if (store.get('settings').skillsformat) {
       let sliced_skills = _.countBy(skillOrder.slice(0, 9), _.identity);
       delete sliced_skills['R'];
       sliced_skills = _.invert(sliced_skills);
@@ -380,11 +386,11 @@ function processChamp(request_params, body, step) {
     }
     const newObj = {
       champion: champ,
-      title: title + ' ' + window.champGGVer,
+      title: title + ' ' + store.get('champgg_ver'),
       blocks: build
     };
     const riot_json = _.merge(_.clone(defaultSchema, true), newObj);
-    if (window.cSettings.locksr) {
+    if (store.get('settings').locksr) {
       riot_json.map = 'SR';
     }
     champData[champ][position_for_file] = riot_json;
@@ -393,7 +399,7 @@ function processChamp(request_params, body, step) {
   if (!champData[champ]) {
     champData[champ] = {};
   }
-  if (window.cSettings.splititems) {
+  if (store.get('settings').splititems) {
     const builds = splitItemSets();
     pushChampData(champ, currentPosition, T.t('most_freq', true), currentPosition + '_mostfreq', builds.mfBuild);
     pushChampData(champ, currentPosition, T.t('highest_win', true), currentPosition + '_highwin', builds.hwBuild);

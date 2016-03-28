@@ -11,7 +11,7 @@ import zlib from 'zlib';
 import $ from './helpers/jquery';
 import _ from 'lodash';
 
-import cErrors from './errors';
+import ChampionifyErrors from './errors';
 import { EndSession, incrUIProgressBar, request as cRequest } from './helpers';
 import optionsParser from './options_parser';
 import preferences from './preferences';
@@ -36,7 +36,7 @@ function download(url, download_path, done) {
   try {
     file = fs.createWriteStream(download_path);
   } catch (e) {
-    const error = new cErrors.UpdateError("Can\'t write update file: " + (path.basename(download_path))).causedBy(e);
+    const error = new ChampionifyErrors.UpdateError("Can\'t write update file: " + (path.basename(download_path))).causedBy(e);
     if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
       return runas(process.execPath, ['--startAsAdmin'], {
         hide: false,
@@ -75,8 +75,8 @@ function minorUpdate(version) {
   const app_asar = path.join(__dirname, '..');
   const update_asar = path.join(__dirname, '../../', 'update-asar');
   return download(url, update_asar, function(err) {
-    if (err && !(err instanceof cErrors.UpdateError)) {
-      err = new cErrors.UpdateError('Can\'t write/download update file').causedBy(err);
+    if (err && !(err instanceof ChampionifyErrors.UpdateError)) {
+      err = new ChampionifyErrors.UpdateError('Can\'t write/download update file').causedBy(err);
     }
     if (err) {
       if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
@@ -124,7 +124,7 @@ function majorUpdate(version) {
       if (fs.existsSync(update_path)) {
         return fs.remove(update_path, function(err) {
           if (err) {
-            step(new cErrors.UpdateError('Can\'t remove previous update path').causedBy(err));
+            step(new ChampionifyErrors.UpdateError('Can\'t remove previous update path').causedBy(err));
           } else {
             step();
           }
@@ -135,7 +135,7 @@ function majorUpdate(version) {
     }, function(step) {
       return download(url, tar_path, function(err) {
         if (err) {
-          return step(new cErrors.UpdateError('Can\'t write/download update file').causedBy(err));
+          return step(new ChampionifyErrors.UpdateError('Can\'t write/download update file').causedBy(err));
         }
         return step();
       });
@@ -145,7 +145,7 @@ function majorUpdate(version) {
       stream = fs.createReadStream(tar_path).pipe(zlib.Gunzip()).pipe(tar.extract(update_path));
       stream.on('error', function(err) {
         if (err) {
-          return step(new cErrors.UpdateError('Can\'t extract update').causedBy(err));
+          return step(new ChampionifyErrors.UpdateError('Can\'t extract update').causedBy(err));
         }
       });
       return stream.on('finish', function() {
@@ -154,7 +154,7 @@ function majorUpdate(version) {
     }, function(step) {
       return fs.unlink(tar_path, function(err) {
         if (err) {
-          return step(new cErrors.UpdateError('Can\'t unlink major update zip').causedBy(err));
+          return step(new ChampionifyErrors.UpdateError('Can\'t unlink major update zip').causedBy(err));
         }
         return step();
       });
@@ -181,12 +181,12 @@ function majorUpdate(version) {
 function osxMinor(app_asar, update_asar) {
   return fs.unlink(app_asar, function(err) {
     if (err) {
-      return EndSession(new cErrors.UpdateError('Can\'t unlink file').causedBy(err));
+      return EndSession(new ChampionifyErrors.UpdateError('Can\'t unlink file').causedBy(err));
     }
     return fs.rename(update_asar, app_asar, function(err) {
       var appPath;
       if (err) {
-        return EndSession(new cErrors.UpdateError('Can\'t rename app.asar').causedBy(err));
+        return EndSession(new ChampionifyErrors.UpdateError('Can\'t rename app.asar').causedBy(err));
       }
       appPath = __dirname.replace('/Contents/Resources/app.asar/js', '');
       exec('open -n ' + appPath);
@@ -215,7 +215,7 @@ function osxMajor(install_path, update_path) {
   const update_file = path.join(preferences.directory(), 'update_major.sh');
   fs.writeFile(update_file, cmd(params), 'utf8', function(err) {
     if (err) {
-      return EndSession(new cErrors.UpdateError('Can\'t write update_major.sh').causedBy(err));
+      return EndSession(new ChampionifyErrors.UpdateError('Can\'t write update_major.sh').causedBy(err));
     }
     exec('bash "' + update_file + '"');
   });
@@ -239,7 +239,7 @@ function winMinor(app_asar, update_asar) {
   const update_file = path.join(preferences.directory(), 'update.bat');
   fs.writeFile(update_file, cmd(params), 'utf8', function(err) {
     if (err) {
-      return EndSession(new cErrors.UpdateError('Can\'t write update.bat').causedBy(err));
+      return EndSession(new ChampionifyErrors.UpdateError('Can\'t write update.bat').causedBy(err));
     }
     return exec('START "" "' + update_file + '"');
   });
@@ -266,7 +266,7 @@ function winMajor(install_path, update_path) {
   const update_file = path.join(preferences.directory(), 'update_major.bat');
   fs.writeFile(update_file, cmd(params), 'utf8', function(err) {
     if (err) {
-      return EndSession(new cErrors.FileWriteError('Can\'t write update_major.bat').causedBy(err));
+      return EndSession(new ChampionifyErrors.FileWriteError('Can\'t write update_major.bat').causedBy(err));
     }
     return runas(process.execPath, ['--winMajor'], {
       hide: false,
@@ -296,12 +296,12 @@ function check(done) {
       }
       if (semver.gt(data.version, pkg.version) === 1) version = data.version;
       if (version && optionsParser.update()) {
-        return EndSession(new cErrors.UpdateError('New version did not install correctly'));
+        return EndSession(new ChampionifyErrors.UpdateError('New version did not install correctly'));
       }
       return done(version, major_update);
     })
     .catch(err => {
-      EndSession(new cErrors.RequestError('Can\'t access Github package.json').causedBy(err));
+      EndSession(new ChampionifyErrors.RequestError('Can\'t access Github package.json').causedBy(err));
     });
 }
 
