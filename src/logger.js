@@ -10,11 +10,11 @@ const Log = new winston.Logger({
   transports: [
     new winston.transports.Console({
       level: 'debug',
-      handleExceptions: true,
-      json: true
+      handleExceptions: true
     }),
     new winston.transports.File({
       filename: path.join(preferences.directory(), 'championify.log.txt'),
+      json: false,
       handleExceptions: true,
       prettyPrint: true,
       level: 'debug',
