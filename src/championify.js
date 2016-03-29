@@ -3,7 +3,7 @@ import glob from 'glob';
 import path from 'path';
 import R from 'ramda';
 
-import { cl, EndSession, request, spliceVersion, updateProgressBar } from './helpers';
+import { cl, request, spliceVersion, updateProgressBar } from './helpers';
 
 import ChampionifyErrors from './errors';
 import champgg from './sources/championgg';
@@ -61,7 +61,7 @@ function getChamps(step, r) {
       T.merge(R.zipObj(R.keys(data), R.pluck('name')(R.values(data))));
 
       store.set('manaless', R.pluck('id')(R.filter(champ => champ.partype !== 'Mana')));
-      store.set('champs', R.keys(data));
+      store.set('champs', R.keys(data).sort());
     })
     .catch(err => {
       if (err instanceof ChampionifyErrors.ChampionifyError) throw err;
@@ -99,29 +99,21 @@ function deleteOldBuilds(deletebtn) {
  */
 
 function saveToFile() {
-  // TODO: This could be cleaner.
-  function _saveToFile(champ_data) {
-    return Promise.resolve(R.keys(champ_data))
-      .each(champ => {
-        return Promise.resolve(R.keys(champ_data[champ]))
-          .each(position => {
-            const itemset_data = JSON.stringify(champ_data[champ][position], null, 4);
-            const folder_path = path.join(store.get('itemset_path'), champ, 'Recommended');
-            const file_path = path.join(folder_path, `CIFY_${champ}_${position}.json`);
-            return fs.mkdirsAsync(folder_path)
-              .catch(err => Log.warn(err))
-              .then(() => fs.writeFileAsync(file_path, itemset_data, 'utf8'))
-              .catch(err => {
-                throw new ChampionifyErrors.FileWriteError('Failed to write item set json file').causedBy(err);
-              });
-          });
-      });
-  }
+  return Promise.resolve([store.get('sr_itemsets'), store.get('aram_itemsets')])
+    .then(R.flatten)
+    .then(R.reject(R.isNil))
+    .each(data => {
+      const itemset_data = JSON.stringify(data.riot_json, null, 4);
+      const folder_path = path.join(store.get('itemset_path'), data.champ, 'Recommended');
+      const file_path = path.join(folder_path, `CIFY_${data.champ}_${data.file_prefix}.json`);
 
-  return Promise.resolve(R.reject(R.isNil)([
-    store.get('sr_itemsets'),
-    store.get('aram_itemsets')
-  ])).each(_saveToFile);
+      return fs.mkdirsAsync(folder_path)
+        .catch(err => Log.warn(err))
+        .then(() => fs.writeFileAsync(file_path, itemset_data, 'utf8'))
+        .catch(err => {
+          throw new ChampionifyErrors.FileWriteError('Failed to write item set json file').causedBy(err);
+        });
+    });
 }
 
 /**

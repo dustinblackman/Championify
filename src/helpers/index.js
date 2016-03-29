@@ -114,7 +114,10 @@ export function updateProgressBar(incr) {
  * @param {Array} List of manaless champ names
  * @param {Object} Formatted skill priorities
  */
-export function trinksCon(builds, champ, manaless, skills = {}) {
+
+// TODO: rewrite
+export function trinksCon(builds, champ, skills = {}) {
+  const manaless = store.get('manaless');
   if (store.get('settings').consumables) {
     let consumables = _.clone(prebuilts.consumables, true);
     if (_.contains(manaless, champ)) {
