@@ -1,3 +1,4 @@
+import Promise from 'bluebird';
 import cheerio from 'cheerio';
 import glob from 'glob';
 import gulp from 'gulp';
