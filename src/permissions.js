@@ -8,7 +8,7 @@ import R from 'ramda';
 import ChampionifyErrors from './errors';
 import optionsParser from './options_parser';
 import preferences from './preferences';
-import store from './store_manager';
+import store from './store';
 
 const mkdirp = Promise.promisify(require('mkdirp'));
 

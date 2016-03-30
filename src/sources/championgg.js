@@ -8,7 +8,7 @@ import _ from 'lodash';
 import ChampionifyErrors from '../errors.js';
 import { cl, request, trinksCon, updateProgressBar, wins } from '../helpers';
 import Log from '../logger';
-import store from '../store_manager';
+import store from '../store';
 import T from '../translate';
 
 const default_schema = require('../../data/default.json');
@@ -207,7 +207,7 @@ function processChamp(request_params, body, step) {
       });
     }
 
-    return trinksCon(builds, champ, skills);
+    return trinksCon(builds, skills);
   }
 
   function splitItemSets() {
@@ -234,8 +234,8 @@ function processChamp(request_params, body, step) {
     ];
 
     return {
-      mf_build: trinksCon(mf_build, champ, skills),
-      hw_build: trinksCon(hw_build, champ, skills)
+      mf_build: trinksCon(mf_build, skills),
+      hw_build: trinksCon(hw_build, skills)
     };
   }
 
@@ -249,6 +249,7 @@ function processChamp(request_params, body, step) {
     });
 
     if (store.get('settings').locksr) riot_json.map = 'SR';
+    // Pushes to the itemsets store.
     store.push('sr_itemsets', {champ, file_prefix, riot_json});
   }
 
@@ -316,7 +317,8 @@ function requestChamps() {
     .map(champ => {
       updateProgressBar(90 / champs.length);
       return requestPage({champ});
-    }, {concurrency: 2});
+    }, {concurrency: 2})
+    .then(R.reject(R.isNil));
 }
 
 /**

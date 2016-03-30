@@ -4,7 +4,7 @@ import path from 'path';
 import $ from './helpers/jquery';
 import _ from 'lodash';
 
-import store from './store_manager';
+import store from './store';
 import T from './translate';
 
 

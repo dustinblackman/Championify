@@ -15,7 +15,7 @@ import optionsParser from './js/options_parser';
 import preferences from './js/preferences';
 import pathManager from './js/path_manager';
 import pkg from './package.json';
-import store from './js/store_manager';
+import store from './js/store';
 import T from './js/translate';
 import updateManager from './js/update_manager';
 import viewManager from './js/view_manager';

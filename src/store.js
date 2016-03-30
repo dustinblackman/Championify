@@ -1,4 +1,4 @@
-class StoreManager {
+class Store {
   constructor() {
     this.store = {};
   }
@@ -17,5 +17,5 @@ class StoreManager {
   }
 }
 
-const store_manager = new StoreManager();
-export default store_manager;
+const store = new Store();
+export default store;

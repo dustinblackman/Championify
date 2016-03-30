@@ -11,7 +11,7 @@ import Log from './logger';
 import lolflavor from './sources/lolflavor';
 import preferences from './preferences';
 import sourceUIManager from './source_ui_manager';
-import store from './store_manager';
+import store from './store';
 import T from './translate';
 
 const pkg = require('../package.json');
@@ -179,12 +179,10 @@ function _initSettings() {
     .then(version => $('#championgg_version').text(version))
     .catch(Log.warn);
 
-  lolflavor.version(function(err, version) {
-    if (err) {
-      return;
-    }
-    $('#lolflavor_version').text(version);
-  });
+  lolflavor.version()
+    .then(version => $('#lolflavor_version').text(version))
+    .catch(Log.warn);
+
   return preferences.set(preferences.load());
 }
 

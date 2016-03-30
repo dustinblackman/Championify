@@ -9,7 +9,15 @@ import _ from 'lodash';
 const ChampionifyError = SuperError.subclass('ChampionifyError');
 const errors = {ChampionifyError};
 
-const error_types = ['FileWriteError', 'OperationalError', 'ParsingError', 'TranslationError', 'UncaughtException', 'UpdateError'];
+const error_types = [
+  'FileWriteError',
+  'MissingData',
+  'OperationalError',
+  'ParsingError',
+  'TranslationError',
+  'UncaughtException',
+  'UpdateError'
+];
 _.each(error_types, function(error_name) {
   errors[error_name] = ChampionifyError.subclass(error_name, function() {
     this.type = error_name;

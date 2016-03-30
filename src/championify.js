@@ -12,7 +12,7 @@ import lolflavor from './sources/lolflavor';
 import optionsParser from './options_parser';
 import preferences from './preferences';
 import permissions from './permissions';
-import store from './store_manager';
+import store from './store';
 import T from './translate';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
@@ -76,7 +76,7 @@ function getChamps(step, r) {
  */
 
 function deleteOldBuilds(deletebtn) {
-  if (store.get('settings') && store.get('settings').dontdeleteold || deletebtn !== true) return Promise.resolve();
+  if (store.get('settings') && store.get('settings').dontdeleteold) return Promise.resolve();
 
   cl(T.t('deleting_old_builds'));
   const globbed = [
@@ -88,7 +88,7 @@ function deleteOldBuilds(deletebtn) {
     .each(f => fs.unlinkAsync(f))
     .catch(err => Log.warn(err))
     .then(() => {
-      if (!deletebtn) updateProgressBar(2.5);
+      if (deletebtn === true) updateProgressBar(2.5);
     });
 }
 

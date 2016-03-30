@@ -8,7 +8,7 @@ import ChampionifyErrors from './errors';
 import Log from './logger';
 import pathManager from './path_manager';
 import sourceUIManager from './source_ui_manager';
-import store from './store_manager';
+import store from './store';
 import T from './translate';
 
 const fs = Promise.promisifyAll(require('fs-extra'));

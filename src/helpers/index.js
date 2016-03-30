@@ -3,11 +3,10 @@ import R from 'ramda';
 import remote from 'remote';
 import retry from 'bluebird-retry';
 import $ from './jquery';
-import _ from 'lodash';
 
 import ChampionifyErrors from '../errors';
 import Log from '../logger';
-import store from '../store_manager';
+import store from '../store';
 import T from '../translate';
 import viewManager from '../view_manager';
 
@@ -115,19 +114,13 @@ export function updateProgressBar(incr) {
  * @param {Object} Formatted skill priorities
  */
 
-// TODO: rewrite
-export function trinksCon(builds, champ, skills = {}) {
-  const manaless = store.get('manaless');
+export function trinksCon(builds, skills = {}) {
   if (store.get('settings').consumables) {
-    let consumables = _.clone(prebuilts.consumables, true);
-    if (_.contains(manaless, champ)) {
-      consumables.splice(1, 1);
-    }
     let consumables_title = T.t('consumables', true);
-    if (skills.mostFreq) consumables_title += ` | ${T.t('frequent', true)}: ${skills.mostFreq}`;
+    if (skills.most_freq) consumables_title += ` | ${T.t('frequent', true)}: ${skills.most_freq}`;
 
-    let consumables_block = {
-      items: consumables,
+    const consumables_block = {
+      items: prebuilts.consumables,
       type: consumables_title
     };
     if (store.get('settings').consumables_position === 'beginning') {
@@ -139,10 +132,10 @@ export function trinksCon(builds, champ, skills = {}) {
 
   if (store.get('settings').trinkets) {
     let trinkets_title = T.t('trinkets', true);
-    if (skills.highestWin) trinkets_title += ` | ${T.t('wins', true)}: ${skills.highestWin}`;
+    if (skills.highest_win) trinkets_title += ` | ${T.t('wins', true)}: ${skills.highest_win}`;
 
-    let trinkets_block = {
-      items: prebuilts.trinketUpgrades,
+    const trinkets_block = {
+      items: prebuilts.trinket_upgrades,
       type: trinkets_title
     };
     if (store.get('settings').trinkets_position === 'beginning') {
