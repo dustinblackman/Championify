@@ -159,7 +159,8 @@ gulp.task('electron:packagejson', function() {
     electron_version: pkg.dependencies['electron-prebuilt'],
     release_file_template: pkg.release_file_template
   };
-  return fs.writeFileAsync('./dev/package.json', JSON.stringify(package_json, null, 2), 'utf8');
+  fs.mkdirsSync(path.join(__dirname, '../dev/'));
+  return fs.writeFileAsync(path.join(__dirname, '../dev/package.json'), JSON.stringify(package_json, null, 2), 'utf8');
 });
 
 gulp.task('electron:download:mac', function(cb) {

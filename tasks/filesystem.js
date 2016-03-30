@@ -5,13 +5,13 @@ import gulp from 'gulp';
 import path from 'path';
 import runSequence from 'run-sequence';
 
-const fs = Promise.promisify(require('fs-extra'));
+const fs = Promise.promisifyAll(require('fs-extra'));
 const pkg = require('../package.json');
 
 
 gulp.task('mkdir:app', function() {
   return Promise.resolve(glob.sync('./app/**/'))
-    .each(fs.mkdirsAsync);
+    .each(file => fs.mkdirsAsync(file));
 });
 
 gulp.task('copy:app', function() {
@@ -27,10 +27,11 @@ gulp.task('copy:data', function() {
 });
 
 gulp.task('symlink:app', function() {
-  return Promise.resolve(glob('./app/**', {nodir: true}))
+  return Promise.resolve(glob.sync('./app/**', {nodir: true}))
     .each(old_path => {
       const new_path = old_path.replace('./app', './dev');
       old_path = old_path.replace('./app/', `${process.cwd()}/app/`);
+      fs.mkdirsSync(path.dirname(new_path));
       return fs.symlinkAsync(old_path, new_path);
     });
 });
@@ -42,7 +43,7 @@ gulp.task('copy:views', function() {
 
 gulp.task('symlink:views', function() {
   fs.mkdirsSync('./dev/views');
-  Promise.resolve(glob('./views/**', {nodir: true}))
+  Promise.resolve(glob.sync('./views/**', {nodir: true}))
     .each(old_path => {
       const new_path = old_path.replace('./views', './dev/views');
       old_path = old_path.replace('./views/', `${process.cwd()}/views/`);
@@ -58,9 +59,9 @@ gulp.task('copy:translations', function(cb) {
 
 gulp.task('symlink:translations', function(cb) {
   fs.mkdirsSync('./dev/i18n');
-  return Promise.resolve(glob('./i18n/*.json', {nodir: true}))
-    .then(old_path => {
-      if (old_path.indexOf('_source.json') > 1) return;
+  return Promise.resolve(glob.sync('./i18n/*.json', {nodir: true}))
+    .each(old_path => {
+      if (old_path.indexOf('_source.json') > -1) return Promise.resolve();
       const new_path = old_path.replace('./i18n', './dev/i18n');
       old_path = old_path.replace('./i18n/', `${process.cwd()}/i18n/`);
       return fs.symlinkAsync(old_path, new_path);

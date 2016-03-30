@@ -1,5 +1,5 @@
 import Promise from 'bluebird';
-import asar from 'asar';
+import asar from 'gulp-asar';
 import gulp from 'gulp';
 import inno from 'gulp-inno';
 import moment from 'moment';
@@ -8,7 +8,7 @@ import plist from 'plist';
 import runSequence from 'run-sequence';
 import _ from 'lodash';
 
-const fs = Promise.promisify(require('fs-extra'));
+const fs = Promise.promisifyAll(require('fs-extra'));
 const rcedit = Promise.promisify(require('rcedit'));
 const pkg = require('../package.json');
 const electron_version = pkg.devDependencies['electron-prebuilt'];
