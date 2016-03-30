@@ -1,8 +1,8 @@
 import fs from 'fs';
 import glob from 'glob';
 import path from 'path';
+import R from 'ramda';
 import $ from './helpers/jquery';
-import _ from 'lodash';
 
 import store from './store';
 import T from './translate';
@@ -13,12 +13,12 @@ import T from './translate';
  */
 
 function findInstallPath() {
-  const userHome = process.env.HOME || process.env.USERPROFILE;
+  const user_home = process.env.HOME || process.env.USERPROFILE;
   if (process.platform === 'darwin') {
     if (fs.existsSync('/Applications/League of Legends.app')) {
       return this.setInstallPath(null, '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/');
-    } else if (fs.existsSync(userHome + '/Applications/League of Legends.app')) {
-      return this.setInstallPath(null, userHome + '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/');
+    } else if (fs.existsSync(`${user_home}/Applications/League of Legends.app`)) {
+      return this.setInstallPath(null, `${user_home}/Applications/League of Legends.app/`, 'Contents/LoL/Config/Champions/');
     }
   } else if (fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')) {
     return this.setInstallPath(null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/', 'lol.launcher.exe');
@@ -31,16 +31,14 @@ function findInstallPath() {
  * @param {String} User selected path
  */
 
+// TODO: This could use a rewrite.
 function checkInstallPath(selected_path, done) {
-  // var default_path, e, garena_check_one, garena_check_two, garena_version;
-  if (selected_path && !_.isString(selected_path)) {
-    selected_path = selected_path[0];
-  }
+  if (selected_path && !R.is(String, selected_path)) selected_path = selected_path[0];
   try {
     fs.lstatSync(selected_path);
   } catch (_error) {
     $('#input_msg').addClass('red');
-    $('#input_msg').text("" + (T.t('invalid_path')));
+    $('#input_msg').text(T.t('invalid_path'));
     return;
   }
 
@@ -53,16 +51,17 @@ function checkInstallPath(selected_path, done) {
       done(new Error('Path not found'), selected_path);
     }
   } else {
-    let default_path = path.join(selected_path, 'lol.launcher.exe');
-    let garena_check_one = path.join(selected_path, 'lol.exe');
-    let garena_check_two = glob.sync(path.join(selected_path, 'LoL*Launcher.exe'))[0];
+    const default_path = path.join(selected_path, 'lol.launcher.exe');
+    const garena_check_one = path.join(selected_path, 'lol.exe');
+    const garena_check_two = glob.sync(path.join(selected_path, 'LoL*Launcher.exe'))[0];
+
     if (fs.existsSync(default_path)) {
       done(null, selected_path, 'Config/Champions/', path.basename(default_path));
     } else if (fs.existsSync(garena_check_one)) {
       done(null, selected_path, 'Game/Config/Champions/', path.basename(garena_check_one));
     } else if (garena_check_two) {
       let garena_version = path.basename(glob.sync(path.join(selected_path, 'GameData/Apps/*'))[0]);
-      done(null, selected_path, 'GameData/Apps/' + garena_version + '/Game/Config/Champions/', path.basename(garena_check_two));
+      done(null, selected_path, `GameData/Apps/${garena_version}/Game/Config/Champions/`, path.basename(garena_check_two));
     } else {
       done(new Error('Path not found'), selected_path);
     }
@@ -84,14 +83,15 @@ function setInstallPath(path_err, install_path, champ_path, executable) {
   }
   function pathErr() {
     $('#input_msg').addClass('yellow');
-    $('#input_msg').text("" + (T.t('sure_thats_league')));
+    $('#input_msg').text(T.t('sure_thats_league'));
     return enableBtns();
   }
   function foundLeague() {
     $('#input_msg').addClass('green');
-    $('#input_msg').text((T.t('found')) + " League of Legends!");
+    $('#input_msg').text(`${T.t('found')} League of Legends!`);
     return enableBtns();
   }
+
   $('#input_msg').removeAttr('class');
   $('#input_msg').text('');
 
@@ -102,14 +102,14 @@ function setInstallPath(path_err, install_path, champ_path, executable) {
       champ_path = 'Config/Champions/';
     }
   }
+
   store.set('lol_install_path', install_path);
   store.set('lol_champ_path', champ_path);
   store.set('lol_executable', executable);
   store.set('itemset_path', path.join(install_path, champ_path));
   $('#install_path').val(install_path);
-  if (path_err) {
-    return pathErr();
-  }
+
+  if (path_err) return pathErr();
   return foundLeague();
 }
 

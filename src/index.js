@@ -54,7 +54,7 @@ function openFolder() {
 
     return dialog.showOpenDialog({
       properties,
-      title: window.browse_title
+      title: store.get('browse_title')
     }, selected_path => {
       folder_dialog_open = false;
       if (selected_path) return pathManager.checkInstallPath(selected_path, pathManager.setInstallPath);
@@ -148,8 +148,8 @@ function executeOptionParameters() {
  * Execute after view load
 */
 
-viewManager.init(function() {
-  return updateManager.check(function(version, major) {
+viewManager.init().then(() => {
+  updateManager.check().spread((version, major) => {
     if (version && optionsParser.update()) {
       if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
         runas(process.execPath, ['--startAsAdmin'], {

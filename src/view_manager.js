@@ -2,7 +2,6 @@ import jade from 'jade';
 import path from 'path';
 import R from 'ramda';
 import $ from './helpers/jquery';
-import _ from 'lodash';
 
 import championify from './championify';
 import championgg from './sources/championgg';
@@ -17,68 +16,128 @@ import T from './translate';
 const pkg = require('../package.json');
 
 
-
 /**
  * Function To change all views with the same transitions.
  * @param {string} name of view
  * @param {function} function to run before loading in new view.
  */
 
-function nub(done) {
-  return done();
-}
+function nub() {}
 
-function _viewChanger(view, process, options) {
-  if (options == null) {
-    options = {};
-  }
-
+function _viewChanger(view, options = {}, process = nub) {
   const default_options = {
     transition: 'browse',
     div_id: 'view',
-    jade: {T}
+    jade: {
+      T,
+      browse_title: store.get('browse_title')
+    }
   };
-  if (!process) {
-    options = {};
-    process = nub;
-  }
-  if (!_.isFunction(process)) {
-    options = process;
-    process = nub;
-  }
+
   options = R.merge(default_options, options);
-  return $('#' + options.div_id).transition({
+  return $(`#${options.div_id}`).transition({
     animation: 'fade up',
     onComplete: function() {
-      const html = jade.renderFile(path.resolve(path.join(__dirname, '../views/' + view + '.jade')), default_options.jade);
-      $('#' + options.div_id).html(html).promise().done(function() {
-        process(function() {
-          $('#' + options.div_id).transition(options.transition);
-        });
+      const html = jade.renderFile(path.resolve(path.join(__dirname, `../views/${view}.jade`)), default_options.jade);
+      $(`#${options.div_id}`).html(html).promise().then(() => {
+        process();
+        $(`#${options.div_id}`).transition(options.transition);
       });
     }
   });
 }
 
+/**
+ * Function Initial view with settings
+ */
+
+function _initSettings() {
+  $('#locale_flag').attr('class', `${T.flag()} flag`);
+  $('#select_language_text').text(T.t('select_language'));
+  $('#locals_select').find(`.item[data-value='${T.locale}']`).addClass('active');
+  $('#footer_help').text(T.t('help'));
+  $('.ui.popup.top.left.transition.visible').remove();
+  $('.options_tooltip').popup();
+  $('.ui.dropdown').dropdown();
+
+  $('#sr_source').dropdown({
+    action: 'activate',
+    onChange: function(value) {
+      if (value === 'lolflavor') {
+        sourceUIManager.lolflavor();
+      } else {
+        sourceUIManager.championgg();
+      }
+    }
+  });
+
+  $('#locals_select').dropdown({
+    action: 'activate',
+    onChange: function(value, text, $selector) {
+      if (store.get('importing')) return null;
+
+      T.loadPhrases($selector.attr('data-value'));
+      return _viewChanger('_view', {
+        div_id: 'parent_view',
+        transition: 'fade',
+        jade: {
+          platform: process.platform
+        }
+      }, _initSettings);
+    }
+  });
+
+  if (store.get('lol_ver')) {
+    $('#lol_version').text(store.get('lol_ver'));
+  } else {
+    championify.version()
+      .then(version => {
+        version = spliceVersion(version);
+        $('#lol_version').text(version);
+        store.set('lol_ver', version);
+      })
+      .catch(Log.warn);
+  }
+
+  if (store.get('champgg_ver')) {
+    $('#championgg_version').text(store.get('champgg_ver'));
+  } else {
+    championgg.version()
+      .then(version => $('#championgg_version').text(version))
+      .catch(Log.warn);
+  }
+
+  if (store.get('lolflavor_ver')) {
+    $('#lolflavor_version').text(store.get('lolflavor_ver'));
+  } else {
+    lolflavor.version()
+      .then(version => {
+        $('#lolflavor_version').text(version);
+        store.set('lolflavor_ver', version);
+      })
+      .catch(Log.warn);
+  }
+
+  return preferences.set(preferences.load());
+}
 
 /**
  * Function Change to complete view with transitions.
  */
 
-// TODO: rewrite
+
 function completeView() {
-  function loadUnavailable(done) {
+  function loadUnavailable() {
     const undefined_builds = store.get('undefined_builds');
     if (!undefined_builds || !undefined_builds.length) {
       $('#not_available_log').append('<span>' + T.t('all_available') + '</span><br />');
     } else {
-      _.each(undefined_builds, function(item) {
-        return $('#not_available_log').append('<span>' + T.t(item.champ) + ': ' + T.t(item.position) + '</span><br />');
-      });
+      R.forEach(item => {
+        $('#not_available_log').append('<span>${T.t(item.champ)}: ${T.t(item.position)}</span><br />');
+      }, undefined_builds);
     }
-    return done();
   }
-  return _viewChanger('complete', loadUnavailable);
+  return _viewChanger('complete', {}, loadUnavailable);
 }
 
 
@@ -114,94 +173,29 @@ function breakingChangesView() {
  */
 
 function mainViewBack() {
-  function resetMain(next) {
+  function resetMain() {
     $('#cl_progress').html('');
     $('.submit_btns').removeClass('hidden');
     $('.status').attr('class', 'status hidden');
     _initSettings();
-    return next();
   }
-  return _viewChanger('main', resetMain, {
-    transition: 'fly right'
-  });
+  return _viewChanger('main', {transition: 'fly right'}, resetMain);
 }
 
-
-/**
- * Function Initial view with settings
- */
-
-function _initSettings() {
-  $('#locale_flag').attr('class', (T.flag()) + " flag");
-  $('#select_language_text').text("" + (T.t('select_language')));
-  $('#locals_select').find(".item[data-value='" + T.locale + "']").addClass('active');
-  $('#footer_help').text("" + (T.t('help')));
-  $('.ui.popup.top.left.transition.visible').remove();
-  $('.options_tooltip').popup();
-  $('.ui.dropdown').dropdown();
-  $('#sr_source').dropdown({
-    action: 'activate',
-    onChange: function(value) {
-      if (value === 'lolflavor') {
-        sourceUIManager.lolflavor();
-      } else {
-        sourceUIManager.championgg();
-      }
-    }
-  });
-  $('#locals_select').dropdown({
-    action: 'activate',
-    onChange: function(value, text, $selector) {
-      if (GLOBAL.importing) {
-        return null;
-      }
-      function reset(done) {
-        _initSettings();
-        return done();
-      }
-      let local = $selector.attr('data-value');
-      T.loadPhrases(local);
-      return _viewChanger('_view', reset, {
-        div_id: 'parent_view',
-        transition: 'fade',
-        jade: {
-          platform: process.platform
-        }
-      });
-    }
-  });
-
-  championify.version()
-    .then(version => $('#lol_version').text(spliceVersion(version)))
-    .catch(Log.warn);
-
-  championgg.version()
-    .then(version => $('#championgg_version').text(version))
-    .catch(Log.warn);
-
-  lolflavor.version()
-    .then(version => $('#lolflavor_version').text(version))
-    .catch(Log.warn);
-
-  return preferences.set(preferences.load());
-}
-
-function init(done) {
+function init() {
   if (process.platform === 'darwin') {
-    window.browse_title = (T.t('select')) + ' League of Legends.app';
+    store.set('browse_title', `${T.t('select')} League of Legends.app`);
   } else {
-    window.browse_title = (T.t('select')) + ' League of Legends ' + T.t('directory');
+    store.set('browse_title', `${T.t('select')} League of Legends ${T.t('directory')}`);
   }
   const options = {
     T,
+    browse_title: store.get('browse_title'),
     platform: process.platform,
     version: pkg.version
   };
   const html = jade.renderFile(path.resolve(path.join(__dirname, '../views/index.jade')), options);
-  return $('#body').html(html).promise().done(function() {
-    _initSettings();
-    return done();
-  });
+  return $('#body').html(html).promise().then(() => _initSettings());
 }
 
 export default {

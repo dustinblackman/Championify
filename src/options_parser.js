@@ -1,9 +1,9 @@
 import remote from 'remote';
-import _ from 'lodash';
+import R from 'ramda';
 
 
 function _processArgs(arg) {
-  return _.contains(remote.process.argv, arg);
+  return R.contains(arg, remote.process.argv);
 }
 
 export default {
