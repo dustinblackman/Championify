@@ -5,6 +5,7 @@ import inno from 'gulp-inno';
 import moment from 'moment';
 import path from 'path';
 import plist from 'plist';
+import R from 'ramda';
 import runSequence from 'run-sequence';
 import _ from 'lodash';
 
@@ -27,7 +28,7 @@ function pkgIdentifier() {
 function helperPList(tmp_path, name) {
   const split_name = name.split(' ');
   const app_path = path.join(tmp_path, 'Contents/Frameworks', `${name}.app`);
-  const new_app_name = `${split_name}`;
+  const new_app_name = name.split(' ');
   new_app_name[0] = pkg.name;
   const new_app_path = path.join(tmp_path, 'Contents/Frameworks', `${new_app_name.join(' ')}.app`);
   const new_pkg_name = name.replace('Electron', pkg.name);
@@ -57,6 +58,7 @@ gulp.task('_compileMac', function() {
   const src_folder = `darwin${electron_version.replace(/\./g, '-')}`;
   const tmp_path = path.join('./tmp', pkg.name + '.app');
 
+  fs.copySync(path.join('./cache', src_folder, 'Electron.app'), tmp_path);
   const info_plist = plist.parse(fs.readFileSync(path.join(tmp_path, 'Contents/Info.plist'), 'utf8'));
   info_plist['CFBundleExecutable'] = pkg.name;
   info_plist['CFBundleName'] = pkg.name;
@@ -67,9 +69,9 @@ gulp.task('_compileMac', function() {
   info_plist['CFBundleIconFile'] = pkg.name + '.icns';
   info_plist['NSHumanReadableCopyright'] = copyright();
 
-  return fs.copyAsync(path.join('./cache', src_folder, 'Electron.app'), tmp_path)
-    .then(() => fs.removeAsync(path.join(tmp_path, 'Contents/Resources/atom.icns')))
+  return fs.removeAsync(path.join(tmp_path, 'Contents/Resources/atom.icns'))
     .then(() => Promise.all([
+      fs.copyAsync('./resources/osx/icon.icns', path.join(tmp_path, `/Contents/Resources/${pkg.name}.icns`)),
       fs.copyAsync('./tmp/app.asar', path.join(tmp_path, 'Contents/Resources/app.asar')),
       fs.moveAsync(path.join(tmp_path, 'Contents/MacOS/Electron'), path.join(tmp_path, 'Contents/MacOS/', pkg.name)),
       fs.writeFileAsync(path.join(tmp_path, 'Contents/Info.plist'), plist.build(info_plist), 'utf8'),
@@ -77,7 +79,11 @@ gulp.task('_compileMac', function() {
       helperPList(tmp_path, 'Electron Helper EH'),
       helperPList(tmp_path, 'Electron Helper NP'),
       fs.removeAsync(path.join(tmp_path, 'Contents/Resources/default_app'))
-    ]));
+    ]))
+    .catch(err => {
+      console.log(err.stack || err);
+      throw err;
+    });
 });
 
 gulp.task('compile:osx', function(cb) {

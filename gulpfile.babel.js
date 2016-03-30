@@ -18,7 +18,7 @@ gulp.task('dev', function() {
 });
 
 gulp.task('package-asar', function(cb) {
-  return runSequence('main', 'electron:deps', ['copy:app', 'copy:data', 'copy:views', 'copy:translations'], 'removelivereload', 'asar', cb);
+  return runSequence('main', 'electron:deps', ['copy:app', 'copy:data', 'copy:views', 'copy:translations'], 'asar', cb);
 });
 
 gulp.task('build', function(cb) {

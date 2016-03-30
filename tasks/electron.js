@@ -139,8 +139,8 @@ function cache(os, arch) {
 gulp.task('electron:deps', function(cb) {
   const install_items = R.map(dep => {
     if (pkg.dependencies[dep].indexOf('git://') > -1) return pkg.dependencies[dep];
-    return `dep@${pkg.dependencies[dep]}`;
-  });
+    return `${dep}@${pkg.dependencies[dep]}`;
+  }, R.keys(pkg.dependencies));
   return gulp.src('')
     .pipe(shell([`npm install --prefix ./dev ${install_items.join(' ')}`]));
 });
