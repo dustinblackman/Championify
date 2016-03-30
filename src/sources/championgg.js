@@ -129,7 +129,7 @@ function processChamp(request_params, body, step) {
       3: 'E',
       4: 'R'
     };
-    skills = R.map(skill => keys[skill], skills);
+    skills = R.map(skill => keys[skill[0]], skills);
 
     if (store.get('settings').skillsformat) {
       let skill_count = R.countBy(R.toLower)(R.slice(0, 9, skills));
