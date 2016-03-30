@@ -15,6 +15,10 @@ class Store {
     if (!this.store[key]) this.store[key] = [];
     this.store[key].push(value);
   }
+
+  remove(key) {
+    if (this.store[key]) delete this.store[key];
+  }
 }
 
 const store = new Store();

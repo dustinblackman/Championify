@@ -148,6 +148,8 @@ function setWindowsPermissions() {
 function downloadItemSets() {
   store.set('importing', true);
   store.set('settings', preferences.get().options);
+  store.remove('sr_itemsets');
+  store.remove('aram_itemsets');
 
   updateProgressBar(true);
 

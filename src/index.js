@@ -2,7 +2,6 @@
 import remote from 'remote';
 
 import { exec } from 'child_process';
-import fs from 'fs';
 import open from 'open';
 import path from 'path';
 import $ from './js/helpers/jquery';
@@ -24,11 +23,8 @@ const app = remote.require('app');
 const dialog = remote.require('dialog');
 
 let runas;
-if (process.platform === 'win32') {
-  runas = require('runas');
-}
+if (process.platform === 'win32') runas = require('runas');
 
-window.devEnabled = fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'));
 const loadedPrefs = preferences.load();
 if (loadedPrefs && loadedPrefs.locale !== 'en') T.loadPhrases(loadedPrefs.locale);
 
@@ -36,28 +32,32 @@ Log.info('Version: ' + pkg.version);
 
 
 /**
+ * Add system buttons
+ */
+
+if (process.platform === 'darwin') {
+  $('.osx_buttons').removeClass('hidden');
+} else {
+  $('.win_buttons').removeClass('hidden');
+}
+
+/**
  * Function to call Electrons OpenDialog. Sets title based on Platform.
  */
 
 let folder_dialog_open = false;
-
 function openFolder() {
-  let properties;
   if (!folder_dialog_open) {
     folder_dialog_open = true;
-    if (process.platform === 'win32') {
-      properties = ['openDirectory'];
-    } else {
-      properties = ['openFile'];
-    }
+    let properties = ['openFile'];
+    if (process.platform === 'win32') properties = ['openDirectory'];
+
     return dialog.showOpenDialog({
-      properties: properties,
+      properties,
       title: window.browse_title
-    }, function(selected_path) {
+    }, selected_path => {
       folder_dialog_open = false;
-      if (selected_path) {
-        return pathManager.checkInstallPath(selected_path, pathManager.setInstallPath);
-      }
+      if (selected_path) return pathManager.checkInstallPath(selected_path, pathManager.setInstallPath);
     });
   }
 }
@@ -69,9 +69,9 @@ function openFolder() {
 
 function selectFolderWarning() {
   $('#input_msg').addClass('yellow');
-  $('#input_msg').text("" + (T.t('select_folder')));
+  $('#input_msg').text(T.t('select_folder'));
   return $('#input_msg').transition('shake');
-};
+}
 
 
 /**
@@ -79,16 +79,13 @@ function selectFolderWarning() {
  * @callback {Function} Optional callback called after importing is done
  */
 
-// TODO: rewrite
-function importItemSets(done) {
+function importItemSets() {
   if (!store.get('lol_install_path')) {
     selectFolderWarning();
   } else {
     $('#btns_versions').addClass('hidden');
     $('.status').transition('fade up', '500ms');
-    championify.run()
-      .then(() => done())
-      .catch(err => EndSession(err));
+    return championify.run().catch(err => EndSession(err));
   }
 }
 
@@ -105,6 +102,27 @@ function deleteItemSets() {
   }
 }
 
+/**
+ * Function Start the League of Legends client.
+ */
+
+function startLeague() {
+  const exit = function() {
+    return setTimeout(() => app.quit(), 500);
+  };
+  if (process.platform === 'darwin') {
+    exec(`open -n "${store.get('lol_install_path')}"`);
+    exit();
+  } else if (store.get('lol_executable')) {
+    exec(`"${path.join(store.get('lol_install_path'), store.get('lol_executable'))}"`);
+    exit();
+  } else {
+    Log.error(`League of legends executable is not defined. ${store.get('lol_executable')}`);
+    $('#start_league').attr('class', 'ui inverted red button');
+    $('#start_league').text('Can\'t start League');
+  }
+}
+
 
 /**
  * Function Goes through options parameters and acts.
@@ -114,14 +132,12 @@ function executeOptionParameters() {
   if (optionsParser['delete']()) {
     deleteItemSets();
   } else if (optionsParser['import']() || optionsParser.autorun()) {
-    importItemSets(function() {
+    importItemSets().then(() => {
       if (optionsParser.close() || optionsParser.autorun()) {
         app.quit();
       } else {
         viewManager.complete();
-        if (optionsParser.startLeague()) {
-          startLeague();
-        }
+        if (optionsParser.startLeague()) startLeague();
       }
     });
   }
@@ -129,41 +145,29 @@ function executeOptionParameters() {
 
 
 /**
- * Function Start the League of Legends client.
- */
+ * Execute after view load
+*/
 
-function startLeague() {
-  const exit = function() {
-    return setTimeout(function() {
-      return app.quit();
-    }, 500);
-  };
-  if (process.platform === 'darwin') {
-    exec('open -n "' + store.get('lol_install_path') + '"');
-    exit();
-  } else {
-    if (store.get('lol_executable')) {
-      exec('"' + path.join(store.get('lol_install_path'), store.get('lol_executable')) + '"');
-      exit();
+viewManager.init(function() {
+  return updateManager.check(function(version, major) {
+    if (version && optionsParser.update()) {
+      if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
+        runas(process.execPath, ['--startAsAdmin'], {
+          hide: false,
+          admin: true
+        });
+      } else {
+        return EndSession(new ChampionifyErrors.UpdateError('Can\'t auto update, please redownload'));
+      }
+    } else if (version && major) {
+      updateManager.majorUpdate(version);
+    } else if (version) {
+      updateManager.minorUpdate(version);
     } else {
-      Log.error('League of legends executable is not defined. ' + store.get('lol_executable'));
-      $('#start_league').attr('class', 'ui inverted red button');
-      $('#start_league').text('Can\'t start League');
+      executeOptionParameters();
     }
-  }
-}
-
-
-/**
- * Add system buttons
- */
-
-if (process.platform === 'darwin') {
-  $('.osx_buttons').removeClass('hidden');
-} else {
-  $('.win_buttons').removeClass('hidden');
-}
-
+  });
+});
 
 /**
  * Watches for buttons pressed on GUI.
@@ -193,7 +197,7 @@ $(document).on('click', '#open_log', function(e) {
 });
 
 $(document).on('click', '#import_btn', function() {
-  return importItemSets(viewManager.complete);
+  return importItemSets().then(() => viewManager.complete());
 });
 
 $(document).on('click', '#delete_btn', function() {
@@ -224,30 +228,4 @@ $(document).on('click', '#back_to_main', function() {
 
 $(document).on('click', '#release_button', function() {
   return open('https://github.com/dustinblackman/Championify/releases/latest');
-});
-
-
-/**
-* Execute ASAP after view load
- */
-
-viewManager.init(function() {
-  return updateManager.check(function(version, major) {
-    if (version && optionsParser.update()) {
-      if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-        runas(process.execPath, ['--startAsAdmin'], {
-          hide: false,
-          admin: true
-        });
-      } else {
-        return EndSession(new ChampionifyErrors.UpdateError('Can\'t auto update, please redownload'));
-      }
-    } else if (version && major) {
-      updateManager.majorUpdate(version);
-    } else if (version) {
-      updateManager.minorUpdate(version);
-    } else {
-      executeOptionParameters();
-    }
-  });
 });
