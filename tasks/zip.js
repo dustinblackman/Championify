@@ -20,7 +20,7 @@ function zip(src, dest) {
     });
 
     current_process.on('close', function(code) {
-      if (is_error) reject();
+      if (is_error) return reject();
       return resolve();
     });
   });
