@@ -1,13 +1,10 @@
 import gulp from 'gulp';
 import requireDir from 'require-dir';
 import runSequence from 'run-sequence';
-import _ from 'lodash';
 
 requireDir('./tasks');
 
-const pkg = require('./package.json');
-GLOBAL.releaseFile = _.template('./releases/' + pkg.release_file_template);
-GLOBAL.ifRelease = process.argv.indexOf('release') > -1;
+GLOBAL.if_release = process.argv.indexOf('release') > -1;
 
 gulp.task('main', function(cb) {
   return runSequence('delete-dev', 'mkdir:app', ['electron:packagejson', 'electron:settings', 'babel', 'stylus'], cb);

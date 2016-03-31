@@ -5,7 +5,6 @@ import glob from 'glob';
 import gulp from 'gulp';
 import path from 'path';
 import R from 'ramda';
-import _ from 'lodash';
 
 const request = Promise.promisify(require('request'));
 const pkg = require('../package.json');
@@ -62,7 +61,7 @@ gulp.task('github-release', function(cb) {
         if (item.indexOf('asar') > -1) body += formatTitle('update.asar', GLOBAL.vtReports[item]);
         if (item.indexOf('u_osx') > -1) body += formatTitle('u_osx.tar.gz', GLOBAL.vtReports[item]);
         if (item.indexOf('u_win') > -1) body += formatTitle('u_win.tar.gz', GLOBAL.vtReports[item]);
-      }, _.keys(GLOBAL.vtReports));
+      }, R.keys(GLOBAL.vtReports));
 
       body += [
         '',

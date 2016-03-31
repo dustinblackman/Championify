@@ -1,9 +1,7 @@
-// TODO: Cleanup how errors work.
-
 import os from 'os';
 import SuperError from 'super-error';
+import R from 'ramda';
 import T from './translate';
-import _ from 'lodash';
 
 
 const ChampionifyError = SuperError.subclass('ChampionifyError');
@@ -18,13 +16,14 @@ const error_types = [
   'UncaughtException',
   'UpdateError'
 ];
-_.each(error_types, function(error_name) {
+
+R.forEach(error_name => {
   errors[error_name] = ChampionifyError.subclass(error_name, function() {
     this.type = error_name;
     this.ua = [os.platform(), os.release()].join(' ');
     this.locale = T.locale;
   });
-});
+}, error_types);
 
 errors.RequestError = ChampionifyError.subclass('RequestError', function(code, url) {
   this.code = code;

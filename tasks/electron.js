@@ -156,8 +156,7 @@ gulp.task('electron:packagejson', function() {
     name: pkg.name,
     version: pkg.version,
     main: 'electron.js',
-    electron_version: pkg.dependencies['electron-prebuilt'],
-    release_file_template: pkg.release_file_template
+    electron_version: pkg.dependencies['electron-prebuilt']
   };
   fs.mkdirsSync(path.join(__dirname, '../dev/'));
   return fs.writeFileAsync(path.join(__dirname, '../dev/package.json'), JSON.stringify(package_json, null, 2), 'utf8');
