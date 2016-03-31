@@ -5,7 +5,6 @@ import inno from 'gulp-inno';
 import moment from 'moment';
 import path from 'path';
 import plist from 'plist';
-import R from 'ramda';
 import runSequence from 'run-sequence';
 import _ from 'lodash';
 

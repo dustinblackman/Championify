@@ -1,4 +1,5 @@
 import Promise from 'bluebird';
+import eslint from 'gulp-eslint';
 import gulp from 'gulp';
 import htmlhint from 'gulp-htmlhint';
 import jadelint from 'gulp-jadelint';
@@ -9,7 +10,20 @@ import { spawn } from 'child_process';
 import stylint from 'gulp-stylint';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
+const pkg = require('../package.json');
 
+
+gulp.task('eslint', function() {
+  return gulp.src([
+    './src/**/*.js',
+    './tests/**/*.js',
+    './tasks/**/*.js',
+    './electron.js'
+  ])
+    .pipe(eslint(pkg.eslintConfig))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+});
 
 gulp.task('stylint', function() {
   return gulp.src('stylesheets/**/*.styl')
@@ -52,7 +66,7 @@ gulp.task('jsonlint', function() {
 });
 
 gulp.task('lint', function(cb) {
-  runSequence('stylint', 'htmlhint', 'jadelint', 'jsonlint', cb);
+  runSequence(['eslint', 'stylint', 'htmlhint', 'jadelint', 'jsonlint'], cb);
 });
 
 function mochaWindows(cb) {
