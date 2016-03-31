@@ -24,7 +24,13 @@ const pkg = require('../package.json');
 
 function nub() {}
 
-function _viewChanger(view, options = {}, process = nub) {
+function _viewChanger(view, options = {}, next = nub) {
+  if (process.platform === 'darwin') {
+    store.set('browse_title', `${T.t('select')} League of Legends.app`);
+  } else {
+    store.set('browse_title', `${T.t('select')} League of Legends ${T.t('directory')}`);
+  }
+
   const default_options = {
     transition: 'browse',
     div_id: 'view',
@@ -40,7 +46,7 @@ function _viewChanger(view, options = {}, process = nub) {
     onComplete: function() {
       const html = jade.renderFile(path.resolve(path.join(__dirname, `../views/${view}.jade`)), default_options.jade);
       $(`#${options.div_id}`).html(html).promise().then(() => {
-        process();
+        next();
         $(`#${options.div_id}`).transition(options.transition);
       });
     }
@@ -133,7 +139,7 @@ function completeView() {
       $('#not_available_log').append('<span>' + T.t('all_available') + '</span><br />');
     } else {
       R.forEach(item => {
-        $('#not_available_log').append('<span>${T.t(item.champ)}: ${T.t(item.position)}</span><br />');
+        $('#not_available_log').append(`<span>${T.t(item.champ)}: ${T.t(item.position)}</span><br />`);
       }, undefined_builds);
     }
   }
