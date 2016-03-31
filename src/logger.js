@@ -9,7 +9,7 @@ import preferences from './preferences';
 const Log = new winston.Logger({
   transports: [
     new winston.transports.Console({
-      level: 'debug',
+      level: process.env.NODE_ENV === 'test' ? 'emerg' : 'debug',
       handleExceptions: true
     }),
     new winston.transports.File({
@@ -17,7 +17,7 @@ const Log = new winston.Logger({
       json: false,
       handleExceptions: true,
       prettyPrint: true,
-      level: 'debug',
+      level: process.env.NODE_ENV === 'test' ? 'emerg' : 'debug',
       options: {flags: 'w'}
     })
   ]

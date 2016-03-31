@@ -44,7 +44,6 @@ gulp.task('jsonlint', function() {
     './tests/**/*.json',
     './.htmlhintrc',
     './.stylintrc',
-    './coffeelint.json',
     './package.json',
     './bower.json'])
       .pipe(jsonlint())
@@ -67,7 +66,7 @@ function mochaWindows(cb) {
   if (process.env.APPVEYOR) console.log('Note: You can\'t see Mocha test results in AppVeyor due to how Windows spawns processes.');
 
   const cmd = `${path.resolve('./node_modules/.bin/electron-mocha')}.cmd`;
-  const args = ['--require', '.\\helpers\\register-istanbul.js', '--renderer', '--recursive', '.\\tests\\'];
+  const args = ['--compilers', 'js:babel-core/register', '--renderer', '--recursive', '.\\tests\\'];
 
   if (fs.existsSync(options.env.EXITCODE_PATH)) fs.removeSync(options.env.EXITCODE_PATH);
 
@@ -86,14 +85,14 @@ function mochaWindows(cb) {
 
 function mochaOSX(cb) {
   const options = {
-    stdio: [process.stdin, process.stdout, process.stderr],
+    stdio: [process.stdin, process.stdout, process.stderr], // TODO: Why?
     env: process.env
   };
   options.env.NODE_ENV = 'test';
   options.env.ELECTRON_PATH = path.resolve('./node_modules/.bin/electron');
 
   const electron_mocha = path.resolve('./node_modules/.bin/electron-mocha');
-  const args = ['--require', './helpers/register-istanbul.js', '--renderer', '--recursive', './tests/'];
+  const args = ['--compilers', 'js:babel-core/register', '--renderer', '--recursive', './tests/index.js'];
   const em = spawn(electron_mocha, args, options);
   em.on('close', function(code) {
     if (code !== 0) return cb(new Error(`Mocha exited with code: ${code}`));

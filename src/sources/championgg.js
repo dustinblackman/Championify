@@ -3,7 +3,6 @@ import cheerio from 'cheerio';
 import escodegen from 'escodegen';
 import esprima from 'esprima';
 import R from 'ramda';
-import _ from 'lodash';
 
 import ChampionifyErrors from '../errors.js';
 import { cl, request, trinksCon, updateProgressBar, wins } from '../helpers';
@@ -296,7 +295,7 @@ function requestPage(request_params, step) {
 
   return request(url)
     .then(body => {
-      if (_.contains(body, 'We\'re currently in the process of generating stats for')) return markUndefined();
+      if (body.indexOf('We\'re currently in the process of generating stats for') > -1) return markUndefined();
       return processChamp(request_params, body);
     })
     .catch(err => {
@@ -318,6 +317,7 @@ function requestChamps() {
       updateProgressBar(90 / champs.length);
       return requestPage({champ});
     }, {concurrency: 2})
+    .then(R.flatten)
     .then(R.reject(R.isNil));
 }
 

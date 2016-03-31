@@ -283,7 +283,7 @@ function check() {
         version = data.version;
         major_update = true;
       }
-      if (semver.gt(data.version, pkg.version) === 1) version = data.version;
+      if (semver.gt(data.version, pkg.version)) version = data.version;
       if (version && optionsParser.update()) {
         return EndSession(new ChampionifyErrors.UpdateError('New version did not install correctly'));
       }

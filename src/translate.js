@@ -15,7 +15,7 @@ class Translate {
   loadPhrases(locale) {
     this.locale = locale;
     const i18n_path = path.join(__dirname, `../i18n/${locale}.json`);
-    if (!fs.existsSync(i18n_path)) throw new ChampionifyErrors.OperationalError(locale + ' does not exist in i18n folder');
+    if (!fs.existsSync(i18n_path)) throw new ChampionifyErrors.OperationalError(`${locale} does not exist in i18n folder`);
 
     this.phrases = require(i18n_path);
     this.english_phrases = require(path.join(__dirname, '../i18n/en.json'));

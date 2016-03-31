@@ -61,7 +61,7 @@
     "coffeelint-stylish": "0.1.2",
     "colors": "1.1.2",
     "coveralls": "2.11.4",
-    "electron-mocha": "git://github.com/dustinblackman/electron-mocha.git#championify",
+    "electron-mocha": "git://github.com/dustinblackman/electron-mocha.git#exitcode",
     "electron-prebuilt": "0.33.4",
     "eslint": "^1.10.3",
     "eslint-config-busbud": "^0.1.2",
@@ -115,7 +115,8 @@
   "eslintConfig": {
     "extends": "busbud",
     "env": {
-      "browser": true
+      "browser": true,
+      "mocha": true
     }
   }
 }

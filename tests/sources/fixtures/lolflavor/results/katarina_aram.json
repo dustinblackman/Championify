@@ -1,1 +1,167 @@
-{"Katarina":{"aram":{"isGlobalForChampions":false,"associatedChampions":[],"mode":"any","blocks":[{"items":[{"count":1,"id":"2003"},{"count":1,"id":"2137"},{"count":1,"id":"2138"},{"count":1,"id":"2139"},{"count":1,"id":"2140"},{"count": 1,"id": "2047"}],"type":"Consumables"},{"items":[{"count":1,"id":"3303"},{"count":1,"id":"1029"},{"count":1,"id":"1028"}],"type":"Starter"},{"items":[{"count":1,"id":"3285"},{"count":1,"id":"3157"},{"count":1,"id":"3089"},{"count":1,"id":"1001"}],"type":"Core Items - Max Skill: Q>W>E"},{"items":[{"count":1,"id":"3001"},{"count":1,"id":"3135"},{"count":1,"id":"3136"},{"count":1,"id":"3151"},{"count":1,"id":"3116"},{"count":1,"id":"3146"},{"count":1,"id":"3152"}],"type":"Core Alternatives - Endgame Items"},{"items":[{"count":1,"id":"3020"},{"count":1,"id":"1311"}],"type":"Boots"},{"items":[{"count":1,"id":"3098"},{"count":1,"id":"3140"},{"count":1,"id":"3092"},{"count":1,"id":"3102"},{"count":1,"id":"3165"},{"count":1,"id":"3065"},{"count":1,"id":"3083"}],"type":"Situational Items"}],"associatedMaps":[],"map":"HA","title":"ARAM 5.18","isGlobalForMaps":true,"sortrank":4,"type":"custom","champion":"Katarina","priority":false}}}
+[
+  {
+    "champ": "Katarina",
+    "file_prefix": "aram",
+    "riot_json": {
+      "isGlobalForChampions": false,
+      "associatedChampions": [],
+      "mode": "any",
+      "blocks": [
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "2003"
+            },
+            {
+              "count": 1,
+              "id": "2137"
+            },
+            {
+              "count": 1,
+              "id": "2138"
+            },
+            {
+              "count": 1,
+              "id": "2139"
+            },
+            {
+              "count": 1,
+              "id": "2140"
+            },
+            {
+              "count": 1,
+              "id": "2047"
+            }
+          ],
+          "type": "Consumables"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3303"
+            },
+            {
+              "count": 1,
+              "id": "1029"
+            },
+            {
+              "count": 1,
+              "id": "1028"
+            }
+          ],
+          "type": "Starter"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3285"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "1001"
+            }
+          ],
+          "type": "Core Items - Max Skill:  Q>W>E"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3001"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3136"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3146"
+            },
+            {
+              "count": 1,
+              "id": "3152"
+            }
+          ],
+          "type": "Core Alternatives - Endgame Items"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3020"
+            },
+            {
+              "count": 1,
+              "id": "1311"
+            }
+          ],
+          "type": "Boots"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3098"
+            },
+            {
+              "count": 1,
+              "id": "3140"
+            },
+            {
+              "count": 1,
+              "id": "3092"
+            },
+            {
+              "count": 1,
+              "id": "3102"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "3065"
+            },
+            {
+              "count": 1,
+              "id": "3083"
+            }
+          ],
+          "type": "Situational Items"
+        }
+      ],
+      "associatedMaps": [],
+      "map": "HA",
+      "title": "ARAM 5.18",
+      "isGlobalForMaps": true,
+      "sortrank": 4,
+      "type": "custom",
+      "champion": "Katarina",
+      "priority": false
+    }
+  }
+]
