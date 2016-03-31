@@ -1,4 +1,4 @@
-import optionsParser from '../src/options_parser';
+import optionsParser from '../src-cov/options_parser';
 
 require('chai').should();
 

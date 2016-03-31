@@ -1,9 +1,11 @@
+import fs from 'fs-extra';
 import glob from 'glob';
+import path from 'path';
 import R from 'ramda';
 import sinon from 'sinon';
 
-import T from '../src/translate';
-import '../src/store';
+import T from '../src-cov/translate';
+import '../src-cov/store';
 const champions = require('./fixtures/all_champions.json').data;
 
 
@@ -23,3 +25,13 @@ const test_files = R.flatten([
 ]);
 
 R.forEach(test_case => require(test_case), test_files);
+
+// hook into mocha global after to write coverage reports if found
+after(function() {
+  if (window.__coverage__) {
+    console.log('Found coverage report, writing to coverage/coverage.json');
+    const file_path = path.resolve(process.cwd(), 'coverage/coverage.json');
+    fs.mkdirsSync(path.dirname(file_path));
+    fs.writeFileSync(file_path, JSON.stringify(window.__coverage__));
+  }
+});

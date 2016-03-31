@@ -3,8 +3,8 @@ import nock from 'nock';
 import R from 'ramda';
 import path from 'path';
 
-import lolflavor from '../../src/sources/lolflavor';
-import store from '../../src/store';
+import lolflavor from '../../src-cov/sources/lolflavor';
+import store from '../../src-cov/store';
 
 const should = require('chai').should();
 let nocked = null;

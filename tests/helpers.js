@@ -1,4 +1,4 @@
-const hlp = require('../src/helpers');
+const hlp = require('../src-cov/helpers');
 
 describe('src/helpers.coffee', function() {
   describe('wins', function() {

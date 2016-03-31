@@ -111,5 +111,5 @@ gulp.task('mocha', function(cb) {
 });
 
 gulp.task('test', function(cb) {
-  runSequence('lint', 'mocha', 'istanbul', cb);
+  runSequence(['lint', 'istanbul-instrument'], 'mocha', ['istanbul-cleanup', 'istanbul-coverage'], cb);
 });

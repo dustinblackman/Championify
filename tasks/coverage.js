@@ -28,7 +28,7 @@ function _exec(cmd) {
 }
 
 function _istanbul(report_type) {
-  return _exec(`${path.resolve('./node_modules/.bin/istanbul')} report ${report_type}`);
+  return _exec(`${path.resolve('./node_modules/.bin/babel-istanbul')} report ${report_type}`);
 }
 
 function fromTravis() {
@@ -153,8 +153,16 @@ function coverallsSetup() {
     .then(() => _exec('.\\coveralls.bat'));
 }
 
-gulp.task('istanbul', function() {
+gulp.task('istanbul-coverage', function() {
   return _istanbul('text-summary');
+});
+
+gulp.task('istanbul-instrument', function() {
+  return _exec(`${path.resolve('./node_modules/.bin/babel-istanbul')} instrument -o src-cov src`);
+});
+
+gulp.task('istanbul-cleanup', function() {
+  return fs.removeAsync('./src-cov');
 });
 
 gulp.task('coveralls', function() {

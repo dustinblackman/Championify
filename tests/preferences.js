@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
-import preferences from '../src/preferences';
+import preferences from '../src-cov/preferences';
 
 const should = require('chai').should();
 const prefs_fixture = {dir: '/123'};

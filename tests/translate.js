@@ -1,4 +1,4 @@
-import T from '../src/translate';
+import T from '../src-cov/translate';
 
 const should = require('chai').should();
 
