@@ -114,7 +114,7 @@ function setInstallPath(path_err, install_path, champ_path, executable) {
 }
 
 export default {
-  findInstallPath: findInstallPath,
-  checkInstallPath: checkInstallPath,
-  setInstallPath: setInstallPath
+  findInstallPath,
+  checkInstallPath,
+  setInstallPath
 };

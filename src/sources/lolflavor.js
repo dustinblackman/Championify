@@ -127,7 +127,7 @@ function _processLolflavor(process_name, stats_file) {
  * @callback {Function} Callback.
  */
 
-function aram() {
+function getAram() {
   return _processLolflavor('ARAM', 'statsARAM.json')
     .then(champs => store.set('aram_itemsets', champs));
 }
@@ -138,7 +138,7 @@ function aram() {
  * @callback {Function} Callback.
  */
 
-function summonersRift() {
+function getSr() {
   const stats_pages = [
     {name: 'Lane', file: 'statsLane.json'},
     {name: 'Jungle', file: 'statsJungle.json'},
@@ -175,7 +175,7 @@ function getVersion() {
  */
 
 export default {
-  aram: aram,
-  sr: summonersRift,
-  version: getVersion
+  getAram,
+  getSr,
+  getVersion
 };

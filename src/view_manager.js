@@ -96,7 +96,7 @@ function _initSettings() {
   if (store.get('lol_ver')) {
     $('#lol_version').text(store.get('lol_ver'));
   } else {
-    championify.version()
+    championify.getVersion()
       .then(version => {
         version = spliceVersion(version);
         $('#lol_version').text(version);
@@ -108,7 +108,7 @@ function _initSettings() {
   if (store.get('champgg_ver')) {
     $('#championgg_version').text(store.get('champgg_ver'));
   } else {
-    championgg.version()
+    championgg.getVersion()
       .then(version => $('#championgg_version').text(version))
       .catch(Log.warn);
   }
@@ -116,7 +116,7 @@ function _initSettings() {
   if (store.get('lolflavor_ver')) {
     $('#lolflavor_version').text(store.get('lolflavor_ver'));
   } else {
-    lolflavor.version()
+    lolflavor.getVersion()
       .then(version => {
         $('#lolflavor_version').text(version);
         store.set('lolflavor_ver', version);

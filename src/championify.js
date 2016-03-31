@@ -154,11 +154,11 @@ function downloadItemSets() {
   updateProgressBar(true);
 
   const toProcess = [];
-  if (store.get('settings').aram) toProcess.push(lolflavor.aram);
+  if (store.get('settings').aram) toProcess.push(lolflavor.getAram);
   if (store.get('settings').sr_source === 'lolflavor') {
-    toProcess.push(lolflavor.sr);
+    toProcess.push(lolflavor.getSr);
   } else {
-    toProcess.push(champgg.sr);
+    toProcess.push(champgg.getSr);
   }
 
   return saveSettings()
@@ -194,5 +194,5 @@ function downloadItemSets() {
 export default {
   run: downloadItemSets,
   delete: deleteOldBuilds,
-  version: getRiotVer
+  getVersion: getRiotVer
 };

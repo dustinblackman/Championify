@@ -73,6 +73,6 @@ function setWindowsPermissions(files) {
 }
 
 export default {
-  championTest: championTest,
-  setWindowsPermissions: setWindowsPermissions
+  championTest,
+  setWindowsPermissions
 };

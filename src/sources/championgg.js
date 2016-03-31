@@ -310,7 +310,7 @@ function requestPage(request_params, step) {
  * @callback {Function} Callback.
  */
 
-function requestChamps() {
+function getSr() {
   const champs = store.get('champs');
   return Promise.resolve(champs)
     .map(champ => {
@@ -326,6 +326,6 @@ function requestChamps() {
  */
 
 export default {
-  sr: requestChamps,
-  version: getVersion
+  getSr,
+  getVersion
 };
