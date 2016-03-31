@@ -1,5 +1,4 @@
 import Promise from 'bluebird';
-import mkdirp from 'mkdirp';
 import path from 'path';
 import R from 'ramda';
 import $ from './helpers/jquery';
@@ -110,7 +109,7 @@ class Preferences {
     preferences = preferences || this.get();
     if (!preferences) throw new ChampionifyErrors.OperationalError('Preferences object does not exist');
     const preference_file = this.file();
-    mkdirp(this.directory());
+    fs.mkdirsSync(this.directory());
     return fs.writeFileAsync(preference_file, JSON.stringify(preferences, null, 2), 'utf8')
       .tap(() => Log.info(`Saved preference file to ${preference_file}`))
       .catch(err => Log.error(err));

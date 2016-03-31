@@ -1,6 +1,5 @@
 import Promise from 'bluebird';
 import { exec } from 'child_process';
-import fs from 'fs-extra';
 import glob from 'glob';
 import path from 'path';
 import R from 'ramda';
@@ -10,7 +9,7 @@ import optionsParser from './options_parser';
 import preferences from './preferences';
 import store from './store';
 
-const mkdirp = Promise.promisify(require('mkdirp'));
+const fs = Promise.promisifyAll(require('fs-extra'));
 
 
 /**
@@ -23,10 +22,10 @@ function championTest() {
   if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
     return Promise.resolve()
       .then(() => {
-        if (!fs.existsSync(itemset_path)) return mkdirp(itemset_path);
+        if (!fs.existsSync(itemset_path)) return fs.mkdirsAsync(itemset_path);
       })
-      .then(() => mkdirp(path.join(itemset_path, 'testme')))
-      .then(() => mkdirp(path.join(itemset_path, 'testme/test.txt')))
+      .then(() => fs.mkdirsAsync(path.join(itemset_path, 'testme')))
+      .then(() => fs.mkdirsAsync(path.join(itemset_path, 'testme/test.txt')))
       .then(() => {
         const champ_files = glob.sync(path.join(itemset_path, '**/*.json'));
         if (champ_files && champ_files[0]) return fs.removeAsync(champ_files[0]);
