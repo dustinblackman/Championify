@@ -1,6 +1,7 @@
 import fs from 'fs-extra';
 import nock from 'nock';
-import updateManager from '../src-cov/update_manager';
+
+const updateManager = require(`../${GLOBAL.src_path}/update_manager`).default;
 
 require('chai').should();
 const pkg = JSON.parse(fs.readFileSync('./package.json'));

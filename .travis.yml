@@ -13,7 +13,7 @@ install:
 before_script:
   - node -v
   - npm -v
-script: npm test
+script: npm run test-coverage
 os: osx
 cache:
   directories:

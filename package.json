@@ -5,6 +5,7 @@
   "main": "electron.coffee",
   "scripts": {
     "test": "gulp test",
+    "test-coverage" : "gulp test-coverage",
     "build": "gulp build",
     "build-artifact": "gulp build-artifact",
     "coveralls": "gulp coveralls",

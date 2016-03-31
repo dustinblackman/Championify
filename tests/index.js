@@ -4,10 +4,11 @@ import path from 'path';
 import R from 'ramda';
 import sinon from 'sinon';
 
-import T from '../src-cov/translate';
-import '../src-cov/store';
-const champions = require('./fixtures/all_champions.json').data;
 
+GLOBAL.src_path = process.env.COVERAGE ? 'src-cov' : 'src';
+const champions = require('./fixtures/all_champions.json').data;
+const T = require(`../${GLOBAL.src_path}/translate`).default;
+require(`../${GLOBAL.src_path}/store`);
 
 window.$ = sinon.stub();
 window.$.withArgs('#cl_progress').returns({prepend: function() {}});

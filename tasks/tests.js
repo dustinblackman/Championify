@@ -111,5 +111,10 @@ gulp.task('mocha', function(cb) {
 });
 
 gulp.task('test', function(cb) {
+  runSequence('lint', 'mocha', cb);
+});
+
+gulp.task('test-coverage', function(cb) {
+  process.env.COVERAGE = 1;
   runSequence(['lint', 'istanbul-instrument'], 'mocha', ['istanbul-cleanup', 'istanbul-coverage'], cb);
 });

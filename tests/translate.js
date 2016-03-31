@@ -1,4 +1,4 @@
-import T from '../src-cov/translate';
+const T = require(`../${GLOBAL.src_path}/translate`).default;
 
 const should = require('chai').should();
 

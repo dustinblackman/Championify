@@ -1,6 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
-import preferences from '../src-cov/preferences';
+
+const preferences = require(`../${GLOBAL.src_path}/preferences`).default;
 
 const should = require('chai').should();
 const prefs_fixture = {dir: '/123'};

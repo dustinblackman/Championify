@@ -1,4 +1,4 @@
-import optionsParser from '../src-cov/options_parser';
+const optionsParser = require(`../${GLOBAL.src_path}/options_parser`).default;
 
 require('chai').should();
 
