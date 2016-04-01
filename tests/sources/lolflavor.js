@@ -51,7 +51,7 @@ describe('src/sources/lolflavor', function() {
         .get('/champions/Ahri/Recommended/Ahri_lane_scrape.json')
         .reply(200, RESPONSES_FIXTURES.ahri_lane_scrape);
 
-      return lolflavor.version().then(version => {
+      return lolflavor.getVersion().then(version => {
         version.should.equal('9/21/2015');
       });
     });
@@ -70,7 +70,7 @@ describe('src/sources/lolflavor', function() {
         .get('/champions/Katarina/Recommended/Katarina_aram_scrape.json')
         .reply(200, RESPONSES_FIXTURES.katarina_aram_scrape);
 
-      return lolflavor.aram().then(() => {
+      return lolflavor.getAram().then(() => {
         const results = store.get('aram_itemsets');
         should.exist(results);
         results.should.eql(RESULTS_FIXTURES.katarina_aram);
@@ -87,7 +87,7 @@ describe('src/sources/lolflavor', function() {
 
     it('should get default Summoners Rift sets for Katarina', () => {
       nockSummonersRift();
-      return lolflavor.sr().then(() => {
+      return lolflavor.getSr().then(() => {
         const results = store.get('sr_itemsets');
         should.exist(results);
         results.should.eql(RESULTS_FIXTURES.katarina_default);
@@ -101,7 +101,7 @@ describe('src/sources/lolflavor', function() {
         trinkets: true
       });
 
-      return lolflavor.sr().then(() => {
+      return lolflavor.getSr().then(() => {
         const results = store.get('sr_itemsets');
         should.exist(results);
         results.should.eql(RESULTS_FIXTURES.katarina_trinkcon);
@@ -112,7 +112,7 @@ describe('src/sources/lolflavor', function() {
       nockSummonersRift();
       store.set('settings', {locksr: true});
 
-      return lolflavor.sr().then(() => {
+      return lolflavor.getSr().then(() => {
         const results = store.get('sr_itemsets');
         should.exist(results);
         results.should.eql(RESULTS_FIXTURES.katarina_locksr);

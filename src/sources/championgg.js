@@ -16,8 +16,8 @@ const prebuilts = require('../../data/prebuilts.json');
 
 
 /**
-  * Function Gets current version Champion.GG is using.
-  * @callback {Function} Callback.
+  * Gets current version Champion.GG is using.
+  * @returns {Promise.<String|ChampionifyErrors.RequestError>} Championgg version
  */
 
 function getVersion() {
@@ -36,8 +36,8 @@ function getVersion() {
 
 
 /**
- * Function That parses Champion.GG HTML.
- * @param {Function} Cheerio.
+ * Parses Champion.GG HTML.
+ * @param {Function} Cheerio instance.
  * @returns {Object} Object containing Champion data.
  */
 
@@ -57,13 +57,12 @@ function parseGGData($c) {
 }
 
 /**
- * Function Process scraped Champion.GG page.
- * @param {Object} Champion object created by asyncRequestChamps.
- * @param {String} Body of Champion.GG page.
- * @callback {Function} Callback.
+ * Process scraped Champion.GG page.
+ * @param {Object} Champion object created by getSr
+ * @param {String} Body of Champion.GG page
  */
 
-function processChamp(request_params, body, step) {
+function processChamp(request_params, body) {
   const champ = request_params.champ;
   const $c = cheerio.load(body);
   let gg;
@@ -248,36 +247,40 @@ function processChamp(request_params, body, step) {
     });
 
     if (store.get('settings').locksr) riot_json.map = 'SR';
-    // Pushes to the itemsets store.
-    store.push('sr_itemsets', {champ, file_prefix, riot_json});
+    return {champ, file_prefix, riot_json};
   }
 
+  const formatted_builds = [];
   if (store.get('settings').splititems) {
     const builds = splitItemSets();
-    pushToStore(champ, current_position, T.t('most_freq', true), `${current_position}_mostfreq`, builds.mf_build);
-    pushToStore(champ, current_position, T.t('highest_win', true), `${current_position}_highwin`, builds.hw_build);
+    formatted_builds.push(
+      pushToStore(champ, current_position, T.t('most_freq', true), `${current_position}_mostfreq`, builds.mf_build),
+      pushToStore(champ, current_position, T.t('highest_win', true), `${current_position}_highwin`, builds.hw_build)
+    );
   } else {
     const builds = normalItemSets();
-    pushToStore(champ, current_position, null, current_position, builds);
+    formatted_builds.push(pushToStore(champ, current_position, null, current_position, builds));
   }
 
   // If there's other positions available, run them, otherwise end for this champ.
   if (!request_params.position && positions.length > 0) {
     positions = R.map(position => ({champ, position}), positions);
     return Promise.resolve(positions)
-      .map(request_params => requestPage(request_params)); // eslint-disable-line no-use-before-define
+      .map(request_params => requestPage(request_params)) // eslint-disable-line no-use-before-define
+      .then(R.flatten)
+      .then(R.concat(formatted_builds));
   }
 
-  return Promise.resolve();
+  return formatted_builds;
 }
 
 /**
- * Function Request champion.gg page, 3 retries (according to Helpers).
- * @param {Object} Champion object created by asyncRequestChamps.
- * @callback {Function} Callback.
+ * Request champion.gg page, handles both the index and positions of champions.
+ * @param {Object} Champion object created by getSr.
+ * @returns {Promise}
  */
 
-function requestPage(request_params, step) {
+function requestPage(request_params) {
   const { champ, position } = request_params;
   let url = `http://champion.gg/champion/${champ}`;
   if (position) {
@@ -291,6 +294,7 @@ function requestPage(request_params, step) {
       champ,
       position: request_params.position || 'All'
     });
+    return;
   }
 
   return request(url)
@@ -301,13 +305,14 @@ function requestPage(request_params, step) {
     .catch(err => {
       Log.warn(err);
       markUndefined();
+      return;
     });
 }
 
 /**
- * Function Async execute scraper on Champion.gg. Currently at 2 at a time to prevent high load.
+ * Scrapes Champion.gg at 2 concurrenct connections and saves data in the store.
  * @param {Array} Array of strings of Champs from Riot.
- * @callback {Function} Callback.
+ * @returns {Promise}
  */
 
 function getSr() {
@@ -318,7 +323,8 @@ function getSr() {
       return requestPage({champ});
     }, {concurrency: 2})
     .then(R.flatten)
-    .then(R.reject(R.isNil));
+    .then(R.reject(R.isNil))
+    .then(data => store.set('sr_itemsets', data));
 }
 
 /**

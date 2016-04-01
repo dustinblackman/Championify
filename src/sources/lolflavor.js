@@ -9,10 +9,10 @@ import T from '../translate';
 
 
 /**
- * Function Request json from available champs
+ * Request for from available champs
  * @param {String} Type of process (ARAM, Jungle, Support, Lane)
- * @param {String} Name of stats file
- * @callback {Function} Callback.
+ * @param {String} Name of stats file.
+ * @returns {Promise.<Array|ChampionifyErrors>} Array of strings containing Champion names
  */
 
 function _requestAvailableChamps(process_name, stats_file) {
@@ -34,8 +34,9 @@ function _requestAvailableChamps(process_name, stats_file) {
 
 /**
  * Function Request ARAM item sets from lolflavor.
- * @callback {Function} Callback.
- * @param {Object} Async Auto Object
+ * @param {String} Type of process (ARAM, Jungle, Support, Lane)
+ * @param {String} Name of stats file.
+ * @returns {Promise}
  */
 
 function _requestData(champs_names, process_name) {
@@ -107,12 +108,10 @@ function _requestData(champs_names, process_name) {
 
 
 /**
- * Function Handle processing lolflavor
+ * Start process for grabbing data
  * @param {String} Name of process (ARAM, Jungle, ect)
  * @param {String} Name of .json file on lolflavor
- * @param {String} Riot version
- * @param {Array} Manaless champs
- * @callback {Function} Callback.
+ * @returns {Promise.<Array|ChampionifyErrors>} Array of objects with parsed item sets data.
  */
 
 function _processLolflavor(process_name, stats_file) {
@@ -123,8 +122,8 @@ function _processLolflavor(process_name, stats_file) {
 
 
 /**
- * Function Helper to request item sets for aram
- * @callback {Function} Callback.
+ * Helper to request ARAM itemsets and saves them in the store.
+* @returns {Promise}
  */
 
 function getAram() {
@@ -134,8 +133,8 @@ function getAram() {
 
 
 /**
- * Function Helper to request item sets for summoners rift
- * @callback {Function} Callback.
+ * Helper to request Summoners Rift item sets and saves them in the store.
+ * @returns {Promise}
  */
 
 function getSr() {
@@ -154,7 +153,7 @@ function getSr() {
 
 /**
  * Function Get current Lolflavor version
- * @callback {Function} Callback.
+ * @returns {Promise.<String|Champion>} Lolflavor version
  */
 
 function getVersion() {

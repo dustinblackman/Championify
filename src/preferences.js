@@ -15,7 +15,8 @@ const fs = Promise.promisifyAll(require('fs-extra'));
 
 class Preferences {
   /**
-   * Function set preference directory
+   * Get preference directory
+   * @returns {String} Preference directory path
    */
 
   directory() {
@@ -29,7 +30,8 @@ class Preferences {
   }
 
   /**
-   * Function set preference file path
+   * Get preference file path
+   * @returns {String} Preference file path
    */
 
   file() {
@@ -37,7 +39,8 @@ class Preferences {
   }
 
   /**
-   * Function to loads and applies preference files
+   * Gets preferences file
+   * @returns {String|Null} JSON object of preferences, or null
    */
 
   load() {
@@ -45,6 +48,11 @@ class Preferences {
     if (fs.existsSync(preference_file)) return JSON.parse(fs.readFileSync(preference_file));
     return null;
   }
+
+  /**
+   * Applies preferences to UI
+   * @param {Object} Preferences object
+   */
 
   set(preferences) {
     if (!preferences) return pathManager.findInstallPath();
@@ -75,7 +83,8 @@ class Preferences {
   }
 
   /**
-   * Function gets preferences
+   * Gets all preferences from UI
+   * @returns {Object} Preferences object
    */
 
   get() {
@@ -102,7 +111,9 @@ class Preferences {
   }
 
   /**
-   * Function to save preference file
+   * Saves preference file
+   * @param {Object} [this.get()] Preferences object
+   * @returns {Promise}
    */
 
   save(preferences) {

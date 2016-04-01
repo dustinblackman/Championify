@@ -13,8 +13,8 @@ const fs = Promise.promisifyAll(require('fs-extra'));
 
 
 /**
- * Function If platform is Windows, check if we can write to the user selected directory, and restart as admin if not.
- * @callback {Function} Callback
+ * If platform is Windows, check if we can write to the user selected directory, and restart as admin if not.
+ * @returns {Promise}
  */
 
 function championTest() {
@@ -47,10 +47,9 @@ function championTest() {
 }
 
 /**
- * Function
- * @param {String} Root path
+ * Sets permissions of all champion json files so we can write
  * @param {Array} Files
- * @callback {Function} Callback
+ * @returns {Promise}
  */
 
 function setWindowsPermissions(files) {

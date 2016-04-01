@@ -9,7 +9,7 @@ import T from './translate';
 
 
 /**
- * Function Auto discovery of League installation.
+ * Finds league installation on OSX and Windows.
  */
 
 function findInstallPath() {
@@ -70,10 +70,11 @@ function checkInstallPath(selected_path, done) {
 
 
 /**
- * Function Sets the path string for the user to see on the interface.
- * @param {String} If !=, explains path error
- * @param {String} Install path
+ * Sets the path string for the user to see on the interface.
+ * @param {String} Path error. If false explains path error
+ * @param {String} Installation path
  * @param {String} Champion folder path relative to Install Path
+ * @param {String} Path to league executable
  */
 
 function setInstallPath(path_err, install_path, champ_path, executable) {

@@ -7,11 +7,19 @@ import ChampionifyErrors from './errors';
 // Ingame locales are locals that LoL does not support, and instead default to English.
 const ingame_locals = ['ar', 'ja'];
 
+/**
+ * Global translation methods to get and set translations throughout the app. Default locale is English.
+ */
+
 class Translate {
   constructor(locale) {
     this.loadPhrases(locale);
   }
 
+  /**
+   * Loads locales from file in to context
+   * @param {String} Locale
+   */
   loadPhrases(locale) {
     this.locale = locale;
     const i18n_path = path.join(__dirname, `../i18n/${locale}.json`);
@@ -20,6 +28,12 @@ class Translate {
     this.phrases = require(i18n_path);
     this.english_phrases = require(path.join(__dirname, '../i18n/en.json'));
   }
+
+  /**
+   * Returns translate text for key
+   * @param {String} Phrase key
+   * @param {Boolean} [false] If this is an ingame translation, it checks whether the locale is an accept League of Legends language
+   */
 
   t(phrase, ingame) {
     phrase = phrase.toLowerCase();
@@ -31,12 +45,19 @@ class Translate {
     return translated_phrase;
   }
 
+  /**
+   * Merges translations with current translations in context. Used for getting translated Champion names from riot.
+   * @param {Object} Translations to merge
+   */
   merge(translations) {
     translations = R.zipObj(R.map(key => key.toLowerCase().replace(/ /g, ''), R.keys(translations)), R.values(translations));
     this.phrases = R.merge(this.phrases, translations);
   }
 
   // TODO: This should get moved somewhere else.
+  /**
+   * Returns the flag locale to be used with Semantic
+   */
   flag() {
     const flags = {
       en: 'gb',
@@ -63,6 +84,9 @@ class Translate {
   }
 
   // TODO: This should get moved somewhere else.
+  /**
+   * Returns the riot locale to be used when querying Riot's api.
+   */
   riotLocale() {
     const riot_locales = {
       bg: 'bg_BG',

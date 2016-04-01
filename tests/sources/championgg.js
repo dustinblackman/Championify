@@ -23,7 +23,7 @@ R.forEach(fixture => {
 }, glob.sync(path.join(__dirname, 'fixtures/championgg/results/*.json')));
 
 function testWithFixture(fixture) {
-  return championgg.sr()
+  return championgg.getSr()
     .then(() => {
       const results = store.get('sr_itemsets');
       should.exist(results);
@@ -48,7 +48,7 @@ describe('src/sources/championgg', () => {
   describe('version', () => {
     it('should get the stubbed championgg version', () => {
       nocked.get('/faq/').reply(200, RESPONSES_FIXTURES.faq);
-      return championgg.version().then(version => {
+      return championgg.getVersion().then(version => {
         version.should.equal('5.16');
       });
     });

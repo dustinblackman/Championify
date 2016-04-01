@@ -1,5 +1,8 @@
 import $ from './helpers/jquery';
 
+/**
+ * Applies available Lolflavor options to UI
+ */
 function lolflavor() {
   if ($('#options_sr_source').val() !== 'lolflavor') {
     $('#options_sr_source').val('lolflavor');
@@ -13,6 +16,9 @@ function lolflavor() {
   $('#options_skillsformat').attr('disabled', 'disabled');
 }
 
+/**
+ * Applies available Championgg options to UI
+ */
 function championgg() {
   $('#options_splititems').parent().removeClass('disabled');
   $('#options_splititems').removeAttr('disabled', 'disabled');

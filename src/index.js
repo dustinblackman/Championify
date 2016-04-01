@@ -64,7 +64,7 @@ function openFolder() {
 
 
 /**
- * Function Warn user if their league folder isn't selected.
+ * Warn user if their league folder isn't selected.
  */
 
 function selectFolderWarning() {
@@ -75,8 +75,8 @@ function selectFolderWarning() {
 
 
 /**
- * Function Checks and imports item sets
- * @callback {Function} Optional callback called after importing is done
+ * Checks league path and imports item sets
+ * @returns {Promise}
  */
 
 function importItemSets() {
@@ -91,7 +91,7 @@ function importItemSets() {
 
 
 /**
- * Function Checks and deletes item sets
+ * Checks and deletes item sets
  */
 
 function deleteItemSets() {
@@ -103,7 +103,7 @@ function deleteItemSets() {
 }
 
 /**
- * Function Start the League of Legends client.
+ * Start the League of Legends client.
  */
 
 function startLeague() {
@@ -125,7 +125,7 @@ function startLeague() {
 
 
 /**
- * Function Goes through options parameters and acts.
+ * Goes through options parameters and acts.
  */
 
 function executeOptionParameters() {

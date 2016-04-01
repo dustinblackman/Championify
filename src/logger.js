@@ -6,6 +6,9 @@ import ChampionifyErrors from './errors';
 import { EndSession } from './helpers';
 import preferences from './preferences';
 
+/**
+ * Winston logger
+ */
 const Log = new winston.Logger({
   transports: [
     new winston.transports.Console({

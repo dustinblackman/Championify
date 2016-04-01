@@ -28,12 +28,12 @@ export function EndSession(c_error) {
 
 
 /**
- * Function Preset ajax request.
- * @param {String} URL
- * @callback {Function} Callback
+ * Makes request with retry and 404 handling
+ * @param {Object/String} URL
+ * @returns {Promise.<Object|ChampionifyErrors.RequestError>} Request body
  */
 
-export function request(options, done) {
+export function request(options) {
   let params = {timeout: 10000};
   if (R.is(String, options)) {
     params.url = options;
@@ -52,9 +52,9 @@ export function request(options, done) {
 }
 
 /**
- * Function Adds % to string.
+ * Adds % to string.
  * @param {String} Text.
- * @returns {String} Formated String.
+ * @returns {String} Formatted string with precentage.
  */
 export function wins(text) {
   return `${text}%`;
@@ -63,14 +63,16 @@ export function wins(text) {
 /**
  * Splice version number to two.
  * @param {String} Version number
+ * @returns {String} Two digit version number
  */
 export function spliceVersion(version) {
   return version.split('.').splice(0, 2).join('.');
 }
 
 /**
- * Function Pretty console log, as well as updates the progress div on interface
+ * Pretty console log, as well as updates the progress div on interface
  * @param {String} Console Message.
+ * @param {String} [level='info'] Logging level
  */
 
 export function cl(text, level = 'info') {
@@ -89,7 +91,7 @@ export function incrUIProgressBar(id, incr) {
 }
 
 /**
- * Function Updates the progress bar on the interface.
+ * Updates the progress bar on the interface.
  * @param {Number} Increment progress bar.
  */
 let total_incr;
@@ -107,11 +109,10 @@ export function updateProgressBar(incr) {
 }
 
 /**
- * Function Reusable function for generating Trinkets and Consumables.
+ * Reusable function for generating Trinkets and Consumables on build blocks.
  * @param {Array} Array of blocks for item sets
- * @param {String} System name of champ
- * @param {Array} List of manaless champ names
  * @param {Object} Formatted skill priorities
+ * @returns Array of block item sets with added trinkets and consumables
  */
 
 export function trinksCon(builds, skills = {}) {

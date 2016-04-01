@@ -21,17 +21,17 @@ const fs = Promise.promisifyAll(require('fs-extra'));
 let runas;
 if (process.platform === 'win32') runas = require('runas');
 
-/*
- * Function Saves options from the frontend.
- * @callback {Function} Callback.
+/**
+ * Saves settings/options from the frontend.
+ * @returns {Promise}
 */
 function saveSettings() {
   return preferences.save();
 }
 
-/*
- * Function Gets the latest Riot Version.
- * @callback {Function} Callback.
+/**
+ * Gets the latest Riot Version.
+ * @returns {Promise.<String| ChampionifyErrors.RequestError>} Riot version.
 */
 function getRiotVer() {
   if (store.get('importing')) cl(`${T.t('lol_version')}`);
@@ -43,11 +43,11 @@ function getRiotVer() {
     });
 }
 
-/*
- * Function Downloads all available champs from Riot.
- * @callback {Function} Callback.
+/**
+ * Downloads all available champs from Riot.
+ * @returns {Promise.<Array|ChampionifyErrors.RequestError>} Array of Champions in Riot's data schema.
 */
-function getChamps(step, r) {
+function getChamps() {
   cl(`${T.t('downloading_champs')}`);
   const params = {
     url: `http://ddragon.leagueoflegends.com/cdn/${store.get('riot_ver')}/data/${T.riotLocale()}/champion.json`,
@@ -66,13 +66,13 @@ function getChamps(step, r) {
     .catch(err => {
       if (err instanceof ChampionifyErrors.ChampionifyError) throw err;
       new ChampionifyErrors.RequestError('Can\'t get Champs').causedBy(err);
-    })
-    .asCallback(step);
+    });
 }
 
 /**
- * Function Deletes all previous Championify builds from client.
- * @callback {Function} Callback.
+ * Deletes all previous Championify builds from client.
+ * @param {Boolean} [false]
+ * @returns {Promise}
  */
 
 function deleteOldBuilds(deletebtn) {
@@ -94,8 +94,8 @@ function deleteOldBuilds(deletebtn) {
 
 
 /**
- * Function Saves all compiled item sets to file, creating paths included.
- * @callback {Function} Callback.
+ * Saves all compiled item sets to file, creating paths included.
+ * @returns {Promise}
  */
 
 function saveToFile() {
@@ -117,7 +117,8 @@ function saveToFile() {
 }
 
 /**
- * Function Resave preferences with new local version
+ * Resave preferences with new local version
+ * @returns {Promise}
  */
 
 function resavePreferences() {
@@ -128,7 +129,8 @@ function resavePreferences() {
 
 
 /**
- * Function Set windows permissions if required
+ * Set windows permissions if required
+ * @returns {Promise}
  */
 
 function setWindowsPermissions() {
@@ -141,8 +143,8 @@ function setWindowsPermissions() {
 
 
 /**
- * Function Main function that starts up all the magic.
- * @callback {Function} Callback.
+ * Main function that starts up all the magic.
+ * @returns {Promise}
  */
 
 function downloadItemSets() {

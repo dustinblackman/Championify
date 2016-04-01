@@ -25,11 +25,13 @@ let runas;
 if (process.platform === 'win32') runas = require('runas');
 
 /**
- * Function Downloads update file
- * @callback {Function} Callback.
+ * Downloads update file to disk
+ * @param {String} Download URL
+ * @param {String} Local path
+ * @returns {Promise}
  */
 
-function download(url, download_path, done) {
+function download(url, download_path) {
   let file;
   try {
     file = fs.createWriteStream(download_path);
@@ -62,9 +64,9 @@ function download(url, download_path, done) {
 }
 
 /**
- * Function Reboots Championify for minor updates on OSX
+ * Reboots Championify for minor updates on OSX
  * @param {String} Current asar archive
- * @param {String} New downloaded asar archive created by runUpdaets
+ * @param {String} New downloaded asar archive created by download
  */
 
 function osxMinor(app_asar, update_asar) {
@@ -88,9 +90,9 @@ function osxMinor(app_asar, update_asar) {
 
 
 /**
- * Function Reboots Championify for major updates on OSX
+ * Reboots Championify for major updates on OSX
  * @param {String} Current asar archive
- * @param {String} New downloaded asar archive created by runUpdaets
+ * @param {String} New downloaded asar archive created by download
  */
 
 function osxMajor(install_path, update_path) {
@@ -117,9 +119,9 @@ function osxMajor(install_path, update_path) {
 
 
 /**
- * Function Reboots Championify for updates on Windows
+ * Reboots Championify for updates on Windows
  * @param {String} Current asar archive
- * @param {String} New downloaded asar archive created by runUpdates
+ * @param {String} New downloaded asar archive created by download
  */
 
 function winMinor(app_asar, update_asar) {
@@ -202,8 +204,9 @@ function minorUpdate(version) {
 
 
 /**
- * Function Sets up flow for download major update (replacing entire install directory)
- * @callback {Function} Callback.
+ * Sets up flow for download major update (replacing entire install directory)
+ * @param {String} New version number
+ * @returns {Promise}
  */
 
 function majorUpdate(version) {
@@ -266,8 +269,8 @@ function majorUpdate(version) {
 }
 
 /**
- * Function Check version of Github package.json and local. Executes update if available.
-  * @callback {Function} Callback, only accepts a single finished parameter as errors are handled with endSession.
+ * Check version of Github package.json and local. Executes update if available.
+ * @returns {Promise.<Array|ChampionifyErrors>} Array of version and boolean if it's a major update. Meant to spread.
  */
 
 function check() {

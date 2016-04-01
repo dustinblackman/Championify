@@ -17,9 +17,10 @@ const pkg = require('../package.json');
 
 
 /**
- * Function To change all views with the same transitions.
- * @param {string} name of view
- * @param {function} function to run before loading in new view.
+ * Change all views with the same transitions.
+ * @param {String} Name of view
+ * @param {Object} Options to be passed to Jade render
+ * @param {Function} [nub] Function to load before view
  */
 
 function nub() {}
@@ -54,7 +55,7 @@ function _viewChanger(view, options = {}, next = nub) {
 }
 
 /**
- * Function Initial view with settings
+ * Sets initial view with settings
  */
 
 function _initSettings() {
@@ -128,9 +129,8 @@ function _initSettings() {
 }
 
 /**
- * Function Change to complete view with transitions.
+ * Change to complete view with transitions.
  */
-
 
 function completeView() {
   function loadUnavailable() {
@@ -148,7 +148,7 @@ function completeView() {
 
 
 /**
- * Function Change to error view with transitions.
+ * Change to error view with transitions.
  */
 
 function errorView() {
@@ -157,7 +157,7 @@ function errorView() {
 
 
 /**
- * Function Change to complete view with transitions.
+ * Change to complete view with transitions.
  */
 
 function updateView() {
@@ -166,7 +166,7 @@ function updateView() {
 
 
 /**
- * Function Change to breaking changes view with transitions.
+ * Change to breaking changes view with transitions.
  */
 
 function breakingChangesView() {
@@ -175,7 +175,7 @@ function breakingChangesView() {
 
 
 /**
- * Function Change to main view with reverse transitions.
+ * Change to main view with reverse transitions.
  */
 
 function mainViewBack() {
@@ -187,6 +187,11 @@ function mainViewBack() {
   }
   return _viewChanger('main', {transition: 'fly right'}, resetMain);
 }
+
+/**
+ * Loads initial view when the app loads.
+ * @returns {Promise}
+ */
 
 function init() {
   if (process.platform === 'darwin') {
@@ -210,5 +215,5 @@ export default {
   update: updateView,
   mainBack: mainViewBack,
   breakingChanges: breakingChangesView,
-  init: init
+  init
 };
