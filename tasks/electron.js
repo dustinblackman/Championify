@@ -142,7 +142,7 @@ gulp.task('electron:deps', function(cb) {
     return `${dep}@${pkg.dependencies[dep]}`;
   }, R.keys(pkg.dependencies));
   return gulp.src('')
-    .pipe(shell([`npm install --prefix ./dev ${install_items.join(' ')}`]));
+    .pipe(shell([`npm install --production --prefix ./dev ${install_items.join(' ')}`]));
 });
 
 gulp.task('electron:settings', function() {

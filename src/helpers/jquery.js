@@ -1,6 +1,6 @@
 // A simple workaround to make sure to the appeneded functions from Semantic get applied to all jquery instances used.
 
-import jquery from 'jquery';
+import jquery from 'jquery/dist/jquery.min';
 
 let $;
 if (typeof window !== 'undefined') {

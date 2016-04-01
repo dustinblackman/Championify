@@ -1,5 +1,6 @@
 import Promise from 'bluebird';
 import clean from 'gulp-clean';
+import del from 'del';
 import glob from 'glob';
 import gulp from 'gulp';
 import path from 'path';
@@ -97,4 +98,36 @@ gulp.task('move:compiled-win:folder', function(cb) {
 
 gulp.task('move:compiled-mac:folder', function(cb) {
   return fs.moveAsync(path.join('./tmp', pkg.name + '.app'), path.join('./releases', pkg.name + '.app'), {clobber: true});
+});
+
+gulp.task('clean:node_modules', function() {
+  return del([
+    './dev/node_modules/**/*.md',
+    './dev/node_modules/**/*.txt',
+    './dev/node_modules/**/*.zip',
+
+    './dev/node_modules/jquery/src/**',
+    './dev/node_modules/jquery/sizzle/**',
+    './dev/node_modules/jquery/dist/jquery.js',
+    './dev/node_modules/jquery/dist/jquery.slim.js',
+    './dev/node_modules/jquery/dist/jquery.slim.min.js',
+    './dev/node_modules/jquery/dist/jquery.slim.min.map',
+
+    './dev/node_modules/semantic-ui-css/components/**',
+    './dev/node_modules/semantic-ui-css/semantic.css',
+    './dev/node_modules/semantic-ui-css/semantic.js',
+
+    './dev/node_modules/bluebird/js/browser/**',
+    './dev/node_modules/bluebird-retry/browser/**',
+    './dev/node_modules/har-validator/node_modules/bluebird/js/browser/**',
+
+    './dev/node_modules/escodegen/node_modules/esprima/test/**',
+
+    './dev/node_modules/ramda/src/**',
+    './dev/node_modules/ramda/dist/ramda.min.js',
+
+    './dev/node_modules/uglify-js/node_modules/source-map/dist/**',
+
+    './dev/node_modules/with/node_modules/acorn/src/**'
+  ]);
 });
