@@ -8,7 +8,8 @@ import ChampionifyErrors from './errors';
 const ingame_locals = ['ar', 'ja'];
 
 /**
- * Global translation methods to get and set translations throughout the app. Default locale is English.
+ * @class Translate
+ * @classdesc Global translation methods to get and set translations throughout the app. Default locale is English.
  */
 
 class Translate {

@@ -1,5 +1,6 @@
 /**
- * A global stores for setting and grabbing information within Championify
+ * @class Store
+ * @classdesc A global stores for setting and grabbing information within Championify
  */
 
 class Store {
