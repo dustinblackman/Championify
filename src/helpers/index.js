@@ -1,6 +1,5 @@
 import Promise from 'bluebird';
 import R from 'ramda';
-import remote from 'remote';
 import retry from 'bluebird-retry';
 import $ from './jquery';
 
@@ -78,34 +77,6 @@ export function spliceVersion(version) {
 export function cl(text, level = 'info') {
   Log[level](text);
   return $('#cl_progress').prepend(`<span>${text}</span><br />`);
-}
-
-// TODO Rewrite this to be a constructor instead.
-export function incrUIProgressBar(id, incr) {
-  let floored = Math.floor(incr);
-  if (floored > 100) floored = 100;
-
-  $(`#${id}`).attr('data-percent', floored);
-  $(`#${id}`).find('.bar').css('width', `${floored}%`);
-  return $(`#${id}`).find('.progress').text(`${floored}%`);
-}
-
-/**
- * Updates the progress bar on the interface.
- * @param {Number} Increment progress bar.
- */
-let total_incr;
-export function updateProgressBar(incr) {
-  if (process.env.NODE_ENV === 'test') return;
-  if (incr === true) total_incr = 0;
-
-  total_incr += incr;
-  incrUIProgressBar('itemsets_progress_bar', total_incr);
-  if (total_incr >= 100) {
-    remote.getCurrentWindow().setProgressBar(-1);
-  } else {
-    remote.getCurrentWindow().setProgressBar(total_incr / 100);
-  }
 }
 
 /**

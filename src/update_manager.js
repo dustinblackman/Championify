@@ -11,9 +11,10 @@ import zlib from 'zlib';
 import $ from './helpers/jquery';
 
 import ChampionifyErrors from './errors';
-import { EndSession, incrUIProgressBar, request as cRequest } from './helpers';
+import { EndSession, request as cRequest } from './helpers';
 import optionsParser from './options_parser';
 import preferences from './preferences';
+import progressbar from './progressbar';
 import T from './translate';
 import viewManager from './view_manager';
 
@@ -49,7 +50,7 @@ function download(url, download_path) {
       .on('progress', function(state) {
         if (state.percent > last_percent) {
           last_percent = state.percent;
-          return incrUIProgressBar('update_progress_bar', last_percent);
+          return progressbar.incrUI('update_progress_bar', last_percent);
         }
       })
       .on('error', function(err) {

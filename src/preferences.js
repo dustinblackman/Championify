@@ -1,16 +1,17 @@
 import Promise from 'bluebird';
 import path from 'path';
 import R from 'ramda';
+import semver from 'semver';
 import $ from './helpers/jquery';
 
 import ChampionifyErrors from './errors';
 import Log from './logger';
 import pathManager from './path_manager';
-import sourceUIManager from './source_ui_manager';
 import store from './store';
 import T from './translate';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
+const pkg = require('../package.json');
 
 
 class Preferences {
@@ -45,7 +46,12 @@ class Preferences {
 
   load() {
     const preference_file = this.file();
-    if (fs.existsSync(preference_file)) return JSON.parse(fs.readFileSync(preference_file));
+    if (fs.existsSync(preference_file)) {
+      const prefs = JSON.parse(fs.readFileSync(preference_file));
+      if (!pkg.version || semver.lt(pkg.version, '1.3.0')) return null;
+      return prefs;
+    }
+
     return null;
   }
 
@@ -71,10 +77,7 @@ class Preferences {
       const key = entry[0];
       const val = entry[1];
 
-      if (key === 'sr_source' && val === 'lolflavor') {
-        // TODO: This could be better somewhere else.
-        sourceUIManager.lolflavor();
-      } else if (key.indexOf('position') > -1) {
+      if (key.indexOf('position') > -1) {
         $(`#options_${key}`).find(`.${val}`).addClass('active selected');
       } else {
         $(`#options_${key}`).prop('checked', val);
@@ -91,6 +94,7 @@ class Preferences {
     const consumables_position = $('#options_consumables_position').find('.beginning').hasClass('selected') ? 'beginning' : 'end';
     const trinkets_position = $('#options_trinkets_position').find('.beginning').hasClass('selected') ? 'beginning' : 'end';
     return {
+      prefs_version: pkg.version,
       locale: T.locale,
       install_path: store.get('lol_install_path'),
       champ_path: store.get('lol_champ_path'),
@@ -103,7 +107,7 @@ class Preferences {
         trinkets: $('#options_trinkets').is(':checked'),
         trinkets_position: trinkets_position,
         locksr: $('#options_locksr').is(':checked'),
-        sr_source: $('#options_sr_source').val(),
+        sr_source: $('#options_sr_source').val().split(','),
         dontdeleteold: $('#options_dontdeleteold').is(':checked'),
         aram: $('#options_aram').is(':checked')
       }

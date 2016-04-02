@@ -12,15 +12,16 @@
 .one.column.row
   .column.options
     .rift_source
-      #sr_source.ui.selection.dropdown
-        input#options_sr_source(type='hidden', value='championgg')
+      .ui.fluid.multiple.search.selection.dropdown
+        input#options_sr_source(type='hidden' value='#{selected_sources}')
         i.dropdown.icon
-        #sr_source_text.text Champion.gg
+        .default.text Select Summoners Rift itemset sources
         .menu
-          .header #{T.t('summoners_rift_source')}
-          .item(data-value='championgg') Champion.gg
-          .item(data-value='lolflavor') Lolflavor
-    
+          each source in sources
+            .item(data-value='#{source.id}')
+              img.sourceicon(src='img/sources/#{source.id}.png')  
+              | #{source.name}
+        
           
     .ui.checkbox.left
       input#options_aram(type='checkbox')
@@ -30,13 +31,13 @@
   
     .ui.checkbox.left
       input#options_splititems(type='checkbox')
-      label.options_tooltip(data-content="#{T.t('options_splititems_tooltip')}") #{T.t('options_splititems')}
+      label.options_tooltip(data-content="Champion.gg: #{T.t('options_splititems_tooltip')}") #{T.t('options_splititems')}
     
     br
     
     .ui.checkbox.left
       input#options_skillsformat(type='checkbox')
-      label.options_tooltip(data-content="#{T.t('options_skillsformat_tooltip')} Q.W.E.Q.W.R.Q.W.Q.W ect") #{T.t('options_skillsformat')} (Q>W>E)
+      label.options_tooltip(data-content="Champion.gg: #{T.t('options_skillsformat_tooltip')} Q.W.E.Q.W.R.Q.W.Q.W ect") #{T.t('options_skillsformat')} (Q>W>E)
     
     br
     
@@ -92,12 +93,11 @@
       div
         | LoL #{T.t('version')}: 
         span#lol_version #{T.t('loading')}
-      div
-        | Champion.gg #{T.t('version')}: 
-        span#championgg_version #{T.t('loading')}
-      div
-        | Lolflavor #{T.t('version')}: 
-        span#lolflavor_version #{T.t('loading')}
+        
+      each source in sources
+        div
+          | #{source.name} #{T.t('version')}: 
+          span(id="#{source.id}_version") #{T.t('loading')}
   
   
   .status.hidden

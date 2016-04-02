@@ -8,7 +8,8 @@ import R from 'ramda';
 import request from 'request';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
-const GT = require('google-translate')(process.env.GOOGLE_TRANSLATE_API);
+const GT = Promise.promisify(require('google-translate')(process.env.GOOGLE_TRANSLATE_API).translate);
+const requester = Promise.promisify(request);
 
 const supported_languages = [
   'ar', // Arabic
@@ -173,7 +174,7 @@ gulp.task('transifex:upload', function() {
 
 
 gulp.task('transifex:review', function() {
-  const translations_path = path.join(__dirname, '../../i18n');
+  const translations_path = path.join(__dirname, '../i18n');
   const translations = R.fromPairs(R.map(file_name => {
     return [path.basename(file_name).replace(/.json/g, ''), require(file_name)];
   }, glob.sync(`${translations_path}/*(!(_source.json|en.json))`)));
@@ -190,7 +191,7 @@ gulp.task('transifex:review', function() {
   return trans_keys
     .map(lang => {
       const url = `https://${process.env.TRANSIFEX_KEY}@www.transifex.com/api/2/project/championify/resource/english-source/translation/${transifex_langs[lang] || lang}/?mode=default&file`;
-      return request(url)
+      return requester(url)
         .then(R.prop('body'))
         .then(JSON.parse)
         .then(body => {
@@ -223,7 +224,7 @@ gulp.task('transifex:review', function() {
             console.log(`-----------------------------------
   Lang        | ${chalk.white.bold(lang)}
   Key         | ${chalk.bold.red(key)}
-  English     | ${chalk.bold.blue(_source[key] ? _source[key].text : '!!!MISSING!!!')}
+  English     | ${chalk.bold.blue(_source[key] ? _source[key].msg : '!!!MISSING!!!')}
   Reserve     | ${chalk.bold.green(to_review[lang][key].reserve)}
   Old Trans   | ${chalk.bold.yellow(to_review[lang][key].original)}
   New Trans   | ${chalk.bold.magenta(to_review[lang][key].translation)}`);

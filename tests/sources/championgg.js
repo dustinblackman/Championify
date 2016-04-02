@@ -4,7 +4,7 @@ import nock from 'nock';
 import path from 'path';
 import R from 'ramda';
 
-const championgg = require(`../../${GLOBAL.src_path}/sources/championgg`).default;
+const championgg = require(`../../${GLOBAL.src_path}/sources/championgg`);
 const store = require(`../../${GLOBAL.src_path}/store`).default;
 
 const should = require('chai').should();
@@ -25,7 +25,7 @@ R.forEach(fixture => {
 function testWithFixture(fixture) {
   return championgg.getSr()
     .then(() => {
-      const results = store.get('sr_itemsets');
+      const results = R.flatten(store.get('sr_itemsets'));
       should.exist(results);
       results.should.eql(fixture);
     });

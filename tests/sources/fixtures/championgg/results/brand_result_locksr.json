@@ -1,6 +1,7 @@
 [
   {
     "champ": "Brand",
+    "source": "championgg",
     "file_prefix": "middle",
     "riot_json": {
       "map": "SR",
@@ -122,7 +123,7 @@
           "type": "Highest Win % Core Build (53.12% wins - 570 games)"
         }
       ],
-      "title": "Middle 5.16",
+      "title": "CGG Middle 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -132,6 +133,7 @@
   },
   {
     "champ": "Brand",
+    "source": "championgg",
     "file_prefix": "support",
     "riot_json": {
       "map": "SR",
@@ -265,7 +267,7 @@
           "type": "Highest Win % Core Build (55.15% wins - 258 games)"
         }
       ],
-      "title": "Support 5.16",
+      "title": "CGG Support 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",

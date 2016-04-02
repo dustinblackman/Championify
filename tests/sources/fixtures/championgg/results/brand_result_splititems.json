@@ -1,6 +1,7 @@
 [
   {
     "champ": "Brand",
+    "source": "championgg",
     "file_prefix": "middle_mostfreq",
     "riot_json": {
       "map": "any",
@@ -64,7 +65,7 @@
           "type": "Most Frequent Core Build (53.05% wins - 571 games)"
         }
       ],
-      "title": "Middle Most Frequent 5.16",
+      "title": "CGG Middle Most Frequent 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -74,6 +75,7 @@
   },
   {
     "champ": "Brand",
+    "source": "championgg",
     "file_prefix": "middle_highwin",
     "riot_json": {
       "map": "any",
@@ -137,7 +139,7 @@
           "type": "Highest Win % Core Build (53.12% wins - 570 games)"
         }
       ],
-      "title": "Middle Highest Win 5.16",
+      "title": "CGG Middle Highest Win 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -147,6 +149,7 @@
   },
   {
     "champ": "Brand",
+    "source": "championgg",
     "file_prefix": "support_mostfreq",
     "riot_json": {
       "map": "any",
@@ -218,7 +221,7 @@
           "type": "Most Frequent Core Build (53.88% wins - 470 games)"
         }
       ],
-      "title": "Support Most Frequent 5.16",
+      "title": "CGG Support Most Frequent 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -228,6 +231,7 @@
   },
   {
     "champ": "Brand",
+    "source": "championgg",
     "file_prefix": "support_highwin",
     "riot_json": {
       "map": "any",
@@ -295,7 +299,7 @@
           "type": "Highest Win % Core Build (55.15% wins - 258 games)"
         }
       ],
-      "title": "Support Highest Win 5.16",
+      "title": "CGG Support Highest Win 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",

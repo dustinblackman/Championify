@@ -5,8 +5,9 @@ import esprima from 'esprima';
 import R from 'ramda';
 
 import ChampionifyErrors from '../errors.js';
-import { cl, request, trinksCon, updateProgressBar, wins } from '../helpers';
+import { cl, request, trinksCon, wins } from '../helpers';
 import Log from '../logger';
+import progressbar from '../progressbar';
 import store from '../store';
 import T from '../translate';
 
@@ -20,13 +21,13 @@ const prebuilts = require('../../data/prebuilts.json');
   * @returns {Promise.<String|ChampionifyErrors.RequestError>} Championgg version
  */
 
-function getVersion() {
+export function getVersion() {
   if (store.get('importing')) cl(T.t('cgg_version'));
   return request('http://champion.gg/faq/')
     .then(body => {
       const $c = cheerio.load(body);
       const champgg_ver = $c(csspaths.version).text();
-      store.set('champgg_ver', champgg_ver);
+      store.set('championgg_ver', champgg_ver);
       return champgg_ver;
     })
     .catch(err => {
@@ -242,12 +243,12 @@ function processChamp(request_params, body) {
     if (set_type) title += ` ${set_type}`;
     const riot_json = R.merge(R.clone(default_schema, true), {
       champion: champ,
-      title: `${title} ${store.get('champgg_ver')}`,
+      title: `CGG ${title} ${store.get('championgg_ver')}`,
       blocks: build
     });
 
     if (store.get('settings').locksr) riot_json.map = 'SR';
-    return {champ, file_prefix, riot_json};
+    return {champ, file_prefix, riot_json, source: 'championgg'};
   }
 
   const formatted_builds = [];
@@ -310,28 +311,28 @@ function requestPage(request_params) {
 }
 
 /**
- * Scrapes Champion.gg at 2 concurrenct connections and saves data in the store.
+ * Scrapes Champion.gg at 3 concurrenct connections and saves data in the store.
  * @param {Array} Array of strings of Champs from Riot.
  * @returns {Promise}
  */
 
-function getSr() {
+export function getSr() {
   const champs = store.get('champs');
   return Promise.resolve(champs)
     .map(champ => {
-      updateProgressBar(90 / champs.length);
+      progressbar.incrChamp();
       return requestPage({champ});
-    }, {concurrency: 2})
+    }, {concurrency: 3})
     .then(R.flatten)
     .then(R.reject(R.isNil))
-    .then(data => store.set('sr_itemsets', data));
+    .then(data => store.push('sr_itemsets', data));
 }
 
 /**
  * Export
  */
 
-export default {
-  getSr,
-  getVersion
+export const source_info = {
+  name: 'Champion.gg',
+  id: 'championgg'
 };

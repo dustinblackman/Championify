@@ -80,7 +80,7 @@ function mochaWindows(cb) {
   if (process.env.APPVEYOR) console.log('Note: You can\'t see Mocha test results in AppVeyor due to how Windows spawns processes.');
 
   const cmd = `${path.resolve('./node_modules/.bin/electron-mocha')}.cmd`;
-  const args = ['--compilers', 'js:babel-core/register', '--renderer', '--recursive', '.\\tests\\'];
+  const args = ['--compilers', 'js:babel-core/register', '--renderer', '--recursive', '.\\tests\\index.js'];
 
   if (fs.existsSync(options.env.EXITCODE_PATH)) fs.removeSync(options.env.EXITCODE_PATH);
 

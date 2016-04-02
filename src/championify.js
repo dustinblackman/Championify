@@ -2,17 +2,18 @@ import Promise from 'bluebird';
 import glob from 'glob';
 import path from 'path';
 import R from 'ramda';
+import $ from './helpers/jquery';
 
-import { cl, request, spliceVersion, updateProgressBar } from './helpers';
+import { cl, request, spliceVersion } from './helpers';
 
 import ChampionifyErrors from './errors';
-import champgg from './sources/championgg';
 import Log from './logger';
-import lolflavor from './sources/lolflavor';
 import optionsParser from './options_parser';
 import preferences from './preferences';
 import permissions from './permissions';
+import progressbar from './progressbar';
 import store from './store';
+import sources from './sources';
 import T from './translate';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
@@ -88,7 +89,7 @@ function deleteOldBuilds(deletebtn) {
     .each(f => fs.unlinkAsync(f))
     .catch(err => Log.warn(err))
     .then(() => {
-      if (deletebtn === true) updateProgressBar(2.5);
+      if (deletebtn === true) progressbar.incr(2.5);
     });
 }
 
@@ -105,7 +106,7 @@ function saveToFile() {
     .each(data => {
       const itemset_data = JSON.stringify(data.riot_json, null, 4);
       const folder_path = path.join(store.get('itemset_path'), data.champ, 'Recommended');
-      const file_path = path.join(folder_path, `CIFY_${data.champ}_${data.file_prefix}.json`);
+      const file_path = path.join(folder_path, `CIFY_${data.champ}_${data.source}_${data.file_prefix}.json`);
 
       return fs.mkdirsAsync(folder_path)
         .catch(err => Log.warn(err))
@@ -141,6 +142,21 @@ function setWindowsPermissions() {
   }
 }
 
+/**
+ * Verifies requires settings in order to importer.
+ * @returns {Boolean}
+ */
+
+function verifySettings() {
+  store.set('settings', preferences.get().options);
+  if (!R.filter(R.identity, store.get('settings').sr_source).length) {
+    $('.rift_source').transition('jiggle');
+    return false;
+  }
+
+  return true;
+}
+
 
 /**
  * Main function that starts up all the magic.
@@ -149,19 +165,15 @@ function setWindowsPermissions() {
 
 function downloadItemSets() {
   store.set('importing', true);
-  store.set('settings', preferences.get().options);
   store.remove('sr_itemsets');
   store.remove('aram_itemsets');
+  store.remove('undefined_builds');
 
-  updateProgressBar(true);
+  progressbar.reset();
 
   const toProcess = [];
-  if (store.get('settings').aram) toProcess.push(lolflavor.getAram);
-  if (store.get('settings').sr_source === 'lolflavor') {
-    toProcess.push(lolflavor.getSr);
-  } else {
-    toProcess.push(champgg.getSr);
-  }
+  if (store.get('settings').aram) toProcess.push(sources.lolflavor.getAram);
+  R.forEach(source => toProcess.push(sources[source].getSr), store.get('settings').sr_source);
 
   return saveSettings()
     .then(permissions.championTest)
@@ -174,7 +186,8 @@ function downloadItemSets() {
     .then(setWindowsPermissions)
     .then(() => {
       store.set('importing', false);
-      updateProgressBar(10);
+      progressbar.incr(100);
+      return true;
     })
     .catch(err => {
       Log.error(err);
@@ -196,5 +209,6 @@ function downloadItemSets() {
 export default {
   run: downloadItemSets,
   delete: deleteOldBuilds,
-  getVersion: getRiotVer
+  getVersion: getRiotVer,
+  verifySettings
 };

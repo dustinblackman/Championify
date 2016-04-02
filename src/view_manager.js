@@ -4,16 +4,32 @@ import R from 'ramda';
 import $ from './helpers/jquery';
 
 import championify from './championify';
-import championgg from './sources/championgg';
 import { spliceVersion } from './helpers';
 import Log from './logger';
-import lolflavor from './sources/lolflavor';
 import preferences from './preferences';
-import sourceUIManager from './source_ui_manager';
+import sources, { sources_info } from './sources';
 import store from './store';
 import T from './translate';
 
 const pkg = require('../package.json');
+
+
+/**
+ * Helper to grab the selected sources if any.
+ */
+
+function _selectedSources() {
+  const prefs = preferences.load();
+  return prefs && prefs.options && prefs.options.sr_source ? R.join(',', R.filter(R.identity, prefs.options.sr_source)) : '';
+}
+
+function _setBrowseTitle() {
+  if (process.platform === 'darwin') {
+    store.set('browse_title', `${T.t('select')} League of Legends.app`);
+  } else {
+    store.set('browse_title', `${T.t('select')} League of Legends ${T.t('directory')}`);
+  }
+}
 
 
 /**
@@ -26,12 +42,7 @@ const pkg = require('../package.json');
 function nub() {}
 
 function _viewChanger(view, options = {}, next = nub) {
-  if (process.platform === 'darwin') {
-    store.set('browse_title', `${T.t('select')} League of Legends.app`);
-  } else {
-    store.set('browse_title', `${T.t('select')} League of Legends ${T.t('directory')}`);
-  }
-
+  _setBrowseTitle();
   const default_options = {
     transition: 'browse',
     div_id: 'view',
@@ -45,7 +56,7 @@ function _viewChanger(view, options = {}, next = nub) {
   return $(`#${options.div_id}`).transition({
     animation: 'fade up',
     onComplete: function() {
-      const html = jade.renderFile(path.resolve(path.join(__dirname, `../views/${view}.jade`)), default_options.jade);
+      const html = jade.renderFile(path.resolve(path.join(__dirname, `../views/${view}.jade`)), options.jade);
       $(`#${options.div_id}`).html(html).promise().then(() => {
         next();
         $(`#${options.div_id}`).transition(options.transition);
@@ -67,28 +78,22 @@ function _initSettings() {
   $('.options_tooltip').popup();
   $('.ui.dropdown').dropdown();
 
-  $('#sr_source').dropdown({
-    action: 'activate',
-    onChange: function(value) {
-      if (value === 'lolflavor') {
-        sourceUIManager.lolflavor();
-      } else {
-        sourceUIManager.championgg();
-      }
-    }
-  });
-
   $('#locals_select').dropdown({
     action: 'activate',
     onChange: function(value, text, $selector) {
       if (store.get('importing')) return null;
 
       T.loadPhrases($selector.attr('data-value'));
-      return _viewChanger('_view', {
-        div_id: 'parent_view',
+      _setBrowseTitle();
+      return _viewChanger('main', {
+        div_id: 'view',
         transition: 'fade',
         jade: {
-          platform: process.platform
+          T,
+          browse_title: store.get('browse_title'),
+          platform: process.platform,
+          sources: sources_info,
+          selected_sources: _selectedSources()
         }
       }, _initSettings);
     }
@@ -106,24 +111,15 @@ function _initSettings() {
       .catch(Log.warn);
   }
 
-  if (store.get('champgg_ver')) {
-    $('#championgg_version').text(store.get('champgg_ver'));
-  } else {
-    championgg.getVersion()
-      .then(version => $('#championgg_version').text(version))
-      .catch(Log.warn);
-  }
-
-  if (store.get('lolflavor_ver')) {
-    $('#lolflavor_version').text(store.get('lolflavor_ver'));
-  } else {
-    lolflavor.getVersion()
-      .then(version => {
-        $('#lolflavor_version').text(version);
-        store.set('lolflavor_ver', version);
-      })
-      .catch(Log.warn);
-  }
+  R.forEach(source => {
+    if (store.get(`${source.name}_ver`)) {
+      $(`#${source.id}_version`).text(store.get(`${source.id}_ver`));
+    } else {
+      sources[source.id].getVersion()
+        .then(version => $(`#${source.id}_version`).text(version))
+        .catch(Log.warn);
+    }
+  }, sources_info);
 
   return preferences.set(preferences.load());
 }
@@ -173,7 +169,6 @@ function breakingChangesView() {
   return _viewChanger('breaking_changes');
 }
 
-
 /**
  * Change to main view with reverse transitions.
  */
@@ -185,7 +180,16 @@ function mainViewBack() {
     $('.status').attr('class', 'status hidden');
     _initSettings();
   }
-  return _viewChanger('main', {transition: 'fly right'}, resetMain);
+
+  return _viewChanger('main', {
+    transition: 'fly right',
+    jade: {
+      T,
+      browse_title: store.get('browse_title'),
+      sources: sources_info,
+      selected_sources: _selectedSources()
+    }
+  }, resetMain);
 }
 
 /**
@@ -194,17 +198,16 @@ function mainViewBack() {
  */
 
 function init() {
-  if (process.platform === 'darwin') {
-    store.set('browse_title', `${T.t('select')} League of Legends.app`);
-  } else {
-    store.set('browse_title', `${T.t('select')} League of Legends ${T.t('directory')}`);
-  }
+  _setBrowseTitle();
   const options = {
     T,
     browse_title: store.get('browse_title'),
     platform: process.platform,
+    sources: sources_info,
+    selected_sources: _selectedSources(),
     version: pkg.version
   };
+
   const html = jade.renderFile(path.resolve(path.join(__dirname, '../views/index.jade')), options);
   return $('#body').html(html).promise().then(() => _initSettings());
 }

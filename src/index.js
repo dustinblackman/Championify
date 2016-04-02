@@ -1,6 +1,7 @@
 // Electron
 import remote from 'remote';
 
+import Promise from 'bluebird';
 import { exec } from 'child_process';
 import open from 'open';
 import path from 'path';
@@ -18,6 +19,10 @@ import store from './js/store';
 import T from './js/translate';
 import updateManager from './js/update_manager';
 import viewManager from './js/view_manager';
+
+
+// Debugging helpers
+window.viewManager = viewManager;
 
 const app = remote.require('app');
 const dialog = remote.require('dialog');
@@ -83,9 +88,11 @@ function importItemSets() {
   if (!store.get('lol_install_path')) {
     selectFolderWarning();
   } else {
+    if (!championify.verifySettings()) return Promise.resolve(false);
     $('#btns_versions').addClass('hidden');
     $('.status').transition('fade up', '500ms');
-    return championify.run().catch(err => EndSession(err));
+    return championify.run()
+      .catch(err => EndSession(err));
   }
 }
 
@@ -132,10 +139,10 @@ function executeOptionParameters() {
   if (optionsParser['delete']()) {
     deleteItemSets();
   } else if (optionsParser['import']() || optionsParser.autorun()) {
-    importItemSets().then(() => {
+    importItemSets().then(completed => {
       if (optionsParser.close() || optionsParser.autorun()) {
         app.quit();
-      } else {
+      } else if (completed) {
         viewManager.complete();
         if (optionsParser.startLeague()) startLeague();
       }
@@ -197,7 +204,9 @@ $(document).on('click', '#open_log', function(e) {
 });
 
 $(document).on('click', '#import_btn', function() {
-  return importItemSets().then(() => viewManager.complete());
+  return importItemSets().then(completed => {
+    if (completed) viewManager.complete();
+  });
 });
 
 $(document).on('click', '#delete_btn', function() {

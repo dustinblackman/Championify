@@ -2,8 +2,9 @@ import Promise from 'bluebird';
 import R from 'ramda';
 
 import ChampionifyErrors from '../errors';
-import { cl, request, spliceVersion, trinksCon, updateProgressBar } from '../helpers';
+import { cl, request, spliceVersion, trinksCon } from '../helpers';
 import Log from '../logger';
+import progressbar from '../progressbar';
 import store from '../store';
 import T from '../translate';
 
@@ -88,10 +89,15 @@ function _requestData(champs_names, process_name) {
             riot_json.blocks.shift();
             riot_json.blocks = trinksCon(riot_json.blocks);
           }
-          riot_json.title = `${T.t(process_name.toLowerCase(), true)} ${spliceVersion(store.get('riot_ver'))}`;
+          riot_json.title = `LFV ${T.t(process_name.toLowerCase(), true)} ${spliceVersion(store.get('riot_ver'))}`;
 
-          if (process_name !== 'ARAM') updateProgressBar(30 / champs_names.length);
-          return {champ, file_prefix: process_name.toLowerCase(), riot_json};
+          if (process_name === 'ARAM') {
+            progressbar.incrChamp();
+          } else {
+            progressbar.incrChamp(3);
+          }
+
+          return {champ, file_prefix: process_name.toLowerCase(), riot_json, source: 'lolflavor'};
         })
         .catch(err => {
           Log.warn(err);
@@ -126,7 +132,7 @@ function _processLolflavor(process_name, stats_file) {
 * @returns {Promise}
  */
 
-function getAram() {
+export function getAram() {
   return _processLolflavor('ARAM', 'statsARAM.json')
     .then(champs => store.set('aram_itemsets', champs));
 }
@@ -137,7 +143,7 @@ function getAram() {
  * @returns {Promise}
  */
 
-function getSr() {
+export function getSr() {
   const stats_pages = [
     {name: 'Lane', file: 'statsLane.json'},
     {name: 'Jungle', file: 'statsJungle.json'},
@@ -147,7 +153,7 @@ function getSr() {
   return Promise.resolve(stats_pages)
     .map(data => _processLolflavor(data.name, data.file))
     .then(R.flatten)
-    .then(data => store.set('sr_itemsets', data));
+    .then(data => store.push('sr_itemsets', data));
 }
 
 
@@ -156,7 +162,7 @@ function getSr() {
  * @returns {Promise.<String|Champion>} Lolflavor version
  */
 
-function getVersion() {
+export function getVersion() {
   return request({url: 'http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', json: true})
     .then(body => {
       if (!body || !body.title) return T.t('unknown');
@@ -173,8 +179,7 @@ function getVersion() {
  * Export
  */
 
-export default {
-  getAram,
-  getSr,
-  getVersion
+export const source_info = {
+  name: 'Lolflavor',
+  id: 'lolflavor'
 };

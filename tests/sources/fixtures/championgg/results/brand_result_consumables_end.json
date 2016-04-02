@@ -1,6 +1,7 @@
 [
   {
     "champ": "Brand",
+    "source": "championgg",
     "file_prefix": "middle",
     "riot_json": {
       "map": "any",
@@ -163,7 +164,7 @@
           "type": "Consumables | Frequent: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E.R.E.E"
         }
       ],
-      "title": "Middle 5.16",
+      "title": "CGG Middle 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -173,6 +174,7 @@
   },
   {
     "champ": "Brand",
+    "source": "championgg",
     "file_prefix": "support",
     "riot_json": {
       "map": "any",
@@ -347,7 +349,7 @@
           "type": "Consumables | Frequent: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E.R.E.E"
         }
       ],
-      "title": "Support 5.16",
+      "title": "CGG Support 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",

@@ -1,6 +1,7 @@
 [
   {
     "champ": "Katarina",
+    "source": "lolflavor",
     "file_prefix": "lane",
     "riot_json": {
       "isGlobalForChampions": false,
@@ -201,7 +202,7 @@
       ],
       "associatedMaps": [],
       "map": "any",
-      "title": "Lane 5.18",
+      "title": "LFV Lane 5.18",
       "isGlobalForMaps": true,
       "sortrank": 2,
       "type": "custom",
@@ -211,6 +212,7 @@
   },
   {
     "champ": "Katarina",
+    "source": "lolflavor",
     "file_prefix": "jungle",
     "riot_json": {
       "isGlobalForChampions": false,
@@ -395,7 +397,7 @@
       ],
       "associatedMaps": [],
       "map": "any",
-      "title": "Jungle 5.18",
+      "title": "LFV Jungle 5.18",
       "isGlobalForMaps": true,
       "sortrank": 3,
       "type": "custom",
@@ -406,6 +408,7 @@
   {
     "champ": "Katarina",
     "file_prefix": "support",
+    "source": "lolflavor",
     "riot_json": {
       "isGlobalForChampions": false,
       "associatedChampions": [],
@@ -609,7 +612,7 @@
       ],
       "associatedMaps": [],
       "map": "any",
-      "title": "Support 5.18",
+      "title": "LFV Support 5.18",
       "isGlobalForMaps": true,
       "sortrank": 1,
       "type": "custom",

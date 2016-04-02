@@ -1,6 +1,7 @@
 [
   {
     "champ": "Katarina",
+    "source": "lolflavor",
     "file_prefix": "aram",
     "riot_json": {
       "isGlobalForChampions": false,
@@ -156,7 +157,7 @@
       ],
       "associatedMaps": [],
       "map": "HA",
-      "title": "ARAM 5.18",
+      "title": "LFV ARAM 5.18",
       "isGlobalForMaps": true,
       "sortrank": 4,
       "type": "custom",

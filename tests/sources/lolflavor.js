@@ -3,7 +3,8 @@ import nock from 'nock';
 import R from 'ramda';
 import path from 'path';
 
-const lolflavor = require(`../../${GLOBAL.src_path}/sources/lolflavor`).default;
+
+const lolflavor = require(`../../${GLOBAL.src_path}/sources/lolflavor`);
 const store = require(`../../${GLOBAL.src_path}/store`).default;
 
 const should = require('chai').should();
@@ -58,7 +59,7 @@ describe('src/sources/lolflavor', function() {
   });
 
   describe('aram', function() {
-    beforeEach(function() {
+    before(function() {
       store.set('settings', {});
       nock.cleanAll();
     });
@@ -71,7 +72,7 @@ describe('src/sources/lolflavor', function() {
         .reply(200, RESPONSES_FIXTURES.katarina_aram_scrape);
 
       return lolflavor.getAram().then(() => {
-        const results = store.get('aram_itemsets');
+        const results = R.flatten(store.get('aram_itemsets'));
         should.exist(results);
         results.should.eql(RESULTS_FIXTURES.katarina_aram);
       });
@@ -87,8 +88,9 @@ describe('src/sources/lolflavor', function() {
 
     it('should get default Summoners Rift sets for Katarina', () => {
       nockSummonersRift();
+      store.set('settings', {});
       return lolflavor.getSr().then(() => {
-        const results = store.get('sr_itemsets');
+        const results = R.flatten(store.get('sr_itemsets'));
         should.exist(results);
         results.should.eql(RESULTS_FIXTURES.katarina_default);
       });
@@ -102,7 +104,7 @@ describe('src/sources/lolflavor', function() {
       });
 
       return lolflavor.getSr().then(() => {
-        const results = store.get('sr_itemsets');
+        const results = R.flatten(store.get('sr_itemsets'));
         should.exist(results);
         results.should.eql(RESULTS_FIXTURES.katarina_trinkcon);
       });
@@ -113,7 +115,7 @@ describe('src/sources/lolflavor', function() {
       store.set('settings', {locksr: true});
 
       return lolflavor.getSr().then(() => {
-        const results = store.get('sr_itemsets');
+        const results = R.flatten(store.get('sr_itemsets'));
         should.exist(results);
         results.should.eql(RESULTS_FIXTURES.katarina_locksr);
       });
