@@ -27,18 +27,18 @@ function zip(src, dest) {
 }
 
 function releaseFile(platform) {
-  return `Championify.${platform}.${pkg.verson.replace(/\\./g, '-')}.zip`;
+  return `Championify.${platform}.${pkg.version.replace(/\\./g, '-')}.zip`;
 }
 
 gulp.task('zip:osx', function(cb) {
   const src = `${pkg.name}.app`;
-  const dest = path.join('../', releaseFile('OSX'));
+  const dest = path.join('../releases', releaseFile('OSX'));
   return zip(src, dest, cb);
 });
 
 gulp.task('zip:win', function(cb) {
   const src = pkg.name;
-  const dest = path.join('../', releaseFile('WIN'));
+  const dest = path.join('../releases', releaseFile('WIN'));
   return zip(src, dest, cb);
 });
 
