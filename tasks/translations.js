@@ -82,23 +82,12 @@ gulp.task('translate', function() {
     }
 
     if (!_source[key].done || !translations[lang][key]) {
-      const original_text = _source[key].text
-        .replace(/\n/g, '<n>')
-        .replace(/\*\*/g, '<**>')
-        .replace(/!/g, '<!>')
-        .replace(/#{/g, '<')
-        .replace(/\}/g, '>');
-      return GT(original_text, 'en', lang)
+      return GT(_source[key].msg, 'en', lang)
         .tap(data => {
           // If the key is the same, sometimes google translate doens't like how letters are capitialized.
           if (_source[key].text === data.translatedText) return GT(toTitleCase(_source[key].text), 'en', lang);
         })
-        .then(data => translations[lang][key] = data.translatedText
-          .replace(/ <n> /g, '\n').replace(/<n>/g, '\n')
-          .replace(/ <\*\*> /g, '**').replace(/<\*\*>/g, '**')
-          .replace(/ <!> /g, '!').replace(/<!>/g, '!')
-          .replace(/</g, '#{')
-          .replace(/\>/g, '}'));
+        .then(data => translations[lang][key] = data.translatedText);
     }
   }
 
@@ -132,9 +121,13 @@ gulp.task('translate', function() {
 
 gulp.task('transifex:upload', function() {
   const translations_path = path.join(__dirname, '../i18n');
-  const translations = R.fromPairs(R.map(file_name => {
-    return [path.basename(file_name).replace(/.json/g, ''), require(file_name)];
-  }, glob.sync(`${translations_path}/*(!(_source.json))`)));
+  let translations = R.map(file_path => {
+    return {
+      lang: path.basename(file_path).replace(/.json/g, ''),
+      file_path
+    };
+  }, glob.sync(`${translations_path}/*(!(_source.json|en.json))`));
+  translations = [{lang: 'en', file_path: path.join(translations_path, 'en.json')}].concat(translations);
 
   function uploadTranslation(data) {
     let url;

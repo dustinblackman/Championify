@@ -15,7 +15,7 @@
       .ui.fluid.multiple.search.selection.dropdown
         input#options_sr_source(type='hidden' value='#{selected_sources}')
         i.dropdown.icon
-        .default.text Select Summoners Rift itemset sources
+        .default.text #{T.t('summoners_rift_source')}
         .menu
           each source in sources
             .item(data-value='#{source.id}')
