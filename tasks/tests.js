@@ -82,13 +82,8 @@ function mochaWindows(cb) {
   const cmd = `${path.resolve('./node_modules/.bin/electron-mocha')}.cmd`;
   const args = ['--compilers', 'js:babel-core/register', '--renderer', '--recursive', '.\\tests\\index.js'];
 
-  if (fs.existsSync(options.env.EXITCODE_PATH)) fs.removeSync(options.env.EXITCODE_PATH);
-
   const em = spawn(cmd, args, options);
   em.on('close', function(code) {
-    code = Number(fs.readFileSync(options.env.EXITCODE_PATH, 'utf8'));
-    fs.removeSync(options.env.EXITCODE_PATH);
-
     if (code !== 0) {
       if (process.env.APPVEYOR) return cb(new Error('Mocha returned an error, and it\'s not displayed here because process spawning on Windows sucks balls. See if the error is happening on Travis-CI, otherwise run tests on a local windows system. https://travis-ci.org/dustinblackman/Championify/builds'));
       return cb(new Error(`Mocha exited with code: ${code}`));
