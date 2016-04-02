@@ -52,5 +52,5 @@ gulp.task('upload-artifact', function() {
         form.append('file', fs.createReadStream(upload_file));
       });
     })
-    .then(download_url => fs.writeFileAsync('./download.txt', download_url, 'uf8'));
+    .then(download_url => fs.writeFileAsync('./download.txt', download_url, 'utf8'));
 });

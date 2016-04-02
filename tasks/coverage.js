@@ -47,7 +47,7 @@ function fromTravis() {
       R.forEach(obj => {
         if (!coverage_key && obj.Key.indexOf('coverage.json') > -1) coverage_key = obj.Key;
       }, data.Contents);
-      if (!coverage_key) return;
+      if (!coverage_key) throw new Error('Travis not ready, coverage file not found on S3.');
 
       return s3.getObjectAsync({Key: coverage_key})
         .then(R.prop('Body'))
@@ -70,6 +70,7 @@ function fromAppveyor() {
   return request(options)
     .then(R.prop('body'))
     .then(build_data => {
+      if (!build_data.build || build_data.build.jobs) throw new Error('Appveyor not ready, job not found.');
       const job_data = R.find(R.propEq('name', 'Platform: x86'))(build_data.build.jobs);
       if (!job_data || job_data.status !== 'success') return;
 
