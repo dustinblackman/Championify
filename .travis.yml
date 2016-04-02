@@ -26,4 +26,4 @@ addons:
   artifacts:
     paths:
     - ./download.txt
-    - ./coverage/coverage-coffee.json
+    - ./coverage/coverage.json

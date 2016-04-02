@@ -45,7 +45,7 @@ function fromTravis() {
     .then(data => {
       let coverage_key;
       R.forEach(obj => {
-        if (!coverage_key && obj.Key.indexOf('coverage-coffee.json') > -1) coverage_key = obj.Key;
+        if (!coverage_key && obj.Key.indexOf('coverage.json') > -1) coverage_key = obj.Key;
       }, data.Contents);
       if (!coverage_key) return;
 
@@ -70,11 +70,11 @@ function fromAppveyor() {
   return request(options)
     .then(R.prop('body'))
     .then(build_data => {
-      const job_data = R.find(R.proEq('name', 'Platform: x86'))(build_data.build.jobs);
+      const job_data = R.find(R.propEq('name', 'Platform: x86'))(build_data.build.jobs);
       if (!job_data || job_data.status !== 'success') return;
 
       const options = {
-        url: `https://ci.appveyor.com/api/buildjobs/${job_data.jobId}/artifacts/coverage/coverage-coffee.json`,
+        url: `https://ci.appveyor.com/api/buildjobs/${job_data.jobId}/artifacts/coverage/coverage.json`,
         json: true,
         headers
       };
