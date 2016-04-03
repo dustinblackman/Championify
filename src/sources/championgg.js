@@ -5,7 +5,7 @@ import esprima from 'esprima';
 import R from 'ramda';
 
 import ChampionifyErrors from '../errors.js';
-import { cl, request, trinksCon, wins } from '../helpers';
+import { cl, request, shorthandSkills, trinksCon, wins } from '../helpers';
 import Log from '../logger';
 import progressbar from '../progressbar';
 import store from '../store';
@@ -130,18 +130,7 @@ function processChamp(request_params, body) {
     };
     skills = R.map(skill => keys[skill[0]], skills);
 
-    if (store.get('settings').skillsformat) {
-      let skill_count = R.countBy(R.toLower)(R.slice(0, 9, skills));
-      delete skill_count.r;
-      skill_count = R.invertObj(skill_count);
-      const counts = R.keys(skill_count).sort().reverse();
-
-      const skill_order = R.map(count_num => R.toUpper(skill_count[count_num]), counts);
-      const skill_overview = skill_order.slice(0, 4).join('.');
-
-      return `${skill_overview} - ${R.join('>', skill_order)}`;
-    }
-
+    if (store.get('settings').skillsformat) return shorthandSkills(skills);
     return skills.join('.');
   }
 
@@ -317,6 +306,8 @@ function requestPage(request_params) {
  */
 
 export function getSr() {
+  if (!store.get('championgg_ver')) return getVersion().then(getSr);
+
   const champs = store.get('champs');
   return Promise.resolve(champs)
     .map(champ => {

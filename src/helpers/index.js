@@ -118,3 +118,13 @@ export function trinksCon(builds, skills = {}) {
   }
   return builds;
 }
+
+export function shorthandSkills(skills) {
+  let skill_count = R.countBy(R.toLower)(R.slice(0, 9, skills));
+  delete skill_count.r;
+  skill_count = R.invertObj(skill_count);
+  const counts = R.keys(skill_count).sort().reverse();
+
+  const skill_order = R.map(count_num => R.toUpper(skill_count[count_num]), counts);
+  return `${skills.slice(0, 4).join('.')} - ${R.join('>', skill_order)}`;
+}

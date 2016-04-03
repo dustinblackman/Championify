@@ -80,6 +80,15 @@ describe('src/sources/championgg', () => {
         return testWithFixture(RESULTS_FIXTURES.brand_result_locksr);
       });
 
+      it('should with shorthanded skills', () => {
+        store.set('settings', {
+          consumables: true,
+          consumables_position: 'beginning',
+          skillsformat: true
+        });
+        return testWithFixture(RESULTS_FIXTURES.brand_result_shorthand);
+      });
+
       it('should with consumables enabled and at the beginning', () => {
         store.set('settings', {
           consumables: true,
