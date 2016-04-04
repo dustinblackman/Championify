@@ -3,6 +3,7 @@ import cheerio from 'cheerio';
 import R from 'ramda';
 
 import { cl, request, shorthandSkills, trinksCon } from '../helpers';
+import Log from '../logger';
 import progressbar from '../progressbar';
 import store from '../store';
 import T from '../translate';
@@ -107,7 +108,11 @@ export function getSr() {
               source: 'koreanbuilds'
             };
           })
-        , {concurrency: 1});
+        , {concurrency: 1})
+        .catch(err => {
+          Log.warn(err);
+          store.push('undefined_builds', {champ: champ_data.name, position: champ_data.roles});
+        });
     }, {concurrency: 3})
     .then(R.flatten)
     .then(R.reject(R.isNil))
