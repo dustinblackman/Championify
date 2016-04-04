@@ -1,6 +1,9 @@
 # Contribute
 
 ## Code
+
+__NOTICE__: I won't be accepting pull requests for a short time. Please see [here](https://github.com/dustinblackman/Championify/issues/166).
+
 If you can code Coffeescript, feel free to make a pull request.
 Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue. :)
 
