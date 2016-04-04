@@ -112,7 +112,7 @@ function _initSettings() {
   }
 
   R.forEach(source => {
-    if (store.get(`${source.name}_ver`)) {
+    if (store.get(`${source.id}_ver`)) {
       $(`#${source.id}_version`).text(store.get(`${source.id}_ver`));
     } else {
       sources[source.id].getVersion()
