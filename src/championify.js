@@ -61,13 +61,32 @@ function getChamps() {
       if (!data) throw new ChampionifyErrors.RequestError('Can\'t get Champs');
       T.merge(R.zipObj(R.keys(data), R.pluck('name')(R.values(data))));
 
-      store.set('manaless', R.pluck('id')(R.filter(champ => champ.partype !== 'Mana')));
       store.set('champs', R.keys(data).sort());
     })
     .catch(err => {
       if (err instanceof ChampionifyErrors.ChampionifyError) throw err;
       new ChampionifyErrors.RequestError('Can\'t get Champs').causedBy(err);
     });
+}
+
+// TODO: Write tests and docs
+function getItems() {
+  if (store.get('item_names')) return Promise.resolve(store.get('item_names'));
+  const params = {
+    url: `http://ddragon.leagueoflegends.com/cdn/${store.get('riot_ver')}/data/en_US/item.json`,
+    json: true
+  };
+
+  return request(params)
+    .then(R.prop('data'))
+    .then(R.values)
+    .map(data => {
+      if (!data.gold.purchasable) return;
+      return [data.name, data.image.full.replace(/.png/g, '')];
+    })
+    .then(R.reject(R.isNil))
+    .then(R.fromPairs)
+    .tap(items => store.set('item_names', items));
 }
 
 /**
@@ -210,5 +229,6 @@ export default {
   run: downloadItemSets,
   delete: deleteOldBuilds,
   getVersion: getRiotVer,
+  getItems,
   verifySettings
 };

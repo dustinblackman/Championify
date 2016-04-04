@@ -43,7 +43,7 @@ export function request(options) {
   return retry(retry => {
     return requester(params)
       .tap(res => {
-        if (res.statusCode >= 400) throw new ChampionifyErrors.RequestError(res.statusCode, options.url);
+        if (res.statusCode >= 400) throw new ChampionifyErrors.RequestError(res.statusCode, params.url);
       })
       .then(R.prop('body'))
       .catch(retry);
@@ -77,6 +77,11 @@ export function spliceVersion(version) {
 export function cl(text, level = 'info') {
   Log[level](text);
   return $('#cl_progress').prepend(`<span>${text}</span><br />`);
+}
+
+// TODO: Docs
+export function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 /**
