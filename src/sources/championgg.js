@@ -15,6 +15,15 @@ const default_schema = require('../../data/default.json');
 const csspaths = require('../../data/csspaths.json');
 const prebuilts = require('../../data/prebuilts.json');
 
+/**
+ * Export
+ */
+
+export const source_info = {
+  name: 'Champion.gg',
+  id: 'championgg'
+};
+
 
 /**
   * Gets current version Champion.GG is using.
@@ -94,6 +103,7 @@ function processChamp(request_params, body) {
   ];
   if (R.contains(true, undefarray)) {
     store.push('undefined_builds', {
+      source: source_info.name,
       champ,
       position: current_position
     });
@@ -281,6 +291,7 @@ function requestPage(request_params) {
 
   function markUndefined() {
     store.push('undefined_builds', {
+      source: source_info.name,
       champ,
       position: request_params.position || 'All'
     });
@@ -318,12 +329,3 @@ export function getSr() {
     .then(R.reject(R.isNil))
     .then(data => store.push('sr_itemsets', data));
 }
-
-/**
- * Export
- */
-
-export const source_info = {
-  name: 'Champion.gg',
-  id: 'championgg'
-};

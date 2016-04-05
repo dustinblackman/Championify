@@ -12,6 +12,12 @@ import T from '../translate';
 const default_schema = require('../../data/default.json');
 
 
+export const source_info = {
+  name: 'LeagueOfGraphs',
+  id: 'leagueofgraphs'
+};
+
+
 function _arrayToBuilds(ids) {
   const counts = R.countBy(R.identity)(ids);
   return R.map(id => ({
@@ -160,12 +166,12 @@ export function getSr() {
             })
             .catch(err => {
               Log.warn(err);
-              store.push('undefined_builds', {champ, position});
+              store.push('undefined_builds', {champ, position, source: source_info.name});
             });
         })
         .catch(err => {
           Log.warn(err);
-          store.push('undefined_builds', {champ, position: 'All'});
+          store.push('undefined_builds', {champ, position: 'All', source: source_info.name});
         });
     }, {concurrency: 5})
     .then(R.flatten)
@@ -179,12 +185,3 @@ export function getVersion() {
     .then($c => $c('.patch').text().replace(/Patch: /g, ''))
     .tap(version => store.set('leagueofgraphs_ver', version));
 }
-
-/**
- * Export
- */
-
-export const source_info = {
-  name: 'LeagueOfGraphs',
-  id: 'leagueofgraphs'
-};

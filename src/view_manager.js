@@ -135,7 +135,7 @@ function completeView() {
       $('#not_available_log').append('<span>' + T.t('all_available') + '</span><br />');
     } else {
       R.forEach(item => {
-        $('#not_available_log').append(`<span>${T.t(item.champ)}: ${T.t(item.position)}</span><br />`);
+        $('#not_available_log').append(`<span>${item.source} ${T.t(item.champ)}: ${T.t(item.position)}</span><br />`);
       }, undefined_builds);
     }
   }

@@ -11,6 +11,12 @@ import T from '../translate';
 const default_schema = require('../../data/default.json');
 
 
+export const source_info = {
+  name: 'KoreanBuilds',
+  id: 'koreanbuilds'
+};
+
+
 export function getVersion() {
   return request('http://koreanbuilds.net/')
     .then(cheerio.load)
@@ -111,19 +117,10 @@ export function getSr() {
         , {concurrency: 1})
         .catch(err => {
           Log.warn(err);
-          store.push('undefined_builds', {champ: champ_data.name, position: champ_data.roles});
+          store.push('undefined_builds', {champ: champ_data.name, position: champ_data.roles, source: source_info.name});
         });
     }, {concurrency: 3})
     .then(R.flatten)
     .then(R.reject(R.isNil))
     .then(data => store.push('sr_itemsets', data));
 }
-
-/**
- * Export
- */
-
-export const source_info = {
-  name: 'KoreanBuilds',
-  id: 'koreanbuilds'
-};

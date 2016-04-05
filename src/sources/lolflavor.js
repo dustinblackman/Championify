@@ -9,6 +9,12 @@ import store from '../store';
 import T from '../translate';
 
 
+export const source_info = {
+  name: 'Lolflavor',
+  id: 'lolflavor'
+};
+
+
 /**
  * Request for from available champs
  * @param {String} Type of process (ARAM, Jungle, Support, Lane)
@@ -25,6 +31,7 @@ function _requestAvailableChamps(process_name, stats_file) {
     .catch(err => {
       Log.warn(err);
       store.push('undefined_builds', {
+        source: source_info.name,
         champ: T.t(process_name),
         position: 'All'
       });
@@ -102,6 +109,7 @@ function _requestData(champs_names, process_name) {
         .catch(err => {
           Log.warn(err);
           store.push('undefined_builds', {
+            source: source_info.name,
             champ,
             position: process_name
           });
@@ -175,13 +183,3 @@ export function getVersion() {
       return T.t('unknown');
     });
 }
-
-
-/**
- * Export
- */
-
-export const source_info = {
-  name: 'Lolflavor',
-  id: 'lolflavor'
-};
