@@ -112,7 +112,7 @@ function coverageDownload() {
         if (file[0] === '/') file = file.substring(1);
         coverage_data.path = path.join(__dirname, '..', 'src', file);
         converted_coverage[coverage_data.path] = coverage_data;
-      }, coverage_json);
+      }, R.values(coverage_json));
 
       const coverage_path = path.join(__dirname, '..', 'coverage/coverage-other.json');
       return fs.writeFileAsync(coverage_path, JSON.stringify(converted_coverage), 'utf8');
