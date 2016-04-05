@@ -51,7 +51,8 @@ function fromTravis() {
 
       return s3.getObjectAsync({Key: coverage_key})
         .then(R.prop('Body'))
-        .then(R.toString);
+        .then(R.toString)
+        .then(JSON.parse);
     });
 }
 
