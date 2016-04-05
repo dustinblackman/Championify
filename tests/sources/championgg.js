@@ -27,7 +27,7 @@ function testWithFixture(fixture) {
     .then(() => {
       const results = R.flatten(store.get('sr_itemsets'));
       should.exist(results);
-      results.should.eql(fixture);
+      results.should.eql(RESULTS_FIXTURES[fixture]);
     });
 }
 
@@ -67,17 +67,17 @@ describe('src/sources/championgg', () => {
       });
 
       it('should default item sets', () => {
-        return testWithFixture(RESULTS_FIXTURES.brand_result_default);
+        return testWithFixture('brand_result_default');
       });
 
       it('should split item sets', () => {
         store.set('settings', {splititems: true});
-        return testWithFixture(RESULTS_FIXTURES.brand_result_splititems);
+        return testWithFixture('brand_result_splititems');
       });
 
       it('should with item sets locked to Summoners Rift map', () => {
         store.set('settings', {locksr: true});
-        return testWithFixture(RESULTS_FIXTURES.brand_result_locksr);
+        return testWithFixture('brand_result_locksr');
       });
 
       it('should with shorthanded skills', () => {
@@ -86,7 +86,7 @@ describe('src/sources/championgg', () => {
           consumables_position: 'beginning',
           skillsformat: true
         });
-        return testWithFixture(RESULTS_FIXTURES.brand_result_shorthand);
+        return testWithFixture('brand_result_shorthand');
       });
 
       it('should with consumables enabled and at the beginning', () => {
@@ -94,7 +94,7 @@ describe('src/sources/championgg', () => {
           consumables: true,
           consumables_position: 'beginning'
         });
-        return testWithFixture(RESULTS_FIXTURES.brand_result_consumables_beginning);
+        return testWithFixture('brand_result_consumables_beginning');
       });
 
       it('should with consumables enabled and at the end', () => {
@@ -102,7 +102,7 @@ describe('src/sources/championgg', () => {
           consumables: true,
           consumables_position: 'end'
         });
-        return testWithFixture(RESULTS_FIXTURES.brand_result_consumables_end);
+        return testWithFixture('brand_result_consumables_end');
       });
 
       it('should with trinkets enabled and at the beginning', () => {
@@ -111,7 +111,7 @@ describe('src/sources/championgg', () => {
           trinkets_position: 'beginning'
         });
 
-        return testWithFixture(RESULTS_FIXTURES.brand_result_trinkets_beginning);
+        return testWithFixture('brand_result_trinkets_beginning');
       });
 
       it('should with trinkets enabled and at the end', () => {
@@ -119,7 +119,7 @@ describe('src/sources/championgg', () => {
           trinkets: true,
           trinkets_position: 'end'
         });
-        return testWithFixture(RESULTS_FIXTURES.brand_result_trinkets_end);
+        return testWithFixture('brand_result_trinkets_end');
       });
 
       it('should with consumables enabled and split item sets', () => {
@@ -129,7 +129,7 @@ describe('src/sources/championgg', () => {
           consumables_position: 'beginning'
         });
 
-        return testWithFixture(RESULTS_FIXTURES.brand_result_splititems_consumables);
+        return testWithFixture('brand_result_splititems_consumables');
       });
 
       it('should with trinkets enabled and split item sets', () => {
@@ -139,7 +139,7 @@ describe('src/sources/championgg', () => {
           trinkets_position: 'beginning'
         });
 
-        return testWithFixture(RESULTS_FIXTURES.brand_result_splititems_trinkets);
+        return testWithFixture('brand_result_splititems_trinkets');
       });
     });
   });

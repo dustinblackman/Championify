@@ -1,7 +1,6 @@
 [
   {
     "champ": "Brand",
-    "source": "championgg",
     "file_prefix": "middle",
     "riot_json": {
       "map": "any",
@@ -137,19 +136,19 @@
               "count": 1
             },
             {
-              "id": "2044",
+              "id": "2031",
               "count": 1
             },
             {
-              "id": "2041",
+              "id": "2032",
+              "count": 1
+            },
+            {
+              "id": "2033",
               "count": 1
             },
             {
               "id": "2138",
-              "count": 1
-            },
-            {
-              "id": "2137",
               "count": 1
             },
             {
@@ -170,11 +169,11 @@
       "type": "custom",
       "sortrank": 1,
       "champion": "Brand"
-    }
+    },
+    "source": "championgg"
   },
   {
     "champ": "Brand",
-    "source": "championgg",
     "file_prefix": "support",
     "riot_json": {
       "map": "any",
@@ -322,19 +321,19 @@
               "count": 1
             },
             {
-              "id": "2044",
+              "id": "2031",
               "count": 1
             },
             {
-              "id": "2041",
+              "id": "2032",
+              "count": 1
+            },
+            {
+              "id": "2033",
               "count": 1
             },
             {
               "id": "2138",
-              "count": 1
-            },
-            {
-              "id": "2137",
               "count": 1
             },
             {
@@ -355,6 +354,7 @@
       "type": "custom",
       "sortrank": 1,
       "champion": "Brand"
-    }
+    },
+    "source": "championgg"
   }
 ]

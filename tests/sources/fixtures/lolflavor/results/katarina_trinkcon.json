@@ -1,7 +1,6 @@
 [
   {
     "champ": "Katarina",
-    "source": "lolflavor",
     "file_prefix": "lane",
     "riot_json": {
       "isGlobalForChampions": false,
@@ -152,19 +151,19 @@
               "count": 1
             },
             {
-              "id": "2044",
+              "id": "2031",
               "count": 1
             },
             {
-              "id": "2041",
+              "id": "2032",
+              "count": 1
+            },
+            {
+              "id": "2033",
               "count": 1
             },
             {
               "id": "2138",
-              "count": 1
-            },
-            {
-              "id": "2137",
               "count": 1
             },
             {
@@ -208,11 +207,11 @@
       "type": "custom",
       "champion": "Katarina",
       "priority": false
-    }
+    },
+    "source": "lolflavor"
   },
   {
     "champ": "Katarina",
-    "source": "lolflavor",
     "file_prefix": "jungle",
     "riot_json": {
       "isGlobalForChampions": false,
@@ -347,19 +346,19 @@
               "count": 1
             },
             {
-              "id": "2044",
+              "id": "2031",
               "count": 1
             },
             {
-              "id": "2041",
+              "id": "2032",
+              "count": 1
+            },
+            {
+              "id": "2033",
               "count": 1
             },
             {
               "id": "2138",
-              "count": 1
-            },
-            {
-              "id": "2137",
               "count": 1
             },
             {
@@ -403,12 +402,12 @@
       "type": "custom",
       "champion": "Katarina",
       "priority": false
-    }
+    },
+    "source": "lolflavor"
   },
   {
     "champ": "Katarina",
     "file_prefix": "support",
-    "source": "lolflavor",
     "riot_json": {
       "isGlobalForChampions": false,
       "associatedChampions": [],
@@ -562,19 +561,19 @@
               "count": 1
             },
             {
-              "id": "2044",
+              "id": "2031",
               "count": 1
             },
             {
-              "id": "2041",
+              "id": "2032",
+              "count": 1
+            },
+            {
+              "id": "2033",
               "count": 1
             },
             {
               "id": "2138",
-              "count": 1
-            },
-            {
-              "id": "2137",
               "count": 1
             },
             {
@@ -618,6 +617,7 @@
       "type": "custom",
       "champion": "Katarina",
       "priority": false
-    }
+    },
+    "source": "lolflavor"
   }
 ]

@@ -1,7 +1,6 @@
 [
   {
     "champ": "Brand",
-    "source": "championgg",
     "file_prefix": "middle_mostfreq",
     "riot_json": {
       "map": "any",
@@ -71,11 +70,11 @@
       "type": "custom",
       "sortrank": 1,
       "champion": "Brand"
-    }
+    },
+    "source": "championgg"
   },
   {
     "champ": "Brand",
-    "source": "championgg",
     "file_prefix": "middle_highwin",
     "riot_json": {
       "map": "any",
@@ -145,11 +144,11 @@
       "type": "custom",
       "sortrank": 1,
       "champion": "Brand"
-    }
+    },
+    "source": "championgg"
   },
   {
     "champ": "Brand",
-    "source": "championgg",
     "file_prefix": "support_mostfreq",
     "riot_json": {
       "map": "any",
@@ -227,11 +226,11 @@
       "type": "custom",
       "sortrank": 1,
       "champion": "Brand"
-    }
+    },
+    "source": "championgg"
   },
   {
     "champ": "Brand",
-    "source": "championgg",
     "file_prefix": "support_highwin",
     "riot_json": {
       "map": "any",
@@ -305,6 +304,7 @@
       "type": "custom",
       "sortrank": 1,
       "champion": "Brand"
-    }
+    },
+    "source": "championgg"
   }
 ]
