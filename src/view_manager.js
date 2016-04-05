@@ -136,7 +136,7 @@ function completeView() {
     } else {
       R.forEach(item => {
         $('#not_available_log').append(`<span>${item.source} ${T.t(item.champ)}: ${T.t(item.position)}</span><br />`);
-      }, undefined_builds);
+      }, R.sortBy(R.prop('source'))(undefined_builds));
     }
   }
   return _viewChanger('complete', {}, loadUnavailable);
