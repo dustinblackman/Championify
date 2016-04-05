@@ -166,7 +166,9 @@ export function getVersion() {
   return request({url: 'http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', json: true})
     .then(body => {
       if (!body || !body.title) return T.t('unknown');
-      return body.title.split(' ')[3];
+      const version = body.title.split(' ')[3];
+      store.set('lolflavor_ver', version);
+      return version;
     })
     .catch(err => {
       Log.warn(err);
