@@ -108,7 +108,7 @@ function deleteOldBuilds(deletebtn) {
     .each(f => fs.unlinkAsync(f))
     .catch(err => Log.warn(err))
     .then(() => {
-      if (deletebtn === true) progressbar.incr(2.5);
+      if (deletebtn !== true) progressbar.incr(2.5);
     });
 }
 

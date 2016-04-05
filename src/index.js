@@ -117,7 +117,8 @@ function deleteItemSets() {
   if (!store.get('lol_install_path')) {
     selectFolderWarning();
   } else {
-    championify['delete'](true).then(() => $('#cl_progress > span').append(`. ${T.t('done')}`));
+    $('#delete_notification').modal('show');
+    championify['delete'](true).then(() => $('#delete_notification').find('#progress-icon').html('<i class="check icon" />'));
   }
 }
 
