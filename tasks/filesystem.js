@@ -105,6 +105,18 @@ gulp.task('clean:node_modules', function() {
     './dev/node_modules/**/*.md',
     './dev/node_modules/**/*.txt',
     './dev/node_modules/**/*.zip',
+    './dev/node_modules/**/Makefile',
+    './dev/node_modules/**/.travis.yml',
+    './dev/node_modules/**/README*',
+    './dev/node_modules/**/LICENSE*',
+
+    './dev/node_modules/**/doc',
+    './dev/node_modules/**/example',
+    './dev/node_modules/**/examples',
+    './dev/node_modules/**/man',
+    './dev/node_modules/**/test',
+    './dev/node_modules/**/tests',
+    './dev/node_modules/**/tst',
 
     './dev/node_modules/jquery/src/**',
     './dev/node_modules/jquery/sizzle/**',
@@ -112,6 +124,18 @@ gulp.task('clean:node_modules', function() {
     './dev/node_modules/jquery/dist/jquery.slim.js',
     './dev/node_modules/jquery/dist/jquery.slim.min.js',
     './dev/node_modules/jquery/dist/jquery.slim.min.map',
+
+    './dev/node_modules/**/async/dist',
+    './dev/node_modules/hawk/dist',
+    './dev/node_modules/qs/dist',
+
+    './dev/node_modules/**/minimatch/browser.js',
+
+    './dev/node_modules/jade/bin',
+    './dev/node_modules/semver/bin',
+    './dev/node_modules/runas/src',
+
+    './dev/node_modules/source-map/build',
 
     './dev/node_modules/semantic-ui-css/components/**',
     './dev/node_modules/semantic-ui-css/semantic.css',
@@ -127,6 +151,12 @@ gulp.task('clean:node_modules', function() {
     './dev/node_modules/ramda/dist/ramda.min.js',
 
     './dev/node_modules/uglify-js/node_modules/source-map/dist/**',
+
+    './dev/node_modules/transformer/node_modules/.bin',
+    './dev/node_modules/transformer/node_modules/source-map/build',
+    './dev/node_modules/transformer/node_modules/source-map/test',
+    './dev/node_modules/transformer/node_modules/uglify-js/bin',
+    './dev/node_modules/transformer/node_modules/uglify-js/test',
 
     './dev/node_modules/with/node_modules/acorn/src/**'
   ]);
