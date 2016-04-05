@@ -46,7 +46,7 @@ app.on('ready', function() {
   mainWindow = new BrowserWindow({
     fullscreen: false,
     width: 450,
-    height: 650,
+    height: 670,
     center: true,
     resizable: false,
     show: false,
