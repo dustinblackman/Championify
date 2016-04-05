@@ -88,9 +88,21 @@ function importItemSets() {
   if (!store.get('lol_install_path')) {
     selectFolderWarning();
   } else {
+    let fadeup = false;
     if (!championify.verifySettings()) return Promise.resolve(false);
     $('#btns_versions').addClass('hidden');
-    $('.status').transition('fade up', '500ms');
+
+    $(`.optionsrow`).transition({
+      animation: 'fade down',
+      duration: '300ms',
+      onComplete: function() {
+        if (!fadeup) {
+          fadeup = true;
+          $('#process_log').transition('fade up', '300ms');
+        }
+      }
+    });
+
     return championify.run()
       .catch(err => EndSession(err));
   }

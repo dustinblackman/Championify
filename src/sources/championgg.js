@@ -276,7 +276,7 @@ function requestPage(request_params) {
   if (position) {
     url += `/${position}`;
   } else {
-    cl(`${T.t('processing_rift')}: ${T.t(champ)}`);
+    cl(`${T.t('processing')} Champion.gg: ${T.t(champ)}`);
   }
 
   function markUndefined() {

@@ -54,7 +54,7 @@ function _requestData(champs_names, process_name) {
 
   return Promise.resolve(champs_names)
     .map(champ => {
-      cl(`${T.t('processing')} ${T.t(process_name)}: ${T.t(champ.replace(/ /g, ''))}`);
+      cl(`${T.t('processing')} Lolflavor ${T.t(process_name)}: ${T.t(champ.replace(/ /g, ''))}`);
 
       const params = {
         url: `http://www.lolflavor.com/champions/${champ}/Recommended/${champ}_${process_name.toLowerCase()}_scrape.json`,

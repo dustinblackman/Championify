@@ -114,7 +114,7 @@ export function getSr() {
   return championify.getItems()
     .then(() => Promise.resolve(store.get('champs')))
     .map(champ => {
-      cl(`${T.t('processing_rift')}: ${T.t(champ)}`);
+      cl(`${T.t('processing')} LeagueOfGraphs: ${T.t(champ)}`);
       progressbar.incrChamp();
 
       return _getPositions(champ)

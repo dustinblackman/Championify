@@ -1,4 +1,4 @@
-.one.column.row
+.one.column.row.optionsrow
   .column
     .browse_title
       span #{browse_title}
@@ -9,7 +9,7 @@
     .lol_dir_input_msg
       span#input_msg
 
-.one.column.row
+.one.column.row.optionsrow
   .column.options
     .rift_source
       .ui.fluid.multiple.search.selection.dropdown
@@ -100,13 +100,14 @@
           span(id="#{source.id}_version") #{T.t('loading')}
   
   
-  .status.hidden
-    .ui.horizontal.divider
-      h2 #{T.t('status')}
-    #itemsets_progress_bar.ui.indicating.progress(data-percent='0')
-      .bar(style='transition-duration: 300ms; -webkit-transition-duration: 300ms;')
-        .progress 0%
-  
-  
-  .progresslog
-    #cl_progress
+  #process_log.hidden
+    .status
+      .ui.horizontal.divider
+        h2 #{T.t('status')}
+      #itemsets_progress_bar.ui.indicating.progress(data-percent='0')
+        .bar(style='transition-duration: 300ms; -webkit-transition-duration: 300ms;')
+          .progress 0%
+    
+    
+    .progresslog
+      #cl_progress

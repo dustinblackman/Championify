@@ -40,7 +40,7 @@ export function getSr() {
         }))
         .get();
     })
-    .tap(() => cl('Getting Roles')) // TODO Change to translation
+    .tap(() => Log.info('koreanbuilds: Getting Roles'))
     .map(champ_data => request(`http://koreanbuilds.net/roles?championid=${champ_data.id}`)
       .then(cheerio.load)
       .then($c => {
@@ -52,7 +52,7 @@ export function getSr() {
       })
     , {concurrency: 3})
     .map(champ_data => {
-      cl(`${T.t('processing_rift')}: ${T.t(champ_data.name.toLowerCase().replace(/[^a-z]/g, ''))}`);
+      cl(`${T.t('processing')} Koreanbuilds: ${T.t(champ_data.name.toLowerCase().replace(/[^a-z]/g, ''))}`);
       progressbar.incrChamp();
 
       return Promise.resolve(champ_data.roles)
