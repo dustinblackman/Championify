@@ -1,3 +1,5 @@
+![Championify](resources/github_banner.jpg)
+
 # Championify
 
 _Champion-If-Ayyy_
@@ -13,23 +15,20 @@ _Champion-If-Ayyy_
 
 Latest Release Downloads: [![Downloads](https://img.shields.io/github/downloads/dustinblackman/Championify/latest/total.svg)](https://github.com/dustinblackman/Championify/releases/latest)
 
-Championify is a little program that downloads all the recent builds from websites like Champion.gg or Lolflavor and imports them in to your League of Legends to use within game! No hassle. Now with 38 languages and new features!
+Championify is a little program that downloads all the recent item sets from popular websites like Champion.gg, Lolflavor, KoreanBuilds, and LeagueOfGraphs, and imports them in to your League of Legends to use within game! No hassle. Championify supports 39 languages and with plenty of new features planned and in the works!
 
-Windows and OSX are both supported, tested on Windows 10 and OSX 10.11.1.
+Windows and OSX are both supported, tested on Windows 10 and OSX 10.11.3.
 
-<img src="https://i.imgur.com/iexHBvL.png">
+<img src="resources/screenshots/readme_screenshot.jpg">
 
-Check out some more screenshots [here](https://imgur.com/a/zL0R2/all)!
+Check out screenshots [here](https://imgur.com/a/eZ3vq)!
 
 ---
 
-## Announcement
-
-Championify is not dead! For all those concerned that Championify would stop working with the new server side item sets, don't you worry, everything is still working as expected. :)
-
 ## Features
 - Summoners Rift and ARAM Item Sets
-- Skill Priorities lists (Q.W.E.Q.E.R ect)
+- 4 Sources (Champion.gg, LolFlavor, KoreanBuilds, and LeagueOfGraphs)
+- Skill Priorities lists (Q.W.E.Q.E.R) or Q>E>W
 - 39 Languages
 - Bunch of preferences to display item sets in the way you prefer
 - Automation using command line preferences (simpler system coming soon)
@@ -44,102 +43,53 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
-<a name="1.2.11" />
-### 1.2.11 (March 26th, 2016)
+<a name="1.3.0" />
+### 1.3.0 (April 6th, 2016)
+
+#### Features
+- Added KoreanBuilds and LeagueOfGraphs as sources
+- Download multiple sources at once instead of just one
+- New logo by OmerValentine (cause yeah, pretty is a feature)
+- Update latest translation
 
 #### Bug Fixes
-- Fix lolflavor import bug
+- Fixed skills sometimes broken on certain champs (Kha'Zix for example)
+- Fixed various bugs with languages
+- Added missing consumables
+- Fixed sentences in specific languages being too long and pushing rows too far down
 
-#### Bug Fixes
-- Lolflavor import failing due to missing Nami item sets
+#### Technical Features
+- Complete refactor
+- Dropped Coffeescript, Lodash, and Async for ES6, Ramda, and Bluebird
+- Dropped Bower
+- Fixed development on Windows, `npm run dev` now works on both OSX and Windows
+- Code consistency to follow new styling guidelines
+- Removed anything that uses `window` for it's own module
+- Updated electron to 0.35.4 (still uses Node 4)
+- Improved error handling
+- Improved logging
+- Status view now shows in the full app (and scrolls like it did before)
+- New sources can now be dropped in and the app will handle the rest (see CONTRIBUTE.md)
+- Shrunk build size by 5MBs (deep cleaning of `node_modules` folder)
+- Removed a bunch of unused/unneeded packages
+- Docs written for the entire app to make contributing a easier
 
 
-## BUT WAIT! I have a suggestion!
+## Idea/Suggestions
 Well that's great! Put up an Issue, hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
 
 ## Contribute
 Please see [CONTRIBUTE.md](CONTRIBUTE.md)
 
-
-<a name="faq" />
-## Frequently Asked Questions
-#### Be more descriptive, what does this actually do?
-Well it's easy really. Here's a link for [Teemo's most popular build in top lane](http://champion.gg/champion/Teemo) that Champion.gg has tracked. We take this information and save it in a way that League of Legends likes so you can have the exact builds in game!
-
-
-#### Is it safe?
-Yep it's safe! Were not modifying League of Legends at all, and got the clear thanks to [Riot's item sets docs](https://developer.riotgames.com/docs/item-sets) . And my code is clean and free to browse, so no smelly virus' or surprises. I've added VirusTotal report to all my recent releases just to be sure. If you still don't trust my executables, have a tech buddy look over my code themselves and you can build from [source](#source).
-
-
-#### How do I make this work on Windows?
-Run Championify.exe, the app will try and look for your League of Legends folder for you. If the app can't find it, browse to your League of Legends folder where `lol.launcher.exe` is saved (`LoLLauncher.exe` or `lol.exe` for Garena installations).
-
-
-#### How do I make this work on Mac?
-Run Championify, the app will try and look for your League of Legends.app for you. If the app can't find it, browse and select your League of Legends.app.
-
-
-#### Why do I not see the item sets in the launcher?
-Due to Riot restrictions, you can only see the item sets in game, you won't see them in the launcher.
-
-
-#### Why does this not work on XP, Vista, or OSX Lion?
-Sorry, Electron doesn't support anything below Windows 7 or Mountain Lion. There's no plans to support it.
-
-
-#### "App can’t be opened because it is from an unidentified developer"
-Read [this](http://osxdaily.com/2012/07/27/app-cant-be-opened-because-it-is-from-an-unidentified-developer/) to fix it.
-
-
-#### The app opens with a white box, infinite loops, or nothing happens
-I'm a bit lost why this is happening on some system, give this a try. Delete the following folders depending on your operating system, and then try Championify again.
-
-__Windows:__ `C:\Users\YOURNAME\AppData\Roaming\Championify`
-
-__OSX:__ `/Users/YOURNAME/Library/Application Support/Championify`
-
-
-#### AAHHHH! SOMETHING BROKE! IT'S ALL MESSED UP!
-Calm down, I gotcha! If something went wrong it means something has changed that I did not expect. Follow the steps [below](#uninstall) in the next FAQ question to remove Championify's builds.
-
-
-<a name="uninstall" />
-#### Nah bro, I don't like this. How can I delete all your builds?
-I'm sorry you don't like it, hopefully I'll have it live up to your expectations one day! As for deleting, just hit the "Delete" button in Championify and it'll remove all the items sets generated by Championify.
-
-
-#### Should I be running this everyday?
-Oh no not at all, that's the last thing you want to do. The best time to run Championify is 3-4 day after a major patch comes out. Only got to do it once.
-
-
-#### Why do you force auto updates of Championify?
-If something was to change on Riots end and Championify's item sets broke your client or completely screwed up one of your games, you'd be pretty pissed right? I know I would be. This is just one method to make sure you run in to the least amount of problems possible, plus the updates are under ~8MB anyway.
-
-
-#### How do I auto update item sets?
-It's currently not supported but is planned! If you would like to try a bit of automation yourself you can try the [command line parameters](#clp)
-
-
-#### Why is my antivirus complaining about lolflavor?
-Let me guess, BitDefender? I know, I got it running too. For some reason they have lolflavor marked as malware, which I've checked myself and it's not. To add, Championify never loads a lolflavor page, so even if there was malware laying around Championify would never open it. See [virus total report here](https://www.virustotal.com/en/url/576b112b6ae43a58f00176c5efe8f9456fa16dcfcf4e341e17f6c68c6a5e0e88/analysis/1435015572/). To fix the issue, add "lolflavor.com" to your exceptions in your anti virus. [Tutorial here](http://www.bitdefender.com/support/what-to-do-when-bitdefender-2015-blocks-a-safe-website-or-online-application-1294.html)
-
-
-#### Why is your script so slow?
-Well damn, you must be pretty impatient if you think that's slow... The script is slowed on purpose so users don't spam other peoples servers. They're doing great great stuff over there and the last thing I'd want to do is cause them trouble. However if it's REALLY slow, then you should consider upgrading your dial up connection.
-
-
-#### Why is the file size so big?
-I use Electron to wrap my GUI, and unfortunately it's a bit big. I'd rather the App just work then worry about size.
-
+## [FAQ](FAQ.md)
+See [FAQ.md](FAQ.md)
 
 ## Future Plans
 Check out the [Features tag in Issues](https://github.com/dustinblackman/Championify/labels/feature) to see all up and  coming ideas.
 
-
-
 <a name="clp" />
 ## Command Line Parameters
-Championify supports a few command line parameters for those who would like to automate a few tasks before it's official supported within the app. Params work on both Windows and OSX, and uses the last saved preferences made on the app (preferences are saved each time you hit import).
+Championify supports a few command line parameters for those who would like to automate a few tasks before it's official supported within the app. Params work on both Windows and OSX, and uses the last saved preferences made on the app (preferences are saved each time you hit import). The command line prefs do need improvement and can be tracked [here](https://github.com/dustinblackman/Championify/issues/165).
 
 __Params__
 
@@ -172,11 +122,17 @@ Open [Travis](https://travis-ci.org/dustinblackman/Championify/branches) and sel
 
 <a name="source" />
 ## Build From Source
-You must have Node 4.1.1 and NPM 2.14.4 installed on your system (thats what Electron is using), git clone the repo and run the following in the root folder.
+You must have Node 4.1.1 and NPM 3.8.5 installed on your system (thats what Electron is using), git clone the repo and run the following in the root folder.
 
+__OSX:__
 ```console
-npm install -g gulp
-npm install
+npm i
+npm run build
+```
+
+__Windows:__
+```console
+npm i --arch=ia32
 npm run build
 ```
 
@@ -199,6 +155,7 @@ See [BACKERS.md](BACKERS.md)
 - Icon by [OmerValentine](http://github.com/OmerValentine)
 - [Joeldo](https://www.reddit.com/user/joeldo) of [Champion.gg](http://champion.gg)
 - [Lolflavor](http://www.lolflavor.com/)
+- [KoreanBuilds](http://www.leagueofgraphs.com/)
 
 
 ## Thank yous

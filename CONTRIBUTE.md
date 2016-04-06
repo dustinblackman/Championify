@@ -1,19 +1,26 @@
 # Contribute
 
 ## Code
-If you can code Coffeescript, feel free to make a pull request.
-Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue. :)
+I'm more then open to pull requests! Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue.
+
+JSDocs for the majority of functions can be found [here](https://doclets.io/dustinblackman/Championify/master).
 
 __Rules__
 
-- New features must be discussed in an issue first before a PR. This prevents wasting anyones time.
+- Everything is in ES6 Javascript with the Node 4 presets. That means `const` and `let`, everything for example.
+- New features must be discussed in an issue first before a PR, this prevents wasting anyones time incase it's already being worked on.
+- Reframe from adding new npm modules if there's already something that'll get the job done.
 - Must pass all tests. `npm test`
 - Must write tests for all new functions (look at current tests for examples, still a WIP).
 - Functions must be camel cased. `downloadStuff()`
 - Variables must be underscored. `my_champion = 'teemo'`
 - PR must be off and back to master branch.
 
-I suggest making sure your linters are setup correctly, or run `gulp lint` every now and again so you're not making a crazy amount of commits.
+I suggest making sure your linters are setup correctly, or run `npm run lint` every now and again so you're not making a crazy amount of commits.
+
+__Adding A Source__
+
+You can find examples for adding sources in [src/sources](src/sources). Each source requires an object export of `source_info`, a function called `getSr()` for summoners rift item sets, and `getVerion()` for the current LoL patch version. Once finished, the app will automatically add the new source to sources list. Make sure to add a nice little 16x16 icon in the [app/img/sources](app/img/sources) folder. For an easy example check out [src/sources/koreanbuilds.js](src/sources/koreanbuilds.js).
 
 ---
 
@@ -24,7 +31,6 @@ __Rules__
 - Make sure to check if a translation has been done already before writing it over again.
 - If you have an issue with someone elses translation, please use the comments section.
 - Don't add extra punctuations (such as `...`) to the end of translations if the English version doesn't have it.
-- Take a look at the screenshot links you'll find with each translation (if they're available), or check out the [screenshot folder](resources/screenshots/)
 
 __Setup__
 - Create an account with [Transifex](https://www.transifex.com/signin/) (Or login with Github/Google/Facebook/ect)
