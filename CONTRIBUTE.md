@@ -80,4 +80,4 @@ __Language Status__
 | Turkish | Yes |
 | Vietnamese | Yes |
 
-Please prevent from putting translations in PRs, I'd rather keep those for code. I check Transifex every other day, but if you'd like me to get a look at your translations quickly then hit me up on [Gitter](https://gitter.im/dustinblackman/Championify).
+Please prevent from putting translations in PRs, I'd rather keep those for code. I try to check Transifex every other day, but if you'd like me to get a look at your translations quickly then hit me up on [Gitter](https://gitter.im/dustinblackman/Championify).
