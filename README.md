@@ -77,7 +77,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 
 ## Idea/Suggestions
-Well that's great! Put up an Issue, hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
+Well that's great! Put up an [Issue](https://github.com/dustinblackman/Championify/issues), hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll try to get it when I can.
 
 ## Contribute
 Please see [CONTRIBUTE.md](CONTRIBUTE.md)
