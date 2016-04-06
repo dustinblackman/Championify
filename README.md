@@ -21,7 +21,7 @@ Windows and OSX are both supported, tested on Windows 10 and OSX 10.11.3.
 
 <img src="resources/screenshots/readme_screenshot.jpg">
 
-Check out screenshots [here](https://imgur.com/a/eZ3vq)!
+Check out screenshots [here](https://imgur.com/a/vgS3I)!
 
 ---
 
