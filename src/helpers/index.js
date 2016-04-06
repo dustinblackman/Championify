@@ -79,7 +79,10 @@ export function cl(text, level = 'info') {
   return $('#cl_progress').prepend(`<span>${text}</span><br />`);
 }
 
-// TODO: Docs
+/**
+ * Capitalizes first letter of string
+ * @param {String} String
+ */
 export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }

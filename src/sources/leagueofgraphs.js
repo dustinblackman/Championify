@@ -2,7 +2,7 @@ import Promise from 'bluebird';
 import cheerio from 'cheerio';
 import R from 'ramda';
 
-import { capitalize, cl, request, shorthandSkills, trinksCon } from '../helpers';
+import { cl, request, shorthandSkills, trinksCon } from '../helpers';
 import championify from '../championify';
 import Log from '../logger';
 import progressbar from '../progressbar';
@@ -130,27 +130,23 @@ export function getSr() {
               const blocks = [
                 {
                   items: _arrayToBuilds(items.starter_items),
-                  type: `Starter Items` // TODO: add translation
+                  type: T.t('starter', true)
                 },
                 {
                   items: _arrayToBuilds(items.core_items),
-                  type: `Core Items` // TODO: add translation
+                  type: T.t('core_items', true)
                 },
                 {
                   items: _arrayToBuilds(items.end_items),
-                  type: `End Items` // TODO: add translation
+                  type: T.t('endgame_items', true)
                 },
                 {
                   items: _arrayToBuilds(items.boots),
-                  type: `Boots` // TODO: add translation
+                  type: T.t('boots', true)
                 }
               ];
 
-              if (position === 'adc') {
-                position = 'ADC'; // TODO: Add translation
-              } else {
-                position = capitalize(position); // TODO: add translation
-              }
+              position = T.t(position, true);
               const riot_json = R.merge(R.clone(default_schema, true), {
                 champion: champ,
                 title: `LOG ${position} ${store.get('leagueofgraphs_ver')}`,

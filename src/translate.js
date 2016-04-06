@@ -51,7 +51,6 @@ class Translate {
    * @param {Object} Translations to merge
    */
   merge(translations) {
-    translations = R.zipObj(R.map(key => key.toLowerCase().replace(/ /g, ''), R.keys(translations)), R.values(translations));
     this.phrases = R.merge(this.phrases, translations);
   }
 

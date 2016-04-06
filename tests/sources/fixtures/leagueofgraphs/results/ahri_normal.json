@@ -24,7 +24,7 @@
               "count": 2
             }
           ],
-          "type": "Starter Items"
+          "type": "Starter"
         },
         {
           "items": [
@@ -70,7 +70,7 @@
               "count": 1
             }
           ],
-          "type": "End Items"
+          "type": "Endgame Items"
         },
         {
           "items": [

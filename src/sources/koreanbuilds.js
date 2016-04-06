@@ -38,7 +38,16 @@ export function getSr() {
   return request('http://koreanbuilds.net/')
     .then(cheerio.load)
     .then($c => {
-      // TODO: Push to undefined builds here.
+      // TODO: Fix scrolling in undefined builds before enabling this again.
+      // $c('div[class="champIcon grey"]')
+      //   .each((idx, elem) => {
+      //     store.push('undefined_builds', {
+      //       source: source_info.name,
+      //       champ: $c(elem).attr('name').toLowerCase().replace(/[^a-z]/g, ''),
+      //       position: 'All'
+      //     });
+      //   });
+
       return $c('div[class="champIcon "]')
         .map((idx, elem) => ({
           id: $c(elem).attr('id'),
@@ -98,7 +107,7 @@ export function getSr() {
             const stats = $c('p').eq(2).text().slice(6);
             const block = [{
               items: _arrayToBuilds(items),
-              type: `${stats} - ${games_played} games played` // TODO: add translation
+              type: `${stats} - ${games_played} ${T.t('games_played', true)}`
             }];
 
             const riot_json = R.merge(R.clone(default_schema, true), {

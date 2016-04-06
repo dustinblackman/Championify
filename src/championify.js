@@ -59,7 +59,10 @@ function getChamps() {
     .then(R.prop('data'))
     .tap(data => {
       if (!data) throw new ChampionifyErrors.RequestError('Can\'t get Champs');
-      T.merge(R.zipObj(R.keys(data), R.pluck('name')(R.values(data))));
+      let translations = R.zipObj(R.keys(data), R.pluck('name')(R.values(data)));
+      translations = R.zipObj(R.map(key => key.toLowerCase().replace(/ /g, ''), R.keys(translations)), R.values(translations));
+      translations.wukong = translations.monkeyking;
+      T.merge(translations);
 
       store.set('champs', R.keys(data).sort());
     })

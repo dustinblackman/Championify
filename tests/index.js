@@ -13,7 +13,11 @@ require(`../${GLOBAL.src_path}/store`);
 window.$ = sinon.stub();
 window.$.withArgs('#cl_progress').returns({prepend: function() {}});
 
-T.merge(R.zipObj(R.keys(champions), R.pluck('name')(R.values(champions))));
+// Import champion translations so it can be used in all tests
+let translations = R.zipObj(R.keys(champions), R.pluck('name')(R.values(champions)));
+translations = R.zipObj(R.map(key => key.toLowerCase().replace(/ /g, ''), R.keys(translations)), R.values(translations));
+translations.wukong = translations.monkeyking;
+T.merge(translations);
 
 const glob_options = {
   realpath: true,
