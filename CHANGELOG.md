@@ -14,6 +14,7 @@
 - Fixed various bugs with languages
 - Added missing consumables
 - Fixed sentences in specific languages being too long and pushing rows too far down
+- Progress bar is more accurate
 
 #### Technical Features
 - Complete refactor
