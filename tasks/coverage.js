@@ -128,15 +128,12 @@ function coverallsSetup() {
   }
 
   // If Appveyor
-  return travis.token()
-    .then(token => {
-      const params = {
-        url: 'https://api.travis-ci.org/repos/dustinblackman/Championify/builds',
-        headers: {Authorization: `token "${token}"`},
-        method: 'GET'
-      };
-      return travis.request(params);
-    })
+  const params = {
+    url: 'https://api.travis-ci.org/repos/dustinblackman/Championify/builds',
+    method: 'GET'
+  };
+
+  return travis(params)
     .then(body => {
       const build_number = process.env.APPVEYOR_BUILD_NUMBER.toString();
       const build = R.find(R.propEq('number', build_number))(body.builds);
