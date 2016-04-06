@@ -49,7 +49,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 #### Features
 - Added KoreanBuilds and LeagueOfGraphs as sources
 - Download multiple sources at once instead of just one
-- New logo by OmerValentine (cause yeah, pretty is a feature)
+- New logo by Omer Levy (cause yeah, pretty is a feature)
 - Updated latest translation
 
 #### Bug Fixes
@@ -153,7 +153,7 @@ Soon Championify will be expanding, big! With plenty of suggestions and new idea
 See [BACKERS.md](BACKERS.md)
 
 ## Credit
-- Icon by [OmerValentine](http://github.com/OmerValentine)
+- Icon by [Omer Levy](http://github.com/OmerValentine)
 - [Joeldo](https://www.reddit.com/user/joeldo) of [Champion.gg](http://champion.gg)
 - [Lolflavor](http://www.lolflavor.com/)
 - [KoreanBuilds](http://koreanbuilds.net)

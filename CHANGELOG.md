@@ -6,7 +6,7 @@
 #### Features
 - Added KoreanBuilds and LeagueOfGraphs as sources
 - Download multiple sources at once instead of just one
-- New logo by OmerValentine (cause yeah, pretty is a feature)
+- New logo by Omer Levy (cause yeah, pretty is a feature)
 - Updated latest translation
 
 #### Bug Fixes
