@@ -30,7 +30,7 @@
 - New sources can now be dropped in and the app will handle the rest (see CONTRIBUTE.md)
 - Shrunk build size by 5MBs (deep cleaning of `node_modules` folder)
 - Removed a bunch of unused/unneeded packages
-- Docs written for the entire app to make contributing a easier
+- Docs written for the entire app to make contributing easier
 
 
 <a name="1.2.11" />
