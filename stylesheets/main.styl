@@ -1,7 +1,6 @@
 // Browse/Inputs
 .browse_title
   margin-bottom 5px
-  margin-top -10px
   text-align center
 
 .lol_dir_input_msg
@@ -26,13 +25,13 @@
     text-align center
     z-index 2
 
-    .ui.selection.dropdown
-      line-height .5em
-      height 30px
-      min-height .7142em
+  .ui.label>img
+    height 12px !important // @stylint ignore
+    margin-right 2px
+    vertical-align initial !important // @stylint ignore
 
-    .ui.selection.dropdown>.dropdown.icon
-      padding .48571429em
+  .ui.dropdown .menu>.item>img
+    vertical-align text-bottom !important // @stylint ignore
 
   .with_dropdown
     display flex
@@ -67,7 +66,7 @@
 // Versions
 .versions
   color #c8c1c1
-  text-align center
+  margin-left 120px
 
   div
     display block
@@ -78,8 +77,10 @@
 
 // Submit/Progress
 .submit_btns
-  margin-top 20px
   text-align center
+
+  button
+    padding-top 5px
 
 .status
   text-align center
@@ -95,10 +96,9 @@
     margin .8rem 0
 
 .progresslog
-  height 170px
   margin-top 0
   overflow hidden
-  text-align center
+  // text-align center
 
   ::-webkit-scrollbar // @stylint ignore
     display none

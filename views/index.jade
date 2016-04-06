@@ -20,8 +20,13 @@ header
           img(src='img/win_buttons/x.png')
 
 include ./_locales.jade
-#parent_view
-  include ./_view.jade
+.one.column.row
+  .banner.column
+    img(src='./img/logo.png').top_logo
+    .ui.divider
+
+#view.ui.container
+  include ./main.jade
 
 footer
   .donate

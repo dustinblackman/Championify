@@ -16,7 +16,7 @@ AppUpdatesURL=<%- url %>
 DefaultDirName={pf}\Championify
 DefaultGroupName=Championify
 AllowNoIcons=yes
-OutputDir=<%- outputPath %>
+OutputDir=<%- output_path %>
 OutputBaseFilename=Championify.Windows_Setup.<%- version.replace(/\./g, '-') %>
 ;SetupIconFile=path
 Compression=lzma
@@ -71,8 +71,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "<%- dataPath %>\Championify.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "<%- dataPath %>\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "<%- data_path %>\Championify.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "<%- data_path %>\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

@@ -28,19 +28,19 @@
       "count": 1
     },
     {
-      "id": "2044",
-      "count": 1
+      "id":"2031",
+      "count":1
     },
     {
-      "id": "2041",
-      "count": 1
+      "id":"2032",
+      "count":1
+    },
+    {
+      "id":"2033",
+      "count":1
     },
     {
       "id": "2138",
-      "count": 1
-    },
-    {
-      "id": "2137",
       "count": 1
     },
     {
@@ -54,7 +54,7 @@
 
   ],
 
-  "trinketUpgrades": [
+  "trinket_upgrades": [
     {
       "id": "3361",
       "count": 1

@@ -1,0 +1,88 @@
+[
+  {
+    "champ": "Ahri",
+    "file_prefix": "Mid",
+    "riot_json": {
+      "map": "any",
+      "blocks": [
+        {
+          "items": [
+            {
+              "id": "3001",
+              "count": 1
+            },
+            {
+              "id": "3092",
+              "count": 1
+            },
+            {
+              "id": "3158",
+              "count": 1
+            },
+            {
+              "id": "3285",
+              "count": 1
+            },
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            }
+          ],
+          "type": "Master - 322 LP - 31 games played"
+        },
+        {
+          "items": [
+            {
+              "id": "2003",
+              "count": 1
+            },
+            {
+              "id": "2004",
+              "count": 1
+            },
+            {
+              "id": "2043",
+              "count": 1
+            },
+            {
+              "id": "2031",
+              "count": 1
+            },
+            {
+              "id": "2032",
+              "count": 1
+            },
+            {
+              "id": "2033",
+              "count": 1
+            },
+            {
+              "id": "2138",
+              "count": 1
+            },
+            {
+              "id": "2140",
+              "count": 1
+            },
+            {
+              "id": "2139",
+              "count": 1
+            }
+          ],
+          "type": "Consumables | Frequent: Q.E.Q.W.Q.R.Q.W.Q.W.R.W.W.E.E.R.E.E"
+        }
+      ],
+      "title": "KRB Mid 6.6",
+      "priority": false,
+      "mode": "any",
+      "type": "custom",
+      "sortrank": 1,
+      "champion": "Ahri"
+    },
+    "source": "koreanbuilds"
+  }
+]

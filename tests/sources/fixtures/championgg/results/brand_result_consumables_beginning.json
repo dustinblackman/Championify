@@ -1,1 +1,360 @@
-{"Brand":{"middle":{"map":"any","blocks":[{"items":[{"id":"2003","count":1},{"id":"2004","count":1},{"id":"2043","count":1},{"id":"2044","count":1},{"id":"2041","count":1},{"id":"2138","count":1},{"id":"2137","count":1},{"id":"2140","count":1},{"id":"2139","count":1}],"type":"Consumables | Frequent: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E.R.E.E"},{"items":[{"id":"1056","count":1},{"id":"2003","count":2},{"id":"3340","count":1},{"id":"3341","count":1},{"id":"3342","count":1}],"type":"Frequent/Highest Start (52.15% wins - 9647 games)"},{"items":[{"id":"3151","count":1},{"id":"3020","count":1},{"id":"3116","count":1},{"id":"3089","count":1},{"id":"3135","count":1},{"id":"3165","count":1}],"type":"Most Frequent Core Build (53.05% wins - 571 games)"},{"items":[{"id":"3151","count":1},{"id":"3020","count":1},{"id":"3116","count":1},{"id":"3089","count":1},{"id":"3135","count":1},{"id":"3157","count":1}],"type":"Highest Win % Core Build (53.12% wins - 570 games)"}],"title":"Middle 5.16","priority":false,"mode":"any","type":"custom","sortrank":1,"champion":"Brand"},"support":{"map":"any","blocks":[{"items":[{"id":"2003","count":1},{"id":"2004","count":1},{"id":"2043","count":1},{"id":"2044","count":1},{"id":"2041","count":1},{"id":"2138","count":1},{"id":"2137","count":1},{"id":"2140","count":1},{"id":"2139","count":1}],"type":"Consumables | Frequent: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E.R.E.E"},{"items":[{"id":"2004","count":1},{"id":"2003","count":3},{"id":"3303","count":1},{"id":"3340","count":1},{"id":"3341","count":1},{"id":"3342","count":1}],"type":"Most Frequent Starters (54.88% wins - 1197 games)"},{"items":[{"id":"2003","count":1},{"id":"2004","count":2},{"id":"3303","count":1},{"id":"3340","count":1},{"id":"3341","count":1},{"id":"3342","count":1}],"type":"Highest Win % Starters (61.06% wins - 226 games)"},{"items":[{"id":"2049","count":1},{"id":"3020","count":1},{"id":"3151","count":1},{"id":"3116","count":1},{"id":"3135","count":1},{"id":"3165","count":1}],"type":"Most Frequent Core Build (53.88% wins - 470 games)"},{"items":[{"id":"2049","count":1},{"id":"3151","count":1},{"id":"3020","count":1},{"id":"3116","count":1},{"id":"3285","count":1},{"id":"3135","count":1}],"type":"Highest Win % Core Build (55.15% wins - 258 games)"}],"title":"Support 5.16","priority":false,"mode":"any","type":"custom","sortrank":1,"champion":"Brand"}}}
+[
+  {
+    "champ": "Brand",
+    "file_prefix": "middle",
+    "riot_json": {
+      "map": "any",
+      "blocks": [
+        {
+          "items": [
+            {
+              "id": "2003",
+              "count": 1
+            },
+            {
+              "id": "2004",
+              "count": 1
+            },
+            {
+              "id": "2043",
+              "count": 1
+            },
+            {
+              "id": "2031",
+              "count": 1
+            },
+            {
+              "id": "2032",
+              "count": 1
+            },
+            {
+              "id": "2033",
+              "count": 1
+            },
+            {
+              "id": "2138",
+              "count": 1
+            },
+            {
+              "id": "2140",
+              "count": 1
+            },
+            {
+              "id": "2139",
+              "count": 1
+            }
+          ],
+          "type": "Consumables | Frequent: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E.R.E.E"
+        },
+        {
+          "items": [
+            {
+              "id": "1056",
+              "count": 1
+            },
+            {
+              "id": "2003",
+              "count": 2
+            },
+            {
+              "id": "2003",
+              "count": 2
+            },
+            {
+              "id": "3340",
+              "count": 1
+            },
+            {
+              "id": "3341",
+              "count": 1
+            },
+            {
+              "id": "3342",
+              "count": 1
+            }
+          ],
+          "type": "Most Frequent Starters (52.15% wins - 9647 games)"
+        },
+        {
+          "items": [
+            {
+              "id": "1056",
+              "count": 1
+            },
+            {
+              "id": "2010",
+              "count": 2
+            },
+            {
+              "id": "2010",
+              "count": 2
+            },
+            {
+              "id": "3340",
+              "count": 1
+            },
+            {
+              "id": "3341",
+              "count": 1
+            },
+            {
+              "id": "3342",
+              "count": 1
+            }
+          ],
+          "type": "Highest Win % Starters (53.78% wins - 5528 games)"
+        },
+        {
+          "items": [
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3020",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3089",
+              "count": 1
+            },
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
+            }
+          ],
+          "type": "Most Frequent Core Build (53.05% wins - 571 games)"
+        },
+        {
+          "items": [
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3020",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3089",
+              "count": 1
+            },
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            }
+          ],
+          "type": "Highest Win % Core Build (53.12% wins - 570 games)"
+        }
+      ],
+      "title": "CGG Middle 5.16",
+      "priority": false,
+      "mode": "any",
+      "type": "custom",
+      "sortrank": 1,
+      "champion": "Brand"
+    },
+    "source": "championgg"
+  },
+  {
+    "champ": "Brand",
+    "file_prefix": "support",
+    "riot_json": {
+      "map": "any",
+      "blocks": [
+        {
+          "items": [
+            {
+              "id": "2003",
+              "count": 1
+            },
+            {
+              "id": "2004",
+              "count": 1
+            },
+            {
+              "id": "2043",
+              "count": 1
+            },
+            {
+              "id": "2031",
+              "count": 1
+            },
+            {
+              "id": "2032",
+              "count": 1
+            },
+            {
+              "id": "2033",
+              "count": 1
+            },
+            {
+              "id": "2138",
+              "count": 1
+            },
+            {
+              "id": "2140",
+              "count": 1
+            },
+            {
+              "id": "2139",
+              "count": 1
+            }
+          ],
+          "type": "Consumables | Frequent: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E.R.E.E"
+        },
+        {
+          "items": [
+            {
+              "id": "2004",
+              "count": 1
+            },
+            {
+              "id": "2010",
+              "count": 3
+            },
+            {
+              "id": "2010",
+              "count": 3
+            },
+            {
+              "id": "2010",
+              "count": 3
+            },
+            {
+              "id": "3303",
+              "count": 1
+            },
+            {
+              "id": "3340",
+              "count": 1
+            },
+            {
+              "id": "3341",
+              "count": 1
+            },
+            {
+              "id": "3342",
+              "count": 1
+            }
+          ],
+          "type": "Most Frequent Starters (54.88% wins - 1197 games)"
+        },
+        {
+          "items": [
+            {
+              "id": "2003",
+              "count": 1
+            },
+            {
+              "id": "2004",
+              "count": 2
+            },
+            {
+              "id": "2004",
+              "count": 2
+            },
+            {
+              "id": "3303",
+              "count": 1
+            },
+            {
+              "id": "3340",
+              "count": 1
+            },
+            {
+              "id": "3341",
+              "count": 1
+            },
+            {
+              "id": "3342",
+              "count": 1
+            }
+          ],
+          "type": "Highest Win % Starters (61.06% wins - 226 games)"
+        },
+        {
+          "items": [
+            {
+              "id": "2049",
+              "count": 1
+            },
+            {
+              "id": "3020",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
+            }
+          ],
+          "type": "Most Frequent Core Build (53.88% wins - 470 games)"
+        },
+        {
+          "items": [
+            {
+              "id": "2049",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3020",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3285",
+              "count": 1
+            },
+            {
+              "id": "3135",
+              "count": 1
+            }
+          ],
+          "type": "Highest Win % Core Build (55.15% wins - 258 games)"
+        }
+      ],
+      "title": "CGG Support 5.16",
+      "priority": false,
+      "mode": "any",
+      "type": "custom",
+      "sortrank": 1,
+      "champion": "Brand"
+    },
+    "source": "championgg"
+  }
+]

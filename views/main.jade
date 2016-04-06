@@ -1,7 +1,9 @@
-.one.column.row
+include ./_modals.jade
+
+.one.column.row.optionsrow
   .column
     .browse_title
-      span #{window.browse_title}
+      span #{browse_title}
     .ui.fluid.action.input.lol_dir_input
       input#install_path(type='text')
       button#browse.ui.grey.button(type='button') #{T.t('browse')}
@@ -9,18 +11,19 @@
     .lol_dir_input_msg
       span#input_msg
 
-.one.column.row
+.one.column.row.optionsrow
   .column.options
     .rift_source
-      #sr_source.ui.selection.dropdown
-        input#options_sr_source(type='hidden', value='championgg')
+      .ui.fluid.multiple.search.selection.dropdown
+        input#options_sr_source(type='hidden' value='#{selected_sources}')
         i.dropdown.icon
-        #sr_source_text.text Champion.gg
+        .default.text #{T.t('summoners_rift_source')}
         .menu
-          .header #{T.t('summoners_rift_source')}
-          .item(data-value='championgg') Champion.gg
-          .item(data-value='lolflavor') Lolflavor
-    
+          each source in sources
+            .item(data-value='#{source.id}')
+              img.sourceicon(src='img/sources/#{source.id}.png')  
+              | #{source.name}
+        
           
     .ui.checkbox.left
       input#options_aram(type='checkbox')
@@ -92,21 +95,21 @@
       div
         | LoL #{T.t('version')}: 
         span#lol_version #{T.t('loading')}
-      div
-        | Champion.gg #{T.t('version')}: 
-        span#championgg_version #{T.t('loading')}
-      div
-        | Lolflavor #{T.t('version')}: 
-        span#lolflavor_version #{T.t('loading')}
+        
+      each source in sources
+        div
+          | #{source.name} #{T.t('version')}: 
+          span(id="#{source.id}_version") #{T.t('loading')}
   
   
-  .status.hidden
-    .ui.horizontal.divider
-      h2 #{T.t('status')}
-    #itemsets_progress_bar.ui.indicating.progress(data-percent='0')
-      .bar(style='transition-duration: 300ms; -webkit-transition-duration: 300ms;')
-        .progress 0%
-  
-  
-  .progresslog
-    #cl_progress
+  #process_log.hidden
+    .status
+      .ui.horizontal.divider
+        h2 #{T.t('status')}
+      #itemsets_progress_bar.ui.indicating.progress(data-percent='0')
+        .bar(style='transition-duration: 300ms; -webkit-transition-duration: 300ms;')
+          .progress 0%
+    
+    
+    .progresslog
+      #cl_progress

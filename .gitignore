@@ -5,6 +5,7 @@ bower_components/
 tmp/
 cache/
 coverage/
+src-cov/
 
 *.asar
 *.log

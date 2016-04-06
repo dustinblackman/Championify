@@ -135,6 +135,10 @@
     "msg": "games",
     "done": true
   },
+  "games_played": {
+    "msg": "games played",
+    "done": true
+  },
   "help": {
     "msg": "help",
     "done": true
@@ -329,7 +333,7 @@
   },
   "summoners_rift_source": {
     "done": true,
-    "msg": "Summoners Rift Source"
+    "msg": "Select Summoners Rift itemset sources"
   },
   "support": {
     "msg": "Support",

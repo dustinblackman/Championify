@@ -6,8 +6,8 @@ os: Windows Server 2012 R2
 install:
   - systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"
   - ps: Install-Product node 4.1.1 # Must match package.json
-  - npm install -g npm@2.14.4 # Must match package.json
-  - npm install || Echo First NPM install failed && npm install
+  - npm install -g npm@3.8.5 # Must match package.json
+  - npm install --arch=ia32 || Echo First NPM install failed && npm install --arch=ia32
   - node -v
   - npm -v
 build: off
@@ -25,14 +25,14 @@ environment:
   AWS_TOKEN:
     secure: sk9Np49QKXFj5/tP0Vd0wA6I7GM+R7KY5QY1zztP1YtxCHnj7200DzNwdnrS6KgQ
 test_script:
-  - npm test
+  - npm run test-coverage
   - npm run build-artifact
 on_success:
   - npm run coveralls
 artifacts:
   - path: download.txt
     name: Download Build (link within text file)
-  - path: ./coverage/coverage-coffee.json
+  - path: ./coverage/coverage.json
     name: Coffee-Coverage
 # cache:
 #   - node_modules -> package.json

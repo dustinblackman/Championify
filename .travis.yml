@@ -8,12 +8,12 @@ install:
   - git clone https://github.com/creationix/nvm.git ~/.nvm
   - source ~/.nvm/nvm.sh
   - nvm install 4.1.1 # Must match package.json
-  - npm install -g npm@2.14.4 # Must match package.json
+  - npm install -g npm@3.8.5 # Must match package.json
   - npm install || echo First NPM install failed && npm install # Fix electron-prebuilt failing on first install
 before_script:
   - node -v
   - npm -v
-script: npm test
+script: npm run test-coverage
 os: osx
 cache:
   directories:
@@ -26,4 +26,4 @@ addons:
   artifacts:
     paths:
     - ./download.txt
-    - ./coverage/coverage-coffee.json
+    - ./coverage/coverage.json
