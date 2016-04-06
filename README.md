@@ -43,6 +43,12 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
+<a name="1.3.1" />
+### 1.3.1 (April 6th, 2016)
+
+#### Bug Fixes
+- Fix preferences not being loaded correctly after updating.
+
 <a name="1.3.0" />
 ### 1.3.0 (April 6th, 2016)
 

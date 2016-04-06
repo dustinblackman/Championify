@@ -4,7 +4,7 @@ import path from 'path';
 const preferences = require(`../${GLOBAL.src_path}/preferences`).default;
 
 const should = require('chai').should();
-const prefs_fixture = {dir: '/123'};
+const prefs_fixture = {dir: '/123', prefs_version: '1.3.1'};
 
 describe('src/preferences', () => {
   describe('directory', () => {
