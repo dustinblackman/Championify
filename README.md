@@ -155,7 +155,8 @@ See [BACKERS.md](BACKERS.md)
 - Icon by [OmerValentine](http://github.com/OmerValentine)
 - [Joeldo](https://www.reddit.com/user/joeldo) of [Champion.gg](http://champion.gg)
 - [Lolflavor](http://www.lolflavor.com/)
-- [KoreanBuilds](http://www.leagueofgraphs.com/)
+- [KoreanBuilds](http://koreanbuilds.net)
+- [LeagueOfGraphs](http://www.leagueofgraphs.com/)
 
 
 ## Thank yous
