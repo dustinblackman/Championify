@@ -50,7 +50,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 - Added KoreanBuilds and LeagueOfGraphs as sources
 - Download multiple sources at once instead of just one
 - New logo by OmerValentine (cause yeah, pretty is a feature)
-- Update latest translation
+- Updated latest translation
 
 #### Bug Fixes
 - Fixed skills sometimes broken on certain champs (Kha'Zix for example)
