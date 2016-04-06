@@ -10,7 +10,7 @@ import SuperError from 'super-error';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
 const request = Promise.promisify(require('request'));
-const travis = require(path.join(__dirname, 'helpers/travis.js'));
+const travis = require(path.join(__dirname, 'helpers/travis.js')).default;
 
 const SkipCoverallsError = SuperError.subclass('SkipCoverallsError');
 
