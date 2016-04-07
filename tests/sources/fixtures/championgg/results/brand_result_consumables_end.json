@@ -16,10 +16,6 @@
               "count": 2
             },
             {
-              "id": "2003",
-              "count": 2
-            },
-            {
               "id": "3340",
               "count": 1
             },
@@ -32,36 +28,7 @@
               "count": 1
             }
           ],
-          "type": "Most Frequent Starters (52.15% wins - 9647 games)"
-        },
-        {
-          "items": [
-            {
-              "id": "1056",
-              "count": 1
-            },
-            {
-              "id": "2010",
-              "count": 2
-            },
-            {
-              "id": "2010",
-              "count": 2
-            },
-            {
-              "id": "3340",
-              "count": 1
-            },
-            {
-              "id": "3341",
-              "count": 1
-            },
-            {
-              "id": "3342",
-              "count": 1
-            }
-          ],
-          "type": "Highest Win % Starters (53.78% wins - 5528 games)"
+          "type": "Frequent/Highest Start (52.15% wins - 9647 games)"
         },
         {
           "items": [
@@ -185,15 +152,7 @@
               "count": 1
             },
             {
-              "id": "2010",
-              "count": 3
-            },
-            {
-              "id": "2010",
-              "count": 3
-            },
-            {
-              "id": "2010",
+              "id": "2003",
               "count": 3
             },
             {
@@ -220,10 +179,6 @@
             {
               "id": "2003",
               "count": 1
-            },
-            {
-              "id": "2004",
-              "count": 2
             },
             {
               "id": "2004",

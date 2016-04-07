@@ -25,11 +25,16 @@ export function getVersion() {
 }
 
 function _arrayToBuilds(ids) {
+  ids = R.map(id => {
+    id = id.toString();
+    if (id === '2010') id = '2003'; // Biscuits
+    return id;
+  }, ids);
   const counts = R.countBy(R.identity)(ids);
   return R.map(id => ({
     id,
     count: counts[id]
-  }), ids);
+  }), R.uniq(ids));
 }
 
 export function getSr() {

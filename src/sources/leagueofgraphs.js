@@ -19,11 +19,16 @@ export const source_info = {
 
 
 function _arrayToBuilds(ids) {
+  ids = R.map(id => {
+    id = id.toString();
+    if (id === '2010') id = '2003'; // Biscuits
+    return id;
+  }, ids);
   const counts = R.countBy(R.identity)(ids);
   return R.map(id => ({
     id,
     count: counts[id]
-  }), ids);
+  }), R.uniq(ids));
 }
 
 function _getItems(champ, position) {
@@ -169,7 +174,7 @@ export function getSr() {
           Log.warn(err);
           store.push('undefined_builds', {champ, position: 'All', source: source_info.name});
         });
-    }, {concurrency: 5})
+    }, {concurrency: 3})
     .then(R.flatten)
     .then(data => store.push('sr_itemsets', data))
     .catch(err => console.log(err.stack));

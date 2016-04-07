@@ -150,12 +150,16 @@ function processChamp(request_params, body) {
   };
 
   function arrayToBuilds(data) {
-    const ids = R.map(R.toString, R.pluck('id')(data));
+    let ids = R.map(id => {
+      id = id.toString();
+      if (id === '2010') id = '2003'; // Biscuits
+      return id;
+    }, R.pluck('id')(data));
     const counts = R.countBy(R.identity)(ids);
     return R.map(id => ({
       id,
       count: counts[id]
-    }), ids);
+    }), R.uniq(ids));
   }
 
   freq_start.build = arrayToBuilds(freq_start.items).concat(prebuilts.trinkets);
