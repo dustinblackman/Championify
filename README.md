@@ -43,6 +43,14 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
+<a name="1.3.2" />
+### 1.3.2 (April 6th, 2016)
+
+#### Bug Fixes
+- Fixed bug when install path isn't correctly set and throws an error instead of a warning
+- Fixed health pots missing
+- Fixed duplicate items
+
 <a name="1.3.1" />
 ### 1.3.1 (April 6th, 2016)
 
