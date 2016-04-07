@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="1.3.3" />
+### 1.3.3 (April 6th, 2016)
+
+#### Notes
+- Disabled LeagueOfGraphs
+
 <a name="1.3.2" />
 ### 1.3.2 (April 6th, 2016)
 

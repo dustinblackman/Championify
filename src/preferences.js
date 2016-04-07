@@ -48,7 +48,7 @@ class Preferences {
     const preference_file = this.file();
     if (fs.existsSync(preference_file)) {
       const prefs = JSON.parse(fs.readFileSync(preference_file));
-      if (!prefs.prefs_version || semver.lt(prefs.prefs_version, '1.3.0')) return null;
+      if (!prefs.prefs_version || semver.lt(prefs.prefs_version, '1.3.3')) return null;
       return prefs;
     }
 

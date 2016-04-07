@@ -11,7 +11,6 @@ import viewManager from '../view_manager';
 
 const requester = Promise.promisify(require('request'));
 const prebuilts = require('../../data/prebuilts.json');
-const pkg = require('../../package.json');
 
 
 /**
@@ -34,12 +33,7 @@ export function EndSession(c_error) {
  */
 
 export function request(options) {
-  let params = {
-    headers: {
-      'User-Agent': `Championify/${pkg.version}`
-    },
-    timeout: 10000
-  };
+  let params = {timeout: 10000};
 
   if (R.is(String, options)) {
     params.url = options;

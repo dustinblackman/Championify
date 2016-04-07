@@ -15,7 +15,7 @@ _Champion-If-Ayyy_
 
 Latest Release Downloads: [![Downloads](https://img.shields.io/github/downloads/dustinblackman/Championify/latest/total.svg)](https://github.com/dustinblackman/Championify/releases/latest)
 
-Championify is a little program that downloads all the recent item sets from popular websites like Champion.gg, Lolflavor, KoreanBuilds, and LeagueOfGraphs, and imports them in to your League of Legends to use within game! No hassle. Championify supports 39 languages and with plenty of new features planned and in the works!
+Championify is a little program that downloads all the recent item sets from popular websites like Champion.gg, Lolflavor, and KoreanBuilds, and imports them in to your League of Legends to use within game! No hassle. Championify supports 39 languages and with plenty of new features planned and in the works!
 
 Windows and OSX are both supported, tested on Windows 10 and OSX 10.11.3.
 
@@ -27,7 +27,7 @@ Check out screenshots [here](https://imgur.com/a/vgS3I)!
 
 ## Features
 - Summoners Rift and ARAM Item Sets
-- 4 Sources (Champion.gg, LolFlavor, KoreanBuilds, and LeagueOfGraphs)
+- 3 Sources (Champion.gg, LolFlavor, and KoreanBuilds)
 - Skill Priorities lists (Q.W.E.Q.E.R) or Q>E>W
 - 39 Languages
 - Bunch of preferences to display item sets in the way you prefer
@@ -42,6 +42,12 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 
 ## [Change Log](CHANGELOG.md)
+
+<a name="1.3.3" />
+### 1.3.3 (April 6th, 2016)
+
+#### Notes
+- Disabled LeagueOfGraphs
 
 <a name="1.3.2" />
 ### 1.3.2 (April 6th, 2016)
