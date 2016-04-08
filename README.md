@@ -177,7 +177,6 @@ See [BACKERS.md](BACKERS.md)
 - [Joeldo](https://www.reddit.com/user/joeldo) of [Champion.gg](http://champion.gg)
 - [Lolflavor](http://www.lolflavor.com/)
 - [KoreanBuilds](http://koreanbuilds.net)
-- [LeagueOfGraphs](http://www.leagueofgraphs.com/)
 
 
 ## Thank yous
