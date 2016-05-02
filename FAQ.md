@@ -66,4 +66,4 @@ The script is slowed on purpose so users don't spam other peoples servers, and t
 
 
 #### Why is the file size so big?
-I use Electron to wrap my GUI, and unfortunately it's a bit big. I'd rather the App just work then worry about size.
+I use Electron to wrap my GUI, and unfortunately it's a bit big. I'd rather the App just work than worry about size.
