@@ -23,6 +23,8 @@ Windows and OSX are both supported, tested on Windows 10 and OSX 10.11.3.
 
 Check out screenshots [here](https://imgur.com/a/vgS3I)!
 
+There's also [Championify for Android](https://github.com/OmerValentine/Championify-Android)!
+
 ---
 
 ## Features
