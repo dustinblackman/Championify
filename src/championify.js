@@ -194,7 +194,6 @@ function downloadItemSets() {
   progressbar.reset();
 
   const toProcess = [];
-  if (store.get('settings').aram) toProcess.push(sources.lolflavor.getAram);
   R.forEach(source => {
     if (sources[source]) toProcess.push(sources[source].getSr);
   }, store.get('settings').sr_source);

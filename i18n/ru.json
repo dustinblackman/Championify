@@ -55,7 +55,6 @@
   "na": "Недоступно",
   "open_log": "Открыть лог",
   "options_aram": "Скачивать ARAM сборки",
-  "options_aram_tooltip": "Скачивать сборки для ARAM с LolFlafor",
   "options_consumables": "Включить расходуемые предметы",
   "options_consumables_tooltip": "Если отключить расходуемые предметы, мы не сможем показать прокачку умений с наибольшим % побед",
   "options_dontdeleteold": "Не удалять устаревшие сборки",
