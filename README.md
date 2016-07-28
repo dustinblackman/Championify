@@ -45,57 +45,15 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
-<a name="1.3.3" />
-### 1.3.3 (April 6th, 2016)
-
-#### Notes
-- Disabled LeagueOfGraphs
-
-<a name="1.3.2" />
-### 1.3.2 (April 6th, 2016)
+<a name="1.3.4" />
+### 1.3.4 (July 28th, 2016)
 
 #### Bug Fixes
-- Fixed bug when install path isn't correctly set and throws an error instead of a warning
-- Fixed health pots missing
-- Fixed duplicate items
-
-<a name="1.3.1" />
-### 1.3.1 (April 6th, 2016)
-
-#### Bug Fixes
-- Fix preferences not being loaded correctly after updating.
-
-<a name="1.3.0" />
-### 1.3.0 (April 6th, 2016)
-
-#### Features
-- Added KoreanBuilds and LeagueOfGraphs as sources
-- Download multiple sources at once instead of just one
-- New logo by Omer Levy (cause yeah, pretty is a feature)
-- Updated latest translation
-
-#### Bug Fixes
-- Fixed skills sometimes broken on certain champs (Kha'Zix for example)
-- Fixed various bugs with languages
-- Added missing consumables
-- Fixed sentences in specific languages being too long and pushing rows too far down
-- Progress bar is more accurate
-
-#### Technical Features
-- Complete refactor
-- Dropped Coffeescript, Lodash, and Async for ES6, Ramda, and Bluebird
-- Dropped Bower
-- Fixed development on Windows, `npm run dev` now works on both OSX and Windows
-- Code consistency to follow new styling guidelines
-- Removed anything that uses `window` for it's own module
-- Updated electron to 0.35.4 (still uses Node 4)
-- Improved error handling
-- Improved logging
-- Status view now shows in the full app (and scrolls like it did before)
-- New sources can now be dropped in and the app will handle the rest (see CONTRIBUTE.md)
-- Shrunk build size by 5MBs (deep cleaning of `node_modules` folder)
-- Removed a bunch of unused/unneeded packages
-- Docs written for the entire app to make contributing easier
+- Lolflavor is dead, remove from the app
+- Verify sources exist in code base before processing
+- Fix KoreanBuilds scraper to show proper titles and split blocks
+- Add trinkets to Korean Builds
+- Fix missing blue trinket from all item sets
 
 
 ## Idea/Suggestions

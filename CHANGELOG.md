@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="1.3.4" />
+### 1.3.4 (July 28th, 2016)
+
+#### Bug Fixes
+- Lolflavor is dead, remove from the app
+- Verify sources exist in code base before processing
+- Fix KoreanBuilds scraper to show proper titles and split blocks
+- Add trinkets to Korean Builds
+- Fix missing blue trinket from all item sets
+
 <a name="1.3.3" />
 ### 1.3.3 (April 6th, 2016)
 
