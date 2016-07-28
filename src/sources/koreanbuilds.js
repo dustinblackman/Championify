@@ -9,6 +9,7 @@ import store from '../store';
 import T from '../translate';
 
 const default_schema = require('../../data/default.json');
+const prebuilts = require('../../data/prebuilts.json');
 
 
 export const source_info = {
@@ -80,9 +81,14 @@ export function getSr() {
           .then(cheerio.load)
           .then($c => {
             // Item sets
-            const items = $c('.item')
-              .map((idx, elem) => $c(elem).children().attr('src').match(/([^\/]+)(?=\.\w+$)/)[0])
-              .get();
+            function getItems(idx) {
+              return $c('#items').find('.float').eq(idx).find('.item')
+               .map((idx, elem) => $c(elem).children().attr('src').match(/([^\/]+)(?=\.\w+$)/)[0])
+               .get();
+            }
+
+            const items = getItems(0);
+            const early_items = R.concat(R.pluck('id', prebuilts.trinkets), getItems(1));
 
             // Skills
             let skills = [];
@@ -108,12 +114,18 @@ export function getSr() {
               skills = skills.join('.');
             }
 
-            const games_played = $c('p').eq(3).text().split(' ')[0];
-            const stats = $c('p').eq(2).text().slice(6);
-            const block = [{
-              items: _arrayToBuilds(items),
-              type: `${stats} - ${games_played} ${T.t('games_played', true)}`
-            }];
+            const games_played = $c('p').eq(4).text().split(' ')[0];
+            const stats = $c('p').eq(2).text().split(': ')[1];
+            const block = [
+              {
+                items: _arrayToBuilds(early_items),
+                type: `${T.t('starter', true)} - ${stats} - ${games_played} ${T.t('games_played', true)}`
+              },
+              {
+                items: _arrayToBuilds(items),
+                type: T.t('core_items', true)
+              }
+            ];
 
             const riot_json = R.merge(R.clone(default_schema, true), {
               champion: champ_data.name,
