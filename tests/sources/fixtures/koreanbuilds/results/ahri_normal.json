@@ -8,6 +8,23 @@
         {
           "items": [
             {
+              "id": "3340",
+              "count": 1
+            },
+            {
+              "id": "3341",
+              "count": 1
+            },
+            {
+              "id": "3363",
+              "count": 1
+            }
+          ],
+          "type": "Starter - Master - 322 LP -  games played"
+        },
+        {
+          "items": [
+            {
               "id": "3001",
               "count": 1
             },
@@ -32,7 +49,7 @@
               "count": 1
             }
           ],
-          "type": "Master - 322 LP - 31 games played"
+          "type": "Core Items"
         },
         {
           "items": [
