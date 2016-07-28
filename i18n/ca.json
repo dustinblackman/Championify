@@ -55,7 +55,6 @@
   "na": "No disponible",
   "open_log": "Obrir registre",
   "options_aram": "Descarregar conjunt d'elements per ARAM",
-  "options_aram_tooltip": "Descarregar conjunt d'elements per ARAM de LolFlavor",
   "options_consumables": "Habilitar Subministraments",
   "options_consumables_tooltip": "En desactivar subministraments, perdrà l'ordre d'habilitats amb % més alt de victòries",
   "options_dontdeleteold": "No eliminar conjunts d'elements antics",
