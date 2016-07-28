@@ -195,7 +195,9 @@ function downloadItemSets() {
 
   const toProcess = [];
   if (store.get('settings').aram) toProcess.push(sources.lolflavor.getAram);
-  R.forEach(source => toProcess.push(sources[source].getSr), store.get('settings').sr_source);
+  R.forEach(source => {
+    if (sources[source]) toProcess.push(sources[source].getSr);
+  }, store.get('settings').sr_source);
 
   return saveSettings()
     .then(permissions.championTest)
