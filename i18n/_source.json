@@ -223,10 +223,6 @@
     "msg": "Download ARAM Item Sets",
     "done": true
   },
-  "options_aram_tooltip": {
-    "msg": "Download ARAM item sets from LolFlavor",
-    "done": true
-  },
   "options_consumables": {
     "done": true,
     "msg": "Enable Consumables"

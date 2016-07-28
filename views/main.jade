@@ -21,28 +21,21 @@ include ./_modals.jade
         .menu
           each source in sources
             .item(data-value='#{source.id}')
-              img.sourceicon(src='img/sources/#{source.id}.png')  
+              img.sourceicon(src='img/sources/#{source.id}.png')
               | #{source.name}
-        
-          
-    .ui.checkbox.left
-      input#options_aram(type='checkbox')
-      label.options_tooltip(data-content="#{T.t('options_aram_tooltip')}") #{T.t('options_aram_tooltip')}
-      
-    br
-  
+
     .ui.checkbox.left
       input#options_splititems(type='checkbox')
       label.options_tooltip(data-content="#{T.t('options_splititems_tooltip')}") #{T.t('options_splititems')}
-    
+
     br
-    
+
     .ui.checkbox.left
       input#options_skillsformat(type='checkbox')
       label.options_tooltip(data-content="#{T.t('options_skillsformat_tooltip')} Q.W.E.Q.W.R.Q.W.Q.W etc.") #{T.t('options_skillsformat')} (Q>W>E)
-    
+
     br
-    
+
     .with_dropdown
       .ui.checkbox.left
         input#options_consumables(type='checkbox', checked='')
@@ -56,7 +49,7 @@ include ./_modals.jade
           .divider
           .item.beginning #{T.t('beginning')}
           .item.end #{T.t('end')}
-  
+
     .with_dropdown
       .ui.checkbox.left
         input#options_trinkets(type='checkbox', checked='')
@@ -70,13 +63,13 @@ include ./_modals.jade
           .divider
           .item.beginning #{T.t('beginning')}
           .item.end #{T.t('end')}
-            
+
     .ui.checkbox.left
       input#options_locksr(type='checkbox')
       label.options_tooltip(data-content="#{T.t('options_locksr_tooltip')}") #{T.t('options_locksr')}
-      
-    br  
-      
+
+    br
+
     .ui.checkbox.left
       input#options_dontdeleteold(type='checkbox')
       label.options_tooltip(data-content="#{T.t('options_dontdeleteold_tooltip')}") #{T.t('options_dontdeleteold')}
@@ -90,18 +83,18 @@ include ./_modals.jade
     br
     .versions
       div
-        | Item Sets #{T.t('version')}: 
+        | Item Sets #{T.t('version')}:
         span#local_version #{T.t('unknown')}
       div
-        | LoL #{T.t('version')}: 
+        | LoL #{T.t('version')}:
         span#lol_version #{T.t('loading')}
-        
+
       each source in sources
         div
-          | #{source.name} #{T.t('version')}: 
+          | #{source.name} #{T.t('version')}:
           span(id="#{source.id}_version") #{T.t('loading')}
-  
-  
+
+
   #process_log.hidden
     .status
       .ui.horizontal.divider
@@ -109,7 +102,7 @@ include ./_modals.jade
       #itemsets_progress_bar.ui.indicating.progress(data-percent='0')
         .bar(style='transition-duration: 300ms; -webkit-transition-duration: 300ms;')
           .progress 0%
-    
-    
+
+
     .progresslog
       #cl_progress
