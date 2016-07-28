@@ -194,7 +194,9 @@ function downloadItemSets() {
   progressbar.reset();
 
   const toProcess = [];
-  R.forEach(source => toProcess.push(sources[source].getSr), store.get('settings').sr_source);
+  R.forEach(source => {
+    if (sources[source]) toProcess.push(sources[source].getSr);
+  }, store.get('settings').sr_source);
 
   return saveSettings()
     .then(permissions.championTest)

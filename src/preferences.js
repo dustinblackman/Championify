@@ -47,7 +47,15 @@ class Preferences {
   load() {
     const preference_file = this.file();
     if (fs.existsSync(preference_file)) {
-      const prefs = JSON.parse(fs.readFileSync(preference_file));
+      let prefs = {};
+      const rawprefs = fs.readFileSync(preference_file);
+      try {
+        prefs = JSON.parse(rawprefs);
+      } catch (err) {
+        Log.warn('Unable to parse preferences');
+        Log.warn(rawprefs);
+        Log.warn(err);
+      }
       if (!prefs.prefs_version || semver.lt(prefs.prefs_version, '1.3.3')) return null;
       return prefs;
     }
@@ -108,8 +116,7 @@ class Preferences {
         trinkets_position: trinkets_position,
         locksr: $('#options_locksr').is(':checked'),
         sr_source: $('#options_sr_source').val().split(','),
-        dontdeleteold: $('#options_dontdeleteold').is(':checked'),
-        aram: $('#options_aram').is(':checked')
+        dontdeleteold: $('#options_dontdeleteold').is(':checked')
       }
     };
   }
