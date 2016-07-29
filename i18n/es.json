@@ -55,6 +55,7 @@
   "na": "No Disponible",
   "open_log": "Abrir Registro",
   "options_aram": "Descarga ARAM conjuntos de elementos",
+  "options_aram_tooltip": "Descarga los conjuntos de elementos ARAM de LolFlavor",
   "options_consumables": "Habilitar Consumibles",
   "options_consumables_tooltip": "Desactivando los consumibles perderá el orden de habilidades de Mayor % de Victoria",
   "options_dontdeleteold": "No Eliminar Conjuntos de Objetos Obsoletos",

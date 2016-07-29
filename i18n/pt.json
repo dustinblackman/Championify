@@ -55,6 +55,7 @@
   "na": "Não disponível",
   "open_log": "Abrir registo",
   "options_aram": "Descarregar conjuntos de itens de ARAM",
+  "options_aram_tooltip": "Descarregar conjuntos de itens de ARAM do LolFlavor",
   "options_consumables": "Ativar consumíveis",
   "options_consumables_tooltip": "Ao desativar os consumíveis, vai perder a ordem de habilidades com maior % de vitória",
   "options_dontdeleteold": "Não apagar os conjuntos de itens desatualizados",

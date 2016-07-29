@@ -55,6 +55,7 @@
   "na": "Nicht verfügbar",
   "open_log": "Log-Datei öffnen",
   "options_aram": "Laden Sie ARAM Item Sets",
+  "options_aram_tooltip": "Laden Sie ARAM Itemsets aus LolFlavor",
   "options_consumables": "Verbrauchsgegenstände anzeigen",
   "options_consumables_tooltip": "Durch das Deaktivieren der Verbrauchsgegenstände wird die Fähigkeitsreihenfolge mit höchster Siegesrate nicht mehr angezeigt",
   "options_dontdeleteold": "Veraltete Item-Sets nicht löschen",

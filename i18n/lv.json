@@ -55,6 +55,7 @@
   "na": "Nav pieejams",
   "open_log": "Atvērt Log",
   "options_aram": "Lejupielādēt ARAM build sarakstus",
+  "options_aram_tooltip": "Lejupielādēt ARAM build sarakstus no LolFlavour",
   "options_consumables": "Ieslēgt palīgmateriālus",
   "options_consumables_tooltip": "Ja jūs izslēgsiet palīgmatreriālus (consumables), jūs zaudēsiet augstākās uzvaras % prasmju secību.",
   "options_dontdeleteold": "Nedzēst novecojušos ARAM build sarakstus",

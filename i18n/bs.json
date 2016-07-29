@@ -55,6 +55,7 @@
   "na": "Nije dostupno",
   "open_log": "Otvori evidenciju",
   "options_aram": "Preuzmite ARAM Stavka Setovi",
+  "options_aram_tooltip": "Preuzimanje ARAM stavka seta od LolFlavor",
   "options_consumables": "Enable Potrošni",
   "options_consumables_tooltip": "Isključenjem potrošni materijal, vi ćete izgubiti Najveća pobjeda poredak% vještina",
   "options_dontdeleteold": "Nemojte brisati Outdated Stavka Setovi",

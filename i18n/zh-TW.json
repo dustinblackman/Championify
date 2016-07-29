@@ -55,6 +55,7 @@
   "na": "無法取得以下資料",
   "open_log": "開啟錯誤記錄",
   "options_aram": "下載ARAM項目集",
+  "options_aram_tooltip": "從LolFlavor下載ARAM項目集",
   "options_consumables": "顯示消耗品",
   "options_consumables_tooltip": "不顯示消耗品的話，將無法顯示最高勝率的技能順序",
   "options_dontdeleteold": "不要刪除舊的道具設置",

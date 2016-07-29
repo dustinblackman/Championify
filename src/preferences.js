@@ -56,6 +56,7 @@ class Preferences {
         Log.warn(rawprefs);
         Log.warn(err);
       }
+
       if (!prefs.prefs_version || semver.lt(prefs.prefs_version, '1.3.3')) return null;
       return prefs;
     }
@@ -116,7 +117,8 @@ class Preferences {
         trinkets_position: trinkets_position,
         locksr: $('#options_locksr').is(':checked'),
         sr_source: $('#options_sr_source').val().split(','),
-        dontdeleteold: $('#options_dontdeleteold').is(':checked')
+        dontdeleteold: $('#options_dontdeleteold').is(':checked'),
+        aram: $('#options_aram').is(':checked')
       }
     };
   }

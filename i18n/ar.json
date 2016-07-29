@@ -55,6 +55,7 @@
   "na": "غير متوفر",
   "open_log": "فتح التقرير",
   "options_aram": "تحميل مجموعة أدوات ARAM",
+  "options_aram_tooltip": "تحميل مجموعة أدوات ARAM من LolFlavor",
   "options_consumables": "تمكين المستهلكات",
   "options_consumables_tooltip": "عن طريق تعطيل المستهلكات، سوف تفقد ارشادات المهارات % الاعلى فوزاً.",
   "options_dontdeleteold": "لا تحذف مجموعات الأدوات القديمة.",

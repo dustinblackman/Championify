@@ -55,6 +55,7 @@
   "na": "Nedostupno",
   "open_log": "Otvorite Prijava",
   "options_aram": "Preuzmite Aram Stavka Kompleti",
+  "options_aram_tooltip": "Preuzmite Aram točka setovi iz LolFlavor",
   "options_consumables": "Omogućite Potrošni",
   "options_consumables_tooltip": "Onemogućavanjem potrošni, vi ćete izgubiti najveći dobitak% skill red",
   "options_dontdeleteold": "Nemojte Izbrisati zastarjele Stavka Kompleti",

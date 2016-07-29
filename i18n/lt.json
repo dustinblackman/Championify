@@ -55,6 +55,7 @@
   "na": "Nepasiekiama",
   "open_log": "Atidaryti įrašus",
   "options_aram": "Parsisiųsti Aram prekių rinkinius",
+  "options_aram_tooltip": "Parsisiųsti Aram prekių rinkinius iš LolFlavor",
   "options_consumables": "Įjungti vartojamus daiktus",
   "options_consumables_tooltip": "Išjungdami panaudojamus daiktus, prarasite dažniausiai laiminčią įgūdžių seką",
   "options_dontdeleteold": "Neištrinti pasenusių prekių rinkinių",

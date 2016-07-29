@@ -55,6 +55,7 @@
   "na": "Tidak Ada",
   "open_log": "Buka Log",
   "options_aram": "Muat turun ARAM Perkara Set",
+  "options_aram_tooltip": "Muat turun ARAM item set dari LolFlavor",
   "options_consumables": "Membolehkan Consumables",
   "options_consumables_tooltip": "Dengan mematikan consumables, anda akan kehilangan sususan skill % Menang Tertinggi",
   "options_dontdeleteold": "Jangan Padam Set Item Lama",
