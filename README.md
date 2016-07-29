@@ -45,6 +45,12 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
+<a name="1.3.5" />
+### 1.3.5 (July 29th, 2016)
+
+#### Fixes
+- Hours after removing Lolflavor which had been down for weeks, it's now returned.
+
 <a name="1.3.4" />
 ### 1.3.4 (July 28th, 2016)
 
@@ -135,6 +141,7 @@ See [BACKERS.md](BACKERS.md)
 ## Credit
 - Icon by [Omer Levy](http://github.com/OmerValentine)
 - [Joeldo](https://www.reddit.com/user/joeldo) of [Champion.gg](http://champion.gg)
+- [Lolflavor](http://www.lolflavor.com/)
 - [KoreanBuilds](http://koreanbuilds.net)
 
 

@@ -55,6 +55,7 @@
   "na": "Non disponibili",
   "open_log": "Apri i log",
   "options_aram": "Scarica set di oggetti ARAM",
+  "options_aram_tooltip": "Scarica set di oggetti ARAM da LolFlavor",
   "options_consumables": "Abilita consumabili",
   "options_consumables_tooltip": "Disattivando i consumabili, perderai l'ordine delle abilità da maxare con la maggiore percentuale di vittoria",
   "options_dontdeleteold": "Non eliminare i set di oggetti antiquati",

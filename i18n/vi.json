@@ -55,6 +55,7 @@
   "na": "Không sẵn sàng",
   "open_log": "Mở Log",
   "options_aram": "Tải Aram mục Sets",
+  "options_aram_tooltip": "Tải bộ item Aram từ LolFlavor",
   "options_consumables": "Kích hoạt đồ tiêu thụ",
   "options_consumables_tooltip": "Bằng cách tắt đồ tiêu thụ, bạn sẽ mất Nâng chiêu hiệu quả nhất",
   "options_dontdeleteold": "Đừng Xóa bảng đồ cũ",

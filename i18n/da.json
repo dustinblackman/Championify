@@ -55,6 +55,7 @@
   "na": "Ikke tilgængelig",
   "open_log": "Åbent Log",
   "options_aram": "Hent ARAM Item Sets",
+  "options_aram_tooltip": "Hent ARAM item set fra LolFlavor",
   "options_consumables": "Aktiver Consumables",
   "options_consumables_tooltip": "Ved at deaktivere consumables, mister du den højeste vind % skill orden",
   "options_dontdeleteold": "Slet ikke gamle Item Sets",

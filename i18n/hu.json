@@ -55,6 +55,7 @@
   "na": "Nem elérhető",
   "open_log": "Napló megnyitása",
   "options_aram": "ARAM Tárgykészletek letöltése",
+  "options_aram_tooltip": "Az ARAM-hoz tartozó tárgykészletek LolFlavor-ról való beszerzése",
   "options_consumables": "A fogyóeszközök engedélyezése",
   "options_consumables_tooltip": "A fogyóeszközök letiltásával el fog tűnni a legnagyobb győzelmi százalékkal rendelkező képességi sorrend",
   "options_dontdeleteold": "Ne törölje ki az elavult Tárgykészleteket",

@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="1.3.5" />
+### 1.3.5 (July 29th, 2016)
+
+#### Fixes
+- Hours after removing Lolflavor which had been down for weeks, it's now returned.
+
 <a name="1.3.4" />
 ### 1.3.4 (July 28th, 2016)
 

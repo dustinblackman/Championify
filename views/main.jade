@@ -24,6 +24,13 @@ include ./_modals.jade
               img.sourceicon(src='img/sources/#{source.id}.png')
               | #{source.name}
 
+          
+    .ui.checkbox.left
+      input#options_aram(type='checkbox')
+      label.options_tooltip(data-content="#{T.t('options_aram_tooltip')}") #{T.t('options_aram_tooltip')}
+
+    br
+
     .ui.checkbox.left
       input#options_splititems(type='checkbox')
       label.options_tooltip(data-content="#{T.t('options_splititems_tooltip')}") #{T.t('options_splititems')}

@@ -55,6 +55,7 @@
   "na": "Indisponible",
   "open_log": "Ouvrir le journal",
   "options_aram": "Télécharger ARAM ensembles d'objets",
+  "options_aram_tooltip": "Télécharger ARAM objet ensembles de LolFlavor",
   "options_consumables": "Activer Consommables",
   "options_consumables_tooltip": "En désactivant les consommables, vous perdrez le plus haut taux de victoires par compétences",
   "options_dontdeleteold": "Ne pas supprimer les builds obsolètes",
