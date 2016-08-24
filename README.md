@@ -45,6 +45,12 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
+<a name="1.3.6" />
+### 1.3.6 (August 24th, 2016)
+
+#### Bug Fixes
+- Removed BG and NL from supported Riot languages. Defaults to English.
+
 <a name="1.3.5" />
 ### 1.3.5 (July 29th, 2016)
 

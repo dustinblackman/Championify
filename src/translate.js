@@ -89,7 +89,6 @@ class Translate {
    */
   riotLocale() {
     const riot_locales = {
-      bg: 'bg_BG',
       cs: 'cs_CZ',
       de: 'de_DE',
       el: 'el_GR',
@@ -101,7 +100,6 @@ class Translate {
       it: 'it_IT',
       ja: 'ja_JP',
       ko: 'ko_KR',
-      nl: 'nl_NL',
       ms: 'ms_MY',
       pl: 'pl_PL',
       pt: 'pt_BR',

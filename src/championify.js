@@ -68,7 +68,7 @@ function getChamps() {
     })
     .catch(err => {
       if (err instanceof ChampionifyErrors.ChampionifyError) throw err;
-      new ChampionifyErrors.RequestError('Can\'t get Champs').causedBy(err);
+      throw new ChampionifyErrors.RequestError('Can\'t get Champs').causedBy(err);
     });
 }
 
@@ -198,6 +198,8 @@ function downloadItemSets() {
   R.forEach(source => {
     if (sources[source]) toProcess.push(sources[source].getSr);
   }, store.get('settings').sr_source);
+
+  Log.info(`Locale: ${T.locale}`);
 
   return saveSettings()
     .then(permissions.championTest)
