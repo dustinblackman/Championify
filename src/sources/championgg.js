@@ -325,6 +325,7 @@ export function getSr() {
 
   const champs = store.get('champs');
   return Promise.resolve(champs)
+    .then(R.reverse)
     .map(champ => {
       progressbar.incrChamp();
       return requestPage({champ});

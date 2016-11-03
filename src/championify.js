@@ -193,10 +193,10 @@ function downloadItemSets() {
 
   progressbar.reset();
 
-  const toProcess = [];
-  if (store.get('settings').aram) toProcess.push(sources.lolflavor.getAram);
+  const to_process = [];
+  if (store.get('settings').aram) to_process.push(sources.lolflavor.getAram);
   R.forEach(source => {
-    if (sources[source]) toProcess.push(sources[source].getSr);
+    if (sources[source]) to_process.push(sources[source].getSr);
   }, store.get('settings').sr_source);
 
   Log.info(`Locale: ${T.locale}`);
@@ -205,7 +205,7 @@ function downloadItemSets() {
     .then(permissions.championTest)
     .then(getRiotVer)
     .then(getChamps)
-    .then(() => Promise.all(R.map(fn => fn(), toProcess)))
+    .then(() => Promise.all(R.map(fn => fn(), to_process)))
     .then(deleteOldBuilds)
     .then(saveToFile)
     .then(resavePreferences)

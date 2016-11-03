@@ -45,28 +45,14 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
 ## [Change Log](CHANGELOG.md)
 
-<a name="1.3.6" />
-### 1.3.6 (August 24th, 2016)
+<a name="1.3.7" />
+### 1.3.7 (November 3rd, 2016)
 
 #### Bug Fixes
-- Removed BG and NL from supported Riot languages. Defaults to English.
+- Fixed some KoreanBuilds not showing up in game due to misnamed folders
 
-<a name="1.3.5" />
-### 1.3.5 (July 29th, 2016)
-
-#### Fixes
-- Hours after removing Lolflavor which had been down for weeks, it's now returned.
-
-<a name="1.3.4" />
-### 1.3.4 (July 28th, 2016)
-
-#### Bug Fixes
-- Lolflavor is dead, remove from the app
-- Verify sources exist in code base before processing
-- Fix KoreanBuilds scraper to show proper titles and split blocks
-- Add trinkets to Korean Builds
-- Fix missing blue trinket from all item sets
-
+#### Updates
+- Updated translations
 
 ## Idea/Suggestions
 I'm completely open to new ideas and suggestions! Put up an [Issue](https://github.com/dustinblackman/Championify/issues), hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll see what I can do.

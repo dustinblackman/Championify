@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="1.3.7" />
+### 1.3.7 (November 3rd, 2016)
+
+#### Bug Fixes
+- Fixed some KoreanBuilds not showing up in game due to misnamed folders
+
+#### Updates
+- Updated translations
+
 <a name="1.3.6" />
 ### 1.3.6 (August 24th, 2016)
 
