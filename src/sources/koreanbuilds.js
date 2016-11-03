@@ -1,5 +1,6 @@
 import Promise from 'bluebird';
 import cheerio from 'cheerio';
+import didyoumean from 'didyoumean';
 import R from 'ramda';
 
 import { cl, request, shorthandSkills, trinksCon } from '../helpers';
@@ -55,10 +56,14 @@ export function getSr() {
       //   });
 
       return $c('div[class="champIcon "]')
-        .map((idx, elem) => ({
-          id: $c(elem).attr('id'),
-          name: $c(elem).attr('name')
-        }))
+        .map((idx, elem) => {
+          let name = $c(elem).attr('name');
+          return {
+            id: $c(elem).attr('id'),
+            name,
+            formatted_name: didyoumean(name, store.get('champs')) || name
+          };
+        })
         .get();
     })
     .tap(() => Log.info('koreanbuilds: Getting Roles'))
@@ -72,8 +77,9 @@ export function getSr() {
         return champ_data;
       })
     , {concurrency: 3})
+    .then(R.reverse)
     .map(champ_data => {
-      cl(`${T.t('processing')} Koreanbuilds: ${T.t(champ_data.name.toLowerCase().replace(/[^a-z]/g, ''))}`);
+      cl(`${T.t('processing')} Koreanbuilds: ${T.t(champ_data.formatted_name.toLowerCase().replace(/[^a-z]/g, ''))}`);
       progressbar.incrChamp();
 
       return Promise.resolve(champ_data.roles)
@@ -128,13 +134,13 @@ export function getSr() {
             ];
 
             const riot_json = R.merge(R.clone(default_schema, true), {
-              champion: champ_data.name,
+              champion: champ_data.formatted_name,
               title: `KRB ${role} ${store.get('koreanbuilds_ver')}`,
               blocks: trinksCon(block, {highest_win: skills, most_freq: skills})
             });
 
             return {
-              champ: champ_data.name,
+              champ: champ_data.formatted_name,
               file_prefix: role,
               riot_json,
               source: 'koreanbuilds'
@@ -143,7 +149,7 @@ export function getSr() {
         , {concurrency: 1})
         .catch(err => {
           Log.warn(err);
-          store.push('undefined_builds', {champ: champ_data.name, position: champ_data.roles, source: source_info.name});
+          store.push('undefined_builds', {champ: champ_data.formatted_name, position: champ_data.roles, source: source_info.name});
         });
     }, {concurrency: 3})
     .then(R.flatten)
