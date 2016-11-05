@@ -190,7 +190,7 @@ function downloadItemSets() {
   store.remove('sr_itemsets');
   store.remove('aram_itemsets');
   store.remove('undefined_builds');
-
+  getItems();
   progressbar.reset();
 
   const to_process = [];
