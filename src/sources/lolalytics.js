@@ -7,7 +7,7 @@ import R from 'ramda';
 import ChampionifyErrors from '../errors.js';
 import { request, trinksCon } from '../helpers';
 //import Log from '../logger';
-//import progressbar from '../progressbar';
+import progressbar from '../progressbar';
 import store from '../store';
 //import T from '../translate';
 
@@ -37,71 +37,135 @@ export function getVersion() {
 
 
 export function getSr() {
-  return getChampionPage('http://current.lolalytics.com/champion/Ahri/')
-  .then(cheerio_data => parseChampionPage(cheerio_data))
-  .then(parsed_data => createRiotJson(parsed_data))
-  .then(riot_json => createChampionifyJson(riot_json))
-  .then(championify_json => store.push('sr_itemsets', championify_json));
+  const champs = store.get('champs'); //Array of champ names
+  
+  //const champs = ['Quinn'];
+  
+  //console.log(champs);
+  return Promise.resolve(champs)
+  .map(champion_name => getChampionPage({champion_name}))
+  .then(data => store.push('sr_itemsets', data));
+  
+  //.then(cheerio_data => parseChampion(cheerio_data))
+  //.then(parsed_data => createRiotJson(parsed_data))
+  //.then(riot_json => createChampionifyJson(riot_json))
+  //.then(championify_json => store.push('sr_itemsets', championify_json));
 }
 
 ///////////////////////
 // WIP
 ///////////////////////
 
-function parseChampionPage(cheerio_data) {
+function parseChampion(request_params, cheerio_data) {
+  let $c = cheerio_data;
+  const champion_name = request_params.champion_name;
+  const position = request_params.position;
+  const formatted_builds = [];
+  
+  //console.log(champion_name);
+  //console.log(request_params.position);
+  let positions = $c('.lanebox > div.lanetitle');
+  //console.log(positions);
+  let position_names = [];
+  positions.each(function(i, pos) {
+    //console.log(pos);
+    $c(pos).children().remove(); //Remove the %
+    position_names.push($c(pos).text());
+  });
+  position_names = R.filter(role => (role !== position && role !== 'All Lanes'), position_names); //Remove if exists
+  //console.log('Position names: ');
+  //console.log(position_names);
+
+  if (position_names.length == 1 || position){ //Single position champ or we were passed a position
+    formatted_builds.push(parseChampionPage(cheerio_data, position_names[0], champion_name));
+  }
+  //formatted_builds.push(parseChampionPage(cheerio_data, position_names[0]));
+  
+  if(position_names.length > 1 && !position ) { //More positions available and we werent passed one
+    let extra_requests = [];
+    //positions = R.map(position => ({champ, position}), positions);
+    extra_requests = R.map(position => ({champion_name, position}), position_names);
+    //console.log('---------------------');
+    //console.log(extra_requests);
+    //console.log('---------------------');
+    return Promise.resolve(extra_requests)
+    .map(request_params => getChampionPage(request_params))
+    .then(R.flatten)
+    .then(R.concat(formatted_builds));
+  }
+  progressbar.incrChamp();
+  return formatted_builds;
+  //}
+}
+
+function parseChampionPage(cheerio_data, position, champion_name) { 
+  //parseChampion(cheerio_data);
   let build_sections = parseItemData(cheerio_data);
   let skills = parseSkillsData(cheerio_data);
-  
   let parsed_data = {
     build_sections: build_sections,
     skills: skills    
   };
   
-  return parsed_data;
+  return createRiotJson(parsed_data, position, champion_name);
 }
 
-function getChampionPage(url) {
-	return request(url).then(function (html) {
-		return cheerio.load(html);
-	})	
+function getChampionPage(request_params) {
+  const { champion_name , position } = request_params;
+  //console.log(champion_name);
+  //console.log(position);
+  let url = `http://current.lolalytics.com/champion/${champion_name}/`
+  if (position)
+    url += position + '/';
+  
+  //console.log(url);
+	return request(url).then(html => {
+		let $ = cheerio.load(html);
+    return parseChampion(request_params, $);
+	})
+  .catch(err => {
+      Log.warn(err);
+      markUndefined();
+      return;
+    });
 }
 
 function parseItemData(cheerio_data) {
   let build_sections = [];
-  let $ = cheerio_data;
+  let $c = cheerio_data;
   
-	$('td.summarytitle').each(function(i, element) {
-    //console.log($(this).text());
+	$c('td.summarytitle').each(function(i, element) {
+    //console.log($c(this).text());
 
     let build_section = {
-    title: $(this).text(), //name of the section
+    title: $c(this).text(), //name of the section
     json: []  //json object w/ name, win, & pick values
     };
 
-    let innerTable = $(this).parent().find('table.summaryinner');
-    let rows = $(innerTable).find('tr');
+    let innerTable = $c(this).parent().find('table.summaryinner');
+    let rows = $c(innerTable).find('tr');
     //Store each column in the build_sections.json array
 
-    $(rows).each(function(j, row) {
-      let rowName = $(row).find('td.summarysubheading').text();
+    $c(rows).each(function(j, row) {
+      let rowName = $c(row).find('td.summarysubheading').text();
       if (rowName == '') {//Items 
         rowName = 'Items';
-        $(row).find('h1').each(function(z, itemName) {
+        $c(row).find('h1').each(function(z, itemName) {
           build_section.json.push({
-            name: ($(itemName).text()),
+            name: ($c(itemName).text()),
             win: null,
             pick: null								
           });
         }); //end each h1
       } else {
         if (rowName == 'Win') {
-          $(row).find('td.win.summarystats').each(function(z, winPercent) {
-            build_section.json[z].win = parseFloat($(winPercent).text());
+          $c(row).find('td.win.summarystats').each(function(z, winPercent) {
+            build_section.json[z].win = parseFloat($c(winPercent).text());
           }); //end find win
         }
         if (rowName == 'Pick') {
-          $(row).find('td.popularity.summarystats').each(function(z, pickPercent) {
-            build_section.json[z].pick = parseFloat($(pickPercent).text());
+          $c(row).find('td.popularity.summarystats').each(function(z, pickPercent) {
+            build_section.json[z].pick = parseFloat($c(pickPercent).text());
           }); //end find popularity
         }
       } //end else (not items)
@@ -113,24 +177,24 @@ function parseItemData(cheerio_data) {
 }
 
 function parseSkillsData(cheerio_data) {
-  let $ = cheerio_data;
+  let $c = cheerio_data;
   let skill_sections = [];
-  $('td.summarytitle').each(function(i, element) {
-    if ($(this).text() == 'Abilities')
+  $c('td.summarytitle').each(function(i, element) {
+    if ($c(this).text() == 'Abilities')
     { 
       let skill_section = {
-        title: $(this).text(), //name of the section
+        title: $c(this).text(), //name of the section
         json: null  //json object w/ skill order, win, & pick values
       };
       //Skills
-      let innerSkillsTable = $(this).parent().find('table.summaryskillstable');
-      let rows = $(innerSkillsTable).find('tr');
+      let innerSkillsTable = $c(this).parent().find('table.summaryskillstable');
+      let rows = $c(innerSkillsTable).find('tr');
       //Store each column in the buildSections.json array
       
-      $(rows).each(function(j, row) {
-        let skill_order = $(row).find('td.summaryskills div.summaryspellkey').text().split('').join('.');
-        let win_rate =  parseFloat($(row).find('td.win').text());
-        let pick_rate = parseFloat($(row).find('td.popularity').text());
+      $c(rows).each(function(j, row) {
+        let skill_order = $c(row).find('td.summaryskills div.summaryspellkey').text().split('').join('.');
+        let win_rate =  parseFloat($c(row).find('td.win').text());
+        let pick_rate = parseFloat($c(row).find('td.popularity').text());
         //console.log('Skills: ' + skill_order);
         //console.log('Win Rate' + win_rate);
         //console.log('Pick Rate' + pick_rate);      
@@ -163,7 +227,7 @@ function parseSkillsData(cheerio_data) {
   return skills;
 }
 
-function createRiotJson(parsed_data) {
+function createRiotJson(parsed_data, position, champion_name) {
   let blocks = [];
   const item_names = store.get('item_names');
   let build_sections = parsed_data.build_sections;
@@ -200,19 +264,19 @@ function createRiotJson(parsed_data) {
   }
 
   let riot_json = R.merge(R.clone(default_schema, true), {
-              champion: 'Ahri',
-              title: 'Lolalytics Ahri Mid',
+              champion: champion_name,
+              title: `Lolalytics ${champion_name} ${position}`,
               blocks: trinksCon(blocks, skills)
             });
             
   console.log(riot_json);
-  return riot_json;
+  return createChampionifyJson(riot_json, position, champion_name);
 }
 
-function createChampionifyJson(riot_json) {
+function createChampionifyJson(riot_json, position, champion_name) {
   return {
-    champ: 'Ahri',
-    file_prefix: 'Mid',
+    champ: champion_name,
+    file_prefix: position,
     riot_json: riot_json,
     source: 'lolalytics'
   }
