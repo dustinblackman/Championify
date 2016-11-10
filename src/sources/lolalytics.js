@@ -5,11 +5,11 @@ import cheerio from 'cheerio';
 import R from 'ramda';
 
 import ChampionifyErrors from '../errors.js';
-import { request, trinksCon } from '../helpers';
-//import Log from '../logger';
+import { cl, request, shorthandSkills, trinksCon } from '../helpers';
+import Log from '../logger';
 import progressbar from '../progressbar';
 import store from '../store';
-//import T from '../translate';
+import T from '../translate';
 
 const default_schema = require('../../data/default.json');  //Riot JSON schema
 
@@ -38,18 +38,17 @@ export function getVersion() {
 
 export function getSr() {
   const champs = store.get('champs'); //Array of champ names
+  //const champs = ['Ahri'];
+  //['Quinn', 'Gangplank', 'Graves'];
   
-  //const champs = ['Quinn'];
-  
-  //console.log(champs);
   return Promise.resolve(champs)
-  .map(champion_name => getChampionPage({champion_name}))
-  .then(data => store.push('sr_itemsets', data));
-  
-  //.then(cheerio_data => parseChampion(cheerio_data))
-  //.then(parsed_data => createRiotJson(parsed_data))
-  //.then(riot_json => createChampionifyJson(riot_json))
-  //.then(championify_json => store.push('sr_itemsets', championify_json));
+  .then(R.reverse)
+  .map(champion_name => {
+  progressbar.incrChamp();
+  return getChampionPage({champion_name})}, {concurrency: 3})
+  .then(data => {
+    store.push('sr_itemsets', data);
+  });
 }
 
 ///////////////////////
@@ -62,40 +61,38 @@ function parseChampion(request_params, cheerio_data) {
   const position = request_params.position;
   const formatted_builds = [];
   
-  //console.log(champion_name);
-  //console.log(request_params.position);
+  //console.log(`Parse champion for ${champion_name} ${position}`);
+  
   let positions = $c('.lanebox > div.lanetitle');
-  //console.log(positions);
   let position_names = [];
+  let current_position = '';
   positions.each(function(i, pos) {
-    //console.log(pos);
-    $c(pos).children().remove(); //Remove the %
+    $c(pos).children().remove(); //Remove the x.xx% after the lane name, it's a child in the div
     position_names.push($c(pos).text());
+    if ($c(pos).parent().hasClass('selected'))
+      current_position = $c(pos).text();
   });
   position_names = R.filter(role => (role !== position && role !== 'All Lanes'), position_names); //Remove if exists
-  //console.log('Position names: ');
-  //console.log(position_names);
+  //console.log(`Current position: ${current_position}`);
 
   if (position_names.length == 1 || position){ //Single position champ or we were passed a position
-    formatted_builds.push(parseChampionPage(cheerio_data, position_names[0], champion_name));
+    //console.log(`Pushing build for ${champion_name} ${position}`);
+    formatted_builds.concat(parseChampionPage(cheerio_data, current_position, champion_name));
   }
-  //formatted_builds.push(parseChampionPage(cheerio_data, position_names[0]));
   
   if(position_names.length > 1 && !position ) { //More positions available and we werent passed one
     let extra_requests = [];
-    //positions = R.map(position => ({champ, position}), positions);
     extra_requests = R.map(position => ({champion_name, position}), position_names);
-    //console.log('---------------------');
-    //console.log(extra_requests);
-    //console.log('---------------------');
+    //console.log(`Extra requests for ${champion_name}`);
     return Promise.resolve(extra_requests)
     .map(request_params => getChampionPage(request_params))
     .then(R.flatten)
     .then(R.concat(formatted_builds));
+    //.then(console.log(`Finished extra requests for ${champion_name}`));
   }
-  progressbar.incrChamp();
+  //console.log('Overall return');
+  console.log(formatted_builds);
   return formatted_builds;
-  //}
 }
 
 function parseChampionPage(cheerio_data, position, champion_name) { 
@@ -106,17 +103,38 @@ function parseChampionPage(cheerio_data, position, champion_name) {
     build_sections: build_sections,
     skills: skills    
   };
+  let builds = [];
   
-  return createRiotJson(parsed_data, position, champion_name);
+  if (store.get('settings').splititems) {
+    builds.push(createRiotJson(parsed_data, position, champion_name, 'Win'));
+    builds.push(createRiotJson(parsed_data, position, champion_name, 'Pick'));
+  }
+  else
+  {
+    builds.push(createRiotJson(parsed_data, position, champion_name));
+  }
+  console.log(builds);
+  return builds;
 }
 
 function getChampionPage(request_params) {
   const { champion_name , position } = request_params;
-  //console.log(champion_name);
-  //console.log(position);
+  //console.log(`${champion_name} : ${position}`);
   let url = `http://current.lolalytics.com/champion/${champion_name}/`
   if (position)
     url += position + '/';
+  else {
+    cl(`${T.t('processing')} Lolalytics: ${T.t(champion_name)}`);
+  }
+  
+  function markUndefined() {
+    store.push('undefined_builds', {
+      source: source_info.name,
+      champ,
+      position: request_params.position || 'All'
+    });
+    return;
+  }  
   
   //console.log(url);
 	return request(url).then(html => {
@@ -219,28 +237,59 @@ function parseSkillsData(cheerio_data) {
     return prev.win < curr.win ? prev : curr;
   });
   
-  let skills = {
-    most_freq: most_freq_skills.json.skills,
-    highest_win: highest_win_skills.json.skills 
-  };
+  let shorthand_bool = store.get('settings').skillsformat;
+  //console.log(most_freq_skills.json.skills);
   
+  let skills = {
+    most_freq: shorthand_bool ? shorthandSkills(most_freq_skills.json.skills.split('.')) : most_freq_skills.json.skills,
+    highest_win: shorthand_bool ? shorthandSkills(highest_win_skills.json.skills.split('.')) : highest_win_skills.json.skills
+  };
+
   return skills;
 }
 
-function createRiotJson(parsed_data, position, champion_name) {
+function createRiotJson(parsed_data, position, champion_name, split_sort) {
   let blocks = [];
   const item_names = store.get('item_names');
+  const sortByWinRate = R.sortBy(R.prop('win'));
+  const sortByPickRate = R.sortBy(R.prop('pick'));
   let build_sections = parsed_data.build_sections;
   let skills = parsed_data.skills;
   
   let build_sections_to_convert = [];
   
-  R.forEach( function(x) { if (R.contains(x.title, item_block_names)) build_sections_to_convert.push(x) }, build_sections);
+  R.forEach( function(x) { if (R.contains(x.title, item_block_names)) build_sections_to_convert.push(x) }, build_sections); //Filter out the rows we don't care about
+    
+  function convertBuildSectionJsonToBlock(build_section_json, title) {
+    let items = [];
+    
+    for (let k = 0; k < build_section_json.length; k++) {
+      //console.log(build_sections[i].json);
+      let id = parseInt(item_names[build_section_json[k].name]);
+      
+      id = (isNaN(id) ? 2003 : id); //For biscuit
+      
+      items.push({
+        count: 1,
+        id: id.toString()
+      });
+      //console.log(items);
+    }
+    
+    let block = {
+      type: title,
+      items: items
+    }
+    
+    return block;
+  }
+  
   
   //Iterate the sections
   for (let i = 0; i < build_sections_to_convert.length; i++) {
     //Iterate the columns in that section
     //console.log(build_sections[i]);
+    /*
     let items = [];
     
     for (let k = 0; k < build_sections_to_convert[i].json.length; k++) {
@@ -260,7 +309,22 @@ function createRiotJson(parsed_data, position, champion_name) {
       type: build_sections_to_convert[i].title,
       items: items
     }
-    blocks.push(block);
+    */
+    
+    if (!split_sort) {
+      let block = convertBuildSectionJsonToBlock(R.reverse(sortByWinRate(build_sections_to_convert[i].json)),'Highest win ' + build_sections_to_convert[i].title);
+      blocks.push(block);
+      block = convertBuildSectionJsonToBlock(R.reverse(sortByPickRate(build_sections_to_convert[i].json)),'Highest pick ' + build_sections_to_convert[i].title);
+      blocks.push(block)
+    }
+    else if (R.toLower(split_sort) == 'win') {
+      let block = convertBuildSectionJsonToBlock(R.reverse(sortByWinRate(build_sections_to_convert[i].json)), build_sections_to_convert[i].title);
+      blocks.push(block);
+    }
+    else {
+      let block = convertBuildSectionJsonToBlock(R.reverse(sortByPickRate(build_sections_to_convert[i].json)), build_sections_to_convert[i].title);
+      blocks.push(block)
+    }
   }
 
   let riot_json = R.merge(R.clone(default_schema, true), {
@@ -268,8 +332,14 @@ function createRiotJson(parsed_data, position, champion_name) {
               title: `Lolalytics ${champion_name} ${position}`,
               blocks: trinksCon(blocks, skills)
             });
-            
-  console.log(riot_json);
+  
+  if (split_sort) {
+    riot_json.title += ' Highest ' + split_sort;
+  }
+  
+  //console.log(riot_json);
+  if (store.get('settings').locksr) riot_json.map = 'SR';
+  
   return createChampionifyJson(riot_json, position, champion_name);
 }
 
