@@ -59,7 +59,7 @@ function parseChampion(request_params, cheerio_data) {
   let $c = cheerio_data;
   const champion_name = request_params.champion_name;
   const position = request_params.position;
-  const formatted_builds = [];
+  let formatted_builds = [];
   
   //console.log(`Parse champion for ${champion_name} ${position}`);
   
@@ -77,7 +77,7 @@ function parseChampion(request_params, cheerio_data) {
 
   if (position_names.length == 1 || position){ //Single position champ or we were passed a position
     //console.log(`Pushing build for ${champion_name} ${position}`);
-    formatted_builds.concat(parseChampionPage(cheerio_data, current_position, champion_name));
+    formatted_builds = R.concat(formatted_builds, parseChampionPage(cheerio_data, current_position, champion_name));
   }
   
   if(position_names.length > 1 && !position ) { //More positions available and we werent passed one
@@ -113,7 +113,7 @@ function parseChampionPage(cheerio_data, position, champion_name) {
   {
     builds.push(createRiotJson(parsed_data, position, champion_name));
   }
-  console.log(builds);
+  //console.log(builds);
   return builds;
 }
 
@@ -340,10 +340,14 @@ function createRiotJson(parsed_data, position, champion_name, split_sort) {
   //console.log(riot_json);
   if (store.get('settings').locksr) riot_json.map = 'SR';
   
-  return createChampionifyJson(riot_json, position, champion_name);
+  return createChampionifyJson(riot_json, position, champion_name, split_sort);
 }
 
-function createChampionifyJson(riot_json, position, champion_name) {
+function createChampionifyJson(riot_json, position, champion_name, split_sort) {
+  if (split_sort) {
+    position += `_${split_sort}`;
+  }
+  
   return {
     champ: champion_name,
     file_prefix: position,
