@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="1.3.8" />
+### 1.3.8 (November 14th, 2016)
+
+#### Updates
+- Added Control Ward
+
 <a name="1.3.7" />
 ### 1.3.7 (November 3rd, 2016)
 
