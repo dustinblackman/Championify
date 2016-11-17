@@ -1,5 +1,5 @@
 // Electron
-import remote from 'remote';
+import { remote } from 'electron';
 
 import Promise from 'bluebird';
 import { exec } from 'child_process';
@@ -24,8 +24,8 @@ import viewManager from './js/view_manager';
 // Debugging helpers
 window.viewManager = viewManager;
 
-const app = remote.require('app');
-const dialog = remote.require('dialog');
+const app = remote.app;
+const dialog = remote.dialog;
 
 let runas;
 if (process.platform === 'win32') runas = require('runas');
@@ -170,24 +170,25 @@ function executeOptionParameters() {
 */
 
 viewManager.init().then(() => {
-  updateManager.check().spread((version, major) => {
-    if (version && optionsParser.update()) {
-      if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-        runas(process.execPath, ['--startAsAdmin'], {
-          hide: false,
-          admin: true
-        });
-      } else {
-        return EndSession(new ChampionifyErrors.UpdateError('Can\'t auto update, please redownload'));
-      }
-    } else if (version && major) {
-      updateManager.majorUpdate(version);
-    } else if (version) {
-      updateManager.minorUpdate(version);
-    } else {
-      executeOptionParameters();
-    }
-  });
+  // TODO: Re-enable
+  // updateManager.check().spread((version, major) => {
+    // if (version && optionsParser.update()) {
+      // if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
+        // runas(process.execPath, ['--startAsAdmin'], {
+          // hide: false,
+          // admin: true
+        // });
+      // } else {
+        // return EndSession(new ChampionifyErrors.UpdateError('Can\'t auto update, please redownload'));
+      // }
+    // } else if (version && major) {
+      // updateManager.majorUpdate(version);
+    // } else if (version) {
+      // updateManager.minorUpdate(version);
+    // } else {
+      // executeOptionParameters();
+    // }
+  // });
 });
 
 /**

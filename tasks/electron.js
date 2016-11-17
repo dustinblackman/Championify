@@ -111,7 +111,7 @@ function download(url, download_path, done) {
 }
 
 function extract(download_path, os) {
-  const folder_name = os + pkg.devDependencies['electron-prebuilt'].replace(/\./g, '-');
+  const folder_name = os + pkg.devDependencies['electron'].replace(/\./g, '-');
   const cache_path = path.join('./cache', folder_name);
   if (fs.existsSync(cache_path)) return;
 
@@ -126,7 +126,7 @@ function extract(download_path, os) {
 
 function cache(os, arch) {
   fs.mkdirsSync('./cache');
-  const version = pkg.devDependencies['electron-prebuilt'];
+  const version = pkg.devDependencies['electron'];
   const download_link = `https://github.com/atom/electron/releases/download/v${version}/electron-v${version}-${os}-${arch}.zip`;
 
   const zip_name = path.basename(download_link);
@@ -156,7 +156,7 @@ gulp.task('electron:packagejson', function() {
     name: pkg.name,
     version: pkg.version,
     main: 'electron.js',
-    electron_version: pkg.dependencies['electron-prebuilt']
+    electron_version: pkg.dependencies['electron']
   };
   fs.mkdirsSync(path.join(__dirname, '../dev/'));
   return fs.writeFileAsync(path.join(__dirname, '../dev/package.json'), JSON.stringify(package_json, null, 2), 'utf8');

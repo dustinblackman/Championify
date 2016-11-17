@@ -1,4 +1,4 @@
-import remote from 'remote';
+import { remote } from 'electron';
 
 import Promise from 'bluebird';
 import { exec } from 'child_process';
@@ -18,7 +18,7 @@ import progressbar from './progressbar';
 import T from './translate';
 import viewManager from './view_manager';
 
-const app = remote.require('app');
+const app = remote.app;
 const fs = Promise.promisifyAll(require('fs-extra'));
 const pkg = require('../package.json');
 
@@ -283,7 +283,7 @@ function check() {
   const url = 'https://raw.githubusercontent.com/dustinblackman/Championify/master/package.json';
   return cRequest({url, json: true})
     .then(data => {
-      if (semver.gt(data.devDependencies['electron-prebuilt'], process.versions.electron)) {
+      if (semver.gt(data.devDependencies['electron'], process.versions.electron)) {
         version = data.version;
         major_update = true;
       }

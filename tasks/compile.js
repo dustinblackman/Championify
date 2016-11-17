@@ -11,7 +11,7 @@ import _ from 'lodash';
 const fs = Promise.promisifyAll(require('fs-extra'));
 const rcedit = Promise.promisify(require('rcedit'));
 const pkg = require('../package.json');
-const electron_version = pkg.devDependencies['electron-prebuilt'];
+const electron_version = pkg.devDependencies['electron'];
 
 
 function copyright() {

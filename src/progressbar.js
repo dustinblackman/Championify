@@ -1,4 +1,4 @@
-import remote from 'remote';
+import { remote } from 'electron';
 import $ from './helpers/jquery';
 
 import store from './store';

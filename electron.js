@@ -1,11 +1,9 @@
-import app from 'app';
-import BrowserWindow from 'browser-window';
+import { app, BrowserWindow } from 'electron';
 import { exec } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import R from 'ramda';
 
-require('crash-reporter').start();
 
 const dev_enabled = fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'));
 
@@ -54,7 +52,7 @@ app.on('ready', function() {
     title: 'Championify'
   });
 
-  mainWindow.loadUrl('file://' + __dirname + '/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
   if (dev_enabled) mainWindow.openDevTools({detach: true});
 
   mainWindow.webContents.on('did-finish-load', function() {

@@ -35,7 +35,7 @@ describe('src/update_manager.coffee', () => {
     });
 
     it('should say a major update is required', () => {
-      pkg.devDependencies['electron-prebuilt'] = '100.0.0';
+      pkg.devDependencies['electron'] = '100.0.0';
       nocked.get('/dustinblackman/Championify/master/package.json').reply(200, pkg);
       nocked.get('/dustinblackman/Championify/master/package.json').reply(200, pkg);
       return updateManager.check().spread((version, major) => {
