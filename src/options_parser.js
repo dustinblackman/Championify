@@ -36,18 +36,18 @@ export default {
     return _processArgs('--autorun');
   },
   /**
-   * Checks if '--startLeague' is in process arguments
+   * Checks if '--start-league' is in process arguments
    * @returns {Boolean}
    */
   startLeague: function() {
-    return _processArgs('--startLeague');
+    return _processArgs('--start-league');
   },
   /**
-   * Checks if '--runnedAsAdmin' is in process arguments
+   * Checks if '--runned-as-admin' is in process arguments
    * @returns {Boolean}
    */
   runnedAsAdmin: function() {
-    return _processArgs('--runnedAsAdmin');
+    return _processArgs('--runned-as-admin');
   },
   /**
    * Checks if '--update' is in process arguments

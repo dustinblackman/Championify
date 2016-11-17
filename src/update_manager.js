@@ -39,7 +39,7 @@ function download(url, download_path) {
   } catch (e) {
     const error = new ChampionifyErrors.UpdateError(`Can\'t write update file: ${path.basename(download_path)}`).causedBy(e);
     if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-      return runas(process.execPath, ['--startAsAdmin'], {hide: false, admin: true});
+      return runas(process.execPath, ['--start-as-admin'], {hide: false, admin: true});
     }
     throw error;
   }
@@ -166,7 +166,7 @@ function winMajor(install_path, update_path) {
       new ChampionifyErrors.FileWriteError('Can\'t write update_major.bat').causedBy(err);
     })
     .then(() => {
-      return runas(process.execPath, ['--winMajor'], {hide: false, admin: true});
+      return runas(process.execPath, ['--win-major'], {hide: false, admin: true});
     });
 }
 
@@ -196,7 +196,7 @@ function minorUpdate(version) {
       }
 
       if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-        runas(process.execPath, ['--startAsAdmin'], {hide: false, admin: true});
+        runas(process.execPath, ['--start-as-admin'], {hide: false, admin: true});
       } else {
         EndSession(err);
       }

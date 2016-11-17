@@ -174,7 +174,7 @@ viewManager.init().then(() => {
   // updateManager.check().spread((version, major) => {
     // if (version && optionsParser.update()) {
       // if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-        // runas(process.execPath, ['--startAsAdmin'], {
+        // runas(process.execPath, ['--start-as-admin'], {
           // hide: false,
           // admin: true
         // });
@@ -192,7 +192,7 @@ viewManager.init().then(() => {
 });
 
 /**
- * Watches for buttons pressed on GUI.
+ * Watches for buttons pressed on UI.
  */
 
 $(document).on('click', '#browse', function() {

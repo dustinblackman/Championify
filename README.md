@@ -89,7 +89,7 @@ __Example__
 Silently imports and starts League afterwards.
 
 ```bash
-C:/Championify/championify.exe --autorun --startLeague
+C:/Championify/championify.exe --autorun --start-league
 ```
 
 

@@ -218,7 +218,7 @@ function downloadItemSets() {
     .catch(err => {
       Log.error(err);
       if (err instanceof ChampionifyErrors.FileWriteError && process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-        return runas(process.execPath, ['--startAsAdmin', '--import'], {
+        return runas(process.execPath, ['--start-as-admin', '--import'], {
           hide: false,
           admin: true
         });

@@ -17,16 +17,16 @@ if (process.platform === 'darwin') {
   preference_dir = path.join(process.env.APPDATA, 'Championify');
 }
 
-if (R.contains('--winMajor', process.argv)) {
+if (R.contains('--win-major', process.argv)) {
   const update_file = path.join(preference_dir, 'update_major.bat');
   exec(`START "" "${update_file}"`, {cwd: path.join(process.cwd(), '..')});
 }
 
-if (R.contains('--startAsAdmin', process.argv)) {
+if (R.contains('--start-as-admin', process.argv)) {
   let args = R.clone(process.argv, true);
   args.shift();
-  args = R.filter(item => item !== '--startAsAdmin', args);
-  args.push('--runnedAsAdmin');
+  args = R.filter(item => item !== '--start-as-admin', args);
+  args.push('--runned-as-admin');
   let params = ['/c', 'taskkill', '/IM', 'championify.exe', '/f', '&', process.execPath].concat(args);
   params = params.concat(['&', 'exit']);
   runas('cmd', params, {
