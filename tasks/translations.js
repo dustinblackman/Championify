@@ -81,14 +81,12 @@ gulp.task('translate', function() {
       return;
     }
 
-    if (!_source[key].done || !translations[lang][key]) {
-      return GT(_source[key].msg, 'en', lang)
-        .tap(data => {
-          // If the key is the same, sometimes google translate doens't like how letters are capitialized.
-          if (_source[key].text === data.translatedText) return GT(toTitleCase(_source[key].text), 'en', lang);
-        })
-        .then(data => translations[lang][key] = data.translatedText);
-    }
+    if (!_source[key].done || !translations[lang][key]) return GT(_source[key].text, 'en', lang)
+      .tap(data => {
+        // If the key is the same, sometimes google translate doens't like how letters are capitialized.
+        if (_source[key].text === data.translatedText) return GT(toTitleCase(_source[key].text), 'en', lang);
+      })
+      .then(data => translations[lang][key] = data.translatedText);
   }
 
   return Promise.resolve(supported_languages)
@@ -217,7 +215,7 @@ gulp.task('transifex:review', function() {
             console.log(`-----------------------------------
   Lang        | ${chalk.white.bold(lang)}
   Key         | ${chalk.bold.red(key)}
-  English     | ${chalk.bold.blue(_source[key] ? _source[key].msg : '!!!MISSING!!!')}
+  English     | ${chalk.bold.blue(_source[key] ? _source[key].text : '!!!MISSING!!!')}
   Reserve     | ${chalk.bold.green(to_review[lang][key].reserve)}
   Old Trans   | ${chalk.bold.yellow(to_review[lang][key].original)}
   New Trans   | ${chalk.bold.magenta(to_review[lang][key].translation)}`);

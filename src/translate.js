@@ -60,25 +60,25 @@ class Translate {
    */
   flag() {
     const flags = {
-      en: 'gb',
+      'pt-BR': 'br',
       'zh-CN': 'cn',
       'zh-TW': 'tw',
-      cs: 'cz',
-      el: 'gr',
-      he: 'il',
-      ja: 'jp',
-      ko: 'kr',
-      ms: 'my',
-      vi: 'vn',
-      'pt-BR': 'br',
+      ar: 'eg',
       bs: 'ba',
       ca: 'es',
+      cs: 'cz',
       da: 'dk',
+      el: 'gr',
+      en: 'gb',
+      he: 'il',
+      ja: 'jp',
       ka: 'ge',
-      sr: 'cs',
+      ko: 'kr',
+      ms: 'my',
       sl: 'si',
+      sr: 'cs',
       sv: 'se',
-      ar: 'eg'
+      vi: 'vn'
     };
     return flags[this.locale] || this.locale;
   }
