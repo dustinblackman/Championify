@@ -11,11 +11,11 @@ gulp.task('main', function(cb) {
 });
 
 gulp.task('dev', function() {
-  return runSequence('main', 'copy:data', 'dev_folder', 'run-watch');
+  return runSequence('main', 'copy:data', 'dev-folder', 'run-watch');
 });
 
 gulp.task('package-asar', function(cb) {
-  return runSequence('main', 'electron:deps', ['copy:app', 'copy:data', 'copy:views', 'copy:translations', 'clean:node_modules'], 'asar', cb);
+  return runSequence('main', 'electron:deps', ['copy:app', 'copy:data', 'copy:translations', 'copy:views', 'clean:node_modules'], 'marko', 'asar', cb);
 });
 
 gulp.task('build', function(cb) {

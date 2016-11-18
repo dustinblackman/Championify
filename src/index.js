@@ -211,7 +211,7 @@ $(document).on('click', '.github > a', function(e) {
 
 $(document).on('click', '.championify_version > span', function(e) {
   e.preventDefault();
-  return open('https://github.com/dustinblackman/Championify/blob/master/CHANGELOG.md');
+  return open('https://github.com/dustinblackman/Championify/releases/latest');
 });
 
 $(document).on('click', '#open_log', function(e) {

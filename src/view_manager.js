@@ -1,4 +1,6 @@
-import jade from 'jade';
+import fs from 'fs';
+import glob from 'glob';
+import { load as markoLoad } from 'marko';
 import path from 'path';
 import R from 'ramda';
 import $ from './helpers/jquery';
@@ -12,6 +14,14 @@ import store from './store';
 import T from './translate';
 
 const pkg = require('../package.json');
+
+// Marko template renders
+const pre_rendered = fs.existsSync(path.join(__dirname, '../views/index.marko.js'));
+require('marko/compiler').defaultOptions.writeToDisk = !pre_rendered;
+require('marko/compiler').defaultOptions.assumeUpToDate = pre_rendered;
+const marko = R.fromPairs(R.map(file_path => {
+  return [path.basename(file_path, '.marko'), markoLoad(file_path)];
+}, glob.sync(path.join(__dirname, '../views/*.marko'))));
 
 
 /**
@@ -46,17 +56,14 @@ function _viewChanger(view, options = {}, next = nub) {
   const default_options = {
     transition: 'browse',
     div_id: 'view',
-    jade: {
-      T,
-      browse_title: store.get('browse_title')
-    }
+    render: {T, browse_title: store.get('browse_title')}
   };
 
   options = R.merge(default_options, options);
   return $(`#${options.div_id}`).transition({
     animation: 'fade up',
     onComplete: function() {
-      const html = jade.renderFile(path.resolve(path.join(__dirname, `../views/${view}.jade`)), options.jade);
+      const html = marko[view].renderSync(options.render);
       $(`#${options.div_id}`).html(html).promise().then(() => {
         next();
         $(`#${options.div_id}`).transition(options.transition);
@@ -88,8 +95,7 @@ function _initSettings() {
       return _viewChanger('main', {
         div_id: 'view',
         transition: 'fade',
-        jade: {
-          T,
+        render: {
           browse_title: store.get('browse_title'),
           platform: process.platform,
           sources: sources_info,
@@ -132,11 +138,11 @@ function completeView() {
   function loadUnavailable() {
     const undefined_builds = store.get('undefined_builds');
     if (!undefined_builds || !undefined_builds.length) {
-      $('#not_available_log').append('<span>' + T.t('all_available') + '</span><br />');
+      $('#not_available_log').append(`<span>${T.t('all_available')}</span><br />`);
     } else {
       R.forEach(item => {
         $('#not_available_log').append(`<span>${item.source} ${T.t(item.champ)}: ${T.t(item.position)}</span><br />`);
-      }, R.sortBy(R.prop('source'))(undefined_builds));
+      }, R.sortBy(R.prop('source'), undefined_builds));
     }
   }
   return _viewChanger('complete', {}, loadUnavailable);
@@ -183,7 +189,7 @@ function mainViewBack() {
 
   return _viewChanger('main', {
     transition: 'fly right',
-    jade: {
+    render: {
       T,
       browse_title: store.get('browse_title'),
       sources: sources_info,
@@ -208,7 +214,7 @@ function init() {
     version: pkg.version
   };
 
-  const html = jade.renderFile(path.resolve(path.join(__dirname, '../views/index.jade')), options);
+  const html = marko.index.renderSync(options);
   return $('#body').html(html).promise().then(() => _initSettings());
 }
 

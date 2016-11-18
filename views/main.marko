@@ -1,0 +1,107 @@
+<div class="one column row optionsrow">
+  <div class="column">
+    <div class="browse_title"><span>${data.browse_title}</span></div>
+    <div class="ui fluid action input lol_dir_input">
+      <input id="install_path" type="text"/>
+      <button id="browse" type="button" class="ui grey button">$!{data.T.t('browse')}</button>
+    </div>
+    <br/>
+    <div class="lol_dir_input_msg"><span id="input_msg"></span></div>
+  </div>
+</div>
+
+<div class="one column row optionsrow">
+  <div class="column options">
+    <div class="rift_source">
+      <div class="ui fluid multiple search selection dropdown">
+        <input id="options_sr_source" type="hidden" value="${data.selected_sources}"/><i class="dropdown icon"></i>
+        <div class="default text">$!{data.T.t('summoners_rift_source')}</div>
+        <div class="menu">
+          <div for(source in data.sources)>
+            <div data-value="${source.id}" class="item">
+              <img src="img/sources/${source.id}.png" class="sourceicon"/>${source.name}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui checkbox left">
+      <input id="options_aram" type="checkbox"/>
+      <label data-content="$!{data.T.t('options_aram_tooltip')}" class="options_tooltip">$!{data.T.t('options_aram_tooltip')}</label>
+    </div><br/>
+    <div class="ui checkbox left">
+      <input id="options_splititems" type="checkbox"/>
+      <label data-content="$!{data.T.t('options_splititems_tooltip')}" class="options_tooltip">$!{data.T.t('options_splititems')}</label>
+    </div><br/>
+    <div class="ui checkbox left">
+      <input id="options_skillsformat" type="checkbox"/>
+      <label data-content="$!{data.T.t('options_skillsformat_tooltip')} Q.W.E.Q.W.R.Q.W.Q.W etc." class="options_tooltip">$!{data.T.t('options_skillsformat')} (Q>W>E)</label>
+    </div><br/>
+    <div class="with_dropdown">
+      <div class="ui checkbox left">
+        <input id="options_consumables" type="checkbox" checked=""/>
+        <label data-content="$!{data.T.t('options_consumables_tooltip')}" class="options_tooltip">$!{data.T.t('options_consumables')}</label>
+      </div>
+      <div class="ui icon bottom right pointing dropdown button"><i class="small wrench icon"></i>
+        <div id="options_consumables_position" class="menu">
+          <div class="header"><i class="resize vertical icon"></i>$!{data.T.t('select_position')}</div>
+          <div class="divider"></div>
+          <div class="item beginning">$!{data.T.t('beginning')}</div>
+          <div class="item end">$!{data.T.t('end')}</div>
+        </div>
+      </div>
+    </div>
+    <div class="with_dropdown">
+      <div class="ui checkbox left">
+        <input id="options_trinkets" type="checkbox" checked=""/>
+        <label data-content="$!{data.T.t('options_trinkets_tooltip')}" class="options_tooltip">$!{data.T.t('options_trinkets')}</label>
+      </div>
+      <div class="ui icon bottom right pointing dropdown button"><i class="small wrench icon"></i>
+        <div id="options_trinkets_position" class="menu">
+          <div class="header"><i class="resize vertical icon"></i>$!{data.T.t('select_position')}</div>
+          <div class="divider"></div>
+          <div class="item beginning">$!{data.T.t('beginning')}</div>
+          <div class="item end">$!{data.T.t('end')}</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui checkbox left">
+      <input id="options_locksr" type="checkbox"/>
+      <label data-content="$!{data.T.t('options_locksr_tooltip')}" class="options_tooltip">$!{data.T.t('options_locksr')}</label>
+    </div><br/>
+    <div class="ui checkbox left">
+      <input id="options_dontdeleteold" type="checkbox"/>
+      <label data-content="$!{data.T.t('options_dontdeleteold_tooltip')}" class="options_tooltip">$!{data.T.t('options_dontdeleteold')}</label>
+    </div>
+  </div>
+</div>
+
+<div class="one column row">
+  <div id="btns_versions">
+    <div class="submit_btns">
+      <div class="ui divider"></div>
+      <button id="import_btn" class="ui green button">$!{data.T.t('import')}</button>
+      <button id="delete_btn" class="ui red button">$!{data.T.t('delete')}</button>
+    </div><br/>
+    <div class="versions">
+      <div>Item Sets $!{data.T.t('version')}:<span id="local_version">$!{data.T.t('unknown')}</span></div>
+      <div>LoL $!{data.T.t('version')}:<span id="lol_version">$!{data.T.t('loading')}</span></div>
+      <div for(source in data.sources)>${source.name} $!{data.T.t('version')}:<span id="${source.id}_version">$!{data.T.t('loading')}</span></div>
+    </div>
+  </div>
+  <div id="process_log" class="hidden">
+    <div class="status">
+      <div class="ui horizontal divider">
+        <h2>$!{data.T.t('status')}</h2>
+      </div>
+      <div id="itemsets_progress_bar" data-percent="0" class="ui indicating progress">
+        <div style="transition-duration: 300ms; -webkit-transition-duration: 300ms;" class="bar">
+          <div class="progress">0%</div>
+        </div>
+      </div>
+    </div>
+    <div class="progresslog">
+      <div id="cl_progress"></div>
+    </div>
+  </div>
+</div>

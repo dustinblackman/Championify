@@ -69,7 +69,7 @@ gulp.task('symlink:translations', function(cb) {
     });
 });
 
-gulp.task('dev_folder', function(cb) {
+gulp.task('dev-folder', function(cb) {
   if (process.platform === 'win32') return runSequence(['copy:app', 'copy:views', 'copy:translations'], cb);
   return runSequence(['symlink:app', 'symlink:views', 'symlink:translations'], cb);
 });
