@@ -3,7 +3,6 @@ import cheerio from 'cheerio';
 import R from 'ramda';
 
 import { cl, request, shorthandSkills, trinksCon } from '../helpers';
-import Log from '../logger';
 import progressbar from '../progressbar';
 import store from '../store';
 import T from '../translate';
@@ -152,7 +151,6 @@ export function getVersion() {
     .then(cheerio.load)
     .then($ => R.last($('span.Small').text().split(': ')))
     .tap(version => store.set('opgg_ver', version));
-
 }
 
 export function getSr() {
@@ -216,7 +214,6 @@ export function getSr() {
     }, {concurrency: 3})
     .then(R.flatten)
     .then(R.reject(R.isNil))
-    .tap(data => console.log(data)) // TODO: Remove
     .then(data => store.push('sr_itemsets', data));
 }
 
