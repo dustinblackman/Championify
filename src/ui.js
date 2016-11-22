@@ -106,6 +106,9 @@ function importItemSets() {
   });
 
   return championify.run()
+    .then(completed => {
+      if (completed) viewManager.complete();
+    })
     .catch(err => EndSession(err));
 }
 
@@ -219,9 +222,7 @@ $(document).on('click', '#open_log', function(e) {
 });
 
 $(document).on('click', '#import_btn', function() {
-  return importItemSets().then(completed => {
-    if (completed) viewManager.complete();
-  });
+  return importItemSets();
 });
 
 $(document).on('click', '#delete_btn', function() {
