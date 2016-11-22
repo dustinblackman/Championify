@@ -35,7 +35,7 @@ export function getVersion() {
   return request('http://champion.gg/faq/')
     .then(body => {
       const $c = cheerio.load(body);
-      const champgg_ver = $c(csspaths.version).text();
+      const champgg_ver = $c(csspaths.championgg.version).text();
       store.set('championgg_ver', champgg_ver);
       return champgg_ver;
     })
@@ -86,7 +86,7 @@ function processChamp(request_params, body) {
   }
 
   let current_position = '';
-  $c(csspaths.positions).find('a').each((i, e) => {
+  $c(csspaths.championgg.positions).find('a').each((i, e) => {
     let position = $c(e).attr('href').split('/');
     position = position[position.length - 1];
     if ($c(e).parent().hasClass('selected-role')) current_position = position.toLowerCase();
@@ -241,10 +241,10 @@ function processChamp(request_params, body) {
     };
   }
 
-  function pushToStore(champ, position, set_type, file_prefix, build) {
+  function formatForStore(champ, position, set_type, file_prefix, build) {
     let title = T.t(position, true);
     if (set_type) title += ` ${set_type}`;
-    const riot_json = R.merge(R.clone(default_schema, true), {
+    const riot_json = R.merge(default_schema, {
       champion: champ,
       title: `CGG ${title} ${store.get('championgg_ver')}`,
       blocks: build
@@ -258,12 +258,12 @@ function processChamp(request_params, body) {
   if (store.get('settings').splititems) {
     const builds = splitItemSets();
     formatted_builds.push(
-      pushToStore(champ, current_position, T.t('most_freq', true), `${current_position}_mostfreq`, builds.mf_build),
-      pushToStore(champ, current_position, T.t('highest_win', true), `${current_position}_highwin`, builds.hw_build)
+      formatForStore(champ, current_position, T.t('most_freq', true), `${current_position}_mostfreq`, builds.mf_build),
+      formatForStore(champ, current_position, T.t('highest_win', true), `${current_position}_highwin`, builds.hw_build)
     );
   } else {
     const builds = normalItemSets();
-    formatted_builds.push(pushToStore(champ, current_position, null, current_position, builds));
+    formatted_builds.push(formatForStore(champ, current_position, null, current_position, builds));
   }
 
   // If there's other positions available, run them, otherwise end for this champ.
@@ -323,8 +323,7 @@ function requestPage(request_params) {
 export function getSr() {
   if (!store.get('championgg_ver')) return getVersion().then(getSr);
 
-  const champs = store.get('champs');
-  return Promise.resolve(champs)
+  return Promise.resolve(store.get('champs'))
     .then(R.reverse)
     .map(champ => {
       progressbar.incrChamp();

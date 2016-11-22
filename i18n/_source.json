@@ -147,6 +147,10 @@
     "text": "Highest Core",
     "done": true
   },
+  "highest_items": {
+    "text": "Highest Items",
+    "done": true
+  },
   "highest_start": {
     "text": "Highest Start",
     "done": true
@@ -157,6 +161,10 @@
   },
   "hw_core": {
     "text": "Highest Win % Core Build",
+    "done": true
+  },
+  "hw_items": {
+    "text": "Highest Win % Items",
     "done": true
   },
   "hw_starters": {
@@ -197,6 +205,10 @@
   },
   "mf_core": {
     "text": "Most Frequent Core Build",
+    "done": true
+  },
+  "mf_items": {
+    "text": "Most Frequent Items",
     "done": true
   },
   "mf_starters": {

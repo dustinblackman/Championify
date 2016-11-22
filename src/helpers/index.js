@@ -129,7 +129,7 @@ export function trinksCon(builds, skills = {}) {
 }
 
 export function shorthandSkills(skills) {
-  let skill_count = R.countBy(R.toLower)(R.slice(0, 9, skills));
+  let skill_count = R.countBy(R.toLower, R.slice(0, 9, skills));
   delete skill_count.r;
   skill_count = R.invertObj(skill_count);
   const counts = R.keys(skill_count).sort().reverse();
