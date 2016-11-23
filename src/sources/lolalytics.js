@@ -103,7 +103,7 @@ function createRiotJson(parsed_data, position, champion_name, split_sort) {
 
   let riot_json = R.merge(R.clone(default_schema, true), {
     champion: champion_name,
-    title: `Lolalytics ${champion_name} ${T.t(R.toLower(position), true)}`,
+    title: `Lolalytics ${champion_name} ${T.t(R.toLower(position), true)} ${store.get('lolalytics_ver')}`,
     blocks: trinksCon(blocks, skills)
   });
 
