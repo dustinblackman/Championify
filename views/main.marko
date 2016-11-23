@@ -17,11 +17,9 @@
         <input id="options_sr_source" type="hidden" value="${data.selected_sources}"/><i class="dropdown icon"></i>
         <div class="default text">$!{data.T.t('summoners_rift_source')}</div>
         <div class="menu">
-          <div for(source in data.sources)>
-            <div data-value="${source.id}" class="item">
+            <div for(source in data.sources) data-value="${source.id}" class="item">
               <img src="img/sources/${source.id}.png" class="sourceicon"/>${source.name}
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -86,7 +84,9 @@
     <div class="versions">
       <div>Item Sets $!{data.T.t('version')}:<span id="local_version">$!{data.T.t('unknown')}</span></div>
       <div>LoL $!{data.T.t('version')}:<span id="lol_version">$!{data.T.t('loading')}</span></div>
-      <div for(source in data.sources)>${source.name} $!{data.T.t('version')}:<span id="${source.id}_version">$!{data.T.t('loading')}</span></div>
+      <div for(source in data.sources)>
+        ${source.name} $!{data.T.t('version')}:<span id="${source.id}_version">$!{data.T.t('loading')}</span>
+      </div>
     </div>
   </div>
   <div id="process_log" class="hidden">
