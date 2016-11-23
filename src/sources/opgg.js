@@ -164,7 +164,11 @@ export function getSr() {
           el = $(el);
           return {
             name: el.attr('data-champion-key'),
-            positions: el.find('span').map((idx, pos_el) => $(pos_el).text().toLowerCase()).get()
+            positions: el.find('span').map((idx, pos_el) => {
+              const position = $(pos_el).text().toLowerCase();
+              if (position === 'middle') return 'mid';
+              return position;
+            }).get()
           };
         })
         .get();
