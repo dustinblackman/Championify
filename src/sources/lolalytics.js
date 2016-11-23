@@ -73,9 +73,11 @@ function createRiotJson(parsed_data, position, champion_name, split_sort) {
       });
     }
 
+    const filtered_items = R.uniqBy(R.prop('id'), items); //  filter out duplicates, mainly just the second health pot from converting buscuits
+
     let block = {
       type: title,
-      items: items
+      items: filtered_items
     };
 
     return block;
@@ -88,15 +90,15 @@ function createRiotJson(parsed_data, position, champion_name, split_sort) {
     const current_section = build_sections_to_convert[i];
 
     if (!split_sort) {
-      let block = convertBuildSectionJsonToBlock(R.reverse(sortByWinRate(current_section.json)), T.t('highest_win', true) + T.t(current_section.title.split(' ').join('_')));
+      let block = convertBuildSectionJsonToBlock(R.reverse(sortByWinRate(current_section.json)), `${T.t('highest_win', true)} ${T.t(current_section.title.split(' ').join('_'))}`);
       blocks.push(block);
-      block = convertBuildSectionJsonToBlock(R.reverse(sortByPickRate(current_section.json)), T.t('highest_win', true) + T.t(current_section.title.split(' ').join('_')));
+      block = convertBuildSectionJsonToBlock(R.reverse(sortByPickRate(current_section.json)), `${T.t('most_freq', true)} ${T.t(current_section.title.split(' ').join('_'))}`);
       blocks.push(block);
     } else if (R.toLower(split_sort) === 'win') {
-      let block = convertBuildSectionJsonToBlock(R.reverse(sortByWinRate(current_section.json)), T.t(current_section.title.split(' ').join('_')));
+      let block = convertBuildSectionJsonToBlock(R.reverse(sortByWinRate(current_section.json)), `${T.t(current_section.title.split(' ').join('_'))}`);
       blocks.push(block);
     } else {
-      let block = convertBuildSectionJsonToBlock(R.reverse(sortByPickRate(current_section.json)), T.t(current_section.title.split(' ').join('_')));
+      let block = convertBuildSectionJsonToBlock(R.reverse(sortByPickRate(current_section.json)), `${T.t(current_section.title.split(' ').join('_'))}`);
       blocks.push(block);
     }
   }
