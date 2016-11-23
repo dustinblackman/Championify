@@ -1,0 +1,960 @@
+[
+    {
+        "champ": "Brand",
+        "file_prefix": "Middle",
+        "riot_json": {
+            "map": "any",
+            "blocks": [
+                {
+                    "type": "Highest Win Starting Items",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "2033"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2003"
+                        },
+                        {
+                            "count": 1,
+                            "id": "1056"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3340"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3303"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Starting Items",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3340"
+                        },
+                        {
+                            "count": 1,
+                            "id": "1056"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2003"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3303"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2033"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win First Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3027"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3001"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent First Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3027"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3001"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win Boots",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3020"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3158"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3111"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Boots",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3020"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3158"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3111"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win Second Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3285"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3001"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3027"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Second Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3001"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3027"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3285"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win Third Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3285"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3001"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Third Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3285"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3001"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win Fourth Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3285"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Fourth Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3285"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win Fifth Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Fifth Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "id": "2003",
+                            "count": 1
+                        },
+                        {
+                            "id": "2004",
+                            "count": 1
+                        },
+                        {
+                            "id": "2043",
+                            "count": 1
+                        },
+                        {
+                            "id": "2031",
+                            "count": 1
+                        },
+                        {
+                            "id": "2032",
+                            "count": 1
+                        },
+                        {
+                            "id": "2033",
+                            "count": 1
+                        },
+                        {
+                            "id": "2138",
+                            "count": 1
+                        },
+                        {
+                            "id": "2140",
+                            "count": 1
+                        },
+                        {
+                            "id": "2139",
+                            "count": 1
+                        }
+                    ],
+                    "type": "Consumables | Frequent: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E"
+                }
+            ],
+            "title": "Lolalytics Brand Middle 6.23",
+            "priority": false,
+            "mode": "any",
+            "type": "custom",
+            "sortrank": 1,
+            "champion": "Brand"
+        },
+        "source": "lolalytics"
+    },
+    {
+        "champ": "Brand",
+        "file_prefix": "Support",
+        "riot_json": {
+            "map": "any",
+            "blocks": [
+                {
+                    "type": "Highest Win Starting Items",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "1004"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2031"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3303"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2003"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3340"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2055"
+                        },
+                        {
+                            "count": 1,
+                            "id": "1056"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Starting Items",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3303"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3340"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2003"
+                        },
+                        {
+                            "count": 1,
+                            "id": "1056"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2031"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2055"
+                        },
+                        {
+                            "count": 1,
+                            "id": "1004"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win First Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2301"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3027"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2049"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3092"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent First Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "2049"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3092"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2301"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3027"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win Boots",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3009"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3020"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3158"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3117"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Boots",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3020"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3158"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3117"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3009"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win Second Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2049"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2301"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3092"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3027"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Second Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "2301"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3092"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2049"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3027"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win Third Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "2301"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3092"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2045"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3027"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Third Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2301"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3092"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3027"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2045"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win Fourth Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "2045"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2301"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3285"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Fourth Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2045"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2301"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3165"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3285"
+                        }
+                    ]
+                },
+                {
+                    "type": "Highest Win Fifth Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2045"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        }
+                    ]
+                },
+                {
+                    "type": "Most Frequent Fifth Item",
+                    "items": [
+                        {
+                            "count": 1,
+                            "id": "3135"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3151"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3089"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3157"
+                        },
+                        {
+                            "count": 1,
+                            "id": "2045"
+                        },
+                        {
+                            "count": 1,
+                            "id": "3116"
+                        }
+                    ]
+                },
+                {
+                    "items": [
+                        {
+                            "id": "2003",
+                            "count": 1
+                        },
+                        {
+                            "id": "2004",
+                            "count": 1
+                        },
+                        {
+                            "id": "2043",
+                            "count": 1
+                        },
+                        {
+                            "id": "2031",
+                            "count": 1
+                        },
+                        {
+                            "id": "2032",
+                            "count": 1
+                        },
+                        {
+                            "id": "2033",
+                            "count": 1
+                        },
+                        {
+                            "id": "2138",
+                            "count": 1
+                        },
+                        {
+                            "id": "2140",
+                            "count": 1
+                        },
+                        {
+                            "id": "2139",
+                            "count": 1
+                        }
+                    ],
+                    "type": "Consumables | Frequent: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E"
+                }
+            ],
+            "title": "Lolalytics Brand Support 6.23",
+            "priority": false,
+            "mode": "any",
+            "type": "custom",
+            "sortrank": 1,
+            "champion": "Brand"
+        },
+        "source": "lolalytics"
+    }
+]

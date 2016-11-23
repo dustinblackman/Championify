@@ -127,42 +127,38 @@ function parseSkillsData(cheerio_data) {
   let skill_sections = [];
   $c('td.summarytitle').each(function(i, element) {
     if ($c(this).text() === 'Abilities') {
-      let skill_section = {
-        title: $c(this).text(), //  name of the section
-        json: null  //  json object w/ skill order, win, & pick values
-      };
       let innerSkillsTable = $c(this).parent().find('table.summaryskillstable');
       let rows = $c(innerSkillsTable).find('tr');
-      //  Store each column in the buildSections.json array
 
       $c(rows).each(function(j, row) {
-        let skill_order = $c(row).find('td.summaryskills div.summaryspellkey').text().split('').join('.');
+        if (j === 0)
+          return; //  Skip the header row
+        
+        let skill_order = $c(row).find('td.summaryskills > div.summaryspellkey').text().split('').join('.');
         let win_rate = parseFloat($c(row).find('td.win').text());
         let pick_rate = parseFloat($c(row).find('td.popularity').text());
 
-        skill_section.json = {
+        let skill_section = {
           skills: skill_order,
           win: win_rate,
           pick: pick_rate
         };
-      }); //  end each row
-      skill_sections.push(skill_section);
+        skill_sections.push(skill_section);
+      }); //  end each row 
     } //  end if abilities section
   }); //  end each td.summarytitle
+  
+  var highest_win_func = R.sortBy(R.prop('win'));
+  var most_freq_func = R.sortBy(R.prop('pick'));
 
-  let most_freq_skills = skill_sections.reduce(function(prev, curr) {
-    return prev.pick < curr.pick ? prev : curr;
-  });
-
-  let highest_win_skills = skill_sections.reduce(function(prev, curr) {
-    return prev.win < curr.win ? prev : curr;
-  });
+  let highest_win_skills = R.reverse(highest_win_func(skill_sections))[0];
+  let most_freq_skills = R.reverse(most_freq_func(skill_sections))[0];
 
   let shorthand_bool = store.get('settings').skillsformat;
 
   let skills = {
-    most_freq: shorthand_bool ? shorthandSkills(most_freq_skills.json.skills.split('.')) : most_freq_skills.json.skills,
-    highest_win: shorthand_bool ? shorthandSkills(highest_win_skills.json.skills.split('.')) : highest_win_skills.json.skills
+    most_freq: shorthand_bool ? shorthandSkills(most_freq_skills.skills.split('.')) : most_freq_skills.skills,
+    highest_win: shorthand_bool ? shorthandSkills(highest_win_skills.skills.split('.')) : highest_win_skills.skills
   };
 
   return skills;
