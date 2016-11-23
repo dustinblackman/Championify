@@ -133,7 +133,7 @@ function parseSkillsData(cheerio_data) {
       $c(rows).each(function(j, row) {
         if (j === 0)
           return; //  Skip the header row
-        
+
         let skill_order = $c(row).find('td.summaryskills > div.summaryspellkey').text().split('').join('.');
         let win_rate = parseFloat($c(row).find('td.win').text());
         let pick_rate = parseFloat($c(row).find('td.popularity').text());
@@ -144,10 +144,10 @@ function parseSkillsData(cheerio_data) {
           pick: pick_rate
         };
         skill_sections.push(skill_section);
-      }); //  end each row 
+      }); //  end each row
     } //  end if abilities section
   }); //  end each td.summarytitle
-  
+
   var highest_win_func = R.sortBy(R.prop('win'));
   var most_freq_func = R.sortBy(R.prop('pick'));
 
@@ -226,35 +226,6 @@ function parseChampionPage(cheerio_data, position, champion_name) {
   return builds;
 }
 
-function getChampionPage(request_params) {
-  const { champion_name, position } = request_params;
-  let url = `http://current.lolalytics.com/champion/${champion_name}/`;
-  if (position)
-    url += position + '/';
-  else {
-    cl(`${T.t('processing')} Lolalytics: ${T.t(champion_name)}`);
-  }
-
-  function markUndefined() {
-    store.push('undefined_builds', {
-      source: source_info.name,
-      champion_name,
-      position: request_params.position || 'All'
-    });
-    return;
-  }
-
-  return request(url).then(html => {
-    let $ = cheerio.load(html);
-    return parseChampion(request_params, $); // eslint-disable-line no-use-before-define
-  })
-  .catch(err => {
-    Log.warn(err);
-    markUndefined();
-    return;
-  });
-}
-
 function parseChampion(request_params, cheerio_data) {
   const $c = cheerio_data;
   const champion_name = request_params.champion_name;
@@ -280,12 +251,42 @@ function parseChampion(request_params, cheerio_data) {
     let extra_requests = [];
     extra_requests = R.map(position => ({champion_name, position}), position_names);
     return Promise.resolve(extra_requests)
-    .map(request_params => getChampionPage(request_params))
+    .map(request_params => getChampionPage(request_params)) // eslint-disable-line no-use-before-define
     .then(R.flatten)
     .then(R.concat(formatted_builds));
   }
 
   return formatted_builds;
+}
+
+function getChampionPage(request_params) {
+  const { champion_name, position } = request_params;
+  let url = `http://current.lolalytics.com/champion/${champion_name}/`;
+  if (position)
+    url += position + '/';
+  else {
+    cl(`${T.t('processing')} Lolalytics: ${T.t(champion_name)}`);
+  }
+
+  function markUndefined() {
+    store.push('undefined_builds', {
+      source: source_info.name,
+      champion_name,
+      position: request_params.position || 'All'
+    });
+    return;
+  }
+
+  return request(url).then(html => {
+    console.timeEnd(champion_name + position);
+    let $ = cheerio.load(html);
+    return parseChampion(request_params, $);
+  })
+  .catch(err => {
+    Log.warn(err);
+    markUndefined();
+    return;
+  });
 }
 
 export function getSr() {
