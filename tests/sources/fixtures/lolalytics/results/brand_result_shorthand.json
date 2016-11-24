@@ -8,19 +8,6 @@
                 {
                     "items": [
                         {
-                            "id": "3364",
-                            "count": 1
-                        },
-                        {
-                            "id": "3363",
-                            "count": 1
-                        }
-                    ],
-                    "type": "Trinkets | Wins: W.Q.E.W - W>Q>E"
-                },
-                {
-                    "items": [
-                        {
                             "id": "2003",
                             "count": 1
                         },
@@ -465,19 +452,6 @@
         "riot_json": {
             "map": "any",
             "blocks": [
-                {
-                    "items": [
-                        {
-                            "id": "3364",
-                            "count": 1
-                        },
-                        {
-                            "id": "3363",
-                            "count": 1
-                        }
-                    ],
-                    "type": "Trinkets | Wins: W.Q.W.E - W>Q>E"
-                },
                 {
                     "items": [
                         {

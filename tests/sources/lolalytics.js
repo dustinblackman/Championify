@@ -10,7 +10,8 @@ const store = require(`../../${GLOBAL.src_path}/store`).default;
 const should = require('chai').should();
 let nocked = null;
 
-const champions = R.keys(require(path.join(__dirname, 'fixtures/championgg/responses/champions.json')).data).sort();
+const champions = ['Brand'];
+const items = require(path.join(__dirname, 'fixtures/lolalytics/responses/items.json'));
 
 const RESPONSES_FIXTURES = {};
 R.forEach(fixture => {
@@ -35,6 +36,7 @@ describe('src/sources/lolalytics', () => {
   before(() => {
     nocked = nock('http://current.lolalytics.com');
     store.set('champs', champions);
+    store.set('item_names', items);
   });
 
   beforeEach(() => {
