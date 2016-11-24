@@ -5,8 +5,8 @@ skip_tags: true
 os: Windows Server 2012 R2
 install:
   - systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"
-  - ps: Install-Product node 4.1.1 # Must match package.json
-  - npm install -g npm@3.8.5 # Must match package.json
+  - ps: Install-Product node 6.9.1 # Must match package.json
+  - npm install -g npm@3.10.9 # Must match package.json
   - npm install --arch=ia32 || Echo First NPM install failed && npm install --arch=ia32
   - node -v
   - npm -v
