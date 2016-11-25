@@ -84,7 +84,7 @@
       <button id="delete_btn" class="ui red button">$!{data.T.t('delete')}</button>
     </div><br/>
     <div class="versions">
-      <div>Item Sets $!{data.T.t('version')}:<span id="local_version">$!{data.T.t('unknown')}</span></div>
+      <div>$!{data.T.t('local_item_sets_version')}:<span id="local_version">$!{data.T.t('unknown')}</span></div>
       <div>LoL $!{data.T.t('version')}:<span id="lol_version">$!{data.T.t('loading')}</span></div>
       <div for(source in data.sources)>
         ${source.name} $!{data.T.t('version')}:<span id="${source.id}_version">$!{data.T.t('loading')}</span>

@@ -191,6 +191,10 @@
     "done": true,
     "text": "Loading..."
   },
+  "local_item_sets_version": {
+    "text": "Local Item Sets Version",
+    "done": true
+  },
   "lol_version": {
     "text": "Getting LoL Version",
     "done": true
