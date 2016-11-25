@@ -92,5 +92,11 @@
   "upload_log": "Upload Log",
   "version": "Version",
   "welcome": "Welcome to Championify",
-  "wins": "Wins"
+  "wins": "Wins",
+  "first_item": "First Item",
+  "second_item": "Second Item",
+  "third_item": "Third Item",
+  "fourth_item": "Fourth Item",
+  "fifth_item": "Fifth Item",
+  "starting_items": "Starting Items"
 }

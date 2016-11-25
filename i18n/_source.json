@@ -374,5 +374,29 @@
   "wins": {
     "msg": "Wins",
     "done": true
+  },
+  "first_item": {
+    "msg": "First Item",
+    "done": false
+  },
+  "second_item": {
+    "msg": "Second Item",
+    "done": false
+  },
+  "third_item": {
+    "msg": "Third Item",
+    "done": false
+  },
+  "fourth_item": {
+    "msg": "Fourth Item",
+    "done": false
+  },
+  "fifth_item": {
+    "msg": "Fifth Item",
+    "done": false
+  },
+  "starting_items": {
+    "msg": "Starting Items",
+    "done": false
   }
 }
