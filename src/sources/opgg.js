@@ -2,7 +2,7 @@ import Promise from 'bluebird';
 import cheerio from 'cheerio';
 import R from 'ramda';
 
-import { cl, request, shorthandSkills, trinksCon } from '../helpers';
+import { arrayToBuilds, cl, request, shorthandSkills, trinksCon } from '../helpers';
 import progressbar from '../progressbar';
 import store from '../store';
 import T from '../translate';
@@ -30,19 +30,6 @@ function pickWinrate(items) {
 
 function pickPickrate(items) {
   return R.last(R.sortBy(R.prop('pickrate'), items));
-}
-
-function arrayToBuilds(ids) {
-  ids = R.map(id => {
-    id = id.toString();
-    if (id === '2010') id = '2003'; // Biscuits
-    return id;
-  }, ids);
-  const counts = R.countBy(R.identity)(ids);
-  return R.map(id => ({
-    id,
-    count: counts[id]
-  }), R.uniq(ids));
 }
 
 function createBlock(templateFunc, rate_type, items, appended_items = []) {

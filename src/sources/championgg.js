@@ -5,7 +5,7 @@ import esprima from 'esprima';
 import R from 'ramda';
 
 import ChampionifyErrors from '../errors.js';
-import { cl, request, shorthandSkills, trinksCon, wins } from '../helpers';
+import { arrayToBuilds, cl, request, shorthandSkills, trinksCon, wins } from '../helpers';
 import Log from '../logger';
 import progressbar from '../progressbar';
 import store from '../store';
@@ -149,23 +149,10 @@ function processChamp(request_params, body) {
     highest_win: processSkills(gg.championData.skills.highestWinPercent.order)
   };
 
-  function arrayToBuilds(data) {
-    let ids = R.map(id => {
-      id = id.toString();
-      if (id === '2010') id = '2003'; // Biscuits
-      return id;
-    }, R.pluck('id')(data));
-    const counts = R.countBy(R.identity)(ids);
-    return R.map(id => ({
-      id,
-      count: counts[id]
-    }), R.uniq(ids));
-  }
-
-  freq_start.build = arrayToBuilds(freq_start.items).concat(prebuilts.trinkets);
-  highest_start.build = arrayToBuilds(highest_start.items).concat(prebuilts.trinkets);
-  freq_core.build = arrayToBuilds(freq_core.items);
-  highest_core.build = arrayToBuilds(highest_core.items);
+  freq_start.build = arrayToBuilds(R.pluck('id', freq_start.items)).concat(prebuilts.trinkets);
+  highest_start.build = arrayToBuilds(R.pluck('id', highest_start.items)).concat(prebuilts.trinkets);
+  freq_core.build = arrayToBuilds(R.pluck('id', freq_core.items));
+  highest_core.build = arrayToBuilds(R.pluck('id', highest_core.items));
 
   const templates = {
     combindedStart: (wins, games) => `${T.t('frequent', true)}/${T.t('highest_start', true)} (${wins} ${T.t('wins').toLowerCase()} - ${games} ${T.t('games', true)})`,

@@ -128,6 +128,11 @@ export function trinksCon(builds, skills = {}) {
   return builds;
 }
 
+/**
+ * Converts an array of skills to a shortanded representation
+ * @param {Array} Array of skills (as letters)
+ * @returns String Shorthand representation
+ */
 export function shorthandSkills(skills) {
   let skill_count = R.countBy(R.toLower, R.slice(0, 9, skills));
   delete skill_count.r;
@@ -136,4 +141,22 @@ export function shorthandSkills(skills) {
 
   const skill_order = R.map(count_num => R.toUpper(skill_count[count_num]), counts);
   return `${skills.slice(0, 4).join('.')} - ${R.join('>', skill_order)}`;
+}
+
+/**
+ * Converts an array of IDs to item blocks with the correct counts
+ * @param {Array} Array of ids
+ * @returns Array of block item
+ */
+export function arrayToBuilds(ids) {
+  ids = R.map(id => {
+    id = id.toString();
+    if (id === '2010') id = '2003'; // Biscuits
+    return id;
+  }, ids);
+  const counts = R.countBy(R.identity)(ids);
+  return R.map(id => ({
+    id,
+    count: counts[id]
+  }), R.uniq(ids));
 }
