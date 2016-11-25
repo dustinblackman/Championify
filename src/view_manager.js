@@ -49,9 +49,7 @@ function _setBrowseTitle() {
  * @param {Function} [nub] Function to load before view
  */
 
-function nub() {}
-
-function _viewChanger(view, options = {}, next = nub) {
+function _viewChanger(view, options = {}, next) {
   _setBrowseTitle();
   const default_options = {
     transition: 'browse',
@@ -59,13 +57,18 @@ function _viewChanger(view, options = {}, next = nub) {
     render: {T, browse_title: store.get('browse_title')}
   };
 
-  options = R.merge(default_options, options);
+  options = Object.assign(
+    {},
+    default_options,
+    options,
+    {render: R.merge(default_options.render, options.render || {})}
+  );
   return $(`#${options.div_id}`).transition({
     animation: 'fade up',
     onComplete: function() {
       const html = marko[view].renderSync(options.render);
       $(`#${options.div_id}`).html(html).promise().then(() => {
-        next();
+        if (next) next();
         $(`#${options.div_id}`).transition(options.transition);
       });
     }
@@ -190,7 +193,6 @@ function mainViewBack() {
   return _viewChanger('main', {
     transition: 'fly right',
     render: {
-      T,
       browse_title: store.get('browse_title'),
       sources: sources_info,
       selected_sources: _selectedSources()
