@@ -27,6 +27,17 @@ gulp.task('copy:data', function() {
   return fs.copyAsync('./data/', './dev/data');
 });
 
+gulp.task('symlink:js', function() {
+  fs.mkdirsSync('./dev/js');
+  return Promise.resolve(glob.sync('./src/**', {nodir: true}))
+    .each(old_path => {
+      const new_path = old_path.replace('./src', './dev/js');
+      fs.mkdirsSync(path.dirname(new_path));
+      old_path = old_path.replace('./src/', `${process.cwd()}/src/`);
+      return fs.symlinkAsync(old_path, new_path);
+    });
+});
+
 gulp.task('symlink:app', function() {
   return Promise.resolve(glob.sync('./app/**', {nodir: true}))
     .each(old_path => {
@@ -44,7 +55,7 @@ gulp.task('copy:views', function() {
 
 gulp.task('symlink:views', function() {
   fs.mkdirsSync('./dev/views');
-  Promise.resolve(glob.sync('./views/**', {nodir: true}))
+  return Promise.resolve(glob.sync('./views/**', {nodir: true}))
     .each(old_path => {
       const new_path = old_path.replace('./views', './dev/views');
       old_path = old_path.replace('./views/', `${process.cwd()}/views/`);
@@ -70,8 +81,8 @@ gulp.task('symlink:translations', function(cb) {
 });
 
 gulp.task('dev-folder', function(cb) {
-  if (process.platform === 'win32') return runSequence(['copy:app', 'copy:views', 'copy:translations'], cb);
-  return runSequence(['symlink:app', 'symlink:views', 'symlink:translations'], cb);
+  if (process.platform === 'win32') return runSequence(['babel', 'copy:app', 'copy:views', 'copy:translations'], cb);
+  return runSequence(['symlink:js', 'symlink:app', 'symlink:views', 'symlink:translations'], cb);
 });
 
 gulp.task('delete-dev', function() {

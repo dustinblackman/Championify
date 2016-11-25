@@ -5,20 +5,20 @@ import Promise from 'bluebird';
 import { exec } from 'child_process';
 import open from 'open';
 import path from 'path';
-import $ from './js/helpers/jquery';
+import $ from './helpers/jquery';
 
-import championify from './js/championify';
-import ChampionifyErrors from './js/errors';
-import { EndSession } from './js/helpers';
-import Log from './js/logger';
-import optionsParser from './js/options_parser';
-import preferences from './js/preferences';
-import pathManager from './js/path_manager';
-import pkg from './package.json';
-import store from './js/store';
-import T from './js/translate';
-import updateManager from './js/update_manager';
-import viewManager from './js/view_manager';
+import championify from './championify';
+import ChampionifyErrors from './errors';
+import { EndSession } from './helpers';
+import Log from './logger';
+import optionsParser from './options_parser';
+import preferences from './preferences';
+import pathManager from './path_manager';
+import pkg from '../package.json';
+import store from './store';
+import T from './translate';
+import updateManager from './update_manager';
+import viewManager from './view_manager';
 
 
 // Debugging helpers

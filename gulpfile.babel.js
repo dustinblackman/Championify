@@ -7,7 +7,7 @@ requireDir('./tasks');
 GLOBAL.if_release = process.argv.indexOf('release') > -1;
 
 gulp.task('main', function(cb) {
-  return runSequence('delete-dev', 'mkdir:app', ['electron:packagejson', 'electron:settings', 'babel', 'stylus'], cb);
+  return runSequence('delete-dev', 'mkdir:app', ['electron:packagejson', 'electron:settings', 'stylus'], cb);
 });
 
 gulp.task('dev', function() {
@@ -15,7 +15,7 @@ gulp.task('dev', function() {
 });
 
 gulp.task('package-asar', function(cb) {
-  return runSequence('main', 'electron:deps', ['copy:app', 'copy:data', 'copy:translations', 'copy:views', 'clean:node_modules'], 'marko', 'asar', cb);
+  return runSequence('main', ['babel', 'electron:deps'], ['copy:app', 'copy:data', 'copy:translations', 'copy:views', 'clean:node_modules'], 'marko', 'asar', cb);
 });
 
 gulp.task('build', function(cb) {

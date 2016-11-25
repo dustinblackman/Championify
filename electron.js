@@ -5,7 +5,7 @@ import path from 'path';
 import R from 'ramda';
 
 
-const dev_enabled = fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'));
+const dev_enabled = process.env.NODE_ENV === 'development' || fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'));
 
 let runas;
 if (process.platform === 'win32') runas = require('runas');

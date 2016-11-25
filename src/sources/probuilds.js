@@ -35,7 +35,7 @@ function mergeIDs($, divs, start_point) {
 }
 
 function getItems(champ) {
-  cl(`${T.t('processing')} probuilds: ${T.t(champ)}`);
+  cl(`${T.t('processing')} ProBuilds: ${T.t(champ)}`);
   return request(`http://www.probuilds.net/champions/details/${champ}`)
     .then(cheerio.load)
     .then($ => {

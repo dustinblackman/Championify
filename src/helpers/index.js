@@ -12,6 +12,14 @@ import viewManager from '../view_manager';
 const requester = Promise.promisify(require('request'));
 const prebuilts = require('../../data/prebuilts.json');
 
+const retry_options = {
+  max_tries: 3,
+  interval: 1000,
+  backoff: 2,
+  timeout: 30000,
+  throw_original: true
+};
+
 
 /**
  * Function if error exists, enable error view and log error ending the session.
@@ -41,14 +49,13 @@ export function request(options) {
     params = R.merge(params, options);
   }
 
-  return retry(retry => {
+  return retry(() => {
     return requester(params)
-      .tap(res => {
+      .then(res => {
         if (res.statusCode >= 400) throw new ChampionifyErrors.RequestError(res.statusCode, params.url);
-      })
-      .then(R.prop('body'))
-      .catch(retry);
-  }, {max_tries: 3});
+        return res.body;
+      });
+  }, retry_options);
 }
 
 /**
