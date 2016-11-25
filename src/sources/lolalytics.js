@@ -14,6 +14,9 @@ const default_schema = require('../../data/default.json');  //  Riot JSON schema
 //  Item headings from lolalytics website
 const item_block_names = ['Starting Items', 'First Item', 'Boots', 'Second Item', 'Third Item', 'Fourth Item', 'Fifth Item'];
 
+const sort_by_win_rate = R.sortBy(R.prop('win'));
+const sort_by_pick_rate = R.sortBy(R.prop('pick'));
+
 export const source_info = {
   name: 'Lolalytics',
   id: 'lolalytics'
@@ -50,14 +53,10 @@ function createChampionifyJson(riot_json, position, champion_name, split_sort) {
 function createRiotJson(parsed_data, position, champion_name, split_sort) {
   const blocks = [];
   const item_names = store.get('item_names');
-  const sortByWinRate = R.sortBy(R.prop('win'));
-  const sortByPickRate = R.sortBy(R.prop('pick'));
   const build_sections = parsed_data.build_sections;
   const skills = parsed_data.skills;
 
-  const build_sections_to_convert = [];
-
-  R.forEach(function(x) { if (R.contains(x.title, item_block_names)) build_sections_to_convert.push(x); }, build_sections); //  Filter out the rows we don't care about (champion counters, etc.)
+  const build_sections_to_convert = R.filter(R.propSatisfies(R.contains(R.__, item_block_names), 'title', R.__), build_sections);//  Filter out the rows we don't care about (champion counters, etc.)
 
   function convertBuildSectionJsonToBlock(build_section_json, title) {
     const items = [];
@@ -83,25 +82,20 @@ function createRiotJson(parsed_data, position, champion_name, split_sort) {
     return block;
   }
 
-
-  //  Iterate the sections
-  for (let i = 0; i < build_sections_to_convert.length; i++) {
-    //  Iterate the columns in that section
-    const current_section = build_sections_to_convert[i];
-
+  R.forEach(current_section => {
     if (!split_sort) {
-      let block = convertBuildSectionJsonToBlock(R.reverse(sortByWinRate(current_section.json)), `${T.t('highest_win', true)} ${T.t(current_section.title.split(' ').join('_'))}`);
+      let block = convertBuildSectionJsonToBlock(R.reverse(sort_by_win_rate(current_section.json)), `${T.t('highest_win', true)} ${T.t(current_section.title.split(' ').join('_'))}`);
       blocks.push(block);
-      block = convertBuildSectionJsonToBlock(R.reverse(sortByPickRate(current_section.json)), `${T.t('most_freq', true)} ${T.t(current_section.title.split(' ').join('_'))}`);
+      block = convertBuildSectionJsonToBlock(R.reverse(sort_by_pick_rate(current_section.json)), `${T.t('most_freq', true)} ${T.t(current_section.title.split(' ').join('_'))}`);
       blocks.push(block);
     } else if (R.toLower(split_sort) === 'win') {
-      let block = convertBuildSectionJsonToBlock(R.reverse(sortByWinRate(current_section.json)), `${T.t(current_section.title.split(' ').join('_'))}`);
+      let block = convertBuildSectionJsonToBlock(R.reverse(sort_by_win_rate(current_section.json)), `${T.t(current_section.title.split(' ').join('_'))}`);
       blocks.push(block);
     } else {
-      let block = convertBuildSectionJsonToBlock(R.reverse(sortByPickRate(current_section.json)), `${T.t(current_section.title.split(' ').join('_'))}`);
+      let block = convertBuildSectionJsonToBlock(R.reverse(sort_by_pick_rate(current_section.json)), `${T.t(current_section.title.split(' ').join('_'))}`);
       blocks.push(block);
     }
-  }
+  }, build_sections_to_convert);
 
   let riot_json = R.merge(R.clone(default_schema, true), {
     champion: champion_name,
@@ -122,37 +116,31 @@ function createRiotJson(parsed_data, position, champion_name, split_sort) {
   return createChampionifyJson(riot_json, position, champion_name, split_sort);
 }
 
-function parseSkillsData(cheerio_data) {
-  let $c = cheerio_data;
-  let skill_sections = [];
-  $c('td.summarytitle').each(function(i, element) {
-    if ($c(this).text() === 'Abilities') {
-      let innerSkillsTable = $c(this).parent().find('table.summaryskillstable');
-      let rows = $c(innerSkillsTable).find('tr');
+function parseSkillsData($c) {
+  let skill_sections = $c('td.summarytitle').map(function(i, el) {
+    el = $c(el);
+    if (el.text() === 'Abilities') {
+      return el.parent().find('table.summaryskillstable').find('tr').map((idx, row) => {
+        row = $c(row);
+        if (idx === 0) return; // Skip the header row
 
-      $c(rows).each(function(j, row) {
-        if (j === 0)
-          return; //  Skip the header row
+        const skill_order = row.find('td.summaryskills > div.summaryspellkey').text().split('').join('.');
+        const win_rate = parseFloat(row.find('td.win').text());
+        const pick_rate = parseFloat(row.find('td.popularity').text());
 
-        let skill_order = $c(row).find('td.summaryskills > div.summaryspellkey').text().split('').join('.');
-        let win_rate = parseFloat($c(row).find('td.win').text());
-        let pick_rate = parseFloat($c(row).find('td.popularity').text());
-
-        let skill_section = {
+        return {
           skills: skill_order,
           win: win_rate,
           pick: pick_rate
         };
-        skill_sections.push(skill_section);
-      }); //  end each row
-    } //  end if abilities section
-  }); //  end each td.summarytitle
+      });
+    }
+  }).get();
 
-  var highest_win_func = R.sortBy(R.prop('win'));
-  var most_freq_func = R.sortBy(R.prop('pick'));
+  skill_sections = R.reject(R.isNil, R.flatten(skill_sections));
 
-  let highest_win_skills = R.reverse(highest_win_func(skill_sections))[0];
-  let most_freq_skills = R.reverse(most_freq_func(skill_sections))[0];
+  let highest_win_skills = R.reverse(sort_by_win_rate(skill_sections))[0];
+  let most_freq_skills = R.reverse(sort_by_pick_rate(skill_sections))[0];
 
   let shorthand_bool = store.get('settings').skillsformat;
 
@@ -164,47 +152,35 @@ function parseSkillsData(cheerio_data) {
   return skills;
 }
 
-function parseItemData(cheerio_data) {
-  let build_sections = [];
-  let $c = cheerio_data;
-
-  $c('td.summarytitle').each(function(i, element) {
+function parseItemData($c) {
+  let build_sections = $c('td.summarytitle').map(function(i, el) {
+    el = $c(el);
     let build_section = {
-      title: $c(this).text(), //  name of the section
+      title: el.text(), //  name of the section
       json: []  //  json object w/ name, win, & pick values
     };
 
-    let innerTable = $c(this).parent().find('table.summaryinner');
-    let rows = $c(innerTable).find('tr');
-    //  Store each column in the build_sections.json array
+    build_section.json = el.parent().find('table.summaryinner').map(function(j, table) {
+      table = $c(table);
+      let rows = table.children('tr');
+      const item_name_row = $c(rows[0]);
+      const win_rates = $c(rows[1]).find('td.win.summarystats');
+      const pick_rates = $c(rows[2]).find('td.popularity.summarystats');
+      return item_name_row.find('h1').map(function(idx, item_name) {
+        const item_title = $c(item_name).text();
+        const win_rate = parseFloat($c(win_rates[idx]).text());
+        const pick_rate = parseFloat($c(pick_rates[idx]).text());
 
-    $c(rows).each(function(j, row) {
-      let rowName = $c(row).find('td.summarysubheading').text();
-      if (rowName === '') { //  Items
-        rowName = 'Items';
-        $c(row).find('h1').each(function(z, itemName) {
-          build_section.json.push({
-            name: ($c(itemName).text()),
-            win: null,
-            pick: null
-          });
-        }); //  end each h1
-      } else {
-        if (rowName === 'Win') {
-          $c(row).find('td.win.summarystats').each(function(z, winPercent) {
-            build_section.json[z].win = parseFloat($c(winPercent).text());
-          }); //  end find win
-        }
-        if (rowName === 'Pick') {
-          $c(row).find('td.popularity.summarystats').each(function(z, pickPercent) {
-            build_section.json[z].pick = parseFloat($c(pickPercent).text());
-          }); //  end find popularity
-        }
-      } //  end else (not items)
-    }); //  end each row
-    build_sections.push(build_section);
-  }); //  end each summarytitle
-
+        return {
+          name: item_title,
+          win: win_rate,
+          pick: pick_rate
+        };
+      });
+    }).get();
+    build_section.json = R.flatten(build_section.json);
+    return build_section;
+  }).get();
   return build_sections;
 }
 
@@ -226,8 +202,7 @@ function parseChampionPage(cheerio_data, position, champion_name) {
   return builds;
 }
 
-function parseChampion(request_params, cheerio_data) {
-  const $c = cheerio_data;
+function parseChampion(request_params, $c) {
   const champion_name = request_params.champion_name;
   const position = request_params.position;
   let formatted_builds = [];
@@ -244,7 +219,7 @@ function parseChampion(request_params, cheerio_data) {
   position_names = R.filter(role => (role !== position && role !== 'All Lanes'), position_names); //  Remove if exists
 
   if (position_names.length === 1 || position) { // Single position champ or we were passed a position
-    formatted_builds = R.concat(formatted_builds, parseChampionPage(cheerio_data, current_position, champion_name));
+    formatted_builds = R.concat(formatted_builds, parseChampionPage($c, current_position, champion_name));
   }
 
   if (position_names.length > 1 && !position) { //  More positions available and we werent passed one
@@ -278,7 +253,6 @@ function getChampionPage(request_params) {
   }
 
   return request(url).then(html => {
-    console.timeEnd(champion_name + position);
     let $ = cheerio.load(html);
     return parseChampion(request_params, $);
   })
