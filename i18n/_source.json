@@ -123,9 +123,21 @@
     "msg": "Failed",
     "done": true
   },
+  "fifth_item": {
+    "msg": "Fifth Item",
+    "done": true
+  },
+  "first_item": {
+    "msg": "First Item",
+    "done": true
+  },
   "found": {
     "done": true,
     "msg": "Found"
+  },
+  "fourth_item": {
+    "msg": "Fourth Item",
+    "done": true
   },
   "frequent": {
     "msg": "Frequent",
@@ -287,6 +299,10 @@
     "msg": "Resetting File Permissions",
     "done": true
   },
+  "second_item": {
+    "msg": "Second Item",
+    "done": true
+  },
   "select": {
     "done": true,
     "msg": "Select"
@@ -327,6 +343,10 @@
     "msg": "Starter",
     "done": true
   },
+  "starting_items": {
+    "msg": "Starting Items",
+    "done": true
+  },
   "status": {
     "done": true,
     "msg": "Status"
@@ -342,6 +362,10 @@
   "sure_thats_league": {
     "done": true,
     "msg": "You sure that's League?"
+  },
+  "third_item": {
+    "msg": "Third Item",
+    "done": true
   },
   "top": {
     "msg": "Top",
@@ -374,29 +398,5 @@
   "wins": {
     "msg": "Wins",
     "done": true
-  },
-  "first_item": {
-    "msg": "First Item",
-    "done": false
-  },
-  "second_item": {
-    "msg": "Second Item",
-    "done": false
-  },
-  "third_item": {
-    "msg": "Third Item",
-    "done": false
-  },
-  "fourth_item": {
-    "msg": "Fourth Item",
-    "done": false
-  },
-  "fifth_item": {
-    "msg": "Fifth Item",
-    "done": false
-  },
-  "starting_items": {
-    "msg": "Starting Items",
-    "done": false
   }
 }
