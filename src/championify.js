@@ -126,9 +126,10 @@ function saveToFile() {
     .then(R.flatten)
     .then(R.reject(R.isNil))
     .each(data => {
+      const champ = data.champ.toLowerCase() === 'wukong' ? 'monkeyking' : data.champ;
       const itemset_data = JSON.stringify(data.riot_json, null, 4);
-      const folder_path = path.join(store.get('itemset_path'), data.champ, 'Recommended');
-      const file_path = path.join(folder_path, `CIFY_${data.champ}_${data.source}_${data.file_prefix}.json`);
+      const folder_path = path.join(store.get('itemset_path'), champ, 'Recommended');
+      const file_path = path.join(folder_path, `CIFY_${champ}_${data.source}_${data.file_prefix}.json`);
 
       return fs.mkdirsAsync(folder_path)
         .catch(err => Log.warn(err))
