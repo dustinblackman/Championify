@@ -4,8 +4,8 @@ import nock from 'nock';
 import path from 'path';
 import R from 'ramda';
 
-const opgg = require(`../../${GLOBAL.src_path}/sources/opgg`);
-const store = require(`../../${GLOBAL.src_path}/store`).default;
+const opgg = require(`../../${global.src_path}/sources/opgg`);
+const store = require(`../../${global.src_path}/store`).default;
 
 const should = require('chai').should();
 let nocked = null;

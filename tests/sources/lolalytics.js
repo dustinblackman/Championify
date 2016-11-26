@@ -4,8 +4,8 @@ import nock from 'nock';
 import path from 'path';
 import R from 'ramda';
 
-const lolalytics = require(`../../${GLOBAL.src_path}/sources/lolalytics`);
-const store = require(`../../${GLOBAL.src_path}/store`).default;
+const lolalytics = require(`../../${global.src_path}/sources/lolalytics`);
+const store = require(`../../${global.src_path}/store`).default;
 
 const should = require('chai').should();
 let nocked = null;

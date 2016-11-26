@@ -19,7 +19,7 @@ gulp.task('babel', function() {
 
 gulp.task('stylus', function() {
   const stylus_settings = {use: nib()};
-  if (GLOBAL.if_release) stylus_settings.compress = true;
+  if (global.if_release) stylus_settings.compress = true;
   return gulp.src('./stylesheets/index.styl')
     .pipe(stylus(stylus_settings))
     .pipe(gulp.dest('./dev/css'));

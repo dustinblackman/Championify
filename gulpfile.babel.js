@@ -4,7 +4,7 @@ import runSequence from 'run-sequence';
 
 requireDir('./tasks');
 
-GLOBAL.if_release = process.argv.indexOf('release') > -1;
+global.if_release = process.argv.indexOf('release') > -1;
 
 gulp.task('main', function(cb) {
   return runSequence('delete-dev', 'mkdir:app', ['electron:packagejson', 'electron:settings', 'stylus'], cb);

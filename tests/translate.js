@@ -1,4 +1,4 @@
-const T = require(`../${GLOBAL.src_path}/translate`).default;
+const T = require(`../${global.src_path}/translate`).default;
 
 const should = require('chai').should();
 

@@ -9,7 +9,7 @@ const fs = Promise.promisifyAll(require('fs-extra'));
 const request = Promise.promisify(require('request'));
 const pkg = require('../package.json');
 
-GLOBAL.vtReports = {};
+global.vtReports = {};
 
 gulp.task('virustotal', function() {
   return request({url: `https://www.virustotal.com/vtapi/v2/file/scan/upload_url?apikey=${process.env.VIRUSTOTAL}`, json: true})
@@ -28,10 +28,10 @@ gulp.task('virustotal', function() {
             .then(R.prop('body'))
             .then(JSON.parse)
             .then(R.prop('permalink'))
-            .then(permalink => GLOBAL.vtReports[path.basename(file_path)] = permalink);
+            .then(permalink => global.vtReports[path.basename(file_path)] = permalink);
         });
     })
-    .tap(() => console.log(GLOBAL.vtReports));
+    .tap(() => console.log(global.vtReports));
 });
 
 gulp.task('github-release', function(cb) {
@@ -55,13 +55,13 @@ gulp.task('github-release', function(cb) {
   }
 
   R.forEach(item => {
-    if (item.indexOf('Windows_Setup') > -1) body += formatTitle('Windows Setup', GLOBAL.vtReports[item]);
-    if (item.indexOf('.WIN.') > -1) body += formatTitle('Windows ZIP', GLOBAL.vtReports[item]);
-    if (item.indexOf('OSX') > -1) body += formatTitle('Mac/OSX', GLOBAL.vtReports[item]);
-    if (item.indexOf('asar') > -1) body += formatTitle('update.asar', GLOBAL.vtReports[item]);
-    if (item.indexOf('u_osx') > -1) body += formatTitle('u_osx.tar.gz', GLOBAL.vtReports[item]);
-    if (item.indexOf('u_win') > -1) body += formatTitle('u_win.tar.gz', GLOBAL.vtReports[item]);
-  }, R.keys(GLOBAL.vtReports));
+    if (item.indexOf('Windows_Setup') > -1) body += formatTitle('Windows Setup', global.vtReports[item]);
+    if (item.indexOf('.WIN.') > -1) body += formatTitle('Windows ZIP', global.vtReports[item]);
+    if (item.indexOf('OSX') > -1) body += formatTitle('Mac/OSX', global.vtReports[item]);
+    if (item.indexOf('asar') > -1) body += formatTitle('update.asar', global.vtReports[item]);
+    if (item.indexOf('u_osx') > -1) body += formatTitle('u_osx.tar.gz', global.vtReports[item]);
+    if (item.indexOf('u_win') > -1) body += formatTitle('u_win.tar.gz', global.vtReports[item]);
+  }, R.keys(global.vtReports));
 
   body += [
     '',

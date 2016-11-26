@@ -4,8 +4,8 @@ import nock from 'nock';
 import path from 'path';
 import R from 'ramda';
 
-const championgg = require(`../../${GLOBAL.src_path}/sources/championgg`);
-const store = require(`../../${GLOBAL.src_path}/store`).default;
+const championgg = require(`../../${global.src_path}/sources/championgg`);
+const store = require(`../../${global.src_path}/store`).default;
 
 const should = require('chai').should();
 let nocked = null;
