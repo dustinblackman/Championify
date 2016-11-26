@@ -124,11 +124,11 @@
     "done": true
   },
   "fifth_item": {
-    "msg": "Fifth Item",
+    "text": "Fifth Item",
     "done": true
   },
   "first_item": {
-    "msg": "First Item",
+    "text": "First Item",
     "done": true
   },
   "found": {
@@ -136,7 +136,7 @@
     "text": "Found"
   },
   "fourth_item": {
-    "msg": "Fourth Item",
+    "text": "Fourth Item",
     "done": true
   },
   "frequent": {
@@ -324,7 +324,7 @@
     "done": true
   },
   "second_item": {
-    "msg": "Second Item",
+    "text": "Second Item",
     "done": true
   },
   "select": {
@@ -368,7 +368,7 @@
     "done": true
   },
   "starting_items": {
-    "msg": "Starting Items",
+    "text": "Starting Items",
     "done": true
   },
   "status": {
@@ -388,7 +388,7 @@
     "text": "You sure that's League?"
   },
   "third_item": {
-    "msg": "Third Item",
+    "text": "Third Item",
     "done": true
   },
   "top": {

@@ -48,7 +48,7 @@ function createChampionifyJson(riot_json, position, champion_name, split_sort) {
 }
 
 function convertBuildSectionJsonToBlock(build_section_json, title) {
-  const items = R.addIndex(R.map)((entry, idx) => {
+  const items = R.map(entry => {
     let id = parseInt(store.get('item_names')[entry.name], 10);
     id = (isNaN(id) ? 2003 : id); //  For biscuit
     return {
