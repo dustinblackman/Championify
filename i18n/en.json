@@ -48,6 +48,7 @@
   "lane": "Lane",
   "loading": "Loading...",
   "local_item_sets_version": "Local Item Sets Version",
+  "local_items_version": "Local Items Version",
   "lol_version": "Getting LoL Version",
   "manual_update": "Manual Update",
   "max_skill": "Max Skill",
@@ -97,12 +98,5 @@
   "upload_log": "Upload Log",
   "version": "Version",
   "welcome": "Welcome to Championify",
-  "wins": "Wins",
-  "first_item": "First Item",
-  "second_item": "Second Item",
-  "third_item": "Third Item",
-  "fourth_item": "Fourth Item",
-  "fifth_item": "Fifth Item",
-  "starting_items": "Starting Items"
+  "wins": "Wins"
 }
-

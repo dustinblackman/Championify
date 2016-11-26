@@ -207,6 +207,10 @@
     "text": "Local Item Sets Version",
     "done": true
   },
+  "local_items_version": {
+    "text": "Local Items Version",
+    "done": true
+  },
   "lol_version": {
     "text": "Getting LoL Version",
     "done": true
