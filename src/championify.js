@@ -191,7 +191,6 @@ function downloadItemSets() {
   store.remove('sr_itemsets');
   store.remove('aram_itemsets');
   store.remove('undefined_builds');
-
   progressbar.reset();
 
   const to_process = [];
@@ -206,6 +205,7 @@ function downloadItemSets() {
     .then(permissions.championTest)
     .then(getRiotVer)
     .then(getChamps)
+    .then(getItems)
     .then(() => Promise.all(R.map(fn => fn(), to_process)))
     .then(deleteOldBuilds)
     .then(saveToFile)

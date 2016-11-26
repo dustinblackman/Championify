@@ -1,0 +1,910 @@
+[
+  {
+    "champ": "Brand",
+    "file_prefix": "Middle_Win",
+    "riot_json": {
+      "map": "any",
+      "blocks": [
+        {
+          "type": "Starting Items",
+          "items": [
+            {
+              "count": 1,
+              "id": "2033"
+            },
+            {
+              "count": 1,
+              "id": "2003"
+            },
+            {
+              "count": 1,
+              "id": "1056"
+            },
+            {
+              "count": 1,
+              "id": "3340"
+            },
+            {
+              "count": 1,
+              "id": "3303"
+            }
+          ]
+        },
+        {
+          "type": "First Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3027"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3001"
+            }
+          ]
+        },
+        {
+          "type": "Boots",
+          "items": [
+            {
+              "count": 1,
+              "id": "3020"
+            },
+            {
+              "count": 1,
+              "id": "3158"
+            },
+            {
+              "count": 1,
+              "id": "3111"
+            }
+          ]
+        },
+        {
+          "type": "Second Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3285"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3001"
+            },
+            {
+              "count": 1,
+              "id": "3027"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            }
+          ]
+        },
+        {
+          "type": "Third Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3285"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3001"
+            }
+          ]
+        },
+        {
+          "type": "Fourth Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3285"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            }
+          ]
+        },
+        {
+          "type": "Fifth Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            }
+          ]
+        }
+      ],
+      "title": "Lolalytics Middle 6.23 Highest Win",
+      "priority": false,
+      "mode": "any",
+      "type": "custom",
+      "sortrank": 1,
+      "champion": "Brand"
+    },
+    "source": "lolalytics"
+  },
+  {
+    "champ": "Brand",
+    "file_prefix": "Middle_Pick",
+    "riot_json": {
+      "map": "any",
+      "blocks": [
+        {
+          "type": "Starting Items",
+          "items": [
+            {
+              "count": 1,
+              "id": "3340"
+            },
+            {
+              "count": 1,
+              "id": "1056"
+            },
+            {
+              "count": 1,
+              "id": "2003"
+            },
+            {
+              "count": 1,
+              "id": "3303"
+            },
+            {
+              "count": 1,
+              "id": "2033"
+            }
+          ]
+        },
+        {
+          "type": "First Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3027"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3001"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            }
+          ]
+        },
+        {
+          "type": "Boots",
+          "items": [
+            {
+              "count": 1,
+              "id": "3020"
+            },
+            {
+              "count": 1,
+              "id": "3158"
+            },
+            {
+              "count": 1,
+              "id": "3111"
+            }
+          ]
+        },
+        {
+          "type": "Second Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3001"
+            },
+            {
+              "count": 1,
+              "id": "3027"
+            },
+            {
+              "count": 1,
+              "id": "3285"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            }
+          ]
+        },
+        {
+          "type": "Third Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "3285"
+            },
+            {
+              "count": 1,
+              "id": "3001"
+            }
+          ]
+        },
+        {
+          "type": "Fourth Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3285"
+            }
+          ]
+        },
+        {
+          "type": "Fifth Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            }
+          ]
+        }
+      ],
+      "title": "Lolalytics Middle 6.23 Most Frequent",
+      "priority": false,
+      "mode": "any",
+      "type": "custom",
+      "sortrank": 1,
+      "champion": "Brand"
+    },
+    "source": "lolalytics"
+  },
+  {
+    "champ": "Brand",
+    "file_prefix": "Support_Win",
+    "riot_json": {
+      "map": "any",
+      "blocks": [
+        {
+          "type": "Starting Items",
+          "items": [
+            {
+              "count": 1,
+              "id": "1004"
+            },
+            {
+              "count": 1,
+              "id": "2031"
+            },
+            {
+              "count": 1,
+              "id": "3303"
+            },
+            {
+              "count": 1,
+              "id": "2003"
+            },
+            {
+              "count": 1,
+              "id": "3340"
+            },
+            {
+              "count": 1,
+              "id": "2055"
+            },
+            {
+              "count": 1,
+              "id": "1056"
+            }
+          ]
+        },
+        {
+          "type": "First Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "2301"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3027"
+            },
+            {
+              "count": 1,
+              "id": "2049"
+            },
+            {
+              "count": 1,
+              "id": "3092"
+            }
+          ]
+        },
+        {
+          "type": "Boots",
+          "items": [
+            {
+              "count": 1,
+              "id": "3009"
+            },
+            {
+              "count": 1,
+              "id": "3020"
+            },
+            {
+              "count": 1,
+              "id": "3158"
+            },
+            {
+              "count": 1,
+              "id": "3117"
+            }
+          ]
+        },
+        {
+          "type": "Second Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "2049"
+            },
+            {
+              "count": 1,
+              "id": "2301"
+            },
+            {
+              "count": 1,
+              "id": "3092"
+            },
+            {
+              "count": 1,
+              "id": "3027"
+            }
+          ]
+        },
+        {
+          "type": "Third Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "2301"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3092"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "2045"
+            },
+            {
+              "count": 1,
+              "id": "3027"
+            }
+          ]
+        },
+        {
+          "type": "Fourth Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "2045"
+            },
+            {
+              "count": 1,
+              "id": "2301"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "3285"
+            },
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            }
+          ]
+        },
+        {
+          "type": "Fifth Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "2045"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3089"
+            }
+          ]
+        }
+      ],
+      "title": "Lolalytics Support 6.23 Highest Win",
+      "priority": false,
+      "mode": "any",
+      "type": "custom",
+      "sortrank": 1,
+      "champion": "Brand"
+    },
+    "source": "lolalytics"
+  },
+  {
+    "champ": "Brand",
+    "file_prefix": "Support_Pick",
+    "riot_json": {
+      "map": "any",
+      "blocks": [
+        {
+          "type": "Starting Items",
+          "items": [
+            {
+              "count": 1,
+              "id": "3303"
+            },
+            {
+              "count": 1,
+              "id": "3340"
+            },
+            {
+              "count": 1,
+              "id": "2003"
+            },
+            {
+              "count": 1,
+              "id": "1056"
+            },
+            {
+              "count": 1,
+              "id": "2031"
+            },
+            {
+              "count": 1,
+              "id": "2055"
+            },
+            {
+              "count": 1,
+              "id": "1004"
+            }
+          ]
+        },
+        {
+          "type": "First Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "2049"
+            },
+            {
+              "count": 1,
+              "id": "3092"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "2301"
+            },
+            {
+              "count": 1,
+              "id": "3027"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            }
+          ]
+        },
+        {
+          "type": "Boots",
+          "items": [
+            {
+              "count": 1,
+              "id": "3020"
+            },
+            {
+              "count": 1,
+              "id": "3158"
+            },
+            {
+              "count": 1,
+              "id": "3117"
+            },
+            {
+              "count": 1,
+              "id": "3009"
+            }
+          ]
+        },
+        {
+          "type": "Second Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "2301"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3092"
+            },
+            {
+              "count": 1,
+              "id": "2049"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3027"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            }
+          ]
+        },
+        {
+          "type": "Third Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "2301"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "3092"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3027"
+            },
+            {
+              "count": 1,
+              "id": "2045"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            }
+          ]
+        },
+        {
+          "type": "Fourth Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "2045"
+            },
+            {
+              "count": 1,
+              "id": "2301"
+            },
+            {
+              "count": 1,
+              "id": "3165"
+            },
+            {
+              "count": 1,
+              "id": "3285"
+            }
+          ]
+        },
+        {
+          "type": "Fifth Item",
+          "items": [
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "2045"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            }
+          ]
+        }
+      ],
+      "title": "Lolalytics Support 6.23 Most Frequent",
+      "priority": false,
+      "mode": "any",
+      "type": "custom",
+      "sortrank": 1,
+      "champion": "Brand"
+    },
+    "source": "lolalytics"
+  }
+]
