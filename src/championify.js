@@ -64,7 +64,11 @@ function getChamps() {
       translations.wukong = translations.monkeyking;
       T.merge(translations);
 
+      const champ_ids = R.fromPairs(R.map(champ_data => {
+        return [champ_data.id.toLowerCase(), champ_data.key];
+      }, R.values(data)));
       store.set('champs', R.keys(data).sort());
+      store.set('champ_ids', champ_ids);
     })
     .catch(err => {
       if (err instanceof ChampionifyErrors.ChampionifyError) throw err;

@@ -395,6 +395,10 @@
     "text": "Top",
     "done": true
   },
+  "top_kda_items": {
+    "text": "Top KDA Items",
+    "done": true
+  },
   "trinkets": {
     "text": "Trinkets",
     "done": true
