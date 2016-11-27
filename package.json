@@ -8,9 +8,11 @@
     "test-coverage": "gulp test-coverage",
     "build": "gulp build",
     "build-artifact": "gulp build-artifact",
+    "build-fixtures": "BUILD_FIXTURES=true npm run mocha",
     "coveralls": "gulp coveralls",
     "dev": "NODE_ENV=development gulp dev",
     "lint": "gulp lint",
+    "mocha": "gulp mocha",
     "release": "gulp release"
   },
   "repository": {

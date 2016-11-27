@@ -59,6 +59,9 @@ describe('src/sources/koreanbuilds', () => {
       store.set('settings', {consumables: true});
       return koreanbuilds.getSr().then(champs => {
         const itemsets = R.flatten(store.get('sr_itemsets'));
+        if (process.env.BUILD_FIXTURES === 'true') {
+          fs.writeFileSync(path.join(__dirname, `fixtures/koreanbuilds/results/ahri_normal.json`), JSON.stringify(itemsets, null, 2), 'utf8');
+        }
         itemsets.should.eql(RESULTS_FIXTURES.ahri_normal);
       });
     });
@@ -68,6 +71,9 @@ describe('src/sources/koreanbuilds', () => {
       store.set('settings', {skillsformat: true, consumables: true});
       return koreanbuilds.getSr().then(champs => {
         const itemsets = R.flatten(store.get('sr_itemsets'));
+        if (process.env.BUILD_FIXTURES === 'true') {
+          fs.writeFileSync(path.join(__dirname, `fixtures/koreanbuilds/results/ahri_shorthand.json`), JSON.stringify(itemsets, null, 2), 'utf8');
+        }
         itemsets.should.eql(RESULTS_FIXTURES.ahri_shorthand);
       });
     });
