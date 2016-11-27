@@ -14,8 +14,7 @@ const default_schema = require('../../data/default.json');
 
 
 function getChamps() {
-  console.log('Getting probuilds champs');
-  return request('http://www.probuilds.net/champions')
+  return request('http://probuilds.net/champions')
     .then(cheerio.load)
     .then($ => {
       return $('.champ-image')
@@ -38,8 +37,7 @@ function mergeIDs($, divs, start_point) {
 
 function getTopKDAItems(champ) {
   const champ_id = store.get('champ_ids')[champ];
-  console.log(`http://www.probuilds.net/ajax/champBuilds?championId=${champ_id}`);
-  return request({url: `http://www.probuilds.net/ajax/champBuilds?championId=${champ_id}`, json: true})
+  return request({url: `http://probuilds.net/ajax/champBuilds?championId=${champ_id}`, json: true})
     .then(R.prop('matches'))
     .map(match => {
       const $ = cheerio.load(match);
@@ -71,7 +69,7 @@ function getTopKDAItems(champ) {
 function getItems(champ) {
   cl(`${T.t('processing')} ProBuilds: ${T.t(champ)}`);
   return Promise.join(
-    request(`http://www.probuilds.net/champions/details/${champ}`).then(cheerio.load),
+    request(`http://probuilds.net/champions/details/${champ}`).then(cheerio.load),
     getTopKDAItems(champ)
   )
   .spread(($, kda) => {

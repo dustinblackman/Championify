@@ -1,0 +1,75 @@
+[
+  [
+    {
+      "champ": "ahri",
+      "file_prefix": "all",
+      "riot_json": {
+        "map": "any",
+        "blocks": [
+          {
+            "items": [
+              {
+                "id": "3364",
+                "count": 1
+              },
+              {
+                "id": "3363",
+                "count": 1
+              }
+            ],
+            "type": "Trinkets"
+          },
+          {
+            "items": [
+              {
+                "id": "3165",
+                "count": 1
+              },
+              {
+                "id": "3135",
+                "count": 1
+              },
+              {
+                "id": "3116",
+                "count": 1
+              },
+              {
+                "id": "3089",
+                "count": 1
+              },
+              {
+                "id": "3001",
+                "count": 1
+              },
+              {
+                "id": "3285",
+                "count": 1
+              }
+            ],
+            "type": "Core Items"
+          },
+          {
+            "items": [
+              {
+                "id": "3020",
+                "count": 1
+              },
+              {
+                "id": "3158",
+                "count": 1
+              }
+            ],
+            "type": "Boots"
+          }
+        ],
+        "title": "ProBuilds 2016-11-27",
+        "priority": false,
+        "mode": "any",
+        "type": "custom",
+        "sortrank": 1,
+        "champion": "ahri"
+      },
+      "source": "probuilds"
+    }
+  ]
+]
