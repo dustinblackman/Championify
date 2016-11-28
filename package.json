@@ -46,7 +46,8 @@
     "semver": "5.1.0",
     "super-error": "1.1.2",
     "tar-fs": "1.8.1",
-    "winston": "git://github.com/dustinblackman/winston.git#electron"
+    "winston": "2.3.0",
+    "winston-electron": "0.0.2"
   },
   "devDependencies": {
     "aws-sdk": "2.2.4",
