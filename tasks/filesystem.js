@@ -113,6 +113,7 @@ gulp.task('move:compiled-mac:folder', function(cb) {
 
 gulp.task('clean:node_modules', function() {
   return del([
+    './dev/node_modules/.bin',
     './dev/node_modules/**/*.md',
     './dev/node_modules/**/*.txt',
     './dev/node_modules/**/*.zip',

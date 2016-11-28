@@ -1,5 +1,4 @@
 import Promise from 'bluebird';
-import asar from 'gulp-asar';
 import gulp from 'gulp';
 import inno from 'gulp-inno';
 import moment from 'moment';
@@ -8,6 +7,7 @@ import plist from 'plist';
 import runSequence from 'run-sequence';
 import _ from 'lodash';
 
+const asar = Promise.promisifyAll(require('asar'));
 const fs = Promise.promisifyAll(require('fs-extra'));
 const rcedit = Promise.promisify(require('rcedit'));
 const pkg = require('../package.json');
@@ -48,9 +48,7 @@ function helperPList(tmp_path, name) {
 }
 
 gulp.task('asar', function() {
-  return gulp.src('./dev/**', {base: './dev/'})
-    .pipe(asar('app.asar'))
-    .pipe(gulp.dest('tmp'));
+  return asar.createPackageAsync('./dev', './tmp/app.asar');
 });
 
 gulp.task('_compileMac', function() {
