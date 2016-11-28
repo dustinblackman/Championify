@@ -175,23 +175,24 @@ function executeOptionParameters() {
 viewManager.init().then(() => {
   // TODO: Re-enable
   // updateManager.check().spread((version, major) => {
-    // if (version && optionsParser.update()) {
-      // if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-        // runas(process.execPath, ['--start-as-admin'], {
-          // hide: false,
-          // admin: true
-        // });
-      // } else {
-        // return EndSession(new ChampionifyErrors.UpdateError('Can\'t auto update, please redownload'));
-      // }
-    // } else if (version && major) {
-      // updateManager.majorUpdate(version);
-    // } else if (version) {
-      // updateManager.minorUpdate(version);
-    // } else {
-      // executeOptionParameters();
-    // }
-  // });
+  Promise.resolve([false, false]).spread((version, major) => {
+    if (version && optionsParser.update()) {
+      if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
+        runas(process.execPath, ['--start-as-admin'], {
+          hide: false,
+          admin: true
+        });
+      } else {
+        return EndSession(new ChampionifyErrors.UpdateError('Can\'t auto update, please redownload'));
+      }
+    } else if (version && major) {
+      updateManager.majorUpdate(version);
+    } else if (version) {
+      updateManager.minorUpdate(version);
+    } else {
+      executeOptionParameters();
+    }
+  });
 });
 
 /**

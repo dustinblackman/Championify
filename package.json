@@ -77,8 +77,8 @@
     "gulp-inno": "0.0.7",
     "gulp-jsonlint": "1.1.0",
     "gulp-shell": "0.4.3",
-    "gulp-stylint": "3.0.0",
-    "gulp-stylus": "2.0.7",
+    "gulp-stylint": "4.0.0",
+    "gulp-stylus": "2.6.0",
     "htmlhint-stylish": "1.0.3",
     "lodash": "3.10.1",
     "nib": "1.1.0",
@@ -89,8 +89,8 @@
     "require-dir": "0.3.0",
     "run-sequence": "1.1.4",
     "sinon": "1.17.0",
-    "stylint": "1.2.3",
-    "stylint-stylish": "1.2.0",
+    "stylint": "1.5.7",
+    "stylint-stylish": "1.4.0",
     "yauzl": "2.3.1"
   },
   "babel": {
