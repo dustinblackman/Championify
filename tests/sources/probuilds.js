@@ -1,6 +1,5 @@
 import fs from 'fs';
 import glob from 'glob';
-import moment from 'moment';
 import nock from 'nock';
 import path from 'path';
 import R from 'ramda';
@@ -50,7 +49,7 @@ describe('src/sources/probuilds', () => {
   describe('version', () => {
     it('should get the stubbed probuilds version', () => {
       return probuilds.getVersion().then(version => {
-        version.should.equal(moment().format('YYYY-MM-DD'));
+        version.should.equal('2016-11-27');
       });
     });
   });
