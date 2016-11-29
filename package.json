@@ -81,6 +81,7 @@
     "gulp-stylus": "2.6.0",
     "htmlhint-stylish": "1.0.3",
     "lodash": "3.10.1",
+    "mockery": "^2.0.0",
     "nib": "1.1.0",
     "nock": "2.13.0",
     "plist": "1.1.0",

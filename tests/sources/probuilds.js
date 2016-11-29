@@ -1,11 +1,11 @@
 import fs from 'fs';
 import glob from 'glob';
+import mockery from 'mockery';
 import nock from 'nock';
 import path from 'path';
 import R from 'ramda';
 
-const probuilds = require(`../../${global.src_path}/sources/probuilds`);
-const store = require(`../../${global.src_path}/store`).default;
+let probuilds, store;
 
 const should = require('chai').should();
 let nocked = null;
@@ -34,8 +34,30 @@ function testWithFixture(fixture) {
 
 describe('src/sources/probuilds', () => {
   before(() => {
+    const moment_mock = () => ({format: () => '2016-11-27'});
+    mockery.enable({
+      warnOnReplace: false,
+      warnOnUnregistered: false,
+      useCleanCache: true
+    });
+    mockery.registerMock('moment', moment_mock);
+    probuilds = require(`../../${global.src_path}/sources/probuilds`);
+    store = require(`../../${global.src_path}/store`).default;
+
+    // TODO: Lazy fix for Probuilds tests. Needs to be replaced.
+    const T = require(`../../${global.src_path}/translate`).default;
+    const champions = require('../fixtures/all_champions.json').data;
+    let translations = R.zipObj(R.keys(champions), R.pluck('name')(R.values(champions)));
+    translations = R.zipObj(R.map(key => key.toLowerCase().replace(/ /g, ''), R.keys(translations)), R.values(translations));
+    translations.wukong = translations.monkeyking;
+    T.merge(translations);
+
     nocked = nock('http://probuilds.net');
     store.set('champ_ids', {ahri: '103'});
+  });
+
+  after(() => {
+    mockery.disable();
   });
 
   beforeEach(() => {
