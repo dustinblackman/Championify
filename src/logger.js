@@ -1,4 +1,4 @@
-import electronConsole from 'winston-electron';
+import ElectronConsole from 'winston-electron';
 import path from 'path';
 import R from 'ramda';
 import winston from 'winston';
@@ -12,7 +12,7 @@ import preferences from './preferences';
  */
 const Log = new winston.Logger({
   transports: [
-    new electronConsole({
+    new ElectronConsole({
       level: process.env.NODE_ENV === 'test' ? 'emerg' : 'debug',
       handleExceptions: true
     }),

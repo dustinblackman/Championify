@@ -11,7 +11,7 @@ import zlib from 'zlib';
 import $ from './helpers/jquery';
 
 import ChampionifyErrors from './errors';
-import { EndSession, request as cRequest } from './helpers';
+import { elevate, EndSession, request as cRequest } from './helpers';
 import optionsParser from './options_parser';
 import preferences from './preferences';
 import progressbar from './progressbar';
@@ -22,8 +22,6 @@ const app = remote.app;
 const fs = Promise.promisifyAll(require('fs-extra'));
 const pkg = require('../package.json');
 
-let runas;
-if (process.platform === 'win32') runas = require('runas');
 
 /**
  * Downloads update file to disk
@@ -39,7 +37,7 @@ function download(url, download_path) {
   } catch (e) {
     const error = new ChampionifyErrors.UpdateError(`Can\'t write update file: ${path.basename(download_path)}`).causedBy(e);
     if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-      return runas(process.execPath, ['--start-as-admin'], {hide: false, admin: true});
+      return elevate();
     }
     throw error;
   }
@@ -166,7 +164,7 @@ function winMajor(install_path, update_path) {
       new ChampionifyErrors.FileWriteError('Can\'t write update_major.bat').causedBy(err);
     })
     .then(() => {
-      return runas(process.execPath, ['--win-major'], {hide: false, admin: true});
+      return elevate(['--win-major']);
     });
 }
 
@@ -195,11 +193,8 @@ function minorUpdate(version) {
         err = new ChampionifyErrors.UpdateError('Can\'t write/download update file').causedBy(err);
       }
 
-      if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-        runas(process.execPath, ['--start-as-admin'], {hide: false, admin: true});
-      } else {
-        EndSession(err);
-      }
+      if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) return elevate();
+      return EndSession(err);
     });
 }
 

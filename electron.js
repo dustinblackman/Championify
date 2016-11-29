@@ -7,8 +7,6 @@ import R from 'ramda';
 
 const dev_enabled = process.env.NODE_ENV === 'development' || fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'));
 
-let runas;
-if (process.platform === 'win32') runas = require('runas');
 
 let preference_dir;
 if (process.platform === 'darwin') {
@@ -20,19 +18,6 @@ if (process.platform === 'darwin') {
 if (R.contains('--win-major', process.argv)) {
   const update_file = path.join(preference_dir, 'update_major.bat');
   exec(`START "" "${update_file}"`, {cwd: path.join(process.cwd(), '..')});
-}
-
-if (R.contains('--start-as-admin', process.argv)) {
-  let args = R.clone(process.argv, true);
-  args.shift();
-  args = R.filter(item => item !== '--start-as-admin', args);
-  args.push('--runned-as-admin');
-  let params = ['/c', 'taskkill', '/IM', 'championify.exe', '/f', '&', process.execPath].concat(args);
-  params = params.concat(['&', 'exit']);
-  runas('cmd', params, {
-    hide: true,
-    admin: true
-  });
 }
 
 let mainWindow = null;

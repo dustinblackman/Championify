@@ -1,10 +1,11 @@
 import Promise from 'bluebird';
+import { remote } from 'electron';
 import glob from 'glob';
 import path from 'path';
 import R from 'ramda';
 import $ from './helpers/jquery';
 
-import { cl, request, spliceVersion } from './helpers';
+import { cl, elevate, request, spliceVersion } from './helpers';
 
 import ChampionifyErrors from './errors';
 import Log from './logger';
@@ -18,9 +19,6 @@ import T from './translate';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
 
-// Windows Specific Dependencies
-let runas;
-if (process.platform === 'win32') runas = require('runas');
 
 /**
  * Saves settings/options from the frontend.
@@ -223,10 +221,8 @@ function downloadItemSets() {
     .catch(err => {
       if (err instanceof ChampionifyErrors.FileWriteError && process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
         Log.error(err);
-        return runas(process.execPath, ['--start-as-admin', '--import'], {
-          hide: false,
-          admin: true
-        });
+        return elevate(['--import'])
+          .then(() => remote.app.quit());
       }
 
       // If not a file write error, end session.

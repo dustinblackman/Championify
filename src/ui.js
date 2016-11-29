@@ -9,7 +9,7 @@ import $ from './helpers/jquery';
 
 import championify from './championify';
 import ChampionifyErrors from './errors';
-import { EndSession } from './helpers';
+import { elevate, EndSession } from './helpers';
 import Log from './logger';
 import optionsParser from './options_parser';
 import preferences from './preferences';
@@ -26,9 +26,6 @@ window.viewManager = viewManager;
 
 const app = remote.app;
 const dialog = remote.dialog;
-
-let runas;
-if (process.platform === 'win32') runas = require('runas');
 
 const loadedPrefs = preferences.load();
 if (loadedPrefs && loadedPrefs.locale !== 'en') T.loadPhrases(loadedPrefs.locale);
@@ -178,10 +175,7 @@ viewManager.init().then(() => {
   Promise.resolve([false, false]).spread((version, major) => {
     if (version && optionsParser.update()) {
       if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-        runas(process.execPath, ['--start-as-admin'], {
-          hide: false,
-          admin: true
-        });
+        elevate().catch(EndSession);
       } else {
         return EndSession(new ChampionifyErrors.UpdateError('Can\'t auto update, please redownload'));
       }

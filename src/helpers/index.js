@@ -1,6 +1,8 @@
 import Promise from 'bluebird';
+import path from 'path';
 import R from 'ramda';
 import retry from 'bluebird-retry';
+import { spawn } from 'child_process';
 import $ from './jquery';
 
 import ChampionifyErrors from '../errors';
@@ -55,6 +57,25 @@ export function request(options) {
         return res.body;
       });
   }, retry_options);
+}
+
+
+/**
+ * Re-executes Championify with elevated privileges, throws an error if user declines. Only works on Windows.
+ * @param {Array} Command line parameters
+ * @returns {Promise.Boolean|ChampionifyErrors.ElevateError}
+ */
+export function elevate(params = []) {
+  let elevate_path = path.join(__dirname, '../../../championify_elevate.exe');
+  if (process.env.NODE_ENV === 'development') elevate_path = path.join(__dirname, '../../resources/win/elevate.exe');
+
+  const proc = spawn(elevate_path, [process.execPath, '--runned-as-admin'].concat(params));
+  return new Promise((resolve, reject) => {
+    proc.on('close', code => {
+      if (code !== 0) reject(new ChampionifyErrors.ElevateError(`Exited with code ${code}`));
+      resolve();
+    });
+  });
 }
 
 /**
