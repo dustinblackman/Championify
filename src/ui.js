@@ -17,7 +17,7 @@ import pathManager from './path_manager';
 import pkg from '../package.json';
 import store from './store';
 import T from './translate';
-import updateManager from './update_manager';
+import update from './update';
 import viewManager from './view_manager';
 
 
@@ -166,28 +166,13 @@ function executeOptionParameters() {
 
 
 /**
- * Execute after view load
-*/
+ * Init view, check for updates, parse options parameters
+ */
 
-viewManager.init().then(() => {
-  // TODO: Re-enable
-  // updateManager.check().spread((version, major) => {
-  Promise.resolve([false, false]).spread((version, major) => {
-    if (version && optionsParser.update()) {
-      if (process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-        elevate().catch(EndSession);
-      } else {
-        return EndSession(new ChampionifyErrors.UpdateError('Can\'t auto update, please redownload'));
-      }
-    } else if (version && major) {
-      updateManager.majorUpdate(version);
-    } else if (version) {
-      updateManager.minorUpdate(version);
-    } else {
-      executeOptionParameters();
-    }
-  });
-});
+viewManager.init()
+  .then(update)
+  .then(executeOptionParameters);
+
 
 /**
  * Watches for buttons pressed on UI.

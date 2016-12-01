@@ -4,6 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import R from 'ramda';
 
+// Used for Squirrel install on Windows
+if (require('electron-squirrel-startup')) app.quit();
 
 const dev_enabled = process.env.NODE_ENV === 'development' || fs.existsSync('./dev_enabled') || fs.existsSync(path.join(__dirname, '..', 'dev_enabled'));
 

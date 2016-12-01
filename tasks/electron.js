@@ -156,6 +156,8 @@ gulp.task('electron:packagejson', function() {
     name: pkg.name,
     version: pkg.version,
     main: 'electron.js',
+    author: pkg.author,
+    description: pkg.description,
     electron_version: pkg.dependencies['electron']
   };
   fs.mkdirsSync(path.join(__dirname, '../dev/'));
