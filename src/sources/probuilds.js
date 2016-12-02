@@ -18,7 +18,8 @@ function getChamps() {
     .then(cheerio.load)
     .then($ => {
       return $('.champ-image')
-        .map((idx, el) => $(el).attr('data-id').split('|')[0].toLowerCase()).get();
+        .map((idx, el) => $(el).attr('data-id').split('|')[0])
+        .get();
     });
 }
 
@@ -66,10 +67,11 @@ function getTopKDAItems(champ) {
     });
 }
 
-function getItems(champ) {
+function getItems(champ_case) {
+  const champ = champ_case.toLowerCase();
   cl(`${T.t('processing')} ProBuilds: ${T.t(champ)}`);
   return Promise.join(
-    request(`http://probuilds.net/champions/details/${champ}`).then(cheerio.load),
+    request(`http://probuilds.net/champions/details/${champ_case}`).then(cheerio.load),
     getTopKDAItems(champ)
   )
   .spread(($, kda) => {
