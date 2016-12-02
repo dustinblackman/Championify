@@ -157,7 +157,7 @@ function startUpdate(version) {
 
 /**
  * Checks for updates and begins download process
- * @returns {Promise}
+ * @returns {Promise|Boolean}
  */
 
 export default function update() {
@@ -167,12 +167,20 @@ export default function update() {
     json: true
   })
   .then(({version}) => {
-    // TODO: Add check whether app is running in portable mode, and switch views if true.
     if (semver.gt(version, pkg.version)) {
-      // if (process.platform === 'win32' && !fs.existsSync(''))
+      // TODO: Verify path is correct for squirrel exe
+      if (process.platform === 'win32' && !fs.existsSync(path.join(__dirname, '../../../squirrel.exe'))) {
+        // This is the portable version, change views for users to go download the new one.
+        Log.debug('Squirrel.exe not found');
+        return viewManager.manualUpdate();
+      }
       return startUpdate(version)
     };
     Log.info('No updates found');
     return false;
+  })
+  .catch(err => {
+    if (err.name === 'RequestError') return false;
+    throw err;
   });
 }

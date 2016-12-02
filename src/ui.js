@@ -8,8 +8,7 @@ import path from 'path';
 import $ from './helpers/jquery';
 
 import championify from './championify';
-import ChampionifyErrors from './errors';
-import { elevate, EndSession } from './helpers';
+import { EndSession } from './helpers';
 import Log from './logger';
 import optionsParser from './options_parser';
 import preferences from './preferences';
@@ -171,7 +170,10 @@ function executeOptionParameters() {
 
 viewManager.init()
   .then(update)
-  .then(executeOptionParameters);
+  .then(is_update => {
+    if (is_update === false) return executeOptionParameters();
+  })
+  .catch(EndSession);
 
 
 /**

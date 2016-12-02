@@ -35,6 +35,10 @@ gulp.task('build:win', function(cb) {
   return runSequence('package-asar', 'compile:win', 'move:compiled-win:folder', cb);
 });
 
+gulp.task('dist', function() {
+  return runSequence('test', 'delete-releases', 'create-releases-folder', 'package-asar', 'compile:all', 'zip:all');
+});
+
 gulp.task('release', function() {
-  return runSequence('test', 'delete-releases', 'create-releases-folder', 'package-asar', 'compile:all', 'zip:all', 'tarball:all', 'move:asar:update', 'virustotal', 'github-release');
+  return runSequence('dist', 'tarball:all', 'move:asar:update', 'virustotal', 'github-release');
 });

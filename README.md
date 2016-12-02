@@ -138,6 +138,7 @@ See [BACKERS.md](BACKERS.md)
 
 ## Credit
 - Icon by [Omer Levy](http://github.com/OmerValentine)
+- Package icon by [Becris](http://www.flaticon.com/free-icon/new-product_166913#term=new&page=2&position=96)
 - [Joeldo](https://www.reddit.com/user/joeldo) of [Champion.gg](http://champion.gg)
 - [Lolflavor](http://www.lolflavor.com/)
 - [KoreanBuilds](http://koreanbuilds.net)

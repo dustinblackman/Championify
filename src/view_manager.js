@@ -174,8 +174,8 @@ function updateView() {
  * Change to breaking changes view with transitions.
  */
 
-function breakingChangesView() {
-  return _viewChanger('breaking_changes');
+function manualUpdateView() {
+  return _viewChanger('manual_update');
 }
 
 /**
@@ -225,6 +225,6 @@ export default {
   error: errorView,
   update: updateView,
   mainBack: mainViewBack,
-  breakingChanges: breakingChangesView,
+  manualUpdate: manualUpdateView,
   init
 };
