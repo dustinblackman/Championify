@@ -60,7 +60,6 @@ function download(url, download_path, enable_progress = true) {
  */
 function startExpress(port, download_folder) {
   const web = express();
-  web.use(require('morgan')('dev'));
 
   // Returns releases on disk
   web.use('/releases', express.static(download_folder));

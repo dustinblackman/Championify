@@ -134,9 +134,7 @@ gulp.task('_compileWin', function() {
   };
 
   const elevate_path = path.join(tmp_path, 'resources/championify_elevate.exe');
-  const elevate_rc = {
-    icon: './resources/win/icon.ico'
-  };
+  const elevate_rc = {icon: './resources/win/icon.ico'};
 
   return fs.copyAsync(path.join('./cache', src_folder), tmp_path)
     .then(() => Promise.all([
@@ -154,15 +152,18 @@ gulp.task('compile:win', function(cb) {
 });
 
 gulp.task('_wininstaller', function() {
+  const filename = `Championify.Windows_Setup.${pkg.version.replace(/\\./g, '-')}.exe`;
+  const rc = {icon: './resources/win/setup.ico'};
+
   return winstaller.createWindowsInstaller({
     appDirectory: './tmp/Championify',
     outputDirectory: './releases',
     exe: `${pkg.name.toLowerCase()}.exe`,
     iconUrl: 'https://raw.githubusercontent.com/dustinblackman/Championify/master/resources/win/icon.ico',
-    setupIcon: './resources/win/setup.ico',
-    setupExe: `Championify.Windows_Setup.${pkg.version.replace(/\\./g, '-')}.exe`,
+    setupExe: filename,
     noMsi: true
-  });
+  })
+  .then(() => rcedit(path.join('./releases', filename), rc));
 });
 
 gulp.task('compile:win-installer', function() {
