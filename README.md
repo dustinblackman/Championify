@@ -128,9 +128,9 @@ Wine is required if building on Mac for Windows.
 brew install wine
 ```
 
-## [Donate](https://salt.bountysource.com/teams/championify)
+## [Donate](https://patreon.com/dustinblackman)
 
-Soon Championify will be expanding, big! With plenty of suggestions and new ideas, Championify will be making it's way to the web and mobile. This will unfortunately have server costs in order to get started and keep running. A couple bucks is more then enough to help! :) [Donate here!](https://salt.bountysource.com/teams/championify)
+Soon Championify will be expanding, big! With plenty of suggestions and new ideas, Championify will be making it's way to the web and mobile. This will unfortunately have server costs in order to get started and keep running. A couple bucks is more then enough to help! :) [Donate here!](https://patreon.com/dustinblackman)
 
 ## Backers
 
