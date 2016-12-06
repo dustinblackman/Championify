@@ -186,7 +186,7 @@ $(document).on('click', '#browse', function() {
 
 $(document).on('click', '.donate > a', function(e) {
   e.preventDefault();
-  return open('https://salt.bountysource.com/teams/championify');
+  return open('https://www.patreon.com/dustinblackman');
 });
 
 $(document).on('click', '.github > a', function(e) {
