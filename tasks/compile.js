@@ -1,10 +1,13 @@
 import Promise from 'bluebird';
 import appdmg from 'appdmg';
 import gulp from 'gulp';
+import { signAsync as macSignAsync } from 'electron-osx-sign';
 import moment from 'moment';
 import path from 'path';
 import plist from 'plist';
+import R from 'ramda';
 import runSequence from 'run-sequence';
+import { spawnAsync } from './helpers';
 
 const asar = Promise.promisifyAll(require('asar'));
 const fs = Promise.promisifyAll(require('fs-extra'));
@@ -78,6 +81,14 @@ gulp.task('_compileMac', function() {
       helperPList(tmp_path, 'Electron Helper NP'),
       fs.removeAsync(path.join(tmp_path, 'Contents/Resources/default_app'))
     ]))
+    .then(() => {
+      if (!process.env.OSX_SIGN_IDENTITY) return console.log('WARNING: OSX app not signed');
+      return macSignAsync({app: tmp_path})
+        .catch(err => {
+          if (!R.contains('release', process.argv)) return console.log('WARNING: OSX app not signed');
+          throw err;
+        });
+    })
     .catch(err => {
       console.log(err.stack || err);
       throw err;
@@ -108,8 +119,11 @@ gulp.task('_createdmg', function(cb) {
   ee.on('progress', data => {
     if (data.type !== 'step-end') console.log(JSON.stringify(data));
   });
-  ee.on('finish', () => cb());
   ee.on('error', err => cb(err));
+  ee.on('finish', () => {
+    if (R.contains('release', process.argv) && !process.env.OSX_SIGN_IDENTITY) cb(new Error('OSX_SIGN_IDENTITY env does not exist'));
+    spawnAsync('codesign', ['-s', process.env.OSX_SIGN_IDENTITY, target]).asCallback(cb);
+  });
 });
 
 gulp.task('compile:dmg', function() {
