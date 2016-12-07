@@ -1,5 +1,4 @@
 import Promise from 'bluebird';
-import appdmg from 'appdmg';
 import gulp from 'gulp';
 import { signAsync as macSignAsync } from 'electron-osx-sign';
 import moment from 'moment';
@@ -9,6 +8,8 @@ import R from 'ramda';
 import runSequence from 'run-sequence';
 import { spawnAsync } from './helpers';
 
+let appdmg;
+if (process.platform === 'darwin') appdmg = require('appdmg');
 const asar = Promise.promisifyAll(require('asar'));
 const fs = Promise.promisifyAll(require('fs-extra'));
 const rcedit = Promise.promisify(require('rcedit'));
