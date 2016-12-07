@@ -2,7 +2,7 @@ const T = require(`../${global.src_path}/translate`).default;
 
 const should = require('chai').should();
 
-describe('src/translate.coffee', () => {
+describe('src/translate', () => {
   before(() => {
     T.loadPhrases('ko');
   });
