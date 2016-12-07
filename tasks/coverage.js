@@ -38,7 +38,7 @@ function uploadCoverage() {
   console.log(`Uploading ${commit}/${filename}`);
   return s3.uploadAsync({
     Key: `${commit}/${filename}`,
-    Body: path.join(__dirname, '..', 'coverage/coverage.json')
+    Body: fs.readFileSync(path.join(__dirname, '..', 'coverage/coverage.json'))
   });
 }
 
