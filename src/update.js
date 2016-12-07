@@ -173,8 +173,8 @@ export default function update() {
         Log.debug('Squirrel.exe not found');
         return viewManager.manualUpdate();
       }
-      return startUpdate(version)
-    };
+      return startUpdate(version);
+    }
     Log.info('No updates found');
     return false;
   })

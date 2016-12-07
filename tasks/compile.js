@@ -82,7 +82,7 @@ gulp.task('_compileMac', function() {
       fs.removeAsync(path.join(tmp_path, 'Contents/Resources/default_app'))
     ]))
     .then(() => {
-      if (!process.env.OSX_SIGN_IDENTITY) return console.log('WARNING: OSX app not signed');
+      if (!process.env.SIGN_OSX_IDENTITY) return console.log('WARNING: OSX app not signed');
       return macSignAsync({app: tmp_path})
         .catch(err => {
           if (!R.contains('release', process.argv)) return console.log('WARNING: OSX app not signed');
@@ -121,8 +121,8 @@ gulp.task('_createdmg', function(cb) {
   });
   ee.on('error', err => cb(err));
   ee.on('finish', () => {
-    if (R.contains('release', process.argv) && !process.env.OSX_SIGN_IDENTITY) cb(new Error('OSX_SIGN_IDENTITY env does not exist'));
-    spawnAsync('codesign', ['-s', process.env.OSX_SIGN_IDENTITY, target]).asCallback(cb);
+    if (R.contains('release', process.argv) && !process.env.SIGN_OSX_IDENTITY) cb(new Error('SIGN_OSX_IDENTITY env does not exist'));
+    spawnAsync('codesign', ['-s', process.env.SIGN_OSX_IDENTITY, target]).asCallback(cb);
   });
 });
 
