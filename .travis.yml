@@ -20,10 +20,9 @@ cache:
     - node_modules
 after_success:
   - npm run coveralls
-  - npm run build-artifact
-addons:
-  s3_region: 'us-est-1'
-  artifacts:
-    paths:
-    - ./download.txt
-    - ./coverage/coverage.json
+  # - npm run build-artifact
+# addons:
+  # s3_region: 'us-est-1'
+  # artifacts:
+    # paths:
+    # - ./download.txt

@@ -26,12 +26,12 @@ environment:
     secure: sk9Np49QKXFj5/tP0Vd0wA6I7GM+R7KY5QY1zztP1YtxCHnj7200DzNwdnrS6KgQ
 test_script:
   - npm run test-coverage
-  - npm run build-artifact
+  # - npm run build-artifact
 on_success:
   - npm run coveralls
 artifacts:
-  - path: download.txt
-    name: Download Build (link within text file)
+  # - path: download.txt
+    # name: Download Build (link within text file)
   - path: ./coverage/coverage.json
     name: Coffee-Coverage
 # cache:
