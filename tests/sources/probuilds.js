@@ -12,8 +12,12 @@ let nocked = null;
 
 const RESPONSES_FIXTURES = {};
 R.forEach(fixture => {
-  RESPONSES_FIXTURES[path.basename(fixture).replace('.html', '')] = fs.readFileSync(fixture, 'utf8');
-}, glob.sync(path.join(__dirname, 'fixtures/probuilds/responses/*.html')));
+  if (fixture.indexOf('json') > -1) {
+    RESPONSES_FIXTURES[path.basename(fixture).replace('.json', '')] = require(fixture);
+  } else {
+    RESPONSES_FIXTURES[path.basename(fixture).replace('.html', '')] = fs.readFileSync(fixture, 'utf8');
+  }
+}, glob.sync(path.join(__dirname, 'fixtures/probuilds/responses/*')));
 
 const RESULTS_FIXTURES = {};
 R.forEach(fixture => {
@@ -84,7 +88,7 @@ describe('src/sources/probuilds', () => {
         nocked
           .get('/champions')
           .reply(200, RESPONSES_FIXTURES.champions)
-          .get('/champions/details/ahri')
+          .get('/champions/details/Ahri')
           .reply(200, RESPONSES_FIXTURES.ahri)
           .get('/ajax/champBuilds?championId=103')
           .reply(200, RESPONSES_FIXTURES.champ_builds);

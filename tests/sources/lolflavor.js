@@ -54,7 +54,7 @@ describe('src/sources/lolflavor', function() {
         .reply(200, RESPONSES_FIXTURES.ahri_lane_scrape);
 
       return lolflavor.getVersion().then(version => {
-        version.should.equal('9/21/2015');
+        version.should.equal('2015-09-21');
       });
     });
   });

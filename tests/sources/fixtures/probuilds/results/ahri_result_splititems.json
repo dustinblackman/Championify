@@ -47,6 +47,39 @@
               }
             ],
             "type": "Boots"
+          },
+          {
+            "items": [
+              {
+                "id": "1056",
+                "count": 1
+              },
+              {
+                "id": "3020",
+                "count": 1
+              },
+              {
+                "id": "1058",
+                "count": 1
+              },
+              {
+                "id": "3001",
+                "count": 1
+              },
+              {
+                "id": "3165",
+                "count": 1
+              },
+              {
+                "id": "3135",
+                "count": 1
+              },
+              {
+                "id": "3364",
+                "count": 1
+              }
+            ],
+            "type": "Top KDA Items - Omni: 12 / 1 / 7"
           }
         ],
         "title": "ProBuilds 2016-11-27",
