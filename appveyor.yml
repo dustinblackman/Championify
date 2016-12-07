@@ -20,9 +20,9 @@ environment:
     secure: QkxS7B6UiQysk6aWhKHQd+36lKw/6pvjC9+wF4v/2RiD5wvoWi0kZJFrHFKpvPOK
   GITHUB_TOKEN:
     secure: X/JCTitKeibH9uTyAKi7ED04LT0qACHJonHNCuHVnBHA/GQtsFeNQea21K6QrLYy
-  AWS_KEY:
+  AWS_ACCESS_KEY_ID:
     secure: pU5B2oAj+OUXmNTdZJvWsCQ34t3KbbtL+TIK6MsW0dM=
-  AWS_TOKEN:
+  AWS_SECRET_ACCESS_KEY:
     secure: sk9Np49QKXFj5/tP0Vd0wA6I7GM+R7KY5QY1zztP1YtxCHnj7200DzNwdnrS6KgQ
 test_script:
   - npm run test-coverage
