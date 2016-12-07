@@ -1,6 +1,7 @@
 import Promise from 'bluebird';
 import aws from 'aws-sdk';
 import { execAsync } from './helpers';
+import glob from 'glob';
 import gulp from 'gulp';
 import moment from 'moment';
 import open from 'open';
@@ -44,8 +45,7 @@ function uploadCoverage() {
 
 function getCoverage() {
   const commit = process.env.APPVEYOR_REPO_COMMIT || process.env.TRAVIS_COMMIT;
-  const coverage_path = path.join(__dirname, '..', 'coverage/coverage-other.json');
-  const converted_coverage = {};
+  fs.removeSync(path.join(__dirname, `../coverage/coverage.json`));
 
   return s3.listObjectsAsync({Prefix: commit})
     .then(data => {
@@ -54,18 +54,21 @@ function getCoverage() {
         return s3.getObjectAsync({Key: entry.Key})
           .then(R.prop('Body'))
           .then(R.toString)
-          .then(JSON.parse);
+          .then(JSON.parse)
+          .then(data => ({data, filename: path.basename(entry.Key)}));
       });
     })
-    .each(coverage_json => {
+    .each(entry => {
+      const converted_coverage = {};
       R.forEach(coverage_data => {
         let file = coverage_data.path.split('src')[1].replace(/\\/g, '/');
         if (file[0] === '/') file = file.substring(1);
         coverage_data.path = path.join(__dirname, '..', 'src', file);
         converted_coverage[coverage_data.path] = coverage_data;
-      }, R.values(coverage_json));
-    })
-    .then(() => fs.writeFileAsync(coverage_path, JSON.stringify(converted_coverage), 'utf8'));
+      }, R.values(entry.data));
+
+      return fs.writeFileAsync(path.join(__dirname, `../coverage/coverage-${entry.filename}`), JSON.stringify(converted_coverage), 'utf8');
+    });
 }
 
 function checkIfSubmitted() {
@@ -78,6 +81,8 @@ function checkIfSubmitted() {
 
 // TODO: Stop executing command line, tap in to coveralls source instead.
 function runCoveralls() {
+  console.log(`Processing coverage files: ${glob.sync(path.join(__dirname, '../coverage/*.json'))}`);
+
   // If Travis
   if (process.env.TRAVIS) {
     const cmd = 'cat ./coverage/lcov.info | ./node_modules/.bin/coveralls';
