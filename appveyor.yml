@@ -32,7 +32,5 @@ on_success:
 artifacts:
   # - path: download.txt
     # name: Download Build (link within text file)
-  - path: ./coverage/coverage.json
-    name: Coffee-Coverage
 # cache:
 #   - node_modules -> package.json

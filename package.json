@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "asar": "^0.12.3",
-    "aws-sdk": "2.2.4",
+    "aws-sdk": "^2.7.11",
     "babel-core": "6.18.2",
     "babel-istanbul": "0.7.0",
     "babel-preset-es2015-node6": "^0.4.0",
