@@ -51,7 +51,7 @@ function getCoverage() {
     .then(data => {
       if (data.Contents.length < 2) throw new Error('Missing second coverage file, skipping');
       return Promise.map(data.Contents, entry => {
-        return s3.getObjectAsync({Key: entry.key})
+        return s3.getObjectAsync({Key: entry.Key})
           .then(R.prop('Body'))
           .then(R.toString)
           .then(JSON.parse);
