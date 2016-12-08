@@ -4,22 +4,21 @@
 
 _Champion-If-Ayyy_
 
-[![Donate](https://img.shields.io/badge/Donate-BountySource-5cb85c.svg)](https://salt.bountysource.com/teams/championify)
+[![Donate](https://img.shields.io/badge/Donate-Patreon-5cb85c.svg)](https://patreon.com/dustinblackman)
 [![Join the chat at https://gitter.im/dustinblackman/Championify](https://img.shields.io/badge/%E2%8A%AA%20GITTER%20-JOIN%20CHAT%20%E2%86%92-brightgreen.svg?style=flat)](https://gitter.im/dustinblackman/Championify?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![API Doc](https://doclets.io/dustinblackman/Championify/master.svg)](https://doclets.io/dustinblackman/Championify/master)
 [![Travis](https://img.shields.io/travis/dustinblackman/Championify/master.svg)](https://travis-ci.org/dustinblackman/Championify/builds)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/dt20uyoxt2skgneu/branch/master?svg=true)](https://ci.appveyor.com/project/dustinblackman/championify/branch/master)
 [![Coverage Status](https://img.shields.io/coveralls/dustinblackman/Championify/master.svg)](https://coveralls.io/github/dustinblackman/Championify?branch=master)
-<a href="https://zenhub.io"><img src="https://img.shields.io/badge/KanBan%20Board-Zenhub.io-blue.svg"></a>
 [![Translations](https://img.shields.io/badge/Translations-Transifex-135d91.svg)](https://www.transifex.com/dustinblackman/championify)
 
 Latest Release Downloads: [![Downloads](https://img.shields.io/github/downloads/dustinblackman/Championify/latest/total.svg)](https://github.com/dustinblackman/Championify/releases/latest)
 
-Championify is a little program that downloads all the recent item sets from popular websites like Champion.gg, Lolflavor, and KoreanBuilds, and imports them in to your League of Legends to use within game! No hassle. Championify supports 39 languages and with plenty of new features planned and in the works!
+Championify is a little program that downloads all the recent item sets from popular websites like Champion.gg and imports them in to your League of Legends to use within game! No hassle. Championify supports 39 languages and with plenty of new features planned and in the works!
 
-Windows and OSX are both supported, tested on Windows 10 and OSX 10.11.3.
+Windows and OSX are both supported, tested on Windows 10 and OSX 10.12.1.
 
-<img src="resources/screenshots/readme_screenshot.jpg">
+<img src="resources/screenshots/readme_screenshot.png">
 
 Check out screenshots [here](https://imgur.com/a/vgS3I)!
 
@@ -29,7 +28,7 @@ There's also [Championify for Android](https://github.com/OmerValentine/Champion
 
 ## Features
 - Summoners Rift and ARAM Item Sets
-- 3 Sources (Champion.gg, LolFlavor, and KoreanBuilds)
+- 6 Sources (Champion.gg, LolFlavor, KoreanBuilds, op.gg, Lolalytics, and Probuilds)
 - Skill Priorities lists (Q.W.E.Q.E.R) or Q>E>W
 - 39 Languages
 - Bunch of preferences to display item sets in the way you prefer
@@ -42,23 +41,7 @@ There's also [Championify for Android](https://github.com/OmerValentine/Champion
 ## Downloads
 Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 
-
 ## [Change Log](CHANGELOG.md)
-
-<a name="1.3.8" />
-### 1.3.8 (November 14th, 2016)
-
-#### Updates
-- Added Control Ward
-
-<a name="1.3.7" />
-### 1.3.7 (November 3rd, 2016)
-
-#### Bug Fixes
-- Fixed some KoreanBuilds not showing up in game due to misnamed folders
-
-#### Updates
-- Updated translations
 
 ## Idea/Suggestions
 I'm completely open to new ideas and suggestions! Put up an [Issue](https://github.com/dustinblackman/Championify/issues), hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll see what I can do.
@@ -70,7 +53,7 @@ Please see [CONTRIBUTE.md](CONTRIBUTE.md)
 See [FAQ.md](FAQ.md)
 
 ## Future Plans
-Check out the [Features tag in Issues](https://github.com/dustinblackman/Championify/labels/feature) to see all up and  coming ideas.
+Check out the [Features tag in Issues](https://github.com/dustinblackman/Championify/labels/feature) to see all up and coming ideas.
 
 <a name="clp" />
 ## Command Line Parameters
@@ -82,41 +65,28 @@ __Params__
 - `--delete` Deletes item sets
 - `--autorun` Silently (without loading the UI) imports item sets
 - `--close` Closes Championify when finished
-- `--startLeague` Starts League of Legends after import
+- `--start-league` Starts League of Legends after import
 
 __Example__
 
 Silently imports and starts League afterwards.
 
-```bash
-C:/Championify/championify.exe --autorun --start-league
+```cmd
+C:\Championify\championify.exe --autorun --start-league
 ```
-
-
-## Bleeding Edge
-For the adventurous, bleeding edge builds are available of each branch through CIs. A simpler method will be available once a website is built.
-
-__Windows__
-
-Open [Appveyor](https://ci.appveyor.com/project/dustinblackman/championify/branch/master) and select the the latest master branch commit, then `Platform: x86`, then `artifacts`. You'll find `download.txt` that contains a Zippyshare link to the build off that commit.
-
-__OSX__
-
-Open [Travis](https://travis-ci.org/dustinblackman/Championify/branches) and select the the latest master branch commit, scroll down through the test log until you see `npm run build-artifact`, a few lines down you should see a Zippyshare link to the build off that commit.
-
 
 <a name="source" />
 ## Build From Source
-You must have Node 4.1.1 and NPM 3.8.5 installed on your system (thats what Electron is using), git clone the repo and run the following in the root folder.
+You must have Node 6.9.1 and npm 3 installed on your system (thats what Electron is using), git clone the repo and run the following in the root folder.
 
 __OSX:__
-```console
+```bash
 npm i
 npm run build
 ```
 
 __Windows:__
-```console
+```bash
 npm i --arch=ia32
 npm run build
 ```
@@ -124,13 +94,13 @@ npm run build
 You'll find a Championify.exe/Championify.app in the releases folder.
 
 Wine is required if building on Mac for Windows.
-```console
+```bash
 brew install wine
 ```
 
 ## [Donate](https://patreon.com/dustinblackman)
 
-Soon Championify will be expanding, big! With plenty of suggestions and new ideas, Championify will be making it's way to the web and mobile. This will unfortunately have server costs in order to get started and keep running. A couple bucks is more then enough to help! :) [Donate here!](https://patreon.com/dustinblackman)
+Championify continues to grow, and to help explore bigger ideas, there is always costs. Currently Championify costs a couple hundred dollars a year to keep going (certificates renewal). A couple bucks is more then enough to help! :) [Donate here!](https://patreon.com/dustinblackman)
 
 ## Backers
 
@@ -142,7 +112,9 @@ See [BACKERS.md](BACKERS.md)
 - [Joeldo](https://www.reddit.com/user/joeldo) of [Champion.gg](http://champion.gg)
 - [Lolflavor](http://www.lolflavor.com/)
 - [KoreanBuilds](http://koreanbuilds.net)
-
+- [Probuilds](http://probuilds.net)
+- [Lolalytics](http://lolalytics.com)
+- [op.gg](http://op.gg)
 
 ## Thank yous
 - [@sargonas](https://github.com/sargonas) and the rest of the Riot API team for unlocking item sets

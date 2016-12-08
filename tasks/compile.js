@@ -167,7 +167,7 @@ gulp.task('compile:win', function(cb) {
 });
 
 gulp.task('_wininstaller', function() {
-  const filename = `Championify.Windows_Setup.${pkg.version.replace(/\\./g, '-')}.exe`;
+  const filename = `Championify.Windows_Setup.${pkg.version.replace(/\./g, '-')}.exe`;
   const rc = {icon: './resources/win/setup.ico'};
 
   return winstaller.createWindowsInstaller({

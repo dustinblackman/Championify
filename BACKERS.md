@@ -1,7 +1,7 @@
 # Backers
 
 Thank you to all the wonderful backers and supporters who keeps this project alive and helps bring more to the League of
-Legends community. If you'd like to help support Championify, check out my Patreon. https://patreon.com/dustinblackman
+Legends community. If you'd like to help support Championify, check out my Patreon. [https://patreon.com/dustinblackman](https://patreon.com/dustinblackman)
 
 | Name | Support |
 | ------------- | -----:|
