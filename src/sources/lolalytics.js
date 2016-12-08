@@ -221,7 +221,7 @@ function getChampionPage(request_params) {
   function markUndefined() {
     store.push('undefined_builds', {
       source: source_info.name,
-      champion_name,
+      champ: champion_name,
       position: request_params.position || 'All'
     });
   }
