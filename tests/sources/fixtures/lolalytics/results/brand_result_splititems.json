@@ -201,7 +201,7 @@
           ]
         }
       ],
-      "title": "Lolalytics Middle 6.23 Highest Win",
+      "title": "LAS 6.23 Middle Highest Win",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -412,7 +412,7 @@
           ]
         }
       ],
-      "title": "Lolalytics Middle 6.23 Most Frequent",
+      "title": "LAS 6.23 Middle Most Frequent",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -655,7 +655,7 @@
           ]
         }
       ],
-      "title": "Lolalytics Support 6.23 Highest Win",
+      "title": "LAS 6.23 Support Highest Win",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -898,7 +898,7 @@
           ]
         }
       ],
-      "title": "Lolalytics Support 6.23 Most Frequent",
+      "title": "LAS 6.23 Support Most Frequent",
       "priority": false,
       "mode": "any",
       "type": "custom",
