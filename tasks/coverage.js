@@ -68,7 +68,8 @@ function getCoverage() {
       }, R.values(entry.data));
 
       return fs.writeFileAsync(path.join(__dirname, `../coverage/coverage-${entry.filename}`), JSON.stringify(converted_coverage), 'utf8');
-    });
+    })
+    .then(() => s3.deleteObjectsAsync({Delete: {Objects: [{Key: commit}]}}));
 }
 
 function checkIfSubmitted() {
