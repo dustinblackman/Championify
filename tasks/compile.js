@@ -6,7 +6,7 @@ import path from 'path';
 import plist from 'plist';
 import R from 'ramda';
 import runSequence from 'run-sequence';
-import { spawnAsync } from './helpers';
+import { execAsync, spawnAsync } from './helpers';
 
 let appdmg;
 if (process.platform === 'darwin') appdmg = require('appdmg');
@@ -148,7 +148,7 @@ gulp.task('_compileWin', function() {
     }
   };
 
-  const elevate_path = path.join(tmp_path, 'resources/championify_elevate.exe');
+  const elevate_path = path.join(tmp_path, 'championify_elevate.exe');
   const elevate_rc = {icon: './resources/win/icon.ico'};
 
   return fs.copyAsync(path.join('./cache', src_folder), tmp_path)
@@ -167,18 +167,21 @@ gulp.task('compile:win', function(cb) {
 });
 
 gulp.task('_wininstaller', function() {
-  const filename = `Championify.Windows_Setup.${pkg.version.replace(/\./g, '-')}.exe`;
-  const rc = {icon: './resources/win/setup.ico'};
-
-  return winstaller.createWindowsInstaller({
+  const params = {
     appDirectory: './tmp/Championify',
     outputDirectory: './releases',
     exe: `${pkg.name.toLowerCase()}.exe`,
     iconUrl: 'https://raw.githubusercontent.com/dustinblackman/Championify/master/resources/win/icon.ico',
-    setupExe: filename,
+    setupExe: `Championify.Windows_Setup.${pkg.version.replace(/\./g, '-')}.exe`,
     noMsi: true
-  })
-  .then(() => rcedit(path.join('./releases', filename), rc));
+  };
+
+  if (process.env.SIGN_WIN_CERT_PATH && process.env.SIGN_WIN_CERT_PASSWORD) {
+    params.certificateFile = process.env.SIGN_WIN_CERT_PATH;
+    params.certificatePassword = process.env.SIGN_WIN_CERT_PASSWORD;
+  }
+
+  return winstaller.createWindowsInstaller(params);
 });
 
 gulp.task('compile:win-installer', function() {
@@ -193,4 +196,16 @@ gulp.task('compile', function(cb) {
 
 gulp.task('compile:all', function(cb) {
   return runSequence(['compile:osx', 'compile:win'], ['compile:win-installer', 'compile:dmg'], cb);
+});
+
+gulp.task('sign:win', function() {
+  if (!process.env.SIGN_WIN_CERT_PATH && !process.env.SIGN_WIN_CERT_PASSWORD) {
+    return Promise.reject(new Error('Cert env is missing'));
+  }
+
+  const cmd = `wine ${path.join(__dirname, '../node_modules/electron-winstaller/vendor/signtool.exe')} /f ${process.env.SIGN_WIN_CERT_PATH} /p ${process.env.SIGN_WIN_CERT_PASSWORD} `;
+  return Promise.all([
+    execAsync(cmd + path.join(__dirname, '../tmp/Championify/championify.exe')),
+    execAsync(cmd + path.join(__dirname, '../tmp/Championify/championify_elevate.exe'))
+  ]);
 });

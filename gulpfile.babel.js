@@ -1,3 +1,4 @@
+import { execSync } from 'child_process';
 import gulp from 'gulp';
 import requireDir from 'require-dir';
 import runSequence from 'run-sequence';
@@ -35,10 +36,21 @@ gulp.task('build:win', function(cb) {
   return runSequence('package-asar', 'compile:win', 'move:compiled-win:folder', cb);
 });
 
+gulp.task('build:win-sign', function(cb) {
+  return runSequence('package-asar', 'compile:win', 'sign:win', 'move:compiled-win:folder', cb);
+});
+
 gulp.task('dist', function() {
-  return runSequence('test', 'delete-releases', 'create-releases-folder', 'package-asar', 'compile:all', 'zip:all');
+  return runSequence('test', 'delete-releases', 'create-releases-folder', 'package-asar', 'compile:all', 'sign:win', 'zip:all');
 });
 
 gulp.task('release', function() {
   return runSequence('dist', 'tarball:all', 'move:asar:update', 'virustotal', 'github-release');
+});
+
+gulp.task('postinstall', function() {
+  if (process.platform === 'darwin') {
+    console.log('Replacing signtool.exe');
+    execSync('curl -Ls "https://github.com/dustinblackman/mono-signtool/releases/download/0.0.1/mono-signtool.tar.gz" | tar xz -C ./node_modules/electron-winstaller/vendor/');
+  }
 });
