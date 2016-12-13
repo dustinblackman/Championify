@@ -131,7 +131,7 @@ function startUpdate(version) {
   const downloads = [];
   if (process.platform === 'darwin') {
     downloads.push(download(
-      `https://github.com/dustinblackman/Championify/releases/download/${version}/Championify.OSX.${version}.zip`,
+      `https://github.com/dustinblackman/Championify/releases/download/${version}/Championify-OSX-${version}.zip`,
       path.join(download_folder, 'osx.zip')
     ));
   } else {
@@ -140,7 +140,7 @@ function startUpdate(version) {
       path.join(download_folder, `Championify-${version}-full.nupkg`)
     ));
     downloads.push(download(
-      `https://github.com/dustinblackman/Championify/releases/download/${version}/RELEASE`,
+      `https://github.com/dustinblackman/Championify/releases/download/${version}/RELEASES`,
       path.join(download_folder, 'RELEASES'),
       false
     ));

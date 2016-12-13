@@ -66,7 +66,7 @@ export function request(options) {
  * @returns {Promise.Boolean|ChampionifyErrors.ElevateError}
  */
 export function elevate(params = []) {
-  let elevate_path = path.join(__dirname, '../../../../championify_elevate.exe');
+  let elevate_path = path.join(__dirname, '../../../championify_elevate.exe');
   if (process.env.NODE_ENV === 'development') elevate_path = path.join(__dirname, '../../resources/win/elevate.exe');
 
   const proc = spawn(elevate_path, [process.execPath, '--runned-as-admin'].concat(params));

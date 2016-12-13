@@ -51,11 +51,11 @@ function helperPList(tmp_path, name) {
     .then(() => fs.moveAsync(app_path, new_app_path));
 }
 
-gulp.task('asar', function() {
-  return asar.createPackageAsync('./dev', './tmp/app.asar');
+gulp.task('asar', function(cb) {
+  asar.createPackageAsync('./dev', './tmp/app.asar').asCallback(cb);
 });
 
-gulp.task('_compileMac', function() {
+gulp.task('_compileMac', function(cb) {
   const src_folder = `darwin${electron_version.replace(/\./g, '-')}`;
   const tmp_path = path.join('./tmp', pkg.name + '.app');
 
@@ -70,7 +70,7 @@ gulp.task('_compileMac', function() {
   info_plist['CFBundleIconFile'] = pkg.name + '.icns';
   info_plist['NSHumanReadableCopyright'] = copyright();
 
-  return fs.removeAsync(path.join(tmp_path, 'Contents/Resources/atom.icns'))
+  fs.removeAsync(path.join(tmp_path, 'Contents/Resources/atom.icns'))
     .then(() => Promise.all([
       fs.copyAsync('./resources/osx/icon.icns', path.join(tmp_path, `/Contents/Resources/${pkg.name}.icns`)),
       fs.copyAsync('./tmp/app.asar', path.join(tmp_path, 'Contents/Resources/app.asar')),
@@ -93,15 +93,16 @@ gulp.task('_compileMac', function() {
     .catch(err => {
       console.log(err.stack || err);
       throw err;
-    });
+    })
+    .asCallback(cb);
 });
 
 gulp.task('compile:osx', function(cb) {
-  return runSequence('electron:download:mac', '_compileMac', cb);
+  runSequence('electron:download:mac', '_compileMac', cb);
 });
 
 gulp.task('_createdmg', function(cb) {
-  const target = `./releases/${pkg.name}.OSX.${pkg.version.replace(/\\./g, '-')}.dmg`;
+  const target = `./releases/${pkg.name}-OSX-${pkg.version}.dmg`;
   if (fs.existsSync(target)) fs.removeSync(target);
   const ee = appdmg({
     basepath: path.join(__dirname, '..'),
@@ -127,12 +128,15 @@ gulp.task('_createdmg', function(cb) {
   });
 });
 
-gulp.task('compile:dmg', function() {
-  if (!fs.existsSync(`./tmp/${pkg.name}.app`)) return runSequence('package-asar', 'compile:osx', '_createdmg');
-  return runSequence('_createdmg');
+gulp.task('compile:dmg', function(cb) {
+  if (!fs.existsSync(`./tmp/${pkg.name}.app`)) {
+    runSequence('package-asar', 'compile:osx', '_createdmg', cb);
+  } else {
+    runSequence('_createdmg', cb);
+  }
 });
 
-gulp.task('_compileWin', function() {
+gulp.task('_compileWin', function(cb) {
   const src_folder = `win32${electron_version.replace(/\./g, '-')}`;
   const tmp_path = path.join('./tmp/', pkg.name);
   const exe_path = path.join(tmp_path, `${pkg.name.toLowerCase()}.exe`);
@@ -148,10 +152,10 @@ gulp.task('_compileWin', function() {
     }
   };
 
-  const elevate_path = path.join(tmp_path, 'championify_elevate.exe');
+  const elevate_path = path.join(tmp_path, './resources/championify_elevate.exe');
   const elevate_rc = {icon: './resources/win/icon.ico'};
 
-  return fs.copyAsync(path.join('./cache', src_folder), tmp_path)
+  fs.copyAsync(path.join('./cache', src_folder), tmp_path)
     .then(() => Promise.all([
       fs.copyAsync('./tmp/app.asar', path.join(tmp_path, 'resources/app.asar')),
       fs.copyAsync('./LICENSE', path.join(tmp_path, 'LICENSE')),
@@ -159,53 +163,63 @@ gulp.task('_compileWin', function() {
       fs.removeAsync(path.join(tmp_path, '/resources/default_app')),
       fs.moveAsync(path.join(tmp_path, 'electron.exe'), exe_path),
       rcedit(exe_path, rc_patch)
-    ]));
+    ]))
+    .asCallback(cb);
 });
 
 gulp.task('compile:win', function(cb) {
   return runSequence('electron:download:win', '_compileWin', cb);
 });
 
-gulp.task('_wininstaller', function() {
+gulp.task('_wininstaller', function(cb) {
   const params = {
     appDirectory: './tmp/Championify',
     outputDirectory: './releases',
     exe: `${pkg.name.toLowerCase()}.exe`,
     iconUrl: 'https://raw.githubusercontent.com/dustinblackman/Championify/master/resources/win/icon.ico',
-    setupExe: `Championify.Windows_Setup.${pkg.version.replace(/\./g, '-')}.exe`,
+    setupExe: `Championify-Windows-Setup.${pkg.version}.exe`,
     noMsi: true
   };
 
   if (process.env.SIGN_WIN_CERT_PATH && process.env.SIGN_WIN_CERT_PASSWORD) {
     params.certificateFile = process.env.SIGN_WIN_CERT_PATH;
     params.certificatePassword = process.env.SIGN_WIN_CERT_PASSWORD;
+  } else {
+    console.log('WARNING: Windows installer not signed');
   }
 
-  return winstaller.createWindowsInstaller(params);
+  winstaller.createWindowsInstaller(params).asCallback(cb);
 });
 
-gulp.task('compile:win-installer', function() {
-  if (!fs.existsSync(`./tmp/${pkg.name}`)) return runSequence('package-asar', 'compile:win', '_wininstaller');
-  return runSequence('_wininstaller');
+gulp.task('compile:win-installer', function(cb) {
+  if (!fs.existsSync(`./tmp/${pkg.name}`)) {
+    runSequence('package-asar', 'compile:win', '_wininstaller', cb);
+  } else {
+    runSequence('_wininstaller', cb);
+  }
 });
 
 gulp.task('compile', function(cb) {
-  if (process.platform === 'darwin') return runSequence('compile:osx', cb);
-  return runSequence('compile:win', cb);
+  if (process.platform === 'darwin') {
+    runSequence('compile:osx', cb);
+  } else {
+    runSequence('compile:win', cb);
+  }
 });
 
 gulp.task('compile:all', function(cb) {
-  return runSequence(['compile:osx', 'compile:win'], ['compile:win-installer', 'compile:dmg'], cb);
+  runSequence(['compile:osx', 'compile:win'], ['compile:win-installer', 'compile:dmg'], cb);
 });
 
-gulp.task('sign:win', function() {
+gulp.task('sign:win', function(cb) {
   if (!process.env.SIGN_WIN_CERT_PATH && !process.env.SIGN_WIN_CERT_PASSWORD) {
-    return Promise.reject(new Error('Cert env is missing'));
+    return cb(new Error('Cert env is missing'));
   }
 
   const cmd = `wine ${path.join(__dirname, '../node_modules/electron-winstaller/vendor/signtool.exe')} /f ${process.env.SIGN_WIN_CERT_PATH} /p ${process.env.SIGN_WIN_CERT_PASSWORD} `;
-  return Promise.all([
+  Promise.all([
     execAsync(cmd + path.join(__dirname, '../tmp/Championify/championify.exe')),
     execAsync(cmd + path.join(__dirname, '../tmp/Championify/championify_elevate.exe'))
-  ]);
+  ])
+  .asCallback(cb);
 });

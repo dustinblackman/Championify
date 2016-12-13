@@ -27,7 +27,7 @@ function zip(src, dest) {
 }
 
 function releaseFile(platform) {
-  return `Championify.${platform}.${pkg.version.replace(/\./g, '-')}.zip`;
+  return `Championify-${platform}-${pkg.version}.zip`;
 }
 
 gulp.task('zip:osx', function(cb) {
