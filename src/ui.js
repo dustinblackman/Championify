@@ -22,6 +22,7 @@ import viewManager from './view_manager';
 
 // Debugging helpers
 window.viewManager = viewManager;
+window.preferences = preferences;
 
 const app = remote.app;
 const dialog = remote.dialog;
@@ -200,7 +201,13 @@ $(document).on('click', '.championify_version > span', function(e) {
 });
 
 $(document).on('click', '#open_log', function(e) {
-  return open(path.join(preferences.directory(), 'championify.log.txt'));
+  e.preventDefault();
+  const log_path = path.join(preferences.directory(), 'championify.log.txt');
+  if (process.platform === 'win32') {
+    exec(`start notepad ${log_path}`);
+  } else {
+    open(log_path);
+  }
 });
 
 $(document).on('click', '#import_btn', function() {
