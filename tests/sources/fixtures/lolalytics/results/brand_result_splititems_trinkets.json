@@ -1,7 +1,7 @@
 [
   {
     "champ": "Brand",
-    "file_prefix": "Middle_Win",
+    "file_prefix": "middle_most_frequent",
     "riot_json": {
       "map": "any",
       "blocks": [
@@ -16,205 +16,229 @@
               "count": 1
             }
           ],
-          "type": "Trinkets | Wins: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E"
+          "type": "Trinkets | Wins: Q,E,Q,W,Q,R,Q,E,Q,E,R,E,E,W,W"
         },
         {
-          "type": "Starting Items",
+          "type": "Most Frequent Starting Items",
           "items": [
             {
-              "count": 1,
-              "id": "2033"
+              "id": "1056",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2003"
+              "id": "3340",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "1056"
+              "id": "2010",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3340"
+              "id": "2003",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3303"
+              "id": "3303",
+              "count": 1
+            },
+            {
+              "id": "2033",
+              "count": 1
             }
           ]
         },
         {
-          "type": "First Item",
+          "type": "Most Frequent Starting Items",
           "items": [
             {
-              "count": 1,
-              "id": "3116"
+              "id": "1056",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3027"
+              "id": "3340",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "2010",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "2003",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3303",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3001"
+              "id": "2033",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Boots",
+          "type": "Most Frequent First Item",
           "items": [
             {
-              "count": 1,
-              "id": "3020"
+              "id": "3027",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3158"
+              "id": "3165",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3111"
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3001",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            },
+            {
+              "id": "3285",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Second Item",
+          "type": "Most Frequent Second Item",
           "items": [
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "3165",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3285"
+              "id": "3157",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3001",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3001"
+              "id": "3285",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3027"
+              "id": "3027",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3135",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Third Item",
+          "type": "Most Frequent Third Item",
           "items": [
             {
-              "count": 1,
-              "id": "3285"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3157",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "3165",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3285",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3001"
+              "id": "3001",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Fourth Item",
+          "type": "Most Frequent Fourth Item",
           "items": [
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3285"
+              "id": "3157",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3285",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Fifth Item",
+          "type": "Most Frequent Fifth Item",
           "items": [
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3157",
+              "count": 1
             }
           ]
         }
       ],
-      "title": "LAS 6.23 Middle Highest Win",
+      "title": "LAS 6.24 Middle Most Frequent",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -225,7 +249,7 @@
   },
   {
     "champ": "Brand",
-    "file_prefix": "Middle_Pick",
+    "file_prefix": "middle_highest_win",
     "riot_json": {
       "map": "any",
       "blocks": [
@@ -240,205 +264,229 @@
               "count": 1
             }
           ],
-          "type": "Trinkets | Wins: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E"
+          "type": "Trinkets | Wins: Q,E,Q,W,Q,R,Q,E,Q,E,R,E,E,W,W"
         },
         {
-          "type": "Starting Items",
+          "type": "Highest Win Starting Items",
           "items": [
             {
-              "count": 1,
-              "id": "3340"
+              "id": "2003",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "1056"
+              "id": "1056",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2003"
+              "id": "3340",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3303"
+              "id": "2033",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2033"
+              "id": "2010",
+              "count": 1
+            },
+            {
+              "id": "3303",
+              "count": 1
             }
           ]
         },
         {
-          "type": "First Item",
+          "type": "Highest Win Starting Items",
           "items": [
             {
-              "count": 1,
-              "id": "3027"
+              "id": "2003",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "1056",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "3340",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "2033",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3001"
+              "id": "2010",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3303",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Boots",
+          "type": "Highest Win First Item",
           "items": [
             {
-              "count": 1,
-              "id": "3020"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3158"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3111"
+              "id": "3285",
+              "count": 1
+            },
+            {
+              "id": "3027",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            },
+            {
+              "id": "3001",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Second Item",
+          "type": "Highest Win Second Item",
           "items": [
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "3285",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3165",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3001"
+              "id": "3027",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3027"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3285"
+              "id": "3157",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3001",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Third Item",
+          "type": "Highest Win Third Item",
           "items": [
             {
-              "count": 1,
-              "id": "3151"
+              "id": "3285",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3165",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3285"
+              "id": "3157",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3001"
+              "id": "3001",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Fourth Item",
+          "type": "Highest Win Fourth Item",
           "items": [
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3165",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3285",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3285"
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Fifth Item",
+          "type": "Highest Win Fifth Item",
           "items": [
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3157",
+              "count": 1
             }
           ]
         }
       ],
-      "title": "LAS 6.23 Middle Most Frequent",
+      "title": "LAS 6.24 Middle Highest Win",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -449,7 +497,7 @@
   },
   {
     "champ": "Brand",
-    "file_prefix": "Support_Win",
+    "file_prefix": "support_most_frequent",
     "riot_json": {
       "map": "any",
       "blocks": [
@@ -464,237 +512,273 @@
               "count": 1
             }
           ],
-          "type": "Trinkets | Wins: W.Q.W.E.W.R.W.Q.W.Q.R.Q.Q.E.E"
+          "type": "Trinkets | Wins: Q,E,Q,W,Q,R,Q,E,Q,E,R,E,E,W,W"
         },
         {
-          "type": "Starting Items",
+          "type": "Most Frequent Starting Items",
           "items": [
             {
-              "count": 1,
-              "id": "1004"
+              "id": "3303",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2031"
+              "id": "3340",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3303"
+              "id": "2010",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2003"
+              "id": "1056",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3340"
+              "id": "2031",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2055"
+              "id": "2003",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "1056"
+              "id": "2055",
+              "count": 1
             }
           ]
         },
         {
-          "type": "First Item",
+          "type": "Most Frequent Starting Items",
           "items": [
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3303",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2301"
+              "id": "3340",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "2010",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3027"
+              "id": "1056",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2049"
+              "id": "2031",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3092"
+              "id": "2003",
+              "count": 1
+            },
+            {
+              "id": "2055",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Boots",
+          "type": "Most Frequent First Item",
           "items": [
             {
-              "count": 1,
-              "id": "3009"
+              "id": "2049",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3020"
+              "id": "3092",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3158"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3117"
+              "id": "2301",
+              "count": 1
+            },
+            {
+              "id": "3027",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Second Item",
+          "type": "Most Frequent Second Item",
           "items": [
             {
-              "count": 1,
-              "id": "3151"
+              "id": "2301",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "3092",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2049"
+              "id": "2049",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2301"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3092"
+              "id": "3027",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3027"
+              "id": "3165",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Third Item",
+          "type": "Most Frequent Third Item",
           "items": [
             {
-              "count": 1,
-              "id": "2301"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "2301",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3165",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3092"
+              "id": "3092",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "3157",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3027",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2045"
+              "id": "2045",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3027"
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "2049",
+              "count": 1
+            },
+            {
+              "id": "3089",
+              "count": 1
+            },
+            {
+              "id": "3107",
+              "count": 1
+            },
+            {
+              "id": "3285",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Fourth Item",
+          "type": "Most Frequent Fourth Item",
           "items": [
             {
-              "count": 1,
-              "id": "2045"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2301"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3157",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "2301",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3285"
+              "id": "2045",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3165",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3285",
+              "count": 1
+            },
+            {
+              "id": "3107",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Fifth Item",
+          "type": "Most Frequent Fifth Item",
           "items": [
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3157",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2045"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "2045",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3116",
+              "count": 1
             }
           ]
         }
       ],
-      "title": "LAS 6.23 Support Highest Win",
+      "title": "LAS 6.24 Support Most Frequent",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -705,7 +789,7 @@
   },
   {
     "champ": "Brand",
-    "file_prefix": "Support_Pick",
+    "file_prefix": "support_highest_win",
     "riot_json": {
       "map": "any",
       "blocks": [
@@ -720,237 +804,273 @@
               "count": 1
             }
           ],
-          "type": "Trinkets | Wins: W.Q.W.E.W.R.W.Q.W.Q.R.Q.Q.E.E"
+          "type": "Trinkets | Wins: Q,E,Q,W,Q,R,Q,E,Q,E,R,E,E,W,W"
         },
         {
-          "type": "Starting Items",
+          "type": "Highest Win Starting Items",
           "items": [
             {
-              "count": 1,
-              "id": "3303"
+              "id": "2031",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3340"
+              "id": "3303",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2003"
+              "id": "2010",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "1056"
+              "id": "3340",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2031"
+              "id": "2003",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2055"
+              "id": "2055",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "1004"
+              "id": "1056",
+              "count": 1
             }
           ]
         },
         {
-          "type": "First Item",
+          "type": "Highest Win Starting Items",
           "items": [
             {
-              "count": 1,
-              "id": "2049"
+              "id": "2031",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3092"
+              "id": "3303",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "2010",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2301"
+              "id": "3340",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3027"
+              "id": "2003",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "2055",
+              "count": 1
+            },
+            {
+              "id": "1056",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Boots",
+          "type": "Highest Win First Item",
           "items": [
             {
-              "count": 1,
-              "id": "3020"
+              "id": "2301",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3158"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3117"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3009"
+              "id": "2049",
+              "count": 1
+            },
+            {
+              "id": "3027",
+              "count": 1
+            },
+            {
+              "id": "3092",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Second Item",
+          "type": "Highest Win Second Item",
           "items": [
             {
-              "count": 1,
-              "id": "2301"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3092"
+              "id": "3165",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2049"
+              "id": "2049",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "3027",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3027"
+              "id": "2301",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "3092",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Third Item",
+          "type": "Highest Win Third Item",
           "items": [
             {
-              "count": 1,
-              "id": "3116"
+              "id": "2301",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "3285",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2301"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3092"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3092",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3027"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2045"
+              "id": "3165",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3107",
+              "count": 1
+            },
+            {
+              "id": "2045",
+              "count": 1
+            },
+            {
+              "id": "2049",
+              "count": 1
+            },
+            {
+              "id": "3027",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Fourth Item",
+          "type": "Highest Win Fourth Item",
           "items": [
             {
-              "count": 1,
-              "id": "3151"
+              "id": "3285",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "2301",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "2045",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3165",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2045"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2301"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3165"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3285"
+              "id": "3107",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
             }
           ]
         },
         {
-          "type": "Fifth Item",
+          "type": "Highest Win Fifth Item",
           "items": [
             {
-              "count": 1,
-              "id": "3135"
+              "id": "3151",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3151"
+              "id": "2045",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3089"
+              "id": "3089",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3157"
+              "id": "3135",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "2045"
+              "id": "3116",
+              "count": 1
             },
             {
-              "count": 1,
-              "id": "3116"
+              "id": "3157",
+              "count": 1
             }
           ]
         }
       ],
-      "title": "LAS 6.23 Support Most Frequent",
+      "title": "LAS 6.24 Support Highest Win",
       "priority": false,
       "mode": "any",
       "type": "custom",
