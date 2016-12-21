@@ -177,7 +177,7 @@ gulp.task('_wininstaller', function(cb) {
     outputDirectory: './releases',
     exe: `${pkg.name.toLowerCase()}.exe`,
     iconUrl: 'https://raw.githubusercontent.com/dustinblackman/Championify/master/resources/win/icon.ico',
-    setupExe: `Championify-Windows-Setup.${pkg.version}.exe`,
+    setupExe: `Championify-Windows-Setup-${pkg.version}.exe`,
     noMsi: true
   };
 
