@@ -34,7 +34,7 @@ function testWithFixture(fixture) {
 
 describe('src/sources/opgg', () => {
   before(() => {
-    nocked = nock('http://na.op.gg');
+    nocked = nock('http://op.gg');
   });
 
   beforeEach(() => {
