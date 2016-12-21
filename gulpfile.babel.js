@@ -40,12 +40,12 @@ gulp.task('build:win-sign', function(cb) {
   return runSequence('package-asar', 'compile:win', 'sign:win', 'move:compiled-win:folder', cb);
 });
 
-gulp.task('dist', function() {
-  return runSequence('test', 'delete-releases', 'create-releases-folder', 'package-asar', 'compile:all', 'sign:win', 'zip:all');
+gulp.task('dist', function(cb) {
+  return runSequence('test', 'delete-releases', 'create-releases-folder', 'package-asar', 'compile:all', 'sign:win', 'zip:all', cb);
 });
 
-gulp.task('release', function() {
-  return runSequence('dist', 'tarball:all', 'move:asar:update', 'virustotal', 'github-release');
+gulp.task('release', function(cb) {
+  return runSequence('dist', 'virustotal', 'github-release', cb);
 });
 
 gulp.task('postinstall', function() {

@@ -217,9 +217,5 @@ gulp.task('sign:win', function(cb) {
   }
 
   const cmd = `wine ${path.join(__dirname, '../node_modules/electron-winstaller/vendor/signtool.exe')} /f ${process.env.SIGN_WIN_CERT_PATH} /p ${process.env.SIGN_WIN_CERT_PASSWORD} `;
-  Promise.all([
-    execAsync(cmd + path.join(__dirname, '../tmp/Championify/championify.exe')),
-    execAsync(cmd + path.join(__dirname, '../tmp/Championify/championify_elevate.exe'))
-  ])
-  .asCallback(cb);
+  execAsync(cmd + path.join(__dirname, '../tmp/Championify/championify.exe')).asCallback(cb);
 });

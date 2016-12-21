@@ -49,11 +49,10 @@ gulp.task('github-release', function(cb) {
 
   const changelog = fs.readFileSync('./CHANGELOG.md', 'utf8');
   const download_path = `https://github.com/dustinblackman/Championify/releases/download/${pkg.version}`;
-  const pkg_version = pkg.version.replace(/\./g, '-');
   let body = `## Quick Downloads
 
-Windows: [Setup.exe](${download_path}/Championify.Windows_Setup.${pkg_version}.exe) | [ZIP](${download_path}/Championify.WIN.${pkg_version}.zip
-macOS: [DMG](${download_path}/Championify.OSX.${pkg_version}.dmg) | [ZIP](${download_path}/Championify.OSX.${pkg_version}.zip)`;
+Windows: [Setup.exe](${download_path}/Championify-Windows_Setup-${pkg.version}.exe) | [ZIP](${download_path}/Championif-WIN-${pkg.version}.zip)
+macOS: [DMG](${download_path}/Championify-OSX-${pkg.version}.dmg) | [ZIP](${download_path}/Championify-OSX-${pkg.version}.zip)`;
   body += `\n\n## Changelog ${changelog.split(/<a name="*.*.*" \/>/g)[1]}`;
   body += '\n\n## Virus Total Reports\n';
 
@@ -63,8 +62,9 @@ macOS: [DMG](${download_path}/Championify.OSX.${pkg_version}.dmg) | [ZIP](${down
 
   R.forEach(item => {
     if (item.indexOf('Windows_Setup') > -1) body += formatTitle('Windows Setup', global.vtReports[item]);
-    if (item.indexOf('.WIN.') > -1) body += formatTitle('Windows ZIP', global.vtReports[item]);
-    if (item.indexOf('OSX') > -1) body += formatTitle('Mac/OSX', global.vtReports[item]);
+    if (item.indexOf('-WIN-') > -1) body += formatTitle('Windows ZIP', global.vtReports[item]);
+    if (item.indexOf('OSX') > -1 && item.indexOf('dmg') > -1) body += formatTitle('Mac/OSX DMG', global.vtReports[item]);
+    if (item.indexOf('OSX') > -1 && item.indexOf('zip') > -1) body += formatTitle('Mac/OSX ZIP', global.vtReports[item]);
     if (item.indexOf('nupkg') > -1) body += formatTitle('nupkg', global.vtReports[item]);
   }, R.keys(global.vtReports));
 
