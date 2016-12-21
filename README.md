@@ -28,7 +28,7 @@ There's also [Championify for Android](https://github.com/OmerValentine/Champion
 
 ## Features
 - Summoners Rift and ARAM Item Sets
-- 6 Sources (Champion.gg, LolFlavor, KoreanBuilds, op.gg, Lolalytics, Probuilds, and Lolmasters)
+- 7 Sources (Champion.gg, LolFlavor, KoreanBuilds, op.gg, Lolalytics, Probuilds, and Lolmasters)
 - Skill Priorities lists (Q.W.E.Q.E.R) or Q>E>W
 - 39 Languages
 - Bunch of preferences to display item sets in the way you prefer
