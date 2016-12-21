@@ -1,10 +1,10 @@
 # Changelog
 
 <a name="2.0.0" />
-## 2.0.0 (Month Day, Year)
+## 2.0.0 (December 21st, 2016)
 
 #### Breaking Changes
-- Completely replaced auto updater with [Squirrels](https://github.com/electron/electron/blob/master/docs/api/auto-updater.md) (built in to Electron) causing anything below 2.0.0 to break. Manual reinstallation required. [#205](https://github.com/dustinblackman/Championify/issues/205)
+- Completely replaced auto updater with [Squirrels](https://github.com/electron/electron/blob/master/docs/api/auto-updater.md) (built in to Electron) causing anything below 2.0.0 to break. __Manual reinstallation required.__ [#205](https://github.com/dustinblackman/Championify/issues/205)
 - Renamed `--startLeague` option parameter to `--start-league`
 
 #### Features
@@ -22,7 +22,7 @@
 - Fixed versions view to support more sources
 
 #### Technical Features
-- Updated to Node 6 / Electron 1.4.10
+- Updated to Node 6 / Electron 1.4.13
 - Both Windows and macOS are now code signed to secure builds and updates [#123](https://github.com/dustinblackman/Championify/issues/123)
 - Improved development experience on OSX
 - Replaced Jade with Marko for faster renders
