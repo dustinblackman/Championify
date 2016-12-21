@@ -2,7 +2,6 @@ import Promise from 'bluebird';
 import eslint from 'gulp-eslint';
 import gulp from 'gulp';
 import htmlhint from 'gulp-htmlhint';
-import jadelint from 'gulp-jadelint';
 import jsonlint from 'gulp-jsonlint';
 import path from 'path';
 import runSequence from 'run-sequence';
@@ -47,10 +46,6 @@ gulp.task('htmlhint', function() {
     .pipe(htmlhint.failReporter({suppress: true}));
 });
 
-gulp.task('jadelint', function() {
-  return gulp.src('views/*.jade').pipe(jadelint());
-});
-
 gulp.task('jsonlint', function() {
   return gulp.src([
     './data/**/*.json',
@@ -66,7 +61,7 @@ gulp.task('jsonlint', function() {
 });
 
 gulp.task('lint', function(cb) {
-  runSequence(['eslint', 'stylint', 'htmlhint', 'jadelint', 'jsonlint'], cb);
+  runSequence(['eslint', 'stylint', 'htmlhint', 'jsonlint'], cb);
 });
 
 function mochaWindows(cb) {

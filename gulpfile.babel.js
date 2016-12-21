@@ -1,21 +1,26 @@
+import { execSync } from 'child_process';
 import gulp from 'gulp';
 import requireDir from 'require-dir';
 import runSequence from 'run-sequence';
 
 requireDir('./tasks');
 
-GLOBAL.if_release = process.argv.indexOf('release') > -1;
+global.if_release = process.argv.indexOf('release') > -1;
 
 gulp.task('main', function(cb) {
-  return runSequence('delete-dev', 'mkdir:app', ['electron:packagejson', 'electron:settings', 'babel', 'stylus'], cb);
+  return runSequence('delete-dev', 'mkdir:app', ['electron:packagejson', 'electron:settings', 'stylus'], cb);
 });
 
 gulp.task('dev', function() {
-  return runSequence('main', 'copy:data', 'dev_folder', 'run-watch');
+  return runSequence('main', 'copy:data', 'dev-folder', 'run-watch');
+});
+
+gulp.task('debug', function() {
+  return runSequence('main', 'copy:data', 'dev-folder', 'run-debug');
 });
 
 gulp.task('package-asar', function(cb) {
-  return runSequence('main', 'electron:deps', ['copy:app', 'copy:data', 'copy:views', 'copy:translations', 'clean:node_modules'], 'asar', cb);
+  return runSequence('main', ['babel', 'electron:deps'], ['copy:app', 'copy:data', 'copy:translations', 'copy:views', 'clean:node_modules'], 'marko', 'asar', cb);
 });
 
 gulp.task('build', function(cb) {
@@ -31,6 +36,21 @@ gulp.task('build:win', function(cb) {
   return runSequence('package-asar', 'compile:win', 'move:compiled-win:folder', cb);
 });
 
-gulp.task('release', function() {
-  return runSequence('test', 'delete-releases', 'create-releases-folder', 'package-asar', 'compile:all', 'zip:all', 'tarball:all', 'move:asar:update', 'virustotal', 'github-release');
+gulp.task('build:win-sign', function(cb) {
+  return runSequence('package-asar', 'compile:win', 'sign:win', 'move:compiled-win:folder', cb);
+});
+
+gulp.task('dist', function(cb) {
+  return runSequence('test', 'delete-releases', 'create-releases-folder', 'package-asar', 'compile:all', 'sign:win', 'zip:all', cb);
+});
+
+gulp.task('release', function(cb) {
+  return runSequence('dist', 'virustotal', 'github-release', cb);
+});
+
+gulp.task('postinstall', function() {
+  if (process.platform === 'darwin') {
+    console.log('Replacing signtool.exe');
+    execSync('curl -Ls "https://github.com/dustinblackman/mono-signtool/releases/download/0.0.1/mono-signtool.tar.gz" | tar xz -C ./node_modules/electron-winstaller/vendor/');
+  }
 });

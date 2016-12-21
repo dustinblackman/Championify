@@ -1,0 +1,29 @@
+<header>
+  <div if(data.platform === 'darwin') class="osx_buttons">
+    <div class="clickable_div"><a href="" class="sys_button close"><img src="img/osx_buttons/close.png"/></a></div>
+    <div class="clickable_div"><a href="" class="sys_button minimize"><img src="img/osx_buttons/minimize.png"/></a></div><a class="sys_button maximize"></a>
+  </div>
+  <div if(data.platform === 'win32') class="win_buttons">
+    <div class="sys_button minimize"><img src="img/win_buttons/minimize.png"/></div>
+    <div class="sys_button maximize"><img src="img/win_buttons/maximize.png"/></div>
+    <div class="sys_button close"><img src="img/win_buttons/x.png"/></div>
+  </div>
+</header>
+
+<include('./_locales.marko', data) />
+
+<div class="one column row">
+  <div class="banner column"><img src="./img/logo.png" class="top_logo"/>
+    <div class="ui divider"></div>
+  </div>
+</div>
+
+<div id="view" class="ui container">
+  <include('./main.marko', data) />
+</div>
+
+<footer>
+  <div class="donate"><a> <i class="heart icon"></i>Donate</a></div>
+  <div class="github"><a><i class="github icon"></i>DustinBlackman</a></div>
+  <div class="championify_version"><span>v${data.version}</span></div>
+</footer>

@@ -1,402 +1,430 @@
 {
   "adc": {
-    "msg": "ADC",
+    "text": "ADC",
     "done": true
   },
   "all": {
-    "msg": "All",
+    "text": "All",
     "done": true
   },
   "all_available": {
-    "msg": "Nothing! Everything is available!",
+    "text": "Nothing! Everything is available!",
     "done": true
   },
   "aram": {
-    "msg": "ARAM",
+    "text": "ARAM",
     "done": true
   },
   "back": {
-    "msg": "Back",
+    "text": "Back",
     "done": true
   },
   "beginning": {
     "done": true,
-    "msg": "Beginning"
+    "text": "Beginning"
   },
   "boots": {
-    "msg": "Boots",
+    "text": "Boots",
     "done": true
   },
   "breaking_changes_1": {
-    "msg": "Seems like you have a version of Championify that can't be updated on it's own. Hit the download button to get the latest version!",
+    "text": "Seems like you have a version of Championify that can't be updated on it's own. Hit the download button to get the latest version!",
     "done": true
   },
   "browse": {
     "done": true,
-    "msg": "Browse"
+    "text": "Browse"
   },
   "cgg_version": {
-    "msg": "Getting Champion.gg Version",
+    "text": "Getting Champion.gg Version",
     "done": true
   },
   "champs": {
-    "msg": "Champs",
+    "text": "Champs",
     "done": true
   },
   "consumables": {
-    "msg": "Consumables",
+    "text": "Consumables",
     "done": true
   },
   "core_alternatives": {
-    "msg": "Core Alternatives",
+    "text": "Core Alternatives",
     "done": true
   },
   "core_items": {
-    "msg": "Core Items",
+    "text": "Core Items",
     "done": true
   },
   "delete": {
     "done": true,
-    "msg": "Delete"
+    "text": "Delete"
   },
   "deleting_old_builds": {
-    "msg": "Deleting Old Builds",
+    "text": "Deleting Old Builds",
     "done": true
   },
   "directory": {
     "done": true,
-    "msg": "directory"
+    "text": "directory"
   },
   "done": {
     "done": true,
-    "msg": "Done!"
+    "text": "Done!"
   },
   "download": {
-    "msg": "Download",
+    "text": "Download",
     "done": true
   },
   "downloading": {
-    "msg": "Downloading",
+    "text": "Downloading",
     "done": true
   },
   "downloading_champs": {
-    "msg": "Downloading Champs from Riot",
+    "text": "Downloading Champs from Riot",
     "done": true
   },
   "downloading_updates": {
-    "msg": "Downloading Updates...",
+    "text": "Downloading Updates...",
     "done": true
   },
   "elixir": {
-    "msg": "Elixir",
+    "text": "Elixir",
     "done": true
   },
   "end": {
     "done": true,
-    "msg": "End"
+    "text": "End"
   },
   "endgame_items": {
-    "msg": "Endgame Items",
+    "text": "Endgame Items",
     "done": true
   },
   "error_1": {
-    "msg": "Did you try running as admin?",
+    "text": "Did you try running as admin?",
     "done": true
   },
   "error_2": {
-    "msg": "Or your antivirus/firewall is blocking Championify?",
+    "text": "Or your antivirus/firewall is blocking Championify?",
     "done": true
   },
   "error_3": {
-    "msg": "Internet on?",
+    "text": "Internet on?",
     "done": true
   },
   "error_4": {
-    "msg": "If not, I need your help in fixing and improving Championify! With your permission by hitting 'Upload Log' I can look over the log file and see what went wrong on your system. No personal information is ever sent. Thanks!",
+    "text": "If not, I need your help in fixing and improving Championify! With your permission by hitting 'Upload Log' I can look over the log file and see what went wrong on your system. No personal information is ever sent. Thanks!",
     "done": true
   },
   "extracting": {
-    "msg": "Extracting...",
+    "text": "Extracting...",
     "done": true
   },
   "failed": {
-    "msg": "Failed",
+    "text": "Failed",
     "done": true
   },
   "fifth_item": {
-    "msg": "Fifth Item",
+    "text": "Fifth Item",
     "done": true
   },
   "first_item": {
-    "msg": "First Item",
+    "text": "First Item",
     "done": true
   },
   "found": {
     "done": true,
-    "msg": "Found"
+    "text": "Found"
   },
   "fourth_item": {
-    "msg": "Fourth Item",
+    "text": "Fourth Item",
     "done": true
   },
   "frequent": {
-    "msg": "Frequent",
+    "text": "Frequent",
     "done": true
   },
   "games": {
-    "msg": "games",
+    "text": "games",
     "done": true
   },
   "games_played": {
-    "msg": "games played",
+    "text": "games played",
     "done": true
   },
   "help": {
-    "msg": "help",
+    "text": "help",
     "done": true
   },
   "highest_core": {
-    "msg": "Highest Core",
+    "text": "Highest Core",
+    "done": true
+  },
+  "highest_items": {
+    "text": "Highest Items",
     "done": true
   },
   "highest_start": {
-    "msg": "Highest Start",
+    "text": "Highest Start",
     "done": true
   },
   "highest_win": {
-    "msg": "Highest Win",
+    "text": "Highest Win",
     "done": true
   },
   "hw_core": {
-    "msg": "Highest Win % Core Build",
+    "text": "Highest Win % Core Build",
+    "done": true
+  },
+  "hw_items": {
+    "text": "Highest Win % Items",
     "done": true
   },
   "hw_starters": {
-    "msg": "Highest Win % Starters",
+    "text": "Highest Win % Starters",
     "done": true
   },
   "import": {
     "done": true,
-    "msg": "Import"
+    "text": "Import"
   },
   "invalid_path": {
     "done": true,
-    "msg": "Invalid Path"
+    "text": "Invalid Path"
   },
   "jungle": {
-    "msg": "Jungle",
+    "text": "Jungle",
     "done": true
   },
   "lane": {
-    "msg": "Lane",
+    "text": "Lane",
     "done": true
   },
   "loading": {
     "done": true,
-    "msg": "Loading..."
+    "text": "Loading..."
+  },
+  "local_item_sets_version": {
+    "text": "Local Item Sets Version",
+    "done": true
+  },
+  "local_items_version": {
+    "text": "Local Items Version",
+    "done": true
   },
   "lol_version": {
-    "msg": "Getting LoL Version",
+    "text": "Getting LoL Version",
     "done": true
   },
   "manual_update": {
-    "msg": "Manual Update",
+    "text": "Manual Update",
     "done": true
   },
   "max_skill": {
-    "msg": "Max Skill",
+    "text": "Max Skill",
     "done": true
   },
   "mf_core": {
-    "msg": "Most Frequent Core Build",
+    "text": "Most Frequent Core Build",
+    "done": true
+  },
+  "mf_items": {
+    "text": "Most Frequent Items",
     "done": true
   },
   "mf_starters": {
-    "msg": "Most Frequent Starters",
+    "text": "Most Frequent Starters",
+    "done": true
+  },
+  "mid": {
+    "text": "Middle",
     "done": true
   },
   "middle": {
-    "msg": "Middle",
+    "text": "Middle",
     "done": true
   },
   "most_freq": {
-    "msg": "Most Frequent",
+    "text": "Most Frequent",
     "done": true
   },
   "na": {
-    "msg": "Not Available",
+    "text": "Not Available",
     "done": true
   },
   "open_log": {
-    "msg": "Open Log",
+    "text": "Open Log",
     "done": true
   },
   "options_aram": {
-    "msg": "Download ARAM Item Sets",
+    "text": "Download ARAM Item Sets",
     "done": true
   },
   "options_aram_tooltip": {
-    "msg": "Download ARAM item sets from LolFlavor",
+    "text": "Download ARAM item sets from LolFlavor",
     "done": true
   },
   "options_consumables": {
     "done": true,
-    "msg": "Enable Consumables"
+    "text": "Enable Consumables"
   },
   "options_consumables_tooltip": {
     "done": true,
-    "msg": "By disabling consumables, you'll lose the Highest Win % skill order"
+    "text": "By disabling consumables, you'll lose the Most Frequent skill order"
   },
   "options_dontdeleteold": {
-    "msg": "Don't Delete Outdated Item Sets",
+    "text": "Don't Delete Outdated Item Sets",
     "done": true
   },
   "options_dontdeleteold_tooltip": {
-    "msg": "Old items sets without new patch information will not be deleted, however they will be deleted if newer item sets become available",
+    "text": "Old items sets without new patch information will not be deleted, however they will be deleted if newer item sets become available",
     "done": true
   },
   "options_locksr": {
     "done": true,
-    "msg": "Lock Summoner's Rift Item Sets To Map"
+    "text": "Lock Summoner's Rift Item Sets To Map"
   },
   "options_locksr_tooltip": {
     "done": true,
-    "msg": "Item sets meant for Summoners Rift will only be available on the Summoners Rift map."
+    "text": "Item sets meant for Summoners Rift will only be available on the Summoners Rift map."
   },
   "options_skillsformat": {
     "done": true,
-    "msg": "Use Shorthand for Skill Order"
+    "text": "Use Shorthand for Skill Order"
   },
   "options_skillsformat_tooltip": {
     "done": true,
-    "msg": "Instead of"
+    "text": "Instead of"
   },
   "options_splititems": {
     "done": true,
-    "msg": "Split Up Item Sets"
+    "text": "Split Up Item Sets"
   },
   "options_splititems_tooltip": {
     "done": true,
-    "msg": "Create separate item sets for Most Frequent and Highest Win %"
+    "text": "Create separate item sets for Most Frequent and Highest Win %"
   },
   "options_trinkets": {
     "done": true,
-    "msg": "Enable Trinkets"
+    "text": "Enable Trinkets"
   },
   "options_trinkets_tooltip": {
     "done": true,
-    "msg": "By disabling trinkets, you'll lose the Most Frequent skill order"
+    "text": "By disabling trinkets, you'll lose the Highest Win % skill order"
   },
   "processing": {
-    "msg": "Processing",
+    "text": "Processing",
     "done": true
   },
   "processing_rift": {
-    "msg": "Processing Rift",
+    "text": "Processing Rift",
     "done": true
   },
   "resetting_file_permission": {
-    "msg": "Resetting File Permissions",
+    "text": "Resetting File Permissions",
     "done": true
   },
   "second_item": {
-    "msg": "Second Item",
+    "text": "Second Item",
     "done": true
   },
   "select": {
     "done": true,
-    "msg": "Select"
+    "text": "Select"
   },
   "select_folder": {
-    "msg": "You need to select your folder first!",
+    "text": "You need to select your folder first!",
     "done": true
   },
   "select_language": {
-    "msg": "Select Language",
+    "text": "Select Language",
     "done": true
   },
   "select_position": {
     "done": true,
-    "msg": "Select Position"
+    "text": "Select Position"
   },
   "sending": {
-    "msg": "Sending...",
+    "text": "Sending...",
     "done": true
   },
   "sent": {
-    "msg": "Sent!",
+    "text": "Sent!",
     "done": true
   },
   "situational_items": {
-    "msg": "Situational Items",
+    "text": "Situational Items",
     "done": true
   },
   "something_broke": {
-    "msg": "Something broke...",
+    "text": "Something broke...",
     "done": true
   },
   "start_league": {
-    "msg": "Start League of Legends",
+    "text": "Start League of Legends",
     "done": true
   },
   "starter": {
-    "msg": "Starter",
+    "text": "Starter",
     "done": true
   },
   "starting_items": {
-    "msg": "Starting Items",
+    "text": "Starting Items",
     "done": true
   },
   "status": {
     "done": true,
-    "msg": "Status"
+    "text": "Status"
   },
   "summoners_rift_source": {
     "done": true,
-    "msg": "Select Summoners Rift itemset sources"
+    "text": "Select Summoners Rift itemset sources"
   },
   "support": {
-    "msg": "Support",
+    "text": "Support",
     "done": true
   },
   "sure_thats_league": {
     "done": true,
-    "msg": "You sure that's League?"
+    "text": "You sure that's League?"
   },
   "third_item": {
-    "msg": "Third Item",
+    "text": "Third Item",
     "done": true
   },
   "top": {
-    "msg": "Top",
+    "text": "Top",
+    "done": true
+  },
+  "top_kda_items": {
+    "text": "Top KDA Items",
     "done": true
   },
   "trinkets": {
-    "msg": "Trinkets",
+    "text": "Trinkets",
     "done": true
   },
   "unknown": {
     "done": true,
-    "msg": "Unknown"
+    "text": "Unknown"
   },
   "upgrade_ultimate": {
-    "msg": "Upgrade Ultimate",
+    "text": "Upgrade Ultimate",
     "done": true
   },
   "upload_log": {
-    "msg": "Upload Log",
+    "text": "Upload Log",
     "done": true
   },
   "version": {
     "done": true,
-    "msg": "Version"
+    "text": "Version"
   },
   "welcome": {
     "done": true,
-    "msg": "Welcome to Championify"
+    "text": "Welcome to Championify"
   },
   "wins": {
-    "msg": "Wins",
+    "text": "Wins",
     "done": true
   }
 }

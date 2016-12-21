@@ -9,6 +9,7 @@ src-cov/
 
 *.asar
 *.log
+*.marko.js
 
 download.txt
 exit.code

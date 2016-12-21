@@ -8,6 +8,8 @@ const ChampionifyError = SuperError.subclass('ChampionifyError');
 const errors = {ChampionifyError};
 
 const error_types = [
+  'ElevateError',
+  'ExternalError',
   'FileWriteError',
   'MissingData',
   'OperationalError',

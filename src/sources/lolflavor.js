@@ -1,4 +1,5 @@
 import Promise from 'bluebird';
+import moment from 'moment';
 import R from 'ramda';
 
 import ChampionifyErrors from '../errors';
@@ -174,7 +175,7 @@ export function getVersion() {
   return request({url: 'http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', json: true})
     .then(body => {
       if (!body || !body.title) return T.t('unknown');
-      const version = body.title.split(' ')[3];
+      const version = moment(body.title.split(' ')[3]).format('YYYY-MM-DD');
       store.set('lolflavor_ver', version);
       return version;
     })

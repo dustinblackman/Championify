@@ -4,8 +4,8 @@ import nock from 'nock';
 import path from 'path';
 import R from 'ramda';
 
-const championgg = require(`../../${GLOBAL.src_path}/sources/championgg`);
-const store = require(`../../${GLOBAL.src_path}/store`).default;
+const championgg = require(`../../${global.src_path}/sources/championgg`);
+const store = require(`../../${global.src_path}/store`).default;
 
 const should = require('chai').should();
 let nocked = null;
@@ -26,6 +26,9 @@ function testWithFixture(fixture) {
   return championgg.getSr()
     .then(() => {
       const results = R.flatten(store.get('sr_itemsets'));
+      if (process.env.BUILD_FIXTURES === 'true') {
+        fs.writeFileSync(path.join(__dirname, `fixtures/championgg/results/${fixture}.json`), JSON.stringify(results, null, 2), 'utf8');
+      }
       should.exist(results);
       results.should.eql(RESULTS_FIXTURES[fixture]);
     });

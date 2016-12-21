@@ -9,7 +9,7 @@ const fs = Promise.promisifyAll(require('fs-extra'));
 const request = Promise.promisify(require('request'));
 const pkg = require('../package.json');
 
-GLOBAL.vtReports = {};
+global.vtReports = {};
 
 gulp.task('virustotal', function() {
   return request({url: `https://www.virustotal.com/vtapi/v2/file/scan/upload_url?apikey=${process.env.VIRUSTOTAL}`, json: true})
@@ -17,6 +17,7 @@ gulp.task('virustotal', function() {
     .then(upload_url => {
       return Promise.resolve(glob.sync('./releases/*'))
         .each(file_path => {
+          if (file_path.indexOf('RELEASE') > -1) return;
           console.log('[VIRUSTOTAL] Uploading: ' + file_path);
           const options = {
             method: 'POST',
@@ -28,10 +29,10 @@ gulp.task('virustotal', function() {
             .then(R.prop('body'))
             .then(JSON.parse)
             .then(R.prop('permalink'))
-            .then(permalink => GLOBAL.vtReports[path.basename(file_path)] = permalink);
+            .then(permalink => global.vtReports[path.basename(file_path)] = permalink);
         });
     })
-    .tap(() => console.log(GLOBAL.vtReports));
+    .tap(() => console.log(global.vtReports));
 });
 
 gulp.task('github-release', function(cb) {
@@ -47,28 +48,25 @@ gulp.task('github-release', function(cb) {
   const uploadAsset = Promise.promisify(github.releases.uploadAsset);
 
   const changelog = fs.readFileSync('./CHANGELOG.md', 'utf8');
-  let body = changelog.split(/<a name="*.*.*" \/>/g)[1];
+  const download_path = `https://github.com/dustinblackman/Championify/releases/download/${pkg.version}`;
+  let body = `## Quick Downloads
+
+Windows: [Setup.exe](${download_path}/Championify-Windows-Setup-${pkg.version}.exe) | [ZIP](${download_path}/Championif-WIN-${pkg.version}.zip)
+macOS: [DMG](${download_path}/Championify-OSX-${pkg.version}.dmg) | [ZIP](${download_path}/Championify-OSX-${pkg.version}.zip)`;
+  body += `\n\n## Changelog ${changelog.split(/<a name="*.*.*" \/>/g)[1]}`;
   body += '\n\n## Virus Total Reports\n';
 
   function formatTitle(name, link) {
-    return `[${name} | VirusTotal Report](${link})\n`;
+    return `- [${name}](${link})\n`;
   }
 
   R.forEach(item => {
-    if (item.indexOf('Windows_Setup') > -1) body += formatTitle('Windows Setup', GLOBAL.vtReports[item]);
-    if (item.indexOf('.WIN.') > -1) body += formatTitle('Windows ZIP', GLOBAL.vtReports[item]);
-    if (item.indexOf('OSX') > -1) body += formatTitle('Mac/OSX', GLOBAL.vtReports[item]);
-    if (item.indexOf('asar') > -1) body += formatTitle('update.asar', GLOBAL.vtReports[item]);
-    if (item.indexOf('u_osx') > -1) body += formatTitle('u_osx.tar.gz', GLOBAL.vtReports[item]);
-    if (item.indexOf('u_win') > -1) body += formatTitle('u_win.tar.gz', GLOBAL.vtReports[item]);
-  }, R.keys(GLOBAL.vtReports));
-
-  body += [
-    '',
-    '## How to Download:',
-    'Below you\'ll find the download section. If you\'re on Windows, your best bet it to select the "Windows Setup" to get yourself started with Championify. If you have trouble installing you can always try the ".zip" version.',
-    'For Mac, download the file labeled "OSX", extract the .zip, and you\'ll be good to go!'
-  ].join('\n');
+    if (item.indexOf('Windows_Setup') > -1) body += formatTitle('Windows Setup', global.vtReports[item]);
+    if (item.indexOf('-WIN-') > -1) body += formatTitle('Windows ZIP', global.vtReports[item]);
+    if (item.indexOf('OSX') > -1 && item.indexOf('dmg') > -1) body += formatTitle('Mac/OSX DMG', global.vtReports[item]);
+    if (item.indexOf('OSX') > -1 && item.indexOf('zip') > -1) body += formatTitle('Mac/OSX ZIP', global.vtReports[item]);
+    if (item.indexOf('nupkg') > -1) body += formatTitle('nupkg', global.vtReports[item]);
+  }, R.keys(global.vtReports));
 
   const create_release = {
     owner: 'dustinblackman',

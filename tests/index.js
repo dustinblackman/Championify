@@ -5,10 +5,10 @@ import R from 'ramda';
 import sinon from 'sinon';
 
 
-GLOBAL.src_path = process.env.COVERAGE ? 'src-cov' : 'src';
+global.src_path = process.env.COVERAGE ? 'src-cov' : 'src';
 const champions = require('./fixtures/all_champions.json').data;
-const T = require(`../${GLOBAL.src_path}/translate`).default;
-require(`../${GLOBAL.src_path}/store`);
+const T = require(`../${global.src_path}/translate`).default;
+require(`../${global.src_path}/store`);
 
 window.$ = sinon.stub();
 window.$.withArgs('#cl_progress').returns({prepend: function() {}});

@@ -4,19 +4,18 @@ import nock from 'nock';
 import path from 'path';
 import R from 'ramda';
 
-const lolalytics = require(`../../${GLOBAL.src_path}/sources/lolalytics`);
-const store = require(`../../${GLOBAL.src_path}/store`).default;
+const lolalytics = require(`../../${global.src_path}/sources/lolalytics`);
+const store = require(`../../${global.src_path}/store`).default;
 
 const should = require('chai').should();
 let nocked = null;
 
 const champions = ['Brand'];
-const items = require(path.join(__dirname, 'fixtures/lolalytics/responses/items.json'));
 
 const RESPONSES_FIXTURES = {};
 R.forEach(fixture => {
-  RESPONSES_FIXTURES[path.basename(fixture).replace('.html', '')] = fs.readFileSync(fixture, 'utf8');
-}, glob.sync(path.join(__dirname, 'fixtures/lolalytics/responses/*.html')));
+  RESPONSES_FIXTURES[path.basename(fixture).replace('.json', '')] = require(fixture);
+}, glob.sync(path.join(__dirname, 'fixtures/lolalytics/responses/*.json')));
 
 const RESULTS_FIXTURES = {};
 R.forEach(fixture => {
@@ -27,6 +26,9 @@ function testWithFixture(fixture) {
   return lolalytics.getSr()
     .then(() => {
       const results = R.flatten(store.get('sr_itemsets'));
+      if (process.env.BUILD_FIXTURES === 'true') {
+        fs.writeFileSync(path.join(__dirname, `fixtures/lolalytics/results/${fixture}.json`), JSON.stringify(results, null, 2), 'utf8');
+      }
       should.exist(results);
       results.should.eql(RESULTS_FIXTURES[fixture]);
     });
@@ -34,9 +36,8 @@ function testWithFixture(fixture) {
 
 describe('src/sources/lolalytics', () => {
   before(() => {
-    nocked = nock('http://current.lolalytics.com');
+    nocked = nock('http://championify.lolalytics.com');
     store.set('champs', champions);
-    store.set('item_names', items);
   });
 
   beforeEach(() => {
@@ -49,9 +50,9 @@ describe('src/sources/lolalytics', () => {
 
   describe('version', () => {
     it('should get the stubbed lolalytics version', () => {
-      nocked.get('/').reply(200, RESPONSES_FIXTURES.current_lolalytics);
+      nocked.get('/data/1.0/ranked.json').reply(200, RESPONSES_FIXTURES.ranked);
       return lolalytics.getVersion().then(version => {
-        version.should.equal('6.23');
+        version.should.equal('6.24');
       });
     });
   });
@@ -60,14 +61,6 @@ describe('src/sources/lolalytics', () => {
     describe('Brand middle and support', () => {
       beforeEach(() => {
         store.set('settings', {});
-        nock.cleanAll();
-        nocked
-          .get('/champion/Brand/')
-          .reply(200, RESPONSES_FIXTURES.brand)
-          .get('/champion/Brand/Support/')
-          .reply(200, RESPONSES_FIXTURES.brand_support)
-          .get('/champion/Brand/Middle/')
-          .reply(200, RESPONSES_FIXTURES.brand_middle);
       });
 
       it('should default item sets', () => {

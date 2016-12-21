@@ -1,13 +1,40 @@
 # Changelog
 
+<a name="2.0.0" />
+## 2.0.0 (December 21st, 2016)
+
+#### Breaking Changes
+- Completely replaced auto updater with [Squirrels](https://github.com/electron/electron/blob/master/docs/api/auto-updater.md) (built in to Electron) causing anything below 2.0.0 to break. __Manual reinstallation required.__ [#205](https://github.com/dustinblackman/Championify/issues/205)
+- Renamed `--startLeague` option parameter to `--start-league`
+
+#### Features
+- Added op.gg, Probuilds, Lolalytics, and Lolmasters
+- Changed donation method to Patreon [#151](https://github.com/dustinblackman/Championify/issues/151)
+- Updated translations
+
+#### Bug Fixes
+- Added Control wards to consumables [#223](https://github.com/dustinblackman/Championify/issues/223)
+- Fixed Wukong not showing up for some sources [#211](https://github.com/dustinblackman/Championify/issues/211)
+- Fixed incorrect translation placement [#216](https://github.com/dustinblackman/Championify/issues/216)
+- Replaced Windows elevate with standalone exe [#220](https://github.com/dustinblackman/Championify/issues/220)
+- Fixed error message when Windows can't elevate
+- Fixed error window being hidden and showing successful builds instead
+- Fixed versions view to support more sources
+
+#### Technical Features
+- Updated to Node 6 / Electron 1.4.13
+- Both Windows and macOS are now code signed to secure builds and updates [#123](https://github.com/dustinblackman/Championify/issues/123)
+- Improved development experience on OSX
+- Replaced Jade with Marko for faster renders
+
 <a name="1.3.8" />
-### 1.3.8 (November 14th, 2016)
+## 1.3.8 (November 14th, 2016)
 
 #### Updates
 - Added Control Ward
 
 <a name="1.3.7" />
-### 1.3.7 (November 3rd, 2016)
+## 1.3.7 (November 3rd, 2016)
 
 #### Bug Fixes
 - Fixed some KoreanBuilds not showing up in game due to misnamed folders
@@ -16,19 +43,19 @@
 - Updated translations
 
 <a name="1.3.6" />
-### 1.3.6 (August 24th, 2016)
+## 1.3.6 (August 24th, 2016)
 
 #### Bug Fixes
 - Removed BG and NL from supported Riot languages. Defaults to English.
 
 <a name="1.3.5" />
-### 1.3.5 (July 29th, 2016)
+## 1.3.5 (July 29th, 2016)
 
 #### Fixes
 - Hours after removing Lolflavor which had been down for weeks, it's now returned.
 
 <a name="1.3.4" />
-### 1.3.4 (July 28th, 2016)
+## 1.3.4 (July 28th, 2016)
 
 #### Bug Fixes
 - Lolflavor is dead, remove from the app
@@ -38,13 +65,13 @@
 - Fix missing blue trinket from all item sets
 
 <a name="1.3.3" />
-### 1.3.3 (April 6th, 2016)
+## 1.3.3 (April 6th, 2016)
 
 #### Notes
 - Disabled LeagueOfGraphs
 
 <a name="1.3.2" />
-### 1.3.2 (April 6th, 2016)
+## 1.3.2 (April 6th, 2016)
 
 #### Bug Fixes
 - Fixed bug when install path isn't correctly set and throws an error instead of a warning
@@ -52,13 +79,13 @@
 - Fixed duplicate items
 
 <a name="1.3.1" />
-### 1.3.1 (April 6th, 2016)
+## 1.3.1 (April 6th, 2016)
 
 #### Bug Fixes
 - Fix preferences not being loaded correctly after updating.
 
 <a name="1.3.0" />
-### 1.3.0 (April 6th, 2016)
+## 1.3.0 (April 6th, 2016)
 
 #### Features
 - Added KoreanBuilds and LeagueOfGraphs as sources
@@ -91,62 +118,62 @@
 
 
 <a name="1.2.11" />
-### 1.2.11 (March 26th, 2016)
+## 1.2.11 (March 26th, 2016)
 
 #### Bug Fixes
 - Fix inconsistent ID format for Champions
 
 <a name="1.2.10" />
-### 1.2.10 (February 1st, 2016)
+## 1.2.10 (February 1st, 2016)
 
 #### Bug Fixes
 - Disable changing languages during import
 
 <a name="1.2.9" />
-### 1.2.9 (Janurary 30th, 2016)
+## 1.2.9 (Janurary 30th, 2016)
 
 #### Bug Fixes
 - Added Arabic and Japanese to a whitelist so that it defaults to English when in game, gets rid of block text.
 
 <a name="1.2.8" />
-### 1.2.8 (Janurary 26th, 2016)
+## 1.2.8 (Janurary 26th, 2016)
 
 #### Bug Fixes
 - Lolflavor import failing due to missing Nami item sets
 
 <a name="1.2.7" />
-### 1.2.7 (Janurary 2nd, 2016)
+## 1.2.7 (Janurary 2nd, 2016)
 
 #### Bug Fixes
 - Disabled `causedBy` error on updates once and for all.
 
 <a name="1.2.6" />
-### 1.2.6 (Janurary 2nd, 2016)
+## 1.2.6 (Janurary 2nd, 2016)
 
 #### Updates
 - Disabled `Send Log`
 - Updated Translations
 
 <a name="1.2.5" />
-### 1.2.5 (December 14th, 2015)
+## 1.2.5 (December 14th, 2015)
 
 #### Bug Fixes
 - Fixed `causedBy` error
 
 <a name="1.2.4" />
-### 1.2.4 (December 13th, 2015)
+## 1.2.4 (December 13th, 2015)
 
 #### Updates
 - Updated translations
 
 <a name="1.2.3" />
-### 1.2.3 (November 26th, 2015)
+## 1.2.3 (November 26th, 2015)
 
 #### Bug Fixes
 - Another temporary fix for users with `Unexpected end of input` and `roles` errors
 
 <a name="1.2.2" />
-### 1.2.2 (November 25th, 2015)
+## 1.2.2 (November 25th, 2015)
 
 #### Bug Fixes
 - Temporary fix for users with `Unexpected end of input` errors
@@ -155,13 +182,13 @@
 - Updated translations
 
 <a name="1.2.1" />
-### 1.2.1 (November 24th, 2015)
+## 1.2.1 (November 24th, 2015)
 
 #### Bug Fixes
 - Fix Champion.gg 404 error
 
 <a name="1.2.0" />
-### 1.2.0 (November 20th, 2015)
+## 1.2.0 (November 20th, 2015)
 
 #### Features
 - Added Arabic
@@ -175,19 +202,19 @@
 - Updated translations
 
 <a name="1.1.2" />
-### 1.1.2 (November 3rd, 2015)
+## 1.1.2 (November 3rd, 2015)
 
 #### Updates
 - Updated translations
 
 <a name="1.1.1" />
-### 1.1.1 (October 23rd, 2015)
+## 1.1.1 (October 23rd, 2015)
 
 #### Updates
 - Updated translations
 
 <a name="1.1.0" />
-### 1.1.0 (October 13th, 2015)
+## 1.1.0 (October 13th, 2015)
 
 #### Features
 - Added 13 new languages. Bosnian, Catalan, Croatian, Danish, Finnish, Georgian, Lithuanian, Latvian, Norwegian, Slovak, Slovenian, Serbian, and Swedish.
@@ -201,13 +228,13 @@
 
 
 <a name="1.0.3" />
-### 1.0.3 (October 10th, 2015)
+## 1.0.3 (October 10th, 2015)
 
 #### Bug Fixes
 - Fixed infinite loop on updates for Windows
 
 <a name="1.0.2" />
-### 1.0.2 (October 8th, 2015)
+## 1.0.2 (October 8th, 2015)
 
 #### Bug Fixes
 - Fixed translation issue with ARAM item sets fail due to antivirus

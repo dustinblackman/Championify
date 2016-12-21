@@ -1,4 +1,4 @@
-const optionsParser = require(`../${GLOBAL.src_path}/options_parser`).default;
+const optionsParser = require(`../${global.src_path}/options_parser`).default;
 
 require('chai').should();
 

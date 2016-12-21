@@ -7,7 +7,7 @@ JSDocs for the majority of functions can be found [here](https://doclets.io/dust
 
 __Rules__
 
-- Everything is in ES6 Javascript with the Node 4 presets. That means `const` and `let`, everything for example.
+- Everything is in ES6 Javascript with the Node 6 presets. That means `const` and `let`, everything for example.
 - New features must be discussed in an issue first before a PR, this prevents wasting anyones time incase it's already being worked on.
 - Reframe from adding new npm modules if there's already something that'll get the job done.
 - Must pass all tests. `npm test`

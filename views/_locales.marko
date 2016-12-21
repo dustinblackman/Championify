@@ -1,0 +1,92 @@
+<script marko-init>
+  var windows_class = 'ui icon left pointing dropdown scrolling';
+  var osx_class = 'ui icon right pointing dropdown scrolling';
+</script>
+
+
+<div style="${data.platform === 'win32' ? 'left: 10px;' : 'right: 3px;'}" class="locale_selector">
+  <div id="locals_select" class="${data.platform === 'win32' ? windows_class : osx_class}">
+    <input type="hidden" name="locale"/><i id="locale_flag"></i>
+    <div class="menu">
+      <div class="header"><i class="world icon"></i><span id="select_language_text">$!{data.T.t('select_language')}</span></div>
+      <div class="divider"></div>
+      <div data-value="en" class="item"><i class="gb flag"></i>English</div>
+      <!-- Indonesian-->
+      <div data-value="id" class="item"><i class="id flag"></i>Bahasa Indonesia</div>
+      <!-- Bosnian-->
+      <div data-value="bs" class="item"><i class="ba flag"></i>Bosanski</div>
+      <!-- Catalan-->
+      <div data-value="ca" class="item"><i class="es flag"></i>Català</div>
+      <!-- Czech-->
+      <div data-value="cs" class="item"><i class="cz flag"></i>čeština</div>
+      <!-- Danish-->
+      <div data-value="da" class="item"><i class="dk flag"></i>Danske</div>
+      <!-- German-->
+      <div data-value="de" class="item"><i class="de flag"></i>Deutsch</div>
+      <!-- Spanish-->
+      <div data-value="es" class="item"><i class="es flag"></i>Español</div>
+      <!-- French-->
+      <div data-value="fr" class="item"><i class="fr flag"></i>Français</div>
+      <!-- Croatian-->
+      <div data-value="hr" class="item"><i class="hr flag"></i>Hrvatska</div>
+      <!-- Italian-->
+      <div data-value="it" class="item"><i class="it flag"></i>Italiano</div>
+      <!-- Latvian-->
+      <div data-value="lv" class="item"><i class="lv flag"></i>Latvijā</div>
+      <!-- Lithuanian-->
+      <div data-value="lt" class="item"><i class="lt flag"></i>Lietuvos</div>
+      <!-- Hungarian-->
+      <div data-value="hu" class="item"><i class="hu flag"></i>Magyar</div>
+      <!-- Malay-->
+      <div data-value="ms" class="item"><i class="my flag"></i>Melayu</div>
+      <!-- Dutch-->
+      <div data-value="nl" class="item"><i class="nl flag"></i>Nederlandse</div>
+      <!-- Norwegian-->
+      <div data-value="no" class="item"><i class="no flag"></i>Norsk</div>
+      <!-- Polish-->
+      <div data-value="pl" class="item"><i class="pl flag"></i>Polskie</div>
+      <!-- Portuguese-->
+      <div data-value="pt" class="item"><i class="pt flag"></i>Português</div>
+      <!-- Brazilian Portuguese-->
+      <div data-value="pt-BR" class="item"><i class="br flag"></i>Português Brasileiro</div>
+      <!-- Romanian-->
+      <div data-value="ro" class="item"><i class="ro flag"></i>Român</div>
+      <!-- Slovenian-->
+      <div data-value="sl" class="item"><i class="si flag"></i>Slovenščina</div>
+      <!-- Slovak-->
+      <div data-value="sk" class="item"><i class="sk flag"></i>Slovenský</div>
+      <!-- Serbian-->
+      <div data-value="sr" class="item"><i class="cs flag"></i>Srpski</div>
+      <!-- Finnish-->
+      <div data-value="fi" class="item"><i class="fi flag"></i>Suomi</div>
+      <!-- Swedish-->
+      <div data-value="sv" class="item"><i class="se flag"></i>Svenska</div>
+      <!-- Vietnamese-->
+      <div data-value="vi" class="item"><i class="vn flag"></i>Tiếng Việt</div>
+      <!-- Turkish-->
+      <div data-value="tr" class="item"><i class="tr flag"></i>Türk</div>
+      <!-- Arabic-->
+      <div data-value="ar" class="item"><i class="eg flag"></i>العربية</div>
+      <!-- Bulgarian-->
+      <div data-value="bg" class="item"><i class="bg flag"></i>български</div>
+      <!-- Chinese Simplified-->
+      <div data-value="zh-CN" class="item"><i class="cn flag"></i>简体中文</div>
+      <!-- Chinese Traditional-->
+      <div data-value="zh-TW" class="item"><i class="tw flag"></i>繁體中文</div>
+      <!-- Georgian-->
+      <div data-value="ka" class="item"><i class="ge flag"></i>ქართული</div>
+      <!-- Greek-->
+      <div data-value="el" class="item"><i class="gr flag"></i>Ελληνικά</div>
+      <!-- Hebrew-->
+      <div data-value="he" class="item"><i class="il flag"></i>עברית</div>
+      <!-- Japanese-->
+      <div data-value="ja" class="item"><i class="jp flag"></i>日本語</div>
+      <!-- Korean-->
+      <div data-value="ko" class="item"><i class="kr flag"></i>한국어</div>
+      <!-- Russian-->
+      <div data-value="ru" class="item"><i class="ru flag"></i>русский</div>
+      <!-- Thai-->
+      <div data-value="th" class="item"><i class="th flag"></i>ภาษาไทย</div>
+    </div>
+  </div>
+</div>

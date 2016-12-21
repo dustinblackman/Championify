@@ -17,4 +17,4 @@ R.forEach(source_path => {
 }, glob.sync(path.join(__dirname, './*(!(index.js))')));
 
 export default sources;
-export const sources_info = R.sortBy(R.prop('name'))(source_names);
+export const sources_info = R.sortBy(R.prop('name'), source_names);

@@ -1,0 +1,16 @@
+<div class="one column row">
+  <div class="error">
+    <h3>$!{data.T.t('something_broke')}</h3>
+    <img src="img/sad.png"/>
+
+    <div if(window.error_message)>
+      <br/><span class="message">${window.error_message}</span>
+    </div>
+    <p>
+    $!{data.T.t('error_1')}<br/>
+    $!{data.T.t('error_2')}<br/>
+    $!{data.T.t('error_3')}
+    </p><br/>
+    <button id="open_log" class="ui button blue">$!{data.T.t('open_log')}</button>
+  </div>
+</div>

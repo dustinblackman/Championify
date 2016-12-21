@@ -24,10 +24,6 @@ Due to Riot restrictions, you can only see the item sets in game, you won't see 
 Sorry, Electron doesn't support anything below Windows 7 or Mountain Lion. There's no plans to support it.
 
 
-#### "App can’t be opened because it is from an unidentified developer"
-Read [this](http://osxdaily.com/2012/07/27/app-cant-be-opened-because-it-is-from-an-unidentified-developer/) to fix it.
-
-
 #### The app opens with a white box, infinite loops, I just see the background, or nothing happens
 I'm a bit lost why this is happening on some system, as I haven't found any real way to track it or recreate it myself. Delete the following folders depending on your operating system, and then try Championify again.
 
@@ -50,7 +46,7 @@ Oh no not at all, that's the last thing you want to do. The best time to run Cha
 
 
 #### Why do you force auto updates of Championify?
-If something was to change on Riots end and Championify's item sets broke your client or completely screwed up one of your games, you'd be pretty pissed right? I know I would be. This is just one method to make sure you run in to the least amount of problems possible, plus the updates are under ~8MB anyway.
+If something was to change on Riots end and Championify's item sets broke your client or completely screwed up one of your games, you'd be pretty pissed right? I know I would be. This is just one method to make sure you run in to the least amount of problems possible.
 
 
 #### How do I auto update item sets?

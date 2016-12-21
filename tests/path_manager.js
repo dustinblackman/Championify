@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-const pathManager = require(`../${GLOBAL.src_path}/path_manager`).default;
+const pathManager = require(`../${global.src_path}/path_manager`).default;
 
 const should = require('chai').should();
 const osxDescribe = (process.platform === 'darwin' ? describe : describe.skip);

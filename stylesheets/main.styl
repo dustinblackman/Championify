@@ -25,10 +25,16 @@
     text-align center
     z-index 2
 
+  .ui.search.dropdown .menu
+    max-height 15rem !important // @stylint ignore
+
   .ui.label>img
     height 12px !important // @stylint ignore
     margin-right 2px
     vertical-align initial !important // @stylint ignore
+
+  .ui.selection.dropdown .menu>.item
+    padding .38571429rem 1.14285714rem !important // @stylint ignore
 
   .ui.dropdown .menu>.item>img
     vertical-align text-bottom !important // @stylint ignore
@@ -39,7 +45,7 @@
     justify-content space-between
 
     .ui.icon.button
-      padding .05em
+      padding .15em
     .ui.icon.button>.icon
       vertical-align middle
     .ui.button
@@ -65,8 +71,13 @@
 
 // Versions
 .versions
+  align-content stretch
+  align-items center
   color #c8c1c1
-  margin-left 120px
+  display flex
+  flex-flow column wrap
+  justify-content center
+  height 100px // This decides how flexbox orders the colums
 
   div
     display block

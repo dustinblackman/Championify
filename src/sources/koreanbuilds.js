@@ -3,7 +3,7 @@ import cheerio from 'cheerio';
 import didyoumean from 'didyoumean';
 import R from 'ramda';
 
-import { cl, request, shorthandSkills, trinksCon } from '../helpers';
+import { arrayToBuilds, cl, request, shorthandSkills, trinksCon } from '../helpers';
 import Log from '../logger';
 import progressbar from '../progressbar';
 import store from '../store';
@@ -24,19 +24,6 @@ export function getVersion() {
     .then(cheerio.load)
     .then($c => $c('#patch').find('option').first().text())
     .tap(version => store.set('koreanbuilds_ver', version));
-}
-
-function _arrayToBuilds(ids) {
-  ids = R.map(id => {
-    id = id.toString();
-    if (id === '2010') id = '2003'; // Biscuits
-    return id;
-  }, ids);
-  const counts = R.countBy(R.identity)(ids);
-  return R.map(id => ({
-    id,
-    count: counts[id]
-  }), R.uniq(ids));
 }
 
 export function getSr() {
@@ -124,11 +111,11 @@ export function getSr() {
             const stats = $c('p').eq(2).text().split(': ')[1];
             const block = [
               {
-                items: _arrayToBuilds(early_items),
+                items: arrayToBuilds(early_items),
                 type: `${T.t('starter', true)} - ${stats} - ${games_played} ${T.t('games_played', true)}`
               },
               {
-                items: _arrayToBuilds(items),
+                items: arrayToBuilds(items),
                 type: T.t('core_items', true)
               }
             ];

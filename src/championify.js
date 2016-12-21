@@ -1,10 +1,11 @@
 import Promise from 'bluebird';
+import { remote } from 'electron';
 import glob from 'glob';
 import path from 'path';
 import R from 'ramda';
 import $ from './helpers/jquery';
 
-import { cl, request, spliceVersion } from './helpers';
+import { cl, elevate, request, spliceVersion } from './helpers';
 
 import ChampionifyErrors from './errors';
 import Log from './logger';
@@ -18,9 +19,6 @@ import T from './translate';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
 
-// Windows Specific Dependencies
-let runas;
-if (process.platform === 'win32') runas = require('runas');
 
 /**
  * Saves settings/options from the frontend.
@@ -64,7 +62,11 @@ function getChamps() {
       translations.wukong = translations.monkeyking;
       T.merge(translations);
 
+      const champ_ids = R.fromPairs(R.map(champ_data => {
+        return [champ_data.id.toLowerCase(), champ_data.key];
+      }, R.values(data)));
       store.set('champs', R.keys(data).sort());
+      store.set('champ_ids', champ_ids);
     })
     .catch(err => {
       if (err instanceof ChampionifyErrors.ChampionifyError) throw err;
@@ -126,9 +128,10 @@ function saveToFile() {
     .then(R.flatten)
     .then(R.reject(R.isNil))
     .each(data => {
+      const champ = data.champ.toLowerCase() === 'wukong' ? 'monkeyking' : data.champ;
       const itemset_data = JSON.stringify(data.riot_json, null, 4);
-      const folder_path = path.join(store.get('itemset_path'), data.champ, 'Recommended');
-      const file_path = path.join(folder_path, `CIFY_${data.champ}_${data.source}_${data.file_prefix}.json`);
+      const folder_path = path.join(store.get('itemset_path'), champ, 'Recommended');
+      const file_path = path.join(folder_path, `CIFY_${champ}_${data.source}_${data.file_prefix}.json`);
 
       return fs.mkdirsAsync(folder_path)
         .catch(err => Log.warn(err))
@@ -216,12 +219,10 @@ function downloadItemSets() {
       return true;
     })
     .catch(err => {
-      Log.error(err);
       if (err instanceof ChampionifyErrors.FileWriteError && process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
-        return runas(process.execPath, ['--startAsAdmin', '--import'], {
-          hide: false,
-          admin: true
-        });
+        Log.error(err);
+        return elevate(['--import'])
+          .then(() => remote.app.quit());
       }
 
       // If not a file write error, end session.

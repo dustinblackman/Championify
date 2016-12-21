@@ -4,8 +4,8 @@ import nock from 'nock';
 import path from 'path';
 import R from 'ramda';
 
-const leagueofgraphs = require(`../../${GLOBAL.src_path}/sources/leagueofgraphs`);
-const store = require(`../../${GLOBAL.src_path}/store`).default;
+const leagueofgraphs = require(`../../${global.src_path}/sources/leagueofgraphs`);
+const store = require(`../../${global.src_path}/store`).default;
 
 require('chai').should();
 let nocked = null;

@@ -1,4 +1,17 @@
 {
-  "positions": "body > div > div > div.page-content > div > div.champion-area > div > div > div.col-xs-12.col-sm-3.col-md-2.champion-profile > ul",
-  "version": "body > div > div > div.navbar.navbar-inverse > div > div > div.navigation-holder.cleafix > div > small > strong:nth-child(1)"
+  "championgg": {
+    "positions": "body > div > div > div.page-content > div > div.champion-area > div > div > div.col-xs-12.col-sm-3.col-md-2.champion-profile > ul",
+    "version": "body > div > div > div.navbar.navbar-inverse > div > div > div.navigation-holder.cleafix > div > small > strong:nth-child(1)"
+  },
+  "opgg": {
+    "version": "body > div.LayoutWrap.CurrentMenu-champion > div.ContentWrap > div > div.PageHeaderWrap > div.PageDescription > span.Small",
+    "starter": "div.SideContent > div:nth-child(3) > div > table > tbody > tr",
+    "boots": "div.SideContent > div:nth-child(2) > div > table > tbody > tr",
+    "core": "div.SideContent > div:nth-child(1) > div > table > tbody > tr",
+    "items": "div.RealContent > div > div > table > tbody > tr",
+    "skills": "div > div > div > table > tbody > tr"
+  },
+  "lolmasters": {
+    "version": "body > div.container > div > div.col.s6.offset-l2.l3 > div > span"
+  }
 }
