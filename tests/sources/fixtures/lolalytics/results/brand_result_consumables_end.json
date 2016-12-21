@@ -64,59 +64,35 @@
           ]
         },
         {
-          "type": "Most Frequent Starting Items",
+          "type": "Most Frequent Boots",
           "items": [
             {
-              "id": "1056",
+              "id": "3020",
               "count": 1
             },
             {
-              "id": "3340",
+              "id": "3158",
               "count": 1
             },
             {
-              "id": "2010",
-              "count": 1
-            },
-            {
-              "id": "2003",
-              "count": 1
-            },
-            {
-              "id": "3303",
-              "count": 1
-            },
-            {
-              "id": "2033",
+              "id": "3111",
               "count": 1
             }
           ]
         },
         {
-          "type": "Highest Win Starting Items",
+          "type": "Highest Win Boots",
           "items": [
             {
-              "id": "2003",
+              "id": "3020",
               "count": 1
             },
             {
-              "id": "1056",
+              "id": "3158",
               "count": 1
             },
             {
-              "id": "3340",
-              "count": 1
-            },
-            {
-              "id": "2033",
-              "count": 1
-            },
-            {
-              "id": "2010",
-              "count": 1
-            },
-            {
-              "id": "3303",
+              "id": "3111",
               "count": 1
             }
           ]
@@ -567,67 +543,43 @@
           ]
         },
         {
-          "type": "Most Frequent Starting Items",
+          "type": "Most Frequent Boots",
           "items": [
             {
-              "id": "3303",
+              "id": "3020",
               "count": 1
             },
             {
-              "id": "3340",
+              "id": "3158",
               "count": 1
             },
             {
-              "id": "2010",
+              "id": "3117",
               "count": 1
             },
             {
-              "id": "1056",
-              "count": 1
-            },
-            {
-              "id": "2031",
-              "count": 1
-            },
-            {
-              "id": "2003",
-              "count": 1
-            },
-            {
-              "id": "2055",
+              "id": "3009",
               "count": 1
             }
           ]
         },
         {
-          "type": "Highest Win Starting Items",
+          "type": "Highest Win Boots",
           "items": [
             {
-              "id": "2031",
+              "id": "3020",
               "count": 1
             },
             {
-              "id": "3303",
+              "id": "3158",
               "count": 1
             },
             {
-              "id": "2010",
+              "id": "3117",
               "count": 1
             },
             {
-              "id": "3340",
-              "count": 1
-            },
-            {
-              "id": "2003",
-              "count": 1
-            },
-            {
-              "id": "2055",
-              "count": 1
-            },
-            {
-              "id": "1056",
+              "id": "3009",
               "count": 1
             }
           ]

@@ -82,7 +82,7 @@ function processSets(champ, position, sets) {
 
   const mostfreq = {
     starting: objToItems(T.t('starting_items', true), T.t('most_freq', true), sets.startingitempick),
-    boots: objToItems(T.t('starting_items', true), T.t('most_freq', true), sets.startingitempick),
+    boots: objToItems(T.t('boots', true), T.t('most_freq', true), sets.bootspick),
     first: objToItems(T.t('first_item', true), T.t('most_freq', true), sets.item1pick),
     second: objToItems(T.t('second_item', true), T.t('most_freq', true), sets.item2pick),
     third: objToItems(T.t('third_item', true), T.t('most_freq', true), sets.item3pick),
@@ -92,7 +92,7 @@ function processSets(champ, position, sets) {
 
   const highestwin = {
     starting: objToItems(T.t('starting_items', true), T.t('highest_win', true), sets.startingitemwin),
-    boots: objToItems(T.t('starting_items', true), T.t('highest_win', true), sets.startingitemwin),
+    boots: objToItems(T.t('boots', true), T.t('highest_win', true), sets.bootspick),
     first: objToItems(T.t('first_item', true), T.t('highest_win', true), sets.item1win),
     second: objToItems(T.t('second_item', true), T.t('highest_win', true), sets.item2win),
     third: objToItems(T.t('third_item', true), T.t('highest_win', true), sets.item3win),
