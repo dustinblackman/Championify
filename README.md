@@ -115,6 +115,7 @@ See [BACKERS.md](BACKERS.md)
 - [Probuilds](http://probuilds.net)
 - [Lolalytics](http://lolalytics.com)
 - [op.gg](http://op.gg)
+- [Lolmasters](http://lolmasters.net/)
 
 ## Thank yous
 - [@sargonas](https://github.com/sargonas) and the rest of the Riot API team for unlocking item sets

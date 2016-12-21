@@ -10,5 +10,8 @@
     "core": "div.SideContent > div:nth-child(1) > div > table > tbody > tr",
     "items": "div.RealContent > div > div > table > tbody > tr",
     "skills": "div > div > div > table > tbody > tr"
+  },
+  "lolmasters": {
+    "version": "body > div.container > div > div.col.s6.offset-l2.l3 > div > span"
   }
 }

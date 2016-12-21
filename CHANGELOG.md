@@ -8,7 +8,7 @@
 - Renamed `--startLeague` option parameter to `--start-league`
 
 #### Features
-- Added op.gg, Probuilds, and Lolalytics
+- Added op.gg, Probuilds, Lolalytics, and Lolmasters
 - Changed donation method to Patreon [#151](https://github.com/dustinblackman/Championify/issues/151)
 - Updated translations
 

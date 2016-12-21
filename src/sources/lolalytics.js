@@ -65,7 +65,13 @@ function createJSON(champ, skills, position, blocks, set_type) {
     blocks: trinksCon(blocks, skills)
   });
 
-  return {champ, file_prefix: title.replace(/ /g, '_').toLowerCase(), riot_json, source: 'lolalytics'};
+  return {
+    champ,
+    file_prefix:
+    title.replace(/ /g, '_').toLowerCase(),
+    riot_json,
+    source: 'lolalytics'
+  };
 }
 
 function processSets(champ, position, sets) {

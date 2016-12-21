@@ -1,0 +1,92 @@
+[
+  {
+    "champ": "Brand",
+    "file_prefix": "Mid",
+    "riot_json": {
+      "map": "any",
+      "blocks": [
+        {
+          "type": "Mid",
+          "items": [
+            {
+              "id": "3027",
+              "count": 1
+            },
+            {
+              "id": "3020",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3089",
+              "count": 1
+            },
+            {
+              "id": "3135",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "title": "LM 6.24 Mid",
+      "priority": false,
+      "mode": "any",
+      "type": "custom",
+      "sortrank": 1,
+      "champion": "Brand"
+    },
+    "source": "lolmasters"
+  },
+  {
+    "champ": "Brand",
+    "file_prefix": "Support",
+    "riot_json": {
+      "map": "any",
+      "blocks": [
+        {
+          "type": "Support",
+          "items": [
+            {
+              "id": "2301",
+              "count": 1
+            },
+            {
+              "id": "3020",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "title": "LM 6.24 Support",
+      "priority": false,
+      "mode": "any",
+      "type": "custom",
+      "sortrank": 1,
+      "champion": "Brand"
+    },
+    "source": "lolmasters"
+  }
+]
