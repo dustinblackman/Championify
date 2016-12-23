@@ -104,7 +104,8 @@ function importItemSets() {
   });
 
   return championify.run()
-    .catch(err => EndSession(err));
+    .then(completed => viewManager.complete())
+    .catch(EndSession);
 }
 
 
@@ -151,11 +152,9 @@ function executeOptionParameters() {
   if (optionsParser['delete']()) {
     deleteItemSets();
   } else if (optionsParser['import']() || optionsParser.autorun()) {
-    importItemSets().then(completed => {
+    return importItemSets().then(completed => {
       if (optionsParser.close() || optionsParser.autorun()) return app.quit();
-
-      viewManager.complete();
-      if (optionsParser.startLeague()) startLeague();
+      if (completed && optionsParser.startLeague()) startLeague();
     });
   }
 }

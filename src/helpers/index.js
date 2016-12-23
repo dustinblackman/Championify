@@ -31,7 +31,8 @@ const retry_options = {
 export function EndSession(c_error) {
   Log.error(c_error);
   window.error_message = c_error.message || c_error.rootCause.message;
-  return viewManager.error();
+  viewManager.error();
+  return false;
 }
 
 
