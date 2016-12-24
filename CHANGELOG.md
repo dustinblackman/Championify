@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="2.0.1" />
+## 2.0.1 (December 23rd, 2016)
+
+#### Bug Fixes
+- Fixed Lolalytics missing boots [#231](https://github.com/dustinblackman/Championify/issues/231)
+- op.gg now uses Korean item sets [#232](https://github.com/dustinblackman/Championify/issues/232)
+- Fixed command line arguments not working and updated docs [#234](https://github.com/dustinblackman/Championify/issues/234)
+- Replaced elevate method that was giving false virus total reports [#239](https://github.com/dustinblackman/Championify/issues/239)
+
 <a name="2.0.0" />
 ## 2.0.0 (December 21st, 2016)
 

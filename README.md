@@ -69,10 +69,10 @@ __Params__
 
 __Example__
 
-Silently imports and starts League afterwards.
+Silently imports and starts League afterwards after installing Championify with the Windows Installer.
 
 ```cmd
-C:\Championify\championify.exe --autorun --start-league
+C:\Users\YOURNAME\AppData\Local\Championify\app-LATEST\championify.exe --autorun --start-league
 ```
 
 <a name="source" />

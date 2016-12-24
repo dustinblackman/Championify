@@ -23,6 +23,7 @@ import viewManager from './view_manager';
 // Debugging helpers
 window.viewManager = viewManager;
 window.preferences = preferences;
+window.optionsParser = optionsParser;
 
 const app = remote.app;
 const dialog = remote.dialog;
@@ -103,10 +104,8 @@ function importItemSets() {
   });
 
   return championify.run()
-    .then(completed => {
-      if (completed) viewManager.complete();
-    })
-    .catch(err => EndSession(err));
+    .then(completed => viewManager.complete())
+    .catch(EndSession);
 }
 
 
@@ -153,13 +152,9 @@ function executeOptionParameters() {
   if (optionsParser['delete']()) {
     deleteItemSets();
   } else if (optionsParser['import']() || optionsParser.autorun()) {
-    importItemSets().then(completed => {
-      if (optionsParser.close() || optionsParser.autorun()) {
-        app.quit();
-      } else if (completed) {
-        viewManager.complete();
-        if (optionsParser.startLeague()) startLeague();
-      }
+    return importItemSets().then(completed => {
+      if (optionsParser.close() || optionsParser.autorun()) return app.quit();
+      if (completed && optionsParser.startLeague()) startLeague();
     });
   }
 }

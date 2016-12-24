@@ -1,6 +1,6 @@
 {
   "name": "Championify",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Downloads all the recent builds from websites like Champion.gg and imports them in to League of Legends.",
   "main": "electron.js",
   "scripts": {
@@ -45,6 +45,7 @@
     "ramda": "0.19.1",
     "request": "2.68.0",
     "request-progress": "0.3.1",
+    "runas": "3.1.1",
     "semantic-ui-css": "2.2.4",
     "semver": "5.1.0",
     "super-error": "1.1.2",
@@ -69,7 +70,7 @@
     "electron-mocha": "3.2.0",
     "electron-osx-sign": "^0.4.1",
     "electron-rebuild": "^1.4.0",
-    "electron-winstaller": "^2.5.0",
+    "electron-winstaller": "2.5.0",
     "eslint-config-busbud": "^0.1.2",
     "eslint-config-semistandard": "^5.0.1",
     "eslint-config-standard": "^4.4.0",
@@ -83,7 +84,6 @@
     "gulp-eslint": "1.1.1",
     "gulp-htmlhint": "0.3.0",
     "gulp-jsonlint": "1.1.0",
-    "gulp-shell": "0.4.3",
     "gulp-stylint": "4.0.0",
     "gulp-stylus": "2.6.0",
     "htmlhint-stylish": "1.0.3",

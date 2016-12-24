@@ -6,9 +6,10 @@ import path from 'path';
 import R from 'ramda';
 import request from 'request';
 import runSequence from 'run-sequence';
-import shell from 'gulp-shell';
+import { spawnAsync } from './helpers';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
+const requestAsync = Promise.promisify(request);
 const yauzl = Promise.promisifyAll(require('yauzl'));
 
 const pkg = require('../package.json');
@@ -88,7 +89,8 @@ function _zipExtract(zipfile, dest = './') {
     });
 }
 
-function download(url, download_path, done) {
+function download(url, download_path, overwrite = false) {
+  if (overwrite) fs.removeSync(download_path);
   if (fs.existsSync(download_path)) return Promise.resolve();
 
   console.log(`Downloading: ${path.basename(url)}`);
@@ -99,15 +101,19 @@ function download(url, download_path, done) {
     throw err;
   }
 
-  return new Promise((resolve, reject) => {
-    return request(url)
-      .pipe(file)
-      .on('error', reject)
-      .on('close', function() {
-        file.close();
-        return resolve();
+  return requestAsync({method: 'HEAD', url})
+    .then(res => {
+      if (res.statusCode >= 400) throw new Error(`Status ${res.statusCode}: ${url}`);
+      return new Promise((resolve, reject) => {
+        return request(url)
+          .pipe(file)
+          .on('error', reject)
+          .on('close', function() {
+            file.close();
+            return resolve();
+          });
       });
-  });
+    });
 }
 
 function extract(download_path, os) {
@@ -141,8 +147,12 @@ gulp.task('electron:deps', function(cb) {
     if (pkg.dependencies[dep].indexOf('git://') > -1) return pkg.dependencies[dep];
     return `${dep}@${pkg.dependencies[dep]}`;
   }, R.keys(pkg.dependencies));
-  return gulp.src('')
-    .pipe(shell([`npm install --production --prefix ./dev ${install_items.join(' ')}`]));
+
+  const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  const download_url = `https://raw.githubusercontent.com/dustinblackman/electron-runas-builds/master/compiled/${pkg.devDependencies.electron}/win32/ia32/runas.node`;
+  spawnAsync(npm, ['i', '--production', '--prefix', './dev'].concat(install_items))
+    .then(() => download(download_url, path.join(__dirname, '../dev/node_modules/runas/build/Release/runas.node'), true))
+    .asCallback(cb);
 });
 
 gulp.task('electron:settings', function() {
