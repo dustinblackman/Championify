@@ -1,6 +1,6 @@
 {
   "name": "Championify",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Downloads all the recent builds from websites like Champion.gg and imports them in to League of Legends.",
   "main": "electron.js",
   "scripts": {
@@ -70,7 +70,7 @@
     "electron-mocha": "3.2.0",
     "electron-osx-sign": "^0.4.1",
     "electron-rebuild": "^1.4.0",
-    "electron-winstaller": "^2.5.0",
+    "electron-winstaller": "2.5.0",
     "eslint-config-busbud": "^0.1.2",
     "eslint-config-semistandard": "^5.0.1",
     "eslint-config-standard": "^4.4.0",
