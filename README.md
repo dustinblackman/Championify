@@ -69,10 +69,11 @@ __Params__
 
 __Example__
 
-Silently imports and starts League afterwards after installing Championify with the Windows Installer.
+Silently imports and starts League afterwards after installing Championify with the Windows Installer. As Squirrels
+generates the main `championify.exe`, `--processStartArgs` must be used before all other command line options.
 
 ```cmd
-C:\Users\YOURNAME\AppData\Local\Championify\app-LATEST\championify.exe --autorun --start-league
+C:\Users\YOURNAME\AppData\Local\Championify\championify.exe --processStartArgs --autorun --start-league
 ```
 
 <a name="source" />
