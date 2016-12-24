@@ -101,7 +101,7 @@ brew install wine
 
 ## [Donate](https://patreon.com/dustinblackman)
 
-Championify continues to grow, and to help explore bigger ideas, there is always costs. Currently Championify costs a couple hundred dollars a year to keep going (certificates renewal). A couple bucks is more then enough to help! :) [Donate here!](https://patreon.com/dustinblackman)
+Championify continues to grow, and to help explore bigger ideas, there is always costs. Currently Championify costs a couple hundred dollars a year to keep going (certificates renewal). A couple bucks is more then enough to help! :) [Donate here!](https://patreon.com/dustinblackman). To learn how to do one time donations with Patreon, see [here](https://patreon.zendesk.com/hc/en-us/articles/204606215-Can-I-make-a-one-time-payment-).
 
 ## Backers
 
