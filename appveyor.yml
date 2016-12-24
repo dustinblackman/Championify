@@ -8,6 +8,7 @@ install:
   - ps: Install-Product node 6.9.1 # Must match package.json
   - npm install -g npm@3.10.9 # Must match package.json
   - npm install --arch=ia32 || Echo First NPM install failed && npm install --arch=ia32
+  - ./node_modules/.bin/electron-rebuild.cmd -f -a ia32 -w runas
   - node -v
   - npm -v
 build: off
