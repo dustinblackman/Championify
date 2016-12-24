@@ -51,7 +51,7 @@ gulp.task('github-release', function(cb) {
   const download_path = `https://github.com/dustinblackman/Championify/releases/download/${pkg.version}`;
   let body = `## Quick Downloads
 
-Windows: [Setup.exe](${download_path}/Championify-Windows-Setup-${pkg.version}.exe) | [ZIP](${download_path}/Championif-WIN-${pkg.version}.zip)
+Windows: [Setup.exe](${download_path}/Championify-Windows-Setup-${pkg.version}.exe) | [ZIP](${download_path}/Championify-WIN-${pkg.version}.zip)
 macOS: [DMG](${download_path}/Championify-OSX-${pkg.version}.dmg) | [ZIP](${download_path}/Championify-OSX-${pkg.version}.zip)`;
   body += `\n\n## Changelog ${changelog.split(/<a name="*.*.*" \/>/g)[1]}`;
   body += '\n\n## Virus Total Reports\n';
