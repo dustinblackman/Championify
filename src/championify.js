@@ -1,5 +1,4 @@
 import Promise from 'bluebird';
-import { remote } from 'electron';
 import glob from 'glob';
 import path from 'path';
 import R from 'ramda';
@@ -221,8 +220,7 @@ function downloadItemSets() {
     .catch(err => {
       if (err instanceof ChampionifyErrors.FileWriteError && process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
         Log.error(err);
-        return elevate(['--import'])
-          .then(() => remote.app.quit());
+        return elevate(['--import']);
       }
 
       // If not a file write error, end session.

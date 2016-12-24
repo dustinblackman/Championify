@@ -152,14 +152,10 @@ gulp.task('_compileWin', function(cb) {
     }
   };
 
-  const elevate_path = path.join(tmp_path, './resources/championify_elevate.exe');
-  const elevate_rc = {icon: './resources/win/icon.ico'};
-
   fs.copyAsync(path.join('./cache', src_folder), tmp_path)
     .then(() => Promise.all([
       fs.copyAsync('./tmp/app.asar', path.join(tmp_path, 'resources/app.asar')),
       fs.copyAsync('./LICENSE', path.join(tmp_path, 'LICENSE')),
-      fs.copyAsync('./resources/win/elevate.exe', elevate_path).then(() => rcedit(elevate_path, elevate_rc)),
       fs.removeAsync(path.join(tmp_path, '/resources/default_app')),
       fs.moveAsync(path.join(tmp_path, 'electron.exe'), exe_path),
       rcedit(exe_path, rc_patch)

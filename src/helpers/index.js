@@ -1,8 +1,7 @@
 import Promise from 'bluebird';
-import path from 'path';
+import { remote } from 'electron';
 import R from 'ramda';
 import retry from 'bluebird-retry';
-import { spawn } from 'child_process';
 import $ from './jquery';
 
 import ChampionifyErrors from '../errors';
@@ -13,6 +12,10 @@ import viewManager from '../view_manager';
 
 const requester = Promise.promisify(require('request'));
 const prebuilts = require('../../data/prebuilts.json');
+
+// Windows Specific Dependencies
+let runas;
+if (process.platform === 'win32') runas = require('runas');
 
 const retry_options = {
   max_tries: 3,
@@ -62,20 +65,28 @@ export function request(options) {
 
 
 /**
- * Re-executes Championify with elevated privileges, throws an error if user declines. Only works on Windows.
+ * Re-executes Championify with elevated privileges, closing the current process if successful. Throws an error if user declines. Only works on Windows.
  * @param {Array} Command line parameters
  * @returns {Promise.Boolean|ChampionifyErrors.ElevateError}
  */
 export function elevate(params = []) {
-  let elevate_path = path.join(__dirname, '../../../championify_elevate.exe');
-  if (process.env.NODE_ENV === 'development') elevate_path = path.join(__dirname, '../../resources/win/elevate.exe');
+  if (!runas) return Promise.reject(new Error('runas does not work on non windows systems'));
 
-  const proc = spawn(elevate_path, [process.execPath, '--runned-as-admin'].concat(params));
   return new Promise((resolve, reject) => {
-    proc.on('close', code => {
-      if (code !== 0) reject(new ChampionifyErrors.ElevateError(`Exited with code ${code}`));
-      resolve();
+    const browser_window = remote.getCurrentWindow();
+    browser_window.hide();
+
+    const code = runas(process.execPath, ['--runned-as-admin'].concat(params), {
+      hide: false,
+      admin: true
     });
+
+    if (code !== 0) {
+      browser_window.show();
+      if (code === -1) return reject(new ChampionifyErrors.ElevateError('User refused to elevate permissions'));
+      return reject(new ChampionifyErrors.ElevateError(`runas returned with exit code ${code}`));
+    }
+    remote.app.quit();
   });
 }
 
