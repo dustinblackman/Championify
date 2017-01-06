@@ -18,6 +18,8 @@ Championify is a little program that downloads all the recent item sets from pop
 
 Windows and OSX are both supported, tested on Windows 10 and OSX 10.12.1.
 
+__NOTE__: All Championify clients before version 2.0.0 no longer work. Please download the latest versiom from the [releases](https://github.com/dustinblackman/Championify/releases/latest) page.
+
 ![Championify](resources/screenshots/readme_screenshot.png)
 
 Check out screenshots [here](https://imgur.com/a/vgS3I)!
