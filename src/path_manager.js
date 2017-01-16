@@ -60,7 +60,7 @@ function checkInstallPath(selected_path, done) {
 
     if (fs.existsSync(new_launcher_path)) {
       done(null, selected_path, 'Config/Champions/', path.basename(new_launcher_path));
-    }else if (fs.existsSync(default_path)) {
+    } else if (fs.existsSync(default_path)) {
       done(null, selected_path, 'Config/Champions/', path.basename(default_path));
     } else if (fs.existsSync(garena_check_one)) {
       done(null, selected_path, 'Game/Config/Champions/', path.basename(garena_check_one));
