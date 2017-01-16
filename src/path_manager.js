@@ -54,7 +54,7 @@ function checkInstallPath(selected_path, done) {
     }
   } else {
     const default_path = path.join(selected_path, 'lol.launcher.exe');
-	const new_launcher_path = path.join(selected_path, 'LeagueClient.exe');
+    const new_launcher_path = path.join(selected_path, 'LeagueClient.exe');
     const garena_check_one = path.join(selected_path, 'lol.exe');
     const garena_check_two = glob.sync(path.join(selected_path, 'LoL*Launcher.exe'))[0];
 
