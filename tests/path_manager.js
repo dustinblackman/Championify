@@ -53,7 +53,7 @@ describe('src/path_manager', () => {
         done();
       });
     });
-	
+
     it('should the correct path for a default League installation - New Launcher', function(done) {
       fs.mkdirsSync('./tmp/0/');
       fs.writeFileSync('./tmp/0/LeagueClient.exe', '123', 'utf8');
