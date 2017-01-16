@@ -17,13 +17,12 @@ function findInstallPath() {
   if (process.platform === 'darwin') {
     if (fs.existsSync('/Applications/League of Legends.app')) {
       return this.setInstallPath(null, '/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/');
-    } else if (fs.existsSync('${user_home}/Applications/League of Legends.app')) {
-      return this.setInstallPath(null, '${user_home}/Applications/League of Legends.app/', 'Contents/LoL/Config/Champions/');
+    } else if (fs.existsSync(`${user_home}/Applications/League of Legends.app`)) {
+      return this.setInstallPath(null, `${user_home}/Applications/League of Legends.app/`, 'Contents/LoL/Config/Champions/');
     }
   } else if (fs.existsSync('C:/Riot Games/League Of Legends/LeagueClient.exe')) {
     return this.setInstallPath(null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/', 'LeagueClient.exe');
-  }
-  else if (fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')) {
+  } else if (fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')) {
     return this.setInstallPath(null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/', 'lol.launcher.exe');
   }
 }
@@ -67,9 +66,8 @@ function checkInstallPath(selected_path, done) {
       done(null, selected_path, 'Game/Config/Champions/', path.basename(garena_check_one));
     } else if (garena_check_two) {
       let garena_version = path.basename(glob.sync(path.join(selected_path, 'GameData/Apps/*'))[0]);
-      done(null, selected_path, 'GameData/Apps/${garena_version}/Game/Config/Champions/', path.basename(garena_check_two));
-    
-	}	else {
+      done(null, selected_path, `GameData/Apps/${garena_version}/Game/Config/Champions/`, path.basename(garena_check_two));
+    } else {
       done(new Error('Path not found'), selected_path);
     }
   }
@@ -96,7 +94,7 @@ function setInstallPath(path_err, install_path, champ_path, executable) {
   }
   function foundLeague() {
     $('#input_msg').addClass('green');
-    $('#input_msg').text('${T.t('found')} League of Legends!');
+    $('#input_msg').text(`${T.t('found')} League of Legends!`);
     return enableBtns();
   }
 
