@@ -53,8 +53,21 @@ describe('src/path_manager', () => {
         done();
       });
     });
+	
+    it('should the correct path for a default League installation - New Launcher', function(done) {
+      fs.mkdirsSync('./tmp/0/');
+      fs.writeFileSync('./tmp/0/LeagueClient.exe', '123', 'utf8');
+      const test_path = path.resolve('./tmp/0/');
+      pathManager.checkInstallPath(test_path, function(err, selected_path, config_dir, executable) {
+        should.not.exist(err);
+        selected_path.should.equal(test_path);
+        config_dir.should.equal('Config/Champions/');
+        executable.should.equal('LeagueClient.exe');
+        done();
+      });
+    });
 
-    it('should the correct path for a default League installation', function(done) {
+    it('should the correct path for a default League installation - Old Launcher', function(done) {
       fs.mkdirsSync('./tmp/1/');
       fs.writeFileSync('./tmp/1/lol.launcher.exe', '123', 'utf8');
       const test_path = path.resolve('./tmp/1/');
