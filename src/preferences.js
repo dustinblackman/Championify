@@ -24,6 +24,8 @@ class Preferences {
     let preference_dir;
     if (process.platform === 'darwin') {
       preference_dir = path.join(process.env.HOME, 'Library/Application Support/Championify/');
+    } else if (process.platform === 'linux') {
+      preference_dir = path.join(process.env.HOME, 'Championify/');
     } else {
       preference_dir = path.join(process.env.APPDATA, 'Championify');
     }

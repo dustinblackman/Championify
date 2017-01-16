@@ -73,7 +73,8 @@ function _processZipEntry(zip, dest, entry) {
   }
 }
 
-function _zipExtract(zipfile, dest = './') {
+function _zipExtract(zipfile, dest) {
+  dest = (typeof dest !== 'undefined') ? dest : './';
   fs.mkdirsSync(dest);
   const zip_entries = [];
 
@@ -89,7 +90,8 @@ function _zipExtract(zipfile, dest = './') {
     });
 }
 
-function download(url, download_path, overwrite = false) {
+function download(url, download_path, overwrite) {
+  overwrite = (typeof overwrite !== 'undefined') ? overwrite : false;
   if (overwrite) fs.removeSync(download_path);
   if (fs.existsSync(download_path)) return Promise.resolve();
 
