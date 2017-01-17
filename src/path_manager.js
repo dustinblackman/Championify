@@ -20,6 +20,8 @@ function findInstallPath() {
     } else if (fs.existsSync(`${user_home}/Applications/League of Legends.app`)) {
       return this.setInstallPath(null, `${user_home}/Applications/League of Legends.app/`, 'Contents/LoL/Config/Champions/');
     }
+  } else if (fs.existsSync('C:/Riot Games/League Of Legends/LeagueClient.exe')) {
+    return this.setInstallPath(null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/', 'LeagueClient.exe');
   } else if (fs.existsSync('C:/Riot Games/League Of Legends/lol.launcher.exe')) {
     return this.setInstallPath(null, 'C:/Riot Games/League Of Legends/', 'Config/Champions/', 'lol.launcher.exe');
   }
@@ -52,10 +54,13 @@ function checkInstallPath(selected_path, done) {
     }
   } else {
     const default_path = path.join(selected_path, 'lol.launcher.exe');
+    const new_launcher_path = path.join(selected_path, 'LeagueClient.exe');
     const garena_check_one = path.join(selected_path, 'lol.exe');
     const garena_check_two = glob.sync(path.join(selected_path, 'LoL*Launcher.exe'))[0];
 
-    if (fs.existsSync(default_path)) {
+    if (fs.existsSync(new_launcher_path)) {
+      done(null, selected_path, 'Config/Champions/', path.basename(new_launcher_path));
+    } else if (fs.existsSync(default_path)) {
       done(null, selected_path, 'Config/Champions/', path.basename(default_path));
     } else if (fs.existsSync(garena_check_one)) {
       done(null, selected_path, 'Game/Config/Champions/', path.basename(garena_check_one));
