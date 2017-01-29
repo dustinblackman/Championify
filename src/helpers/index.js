@@ -57,7 +57,7 @@ export function request(options) {
   return retry(() => {
     return requester(params)
       .then(res => {
-        if (res.statusCode >= 400) throw new ChampionifyErrors.RequestError(res.statusCode, params.url);
+        if (res.statusCode >= 400) throw new ChampionifyErrors.RequestError(res.statusCode, params.url, res.body);
         return res.body;
       });
   }, retry_options);

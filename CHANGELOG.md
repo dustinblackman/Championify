@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="2.0.2" />
+## 2.0.2 (January 29th, 2016)
+
+#### Bug Fixes
+- Better error logging
+- Handle errors from op.gg and probuilds [#237](https://github.com/dustinblackman/Championify/issues/237)
+- Fix incorrect language being used on op.gg [#265](https://github.com/dustinblackman/Championify/issues/265) [#266](https://github.com/dustinblackman/Championify/issues/266)
+
 <a name="2.0.1" />
 ## 2.0.1 (December 23rd, 2016)
 

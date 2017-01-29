@@ -3,6 +3,7 @@ import cheerio from 'cheerio';
 import R from 'ramda';
 
 import { arrayToBuilds, cl, request, shorthandSkills, trinksCon } from '../helpers';
+import Log from '../logger';
 import progressbar from '../progressbar';
 import store from '../store';
 import T from '../translate';
@@ -22,6 +23,14 @@ const templates = {
   winStart: (winrate) => `${T.t('hw_starters', true)} - Winrate: ${winrate}%`,
   winCore: (winrate) => `${T.t('hw_core', true)} - Winrate: ${winrate}%`,
   winItems: (winrate) => `${T.t('hw_items', true)} - Winrate: ${winrate}%`
+};
+
+/**
+ * Export
+ */
+export const source_info = {
+  name: 'op.gg',
+  id: 'opgg'
 };
 
 function pickWinrate(items) {
@@ -126,6 +135,8 @@ function _makeRequest(url) {
   return request({
     url,
     headers: {
+      'Accept-Language': 'en-US,en;q=0.8,fr;q=0.6,es;q=0.4',
+      Cookie: 'customLocale=en_US',
       'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36',
       'X-Requested-With': 'XMLHttpRequest'
     }
@@ -199,6 +210,14 @@ export function getSr() {
           ]);
 
           return formatForStore(champ_data.name, position, skills, null, position, merged_blocks);
+        })
+        .catch(err => {
+          Log.error(err);
+          store.push('undefined_builds', {
+            source: source_info.name,
+            champ: champ_data.name,
+            position: champ_data.positions
+          });
         });
       }, {concurrency: 1})
       .tap(() => progressbar.incrChamp());
@@ -208,11 +227,3 @@ export function getSr() {
     .then(data => store.push('sr_itemsets', data));
 }
 
-
-/**
- * Export
- */
-export const source_info = {
-  name: 'op.gg',
-  id: 'opgg'
-};

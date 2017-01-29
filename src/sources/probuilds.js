@@ -13,6 +13,14 @@ import T from '../translate';
 const default_schema = require('../../data/default.json');
 
 
+/**
+ * Export
+ */
+export const source_info = {
+  name: 'ProBuilds',
+  id: 'probuilds'
+};
+
 function getChamps() {
   return request('http://probuilds.net/champions')
     .then(cheerio.load)
@@ -102,12 +110,21 @@ function getItems(champ_case) {
     riot_json.blocks = trinksCon(riot_json.blocks);
     progressbar.incrChamp();
     return {champ, file_prefix: 'all', riot_json, source: 'probuilds'};
+  })
+  .catch(err => {
+    Log.error(err);
+    store.push('undefined_builds', {
+      source: source_info.name,
+      champ,
+      position: 'All'
+    });
   });
 }
 
 export function getSr() {
   return getChamps()
     .map(getItems, {concurrency: 3})
+    .then(R.reject(R.isNil))
     .then(data => store.push('sr_itemsets', data));
 }
 
@@ -115,10 +132,3 @@ export function getVersion() {
   return Promise.resolve(moment().format('YYYY-MM-DD'));
 }
 
-/**
- * Export
- */
-export const source_info = {
-  name: 'ProBuilds',
-  id: 'probuilds'
-};

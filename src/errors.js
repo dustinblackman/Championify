@@ -27,9 +27,10 @@ R.forEach(error_name => {
   });
 }, error_types);
 
-errors.RequestError = ChampionifyError.subclass('RequestError', function(code, url) {
+errors.RequestError = ChampionifyError.subclass('RequestError', function(code, url, body) {
   this.code = code;
   this.url = url;
+  this.body = body;
   this.type = 'RequestError';
   this.ua = [os.platform(), os.release()].join(' ');
   this.locale = T.locale;

@@ -18,7 +18,7 @@ const Log = new winston.Logger({
     }),
     new winston.transports.File({
       filename: path.join(preferences.directory(), 'championify.log.txt'),
-      json: false,
+      json: true,
       handleExceptions: true,
       prettyPrint: true,
       level: process.env.NODE_ENV === 'test' ? 'emerg' : 'debug',
