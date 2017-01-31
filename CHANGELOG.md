@@ -1,7 +1,7 @@
 # Changelog
 
 <a name="2.0.2" />
-## 2.0.2 (January 29th, 2016)
+## 2.0.2 (January 29th, 2017)
 
 #### Bug Fixes
 - Better error logging
