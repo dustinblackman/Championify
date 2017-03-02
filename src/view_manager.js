@@ -186,7 +186,7 @@ function mainViewBack() {
   function resetMain() {
     $('#cl_progress').html('');
     $('.submit_btns').removeClass('hidden');
-    $('.status').attr('class', 'status hidden');
+    $('.status').attr('class', 'status');
     _initSettings();
   }
 

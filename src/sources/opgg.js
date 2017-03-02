@@ -145,7 +145,7 @@ function _makeRequest(url) {
 }
 
 export function getVersion() {
-  return request('http://op.gg/champion/ahri/statistics/mid')
+  return request('https://www.op.gg/champion/ahri/statistics/mid')
     .then(cheerio.load)
     .then($ => R.last($('span.Small').text().split(': ')))
     .tap(version => store.set('opgg_ver', version));
@@ -154,7 +154,7 @@ export function getVersion() {
 export function getSr() {
   if (!store.get('opgg_ver')) return getVersion().then(getSr);
 
-  return _makeRequest('http://op.gg/champion/statistics')
+  return _makeRequest('https://www.op.gg/champion/statistics')
     .then($ => {
       return $('.ChampionIndexGrid')
         .find('.Item')
@@ -175,8 +175,8 @@ export function getSr() {
       cl(`${T.t('processing')} op.gg: ${T.t(champ_data.name)}`);
       return Promise.map(champ_data.positions, position => {
         return Promise.join(
-          _makeRequest(`http://op.gg/champion/${champ_data.name}/statistics/${position}/item`),
-          _makeRequest(`http://op.gg/champion/${champ_data.name}/statistics/${position}/skill`)
+          _makeRequest(`https://www.op.gg/champion/${champ_data.name}/statistics/${position}/item`),
+          _makeRequest(`https://www.op.gg/champion/${champ_data.name}/statistics/${position}/skill`)
         )
         .spread(($i, $s) => {
           const skills = mapSkills($s, csspaths.opgg.skills);

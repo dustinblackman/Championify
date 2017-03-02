@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="2.0.3" />
+## 2.0.3 (March 2nd, 2017)
+
+#### Bug Fixes
+- Fixed op.gg endpoints [#280](https://github.com/dustinblackman/Championify/issues/280)
+- Allow imports to continue when a source is down [#276](https://github.com/dustinblackman/Championify/issues/276)
+- Fixed issue with progress bar disappearing on a second import
+
 <a name="2.0.2" />
 ## 2.0.2 (January 29th, 2017)
 
