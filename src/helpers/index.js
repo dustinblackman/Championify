@@ -94,15 +94,6 @@ export function elevate(params = []) {
 }
 
 /**
- * Adds % to string.
- * @param {String} Text.
- * @returns {String} Formatted string with precentage.
- */
-export function wins(text) {
-  return `${text}%`;
-}
-
-/**
  * Splice version number to two.
  * @param {String} Version number
  * @returns {String} Two digit version number
