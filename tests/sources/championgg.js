@@ -64,7 +64,7 @@ describe('src/sources/championgg', () => {
         nock.cleanAll();
         nocked
           .get('/champion/Brand')
-          .reply(200, RESPONSES_FIXTURES.brand)
+          .reply(200, RESPONSES_FIXTURES.brand_middle)
           .get('/champion/Brand/support')
           .reply(200, RESPONSES_FIXTURES.brand_support);
       });

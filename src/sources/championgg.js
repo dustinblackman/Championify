@@ -5,7 +5,7 @@ import esprima from 'esprima';
 import R from 'ramda';
 
 import ChampionifyErrors from '../errors.js';
-import { arrayToBuilds, cl, request, shorthandSkills, trinksCon, wins } from '../helpers';
+import { arrayToBuilds, cl, request, shorthandSkills, trinksCon } from '../helpers';
 import Log from '../logger';
 import progressbar from '../progressbar';
 import store from '../store';
@@ -14,6 +14,36 @@ import T from '../translate';
 const default_schema = require('../../data/default.json');
 const csspaths = require('../../data/csspaths.json');
 const prebuilts = require('../../data/prebuilts.json');
+const skillKeys = {
+  1: 'Q',
+  2: 'W',
+  3: 'E',
+  4: 'R'
+};
+
+function formatWins(value) {
+  return `${(value * 100).toFixed(2)}%`;
+}
+
+function processSkills(skills) {
+  skills = R.map(skill => skillKeys[skill[0]], skills);
+
+  if (store.get('settings').skillsformat) return shorthandSkills(skills);
+  return skills.join('.');
+}
+
+function formatForStore(champ, position, set_type, file_prefix, build) {
+  let title = T.t(position, true);
+  if (set_type) title += ` ${set_type}`;
+  const riot_json = R.merge(default_schema, {
+    champion: champ,
+    title: `CGG ${title} ${store.get('championgg_ver')}`,
+    blocks: build
+  });
+
+  if (store.get('settings').locksr) riot_json.map = 'SR';
+  return {champ, file_prefix, riot_json, source: 'championgg'};
+}
 
 /**
  * Export
@@ -112,37 +142,24 @@ function processChamp(request_params, body) {
 
   const freq_core = {
     items: gg.championData.items.mostGames.items,
-    wins: wins(gg.championData.items.mostGames.winPercent),
+    wins: formatWins(gg.championData.items.mostGames.winPercent),
     games: gg.championData.items.mostGames.games
   };
   const freq_start = {
     items: gg.championData.firstItems.mostGames.items,
-    wins: wins(gg.championData.firstItems.mostGames.winPercent),
+    wins: formatWins(gg.championData.firstItems.mostGames.winPercent),
     games: gg.championData.firstItems.mostGames.games
   };
   const highest_core = {
     items: gg.championData.items.highestWinPercent.items,
-    wins: wins(gg.championData.items.highestWinPercent.winPercent),
+    wins: formatWins(gg.championData.items.highestWinPercent.winPercent),
     games: gg.championData.items.highestWinPercent.games
   };
   const highest_start = {
     items: gg.championData.firstItems.highestWinPercent.items,
-    wins: wins(gg.championData.firstItems.highestWinPercent.winPercent),
+    wins: formatWins(gg.championData.firstItems.highestWinPercent.winPercent),
     games: gg.championData.firstItems.highestWinPercent.games
   };
-
-  function processSkills(skills) {
-    const keys = {
-      1: 'Q',
-      2: 'W',
-      3: 'E',
-      4: 'R'
-    };
-    skills = R.map(skill => keys[skill[0]], skills);
-
-    if (store.get('settings').skillsformat) return shorthandSkills(skills);
-    return skills.join('.');
-  }
 
   const skills = {
     most_freq: processSkills(gg.championData.skills.mostGames.order),
@@ -163,8 +180,34 @@ function processChamp(request_params, body) {
     highestCore: (wins, games) => `${T.t('hw_core', true)} (${wins} ${T.t('wins').toLowerCase()} - ${games} ${T.t('games', true)})`
   };
 
-  function normalItemSets() {
-    const builds = [];
+  const formatted_builds = [];
+  if (store.get('settings').splititems) {
+    const mf_build = [
+      {
+        items: freq_start.build,
+        type: templates.freqStart(freq_start.wins, freq_start.games)
+      },
+      {
+        items: freq_core.build,
+        type: templates.freqCore(freq_core.wins, freq_core.games)
+      }
+    ];
+    const hw_build = [
+      {
+        items: highest_start.build,
+        type: templates.highestStart(highest_start.wins, highest_start.games)
+      },
+      {
+        items: highest_core.build,
+        type: templates.highestCore(highest_core.wins, highest_core.games)
+      }
+    ];
+    formatted_builds.push(
+      formatForStore(champ, current_position, T.t('most_freq', true), `${current_position}_mostfreq`, trinksCon(mf_build, skills)),
+      formatForStore(champ, current_position, T.t('highest_win', true), `${current_position}_highwin`, trinksCon(hw_build, skills))
+    );
+  } else {
+    let builds = [];
     if (R.equals(freq_start.build, highest_start.build)) {
       builds.push({
         items: freq_start.build,
@@ -196,60 +239,7 @@ function processChamp(request_params, body) {
       });
     }
 
-    return trinksCon(builds, skills);
-  }
-
-  function splitItemSets() {
-    const mf_build = [
-      {
-        items: freq_start.build,
-        type: templates.freqStart(freq_start.wins, freq_start.games)
-      },
-      {
-        items: freq_core.build,
-        type: templates.freqCore(freq_core.wins, freq_core.games)
-      }
-    ];
-
-    const hw_build = [
-      {
-        items: highest_start.build,
-        type: templates.highestStart(highest_start.wins, highest_start.games)
-      },
-      {
-        items: highest_core.build,
-        type: templates.highestCore(highest_core.wins, highest_core.games)
-      }
-    ];
-
-    return {
-      mf_build: trinksCon(mf_build, skills),
-      hw_build: trinksCon(hw_build, skills)
-    };
-  }
-
-  function formatForStore(champ, position, set_type, file_prefix, build) {
-    let title = T.t(position, true);
-    if (set_type) title += ` ${set_type}`;
-    const riot_json = R.merge(default_schema, {
-      champion: champ,
-      title: `CGG ${title} ${store.get('championgg_ver')}`,
-      blocks: build
-    });
-
-    if (store.get('settings').locksr) riot_json.map = 'SR';
-    return {champ, file_prefix, riot_json, source: 'championgg'};
-  }
-
-  const formatted_builds = [];
-  if (store.get('settings').splititems) {
-    const builds = splitItemSets();
-    formatted_builds.push(
-      formatForStore(champ, current_position, T.t('most_freq', true), `${current_position}_mostfreq`, builds.mf_build),
-      formatForStore(champ, current_position, T.t('highest_win', true), `${current_position}_highwin`, builds.hw_build)
-    );
-  } else {
-    const builds = normalItemSets();
+    builds = trinksCon(builds, skills);
     formatted_builds.push(formatForStore(champ, current_position, null, current_position, builds));
   }
 

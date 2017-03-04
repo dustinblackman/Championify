@@ -69,16 +69,16 @@
               "count": 1
             }
           ],
-          "type": "Most Frequent Starters (52.15% wins - 9647 games)"
+          "type": "Most Frequent Starters (50.58% wins - 3209 games)"
         },
         {
           "items": [
             {
-              "id": "3151",
+              "id": "3027",
               "count": 1
             },
             {
-              "id": "3020",
+              "id": "3158",
               "count": 1
             },
             {
@@ -86,7 +86,7 @@
               "count": 1
             },
             {
-              "id": "3089",
+              "id": "3151",
               "count": 1
             },
             {
@@ -94,11 +94,11 @@
               "count": 1
             },
             {
-              "id": "3165",
+              "id": "3089",
               "count": 1
             }
           ],
-          "type": "Most Frequent Core Build (53.05% wins - 571 games)"
+          "type": "Most Frequent Core Build (43.02% wins - 523 games)"
         }
       ],
       "title": "CGG Middle Most Frequent 5.16",
@@ -164,10 +164,6 @@
               "count": 1
             },
             {
-              "id": "2003",
-              "count": 2
-            },
-            {
               "id": "3340",
               "count": 1
             },
@@ -180,10 +176,14 @@
               "count": 1
             }
           ],
-          "type": "Highest Win % Starters (53.78% wins - 5528 games)"
+          "type": "Highest Win % Starters (57.69% wins - 52 games)"
         },
         {
           "items": [
+            {
+              "id": "3116",
+              "count": 1
+            },
             {
               "id": "3151",
               "count": 1
@@ -193,11 +193,7 @@
               "count": 1
             },
             {
-              "id": "3116",
-              "count": 1
-            },
-            {
-              "id": "3089",
+              "id": "3157",
               "count": 1
             },
             {
@@ -205,11 +201,11 @@
               "count": 1
             },
             {
-              "id": "3157",
+              "id": "3089",
               "count": 1
             }
           ],
-          "type": "Highest Win % Core Build (53.12% wins - 570 games)"
+          "type": "Highest Win % Core Build (65.63% wins - 64 games)"
         }
       ],
       "title": "CGG Middle Highest Win 5.16",
@@ -271,10 +267,6 @@
         {
           "items": [
             {
-              "id": "2004",
-              "count": 1
-            },
-            {
               "id": "2003",
               "count": 3
             },
@@ -295,12 +287,12 @@
               "count": 1
             }
           ],
-          "type": "Most Frequent Starters (54.88% wins - 1197 games)"
+          "type": "Most Frequent Starters (50.77% wins - 15165 games)"
         },
         {
           "items": [
             {
-              "id": "2049",
+              "id": "2301",
               "count": 1
             },
             {
@@ -320,11 +312,11 @@
               "count": 1
             },
             {
-              "id": "3165",
+              "id": "3157",
               "count": 1
             }
           ],
-          "type": "Most Frequent Core Build (53.88% wins - 470 games)"
+          "type": "Most Frequent Core Build (42.96% wins - 2137 games)"
         }
       ],
       "title": "CGG Support Most Frequent 5.16",
@@ -386,15 +378,7 @@
         {
           "items": [
             {
-              "id": "2003",
-              "count": 1
-            },
-            {
-              "id": "2004",
-              "count": 2
-            },
-            {
-              "id": "3303",
+              "id": "2031",
               "count": 1
             },
             {
@@ -410,16 +394,12 @@
               "count": 1
             }
           ],
-          "type": "Highest Win % Starters (61.06% wins - 226 games)"
+          "type": "Highest Win % Starters (70.97% wins - 31 games)"
         },
         {
           "items": [
             {
-              "id": "2049",
-              "count": 1
-            },
-            {
-              "id": "3151",
+              "id": "3116",
               "count": 1
             },
             {
@@ -427,11 +407,15 @@
               "count": 1
             },
             {
-              "id": "3116",
+              "id": "2301",
               "count": 1
             },
             {
-              "id": "3285",
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3157",
               "count": 1
             },
             {
@@ -439,7 +423,7 @@
               "count": 1
             }
           ],
-          "type": "Highest Win % Core Build (55.15% wins - 258 games)"
+          "type": "Highest Win % Core Build (48.53% wins - 340 games)"
         }
       ],
       "title": "CGG Support Highest Win 5.16",

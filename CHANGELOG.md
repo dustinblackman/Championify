@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="2.0.4" />
+## 2.0.4 (March 4th, 2017)
+
+#### Bug Fixes
+- Fixed Champion.gg win percentage not being formatted correctly
+
 <a name="2.0.3" />
 ## 2.0.3 (March 2nd, 2017)
 
