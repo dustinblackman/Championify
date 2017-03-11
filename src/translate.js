@@ -76,7 +76,7 @@ class Translate {
       ko: 'kr',
       ms: 'my',
       sl: 'si',
-      sr: 'cs',
+      sr: 'rs',
       sv: 'se',
       vi: 'vn'
     };
