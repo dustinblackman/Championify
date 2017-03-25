@@ -57,7 +57,6 @@ See [FAQ.md](FAQ.md)
 ## Future Plans
 Check out the [Features tag in Issues](https://github.com/dustinblackman/Championify/labels/feature) to see all up and coming ideas.
 
-<a name="clp" />
 ## Command Line Parameters
 Championify supports a few command line parameters for those who would like to automate a few tasks before it's official supported within the app. Params work on both Windows and OSX, and uses the last saved preferences made on the app (preferences are saved each time you hit import). The command line prefs do need improvement and can be tracked [here](https://github.com/dustinblackman/Championify/issues/165).
 
