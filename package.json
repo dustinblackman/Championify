@@ -35,7 +35,7 @@
     "electron-squirrel-startup": "1.0.0",
     "escodegen": "1.8.1",
     "esprima": "2.6.0",
-    "express": "4.15.2",
+    "express": "4.15.3",
     "fs-extra": "0.24.0",
     "glob": "5.0.15",
     "jquery": "3.1.1",
