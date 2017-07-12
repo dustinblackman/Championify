@@ -77,7 +77,17 @@ function getTopKDAItems(champ) {
 
 function getItems(champ_case) {
   const champ = champ_case.toLowerCase();
-  cl(`${T.t('processing')} ProBuilds: ${T.t(champ)}`);
+  try {
+    cl(`${T.t('processing')} ProBuilds: ${T.t(champ)}`);
+  } catch (err) {
+    store.push('undefined_builds', {
+      source: source_info.name,
+      champ,
+      position: 'All'
+    });
+    return;
+  }
+
   return Promise.join(
     request(`http://probuilds.net/champions/details/${champ_case}`).then(cheerio.load),
     getTopKDAItems(champ)
