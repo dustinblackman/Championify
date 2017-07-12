@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="2.0.5" />
+## 2.0.5 (July 12th, 2017)
+
+#### Bug Fixes
+- Fixed French tooltip translation being cut
+- Fixed Probuilds failing due to 404 with Kayn
+- Fixed Serbian flag
+- Fixed proper language translation for Polish
+
 <a name="2.0.4" />
 ## 2.0.4 (March 4th, 2017)
 
