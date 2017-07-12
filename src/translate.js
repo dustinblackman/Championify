@@ -3,6 +3,7 @@ import path from 'path';
 import R from 'ramda';
 
 import ChampionifyErrors from './errors';
+import Log from './logger';
 
 // Ingame locales are locals that LoL does not support, and instead default to English.
 const ingame_locals = ['ar', 'ja'];
@@ -42,7 +43,10 @@ class Translate {
     if (ingame && R.contains(this.locale, ingame_locals)) {
       translated_phrase = this.english_phrases[phrase];
     }
-    if (!translated_phrase) throw new ChampionifyErrors.TranslationError(`Phrase does not exist for ${this.locale}: ${phrase}`);
+    if (!translated_phrase) {
+      Log.error(new ChampionifyErrors.TranslationError(`Phrase does not exist for ${this.locale}: ${phrase}`));
+      return;
+    }
     return translated_phrase;
   }
 

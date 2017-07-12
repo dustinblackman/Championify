@@ -139,13 +139,18 @@ function _initSettings() {
 
 function completeView() {
   function loadUnavailable() {
-    const undefined_builds = store.get('undefined_builds');
-    if (!undefined_builds || !undefined_builds.length) {
+    const undefined_builds = R.sortBy(R.prop('source'), store.get('undefined_builds') || [])
+      .map(entry => {
+        const champ_translation = T.t(entry.champ);
+        if (!champ_translation) return;
+        return `<span>${entry.source} ${champ_translation}: ${T.t(entry.position)}</span><br />`;
+      })
+      .filter(R.identity);
+
+    if (!undefined_builds.length) {
       $('#not_available_log').append(`<span>${T.t('all_available')}</span><br />`);
     } else {
-      R.forEach(item => {
-        $('#not_available_log').append(`<span>${item.source} ${T.t(item.champ)}: ${T.t(item.position)}</span><br />`);
-      }, R.sortBy(R.prop('source'), undefined_builds));
+      undefined_builds.forEach(entry => $('#not_available_log').append(entry));
     }
   }
   return _viewChanger('complete', {}, loadUnavailable);
