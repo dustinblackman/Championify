@@ -70,7 +70,7 @@ export function getVersion() {
       return champgg_ver;
     })
     .catch(err => {
-      throw new ChampionifyErrors.RequestError('Can\'t get Champion.GG Version').causedBy(err);
+      throw new ChampionifyErrors.RequestError('Can\'t get Champion.gg version').causedBy(err);
     });
 }
 
@@ -96,14 +96,38 @@ function parseGGData($c) {
   return parsed_data;
 }
 
+function getChampsAndPositions() {
+  return request('http://champion.gg')
+    .then(body => {
+      const $c = cheerio.load(body);
+      const links = $c('.champ-height')
+        .find('a')
+        .map((idx, el) => $c(el).attr('href'))
+        .get();
+
+      return R.pipe(
+        R.map(R.split('/')),
+        R.filter(entry => entry.length > 3),
+        R.map(entry => ({
+          champ: entry[2],
+          position: entry[3]
+        })),
+        R.groupBy(R.prop('champ')),
+        R.map(R.pluck('position'))
+      )(links);
+    })
+    .catch(err => {
+      throw new ChampionifyErrors.RequestError('Can\'t get Champion.gg champions').causedBy(err);
+    });
+}
+
 /**
  * Process scraped Champion.GG page.
  * @param {Object} Champion object created by getSr
  * @param {String} Body of Champion.GG page
  */
 
-function processChamp(request_params, body) {
-  const champ = request_params.champ;
+function processChamp(champ, body) {
   const $c = cheerio.load(body);
   let gg;
   try {
@@ -243,15 +267,6 @@ function processChamp(request_params, body) {
     formatted_builds.push(formatForStore(champ, current_position, null, current_position, builds));
   }
 
-  // If there's other positions available, run them, otherwise end for this champ.
-  if (!request_params.position && positions.length > 0) {
-    positions = R.map(position => ({champ, position}), positions);
-    return Promise.resolve(positions)
-      .map(request_params => requestPage(request_params)) // eslint-disable-line no-use-before-define
-      .then(R.flatten)
-      .then(R.concat(formatted_builds));
-  }
-
   return formatted_builds;
 }
 
@@ -261,28 +276,20 @@ function processChamp(request_params, body) {
  * @returns {Promise}
  */
 
-function requestPage(request_params) {
-  const { champ, position } = request_params;
-  let url = `http://champion.gg/champion/${champ}`;
-  if (position) {
-    url += `/${position}`;
-  } else {
-    cl(`${T.t('processing')} Champion.gg: ${T.t(champ)}`);
-  }
-
+function requestPage(champ, position) {
   function markUndefined() {
     store.push('undefined_builds', {
       source: source_info.name,
       champ,
-      position: request_params.position || 'All'
+      position: position
     });
     return;
   }
 
-  return request(url)
+  return request(`http://champion.gg/champion/${champ}/${position}`)
     .then(body => {
       if (body.indexOf('We\'re currently in the process of generating stats for') > -1) return markUndefined();
-      return processChamp(request_params, body);
+      return processChamp(champ, body);
     })
     .catch(err => {
       Log.warn(err);
@@ -300,12 +307,17 @@ function requestPage(request_params) {
 export function getSr() {
   if (!store.get('championgg_ver')) return getVersion().then(getSr);
 
-  return Promise.resolve(store.get('champs'))
-    .then(R.reverse)
-    .map(champ => {
-      progressbar.incrChamp();
-      return requestPage({champ});
-    }, {concurrency: 3})
+  return getChampsAndPositions()
+    .then(champs => {
+      return Promise.map(R.reverse(R.keys(champs)), champ => {
+        cl(`${T.t('processing')} Champion.gg: ${T.t(champ)}`);
+        progressbar.incrChamp();
+
+        return Promise.map(champs[champ], position => {
+          return requestPage(champ, position);
+        }, {concurrency: 1});
+      }, {concurrency: 3});
+    })
     .then(R.flatten)
     .then(R.reject(R.isNil))
     .then(data => store.push('sr_itemsets', data));
