@@ -1,126 +1,6 @@
 [
   {
     "champ": "Brand",
-    "file_prefix": "middle",
-    "riot_json": {
-      "map": "any",
-      "blocks": [
-        {
-          "items": [
-            {
-              "id": "1056",
-              "count": 1
-            },
-            {
-              "id": "2003",
-              "count": 2
-            },
-            {
-              "id": "3340",
-              "count": 1
-            },
-            {
-              "id": "3341",
-              "count": 1
-            },
-            {
-              "id": "2055",
-              "count": 1
-            }
-          ],
-          "type": "Most Frequent Starters (50.58% wins - 3209 games)"
-        },
-        {
-          "items": [
-            {
-              "id": "1056",
-              "count": 1
-            },
-            {
-              "id": "3340",
-              "count": 1
-            },
-            {
-              "id": "3341",
-              "count": 1
-            },
-            {
-              "id": "2055",
-              "count": 1
-            }
-          ],
-          "type": "Highest Win % Starters (57.69% wins - 52 games)"
-        },
-        {
-          "items": [
-            {
-              "id": "3027",
-              "count": 1
-            },
-            {
-              "id": "3158",
-              "count": 1
-            },
-            {
-              "id": "3116",
-              "count": 1
-            },
-            {
-              "id": "3151",
-              "count": 1
-            },
-            {
-              "id": "3135",
-              "count": 1
-            },
-            {
-              "id": "3089",
-              "count": 1
-            }
-          ],
-          "type": "Most Frequent Core Build (43.02% wins - 523 games)"
-        },
-        {
-          "items": [
-            {
-              "id": "3116",
-              "count": 1
-            },
-            {
-              "id": "3151",
-              "count": 1
-            },
-            {
-              "id": "3020",
-              "count": 1
-            },
-            {
-              "id": "3157",
-              "count": 1
-            },
-            {
-              "id": "3135",
-              "count": 1
-            },
-            {
-              "id": "3089",
-              "count": 1
-            }
-          ],
-          "type": "Highest Win % Core Build (65.63% wins - 64 games)"
-        }
-      ],
-      "title": "CGG Middle 5.16",
-      "priority": false,
-      "mode": "any",
-      "type": "custom",
-      "sortrank": 1,
-      "champion": "Brand"
-    },
-    "source": "championgg"
-  },
-  {
-    "champ": "Brand",
     "file_prefix": "support",
     "riot_json": {
       "map": "any",
@@ -231,6 +111,126 @@
         }
       ],
       "title": "CGG Support 5.16",
+      "priority": false,
+      "mode": "any",
+      "type": "custom",
+      "sortrank": 1,
+      "champion": "Brand"
+    },
+    "source": "championgg"
+  },
+  {
+    "champ": "Brand",
+    "file_prefix": "middle",
+    "riot_json": {
+      "map": "any",
+      "blocks": [
+        {
+          "items": [
+            {
+              "id": "1056",
+              "count": 1
+            },
+            {
+              "id": "2003",
+              "count": 2
+            },
+            {
+              "id": "3340",
+              "count": 1
+            },
+            {
+              "id": "3341",
+              "count": 1
+            },
+            {
+              "id": "2055",
+              "count": 1
+            }
+          ],
+          "type": "Most Frequent Starters (50.58% wins - 3209 games)"
+        },
+        {
+          "items": [
+            {
+              "id": "1056",
+              "count": 1
+            },
+            {
+              "id": "3340",
+              "count": 1
+            },
+            {
+              "id": "3341",
+              "count": 1
+            },
+            {
+              "id": "2055",
+              "count": 1
+            }
+          ],
+          "type": "Highest Win % Starters (57.69% wins - 52 games)"
+        },
+        {
+          "items": [
+            {
+              "id": "3027",
+              "count": 1
+            },
+            {
+              "id": "3158",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3089",
+              "count": 1
+            }
+          ],
+          "type": "Most Frequent Core Build (43.02% wins - 523 games)"
+        },
+        {
+          "items": [
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3020",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            },
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3089",
+              "count": 1
+            }
+          ],
+          "type": "Highest Win % Core Build (65.63% wins - 64 games)"
+        }
+      ],
+      "title": "CGG Middle 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",

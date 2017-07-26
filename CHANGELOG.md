@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="2.0.6" />
+## 2.0.6 (July 25th, 2017)
+
+#### Bug Fixes
+- Fixed routes bug with Champion.gg
+
 <a name="2.0.5" />
 ## 2.0.5 (July 12th, 2017)
 
