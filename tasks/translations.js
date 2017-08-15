@@ -184,7 +184,7 @@ gulp.task('transifex:review', function() {
       const url = `https://${process.env.TRANSIFEX_KEY}@www.transifex.com/api/2/project/championify/resource/english-source/translation/${transifex_langs[lang] || lang}/?mode=default&file`;
       return requester(url)
         .then(R.prop('body'))
-        .then(JSON.parse)
+        .then(body => JSON.parse(body))
         .then(body => {
           new_translations[lang] = body;
           R.forEach(key => {
@@ -209,7 +209,7 @@ gulp.task('transifex:review', function() {
             .then(res => {
               to_review[lang][key].reserve = res.translatedText;
             });
-        }, {concurrency: 10})
+        }, {concurrency: 1})
         .then(() => {
           R.forEach(key => {
             console.log(`-----------------------------------
@@ -246,5 +246,9 @@ gulp.task('transifex:review', function() {
           });
         });
     })
-    .then(() => console.log('Review Done'));
+    .then(() => console.log('Review Done'))
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
 });
