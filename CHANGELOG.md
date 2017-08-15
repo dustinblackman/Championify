@@ -1,5 +1,12 @@
 # Changelog
 
+<a name="2.0.7" />
+## 2.0.7 (August 15th, 2017)
+
+#### Bug Fixes
+- Fixed displaying lolmaster version
+- Updated translations
+
 <a name="2.0.6" />
 ## 2.0.6 (July 25th, 2017)
 
