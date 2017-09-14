@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="2.0.8" />
+## 2.0.8 (September 14th, 2017)
+
+#### Bug Fixes
+- Replaced special items with what they're built from (e.g Orns Molten Edge to Infinity Edge)
+
 <a name="2.0.7" />
 ## 2.0.7 (August 15th, 2017)
 
