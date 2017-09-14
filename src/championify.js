@@ -74,8 +74,8 @@ function getChamps() {
 }
 
 // TODO: Write tests and docs
-function getItems() {
-  if (store.get('item_names')) return Promise.resolve(store.get('item_names'));
+function getSpecialItems() {
+  if (store.get('special_items')) return Promise.resolve(store.get('special_items'));
   const params = {
     url: `http://ddragon.leagueoflegends.com/cdn/${store.get('riot_ver')}/data/en_US/item.json`,
     json: true
@@ -83,14 +83,16 @@ function getItems() {
 
   return request(params)
     .then(R.prop('data'))
-    .then(R.values)
-    .map(data => {
-      if (!data.gold.purchasable) return;
-      return [data.name, data.image.full.replace(/.png/g, '')];
+    .then(items => {
+      return R.keys(items).map(id => {
+        const data = items[id];
+        if (data.specialRecipe) return [id, String(data.specialRecipe)];
+        if (data.requiredAlly) return [id, data.from[0]];
+      });
     })
-    .then(R.reject(R.isNil))
+    .filter(R.identity)
     .then(R.fromPairs)
-    .tap(items => store.set('item_names', items));
+    .tap(items => store.set('special_items', items));
 }
 
 /**
@@ -118,16 +120,28 @@ function deleteOldBuilds(deletebtn) {
 
 
 /**
- * Saves all compiled item sets to file, creating paths included.
+ * Fixes common issues between sources generated item sets, then saves all compiled item sets to file, creating paths included.
  * @returns {Promise}
  */
 
-function saveToFile() {
+function fixAndSaveToFile() {
+  const special_items = store.get('special_items');
+
   return Promise.resolve([store.get('sr_itemsets'), store.get('aram_itemsets')])
     .then(R.flatten)
     .then(R.reject(R.isNil))
     .each(data => {
       const champ = data.champ.toLowerCase() === 'wukong' ? 'monkeyking' : data.champ;
+
+      // Replaces special items that are not available in store. (e.g. Ornn items)
+      data.riot_json.blocks.map(block => {
+        block.items = block.items.map(item => {
+          if (special_items[item.id]) item.id = special_items[item.id];
+          return item;
+        });
+        return block;
+      });
+
       const itemset_data = JSON.stringify(data.riot_json, null, 4);
       const folder_path = path.join(store.get('itemset_path'), champ, 'Recommended');
       const file_path = path.join(folder_path, `CIFY_${champ}_${data.source}_${data.file_prefix}.json`);
@@ -212,7 +226,7 @@ function downloadItemSets() {
     .then(permissions.championTest)
     .then(getRiotVer)
     .then(getChamps)
-    .then(getItems)
+    .then(getSpecialItems)
     .then(() => Promise.all(R.map(source => {
       return source.method()
         .catch(err => {
@@ -227,7 +241,7 @@ function downloadItemSets() {
         });
     }, to_process)))
     .then(deleteOldBuilds)
-    .then(saveToFile)
+    .then(fixAndSaveToFile)
     .then(resavePreferences)
     .then(setWindowsPermissions)
     .then(() => {
@@ -253,6 +267,6 @@ export default {
   run: downloadItemSets,
   delete: deleteOldBuilds,
   getVersion: getRiotVer,
-  getItems,
+  getSpecialItems,
   verifySettings
 };
