@@ -1,3 +1,4 @@
+import Promise from 'bluebird';
 import R from 'ramda';
 import retry from 'bluebird-retry';
 
