@@ -1,7 +1,6 @@
 import Promise from 'bluebird';
 import { remote } from 'electron';
 import R from 'ramda';
-import retry from 'bluebird-retry';
 import $ from './jquery';
 
 import ChampionifyErrors from '../errors';
@@ -10,21 +9,14 @@ import store from '../store';
 import T from '../translate';
 import viewManager from '../view_manager';
 
-const requester = Promise.promisify(require('request'));
+// Export methods defined in request.js
+export * from './request';
+
 const prebuilts = require('../../data/prebuilts.json');
 
 // Windows Specific Dependencies
 let runas;
 if (process.platform === 'win32') runas = require('runas');
-
-const retry_options = {
-  max_tries: 3,
-  interval: 1000,
-  backoff: 2,
-  timeout: 30000,
-  throw_original: true
-};
-
 
 /**
  * Function if error exists, enable error view and log error ending the session.
@@ -37,35 +29,6 @@ export function EndSession(c_error) {
   viewManager.error();
   return false;
 }
-
-
-/**
- * Makes request with retry and 404 handling
- * @param {Object/String} URL
- * @returns {Promise.<Object|ChampionifyErrors.RequestError>} Request body
- */
-
-export function request(options) {
-  let params = {timeout: 10000};
-
-  if (R.is(String, options)) {
-    params.url = options;
-  } else {
-    params = R.merge(params, options);
-  }
-
-  return retry(() => {
-    return requester(params)
-      .then(res => {
-        if (res.statusCode >= 400) throw new ChampionifyErrors.RequestError(res.statusCode, params.url, res.body);
-        return res.body;
-      })
-      .catch(err => {
-        throw new ChampionifyErrors.RequestError(err.name, params.url, err);
-      });
-  }, retry_options);
-}
-
 
 /**
  * Re-executes Championify with elevated privileges, closing the current process if successful. Throws an error if user declines. Only works on Windows.
