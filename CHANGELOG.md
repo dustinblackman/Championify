@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="2.0.9" />
+## 2.0.9 (October 3rd, 2017)
+
+#### Bug Fixes
+- Limits outbound requests to fix timeout errors on some systems. [#342](https://github.com/dustinblackman/Championify/pull/342) (Thanks [gerriet-hinrichs](http://github.com/gerriet-hinrichs))
+
 <a name="2.0.8" />
 ## 2.0.8 (September 14th, 2017)
 
