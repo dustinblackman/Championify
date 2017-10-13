@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="2.0.10" />
+## 2.0.10 (October 13th, 2017)
+
+#### Bug Fixes
+- Fixed Koreanbuilds not finding champions to import. [#346](https://github.com/dustinblackman/Championify/issues/346)
+
 <a name="2.0.9" />
 ## 2.0.9 (October 3rd, 2017)
 
