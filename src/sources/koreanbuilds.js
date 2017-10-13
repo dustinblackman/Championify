@@ -42,7 +42,7 @@ export function getSr() {
       //     });
       //   });
 
-      return $c('div[class="champIcon "]')
+      return $c('.champIcon')
         .map((idx, elem) => {
           let name = $c(elem).attr('name');
           return {
@@ -63,7 +63,7 @@ export function getSr() {
 
         return champ_data;
       })
-    , {concurrency: 3})
+    )
     .then(R.reverse)
     .map(champ_data => {
       cl(`${T.t('processing')} Koreanbuilds: ${T.t(champ_data.formatted_name.toLowerCase().replace(/[^a-z]/g, ''))}`);
@@ -133,7 +133,7 @@ export function getSr() {
               source: 'koreanbuilds'
             };
           })
-        , {concurrency: 1})
+        )
         .catch(err => {
           Log.warn(err);
           store.push('undefined_builds', {champ: champ_data.formatted_name, position: champ_data.roles, source: source_info.name});
