@@ -78,6 +78,7 @@ C:\Users\YOURNAME\AppData\Local\Championify\championify.exe --processStartArgs -
 ```
 
 <a name="source" />
+
 ## Build From Source
 You must have Node 6.9.1 and npm 3 installed on your system (thats what Electron is using), git clone the repo and run the following in the root folder.
 
