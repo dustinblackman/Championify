@@ -44,15 +44,18 @@ export function getSr() {
 
       return $c('.champIcon')
         .map((idx, elem) => {
-          let name = $c(elem).attr('name');
+          const name = $c(elem).attr('name');
+          const id = $c(elem).attr('id');
+          if (!id) return;
           return {
-            id: $c(elem).attr('id'),
+            id,
             name,
             formatted_name: didyoumean(name, store.get('champs')) || name
           };
         })
         .get();
     })
+    .filter(R.identity)
     .tap(() => Log.info('koreanbuilds: Getting Roles'))
     .map(champ_data => request(`http://koreanbuilds.net/roles?championid=${champ_data.id}`)
       .then(cheerio.load)
@@ -63,7 +66,7 @@ export function getSr() {
 
         return champ_data;
       })
-    )
+    , {concurrency: 3})
     .then(R.reverse)
     .map(champ_data => {
       cl(`${T.t('processing')} Koreanbuilds: ${T.t(champ_data.formatted_name.toLowerCase().replace(/[^a-z]/g, ''))}`);

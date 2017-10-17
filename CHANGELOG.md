@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="2.0.11" />
+## 2.0.11 (October 17th, 2017)
+- Fixed parsing bug with Koreanbuilds. [#330](https://github.com/dustinblackman/Championify/issues/330)
+
+#### Bug Fixes
+
 <a name="2.0.10" />
 ## 2.0.10 (October 13th, 2017)
 
