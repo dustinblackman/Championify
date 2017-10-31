@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="2.1.0" />
+## 2.1.0 (October 31st, 2017)
+
+#### Features
+- Added initial Hindi and Khmer translations
+
+#### Bug Fixes
+- Updated German translations
+- Fixed Lolflavor endpoints
+
 <a name="2.0.11" />
 ## 2.0.11 (October 17th, 2017)
 - Fixed parsing bug with Koreanbuilds. [#330](https://github.com/dustinblackman/Championify/issues/330)
