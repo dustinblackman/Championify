@@ -182,7 +182,7 @@ export function getVersion() {
       return version;
     })
     .catch(err => {
-      Lhttp://www.lolflavor.com/champions/Ahri/Recommended/Ahri_mid_scrape.jsooog.warn(err);
+      Log.warn(err);
       return T.t('unknown');
     });
 }
