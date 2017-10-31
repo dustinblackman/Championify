@@ -57,6 +57,7 @@ __Language Status__
 | Georgian | No |
 | Greek | Yes |
 | Hebrew | Yes |
+| Hindi | No |
 | Hungarian | Yes |
 | Indonesian | Yes |
 | Italian | Yes |
