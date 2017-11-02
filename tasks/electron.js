@@ -9,7 +9,6 @@ import runSequence from 'run-sequence';
 import { spawnAsync } from './helpers';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
-const requestAsync = Promise.promisify(request);
 const yauzl = Promise.promisifyAll(require('yauzl'));
 
 const pkg = require('../package.json');

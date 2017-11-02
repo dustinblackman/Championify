@@ -45,11 +45,11 @@ gulp.task('dist', function(cb) {
 });
 
 gulp.task('dist:win', function(cb) {
-  return runSequence('test', 'delete-releases', 'create-releases-folder', 'package-asar', 'compile:win', 'sign:win', 'zip:win', cb);
+  return runSequence('package-asar', 'compile:win', 'compile:win-installer', 'sign:win', 'zip:win', cb);
 });
 
 gulp.task('dist:osx', function(cb) {
-  return runSequence('test', 'delete-releases', 'create-releases-folder', 'package-asar', 'compile:osx', 'zip:osx', cb);
+  return runSequence('test', 'package-asar', 'compile:osx', 'compile:dmg', 'zip:osx', cb);
 });
 
 gulp.task('release', function(cb) {
