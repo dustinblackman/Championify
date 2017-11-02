@@ -133,7 +133,7 @@ function extract(download_path, os) {
 function cache(os, arch) {
   fs.mkdirsSync('./cache');
   const version = pkg.devDependencies['electron'];
-  const download_link = `https://github.com/atom/electron/releases/download/v${version}/electron-v${version}-${os}-${arch}.zip`;
+  const download_link = `https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-${os}-${arch}.zip`;
 
   const zip_name = path.basename(download_link);
   const download_path = path.join('./cache', zip_name);
