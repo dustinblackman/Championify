@@ -1,7 +1,7 @@
 [
   {
     "champ": "Katarina",
-    "file_prefix": "lane",
+    "file_prefix": "top",
     "riot_json": {
       "isGlobalForChampions": false,
       "associatedChampions": [],
@@ -193,7 +193,413 @@
       ],
       "associatedMaps": [],
       "map": "any",
-      "title": "LFV Lane 5.18",
+      "title": "LFV Top 5.18",
+      "isGlobalForMaps": true,
+      "sortrank": 2,
+      "type": "custom",
+      "champion": "Katarina",
+      "priority": false
+    },
+    "source": "lolflavor"
+  },
+  {
+    "champ": "Katarina",
+    "file_prefix": "mid",
+    "riot_json": {
+      "isGlobalForChampions": false,
+      "associatedChampions": [],
+      "mode": "any",
+      "blocks": [
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "1054"
+            },
+            {
+              "count": 1,
+              "id": "1029"
+            },
+            {
+              "count": 1,
+              "id": "1028"
+            },
+            {
+              "count": 1,
+              "id": "3340"
+            },
+            {
+              "count": 1,
+              "id": "3363"
+            },
+            {
+              "count": 1,
+              "id": "3341"
+            }
+          ],
+          "type": "Starter"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3285"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3361"
+            },
+            {
+              "count": 1,
+              "id": "1001"
+            }
+          ],
+          "type": "Core Items - Max Skill:  Q>W>E"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3001"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3136"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3041"
+            }
+          ],
+          "type": "Core Alternatives - Endgame Items"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3020"
+            },
+            {
+              "count": 1,
+              "id": "1314"
+            }
+          ],
+          "type": "Boots"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3362"
+            },
+            {
+              "count": 1,
+              "id": "3146"
+            },
+            {
+              "count": 1,
+              "id": "3026"
+            },
+            {
+              "count": 1,
+              "id": "3102"
+            },
+            {
+              "count": 1,
+              "id": "3140"
+            },
+            {
+              "count": 1,
+              "id": "3364"
+            },
+            {
+              "count": 1,
+              "id": "3068"
+            }
+          ],
+          "type": "Situational Items"
+        },
+        {
+          "items": [
+            {
+              "id": "2003",
+              "count": 1
+            },
+            {
+              "id": "2004",
+              "count": 1
+            },
+            {
+              "id": "2055",
+              "count": 1
+            },
+            {
+              "id": "2031",
+              "count": 1
+            },
+            {
+              "id": "2032",
+              "count": 1
+            },
+            {
+              "id": "2033",
+              "count": 1
+            },
+            {
+              "id": "2138",
+              "count": 1
+            },
+            {
+              "id": "2140",
+              "count": 1
+            },
+            {
+              "id": "2139",
+              "count": 1
+            }
+          ],
+          "type": "Consumables"
+        },
+        {
+          "items": [
+            {
+              "id": "3364",
+              "count": 1
+            },
+            {
+              "id": "3363",
+              "count": 1
+            }
+          ],
+          "type": "Trinkets"
+        }
+      ],
+      "associatedMaps": [],
+      "map": "any",
+      "title": "LFV Middle 5.18",
+      "isGlobalForMaps": true,
+      "sortrank": 2,
+      "type": "custom",
+      "champion": "Katarina",
+      "priority": false
+    },
+    "source": "lolflavor"
+  },
+  {
+    "champ": "Katarina",
+    "file_prefix": "adc",
+    "riot_json": {
+      "isGlobalForChampions": false,
+      "associatedChampions": [],
+      "mode": "any",
+      "blocks": [
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "1054"
+            },
+            {
+              "count": 1,
+              "id": "1029"
+            },
+            {
+              "count": 1,
+              "id": "1028"
+            },
+            {
+              "count": 1,
+              "id": "3340"
+            },
+            {
+              "count": 1,
+              "id": "3363"
+            },
+            {
+              "count": 1,
+              "id": "3341"
+            }
+          ],
+          "type": "Starter"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3285"
+            },
+            {
+              "count": 1,
+              "id": "3157"
+            },
+            {
+              "count": 1,
+              "id": "3361"
+            },
+            {
+              "count": 1,
+              "id": "1001"
+            }
+          ],
+          "type": "Core Items - Max Skill:  Q>W>E"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3089"
+            },
+            {
+              "count": 1,
+              "id": "3001"
+            },
+            {
+              "count": 1,
+              "id": "3135"
+            },
+            {
+              "count": 1,
+              "id": "3136"
+            },
+            {
+              "count": 1,
+              "id": "3116"
+            },
+            {
+              "count": 1,
+              "id": "3151"
+            },
+            {
+              "count": 1,
+              "id": "3041"
+            }
+          ],
+          "type": "Core Alternatives - Endgame Items"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3020"
+            },
+            {
+              "count": 1,
+              "id": "1314"
+            }
+          ],
+          "type": "Boots"
+        },
+        {
+          "items": [
+            {
+              "count": 1,
+              "id": "3362"
+            },
+            {
+              "count": 1,
+              "id": "3146"
+            },
+            {
+              "count": 1,
+              "id": "3026"
+            },
+            {
+              "count": 1,
+              "id": "3102"
+            },
+            {
+              "count": 1,
+              "id": "3140"
+            },
+            {
+              "count": 1,
+              "id": "3364"
+            },
+            {
+              "count": 1,
+              "id": "3068"
+            }
+          ],
+          "type": "Situational Items"
+        },
+        {
+          "items": [
+            {
+              "id": "2003",
+              "count": 1
+            },
+            {
+              "id": "2004",
+              "count": 1
+            },
+            {
+              "id": "2055",
+              "count": 1
+            },
+            {
+              "id": "2031",
+              "count": 1
+            },
+            {
+              "id": "2032",
+              "count": 1
+            },
+            {
+              "id": "2033",
+              "count": 1
+            },
+            {
+              "id": "2138",
+              "count": 1
+            },
+            {
+              "id": "2140",
+              "count": 1
+            },
+            {
+              "id": "2139",
+              "count": 1
+            }
+          ],
+          "type": "Consumables"
+        },
+        {
+          "items": [
+            {
+              "id": "3364",
+              "count": 1
+            },
+            {
+              "id": "3363",
+              "count": 1
+            }
+          ],
+          "type": "Trinkets"
+        }
+      ],
+      "associatedMaps": [],
+      "map": "any",
+      "title": "LFV ADC 5.18",
       "isGlobalForMaps": true,
       "sortrank": 2,
       "type": "custom",

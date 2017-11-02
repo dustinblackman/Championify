@@ -62,6 +62,7 @@ __Language Status__
 | Indonesian | Yes |
 | Italian | Yes |
 | Japanese | Yes |
+| Khmer | No |
 | Korean | Yes |
 | Latvian | Yes |
 | Lithuanian | Yes |

@@ -1,6 +1,6 @@
 {
   "name": "Championify",
-  "version": "2.0.11",
+  "version": "2.1.0",
   "description": "Downloads all the recent builds from websites like Champion.gg and imports them in to League of Legends.",
   "main": "electron.js",
   "scripts": {
