@@ -12,7 +12,6 @@ const csspaths = require('../../data/csspaths.json');
 const default_schema = require('../../data/default.json');
 const prebuilts = require('../../data/prebuilts.json');
 
-const skills_map = ['Q', 'W', 'E', 'R'];
 const templates = {
   combindedStart: (pickrate, winrate) => `${T.t('frequent', true)}/${T.t('highest_start', true)} - Winrate: ${winrate}, Pickrate: ${pickrate}%`,
   combinedCore: (pickrate, winrate) => `${T.t('frequent', true)}/${T.t('highest_core', true)} - Winrate: ${winrate}%, Pickrate: ${pickrate}%`,
@@ -55,7 +54,7 @@ function createSituationalItemsBlock(templateFunc, rate_type, items) {
   const sorted = R.reverse(R.sortBy(R.prop(rate_type), items));
   const rate = `${sorted[0][rate_type]}-${sorted[5][rate_type]}`;
   return {
-    items: arrayToBuilds(R.pluck('items', sorted).slice(0, 5)),
+    items: arrayToBuilds(R.pluck('items', sorted).slice(0, 6)),
     type: templateFunc(rate),
     rate
   };
@@ -89,11 +88,28 @@ function mapItems($, selector) {
       el = $(el);
       const items = el.find('img')
         .map((idx, item_el) => R.last($(item_el).attr('src').split('/')).split('.')[0])
+        .filter(entry => entry !== 'blet')
         .get();
-      const pickrate = Number(el.find('.PickRate').eq(0).contents().filter(function() {
-        return this.type === 'text';
-      }).text().replace(/[^0-9.]/g, ''));
-      const winrate = Number(el.find('.WinRate').eq(0).text().replace(/[^0-9.]/g, ''));
+
+      const pickrate = Number(el
+        .find('.champion-stats__table__cell--pickrate')
+        .eq(0)
+        .contents()
+        .filter(function() {
+          return this.type === 'text';
+        })
+        .text()
+        .split('%')[0]
+        .replace(/[^0-9.]/g, '')
+        .trim()
+      );
+
+      const winrate = Number(el
+        .find('.champion-stats__table__cell--winrate')
+        .eq(0)
+        .text()
+        .replace(/[^0-9.]/g, '')
+    );
 
       return {items, pickrate, winrate};
     })
@@ -104,16 +120,9 @@ function mapSkills($, selector) {
   const skills = $(selector)
     .map((idx, el) => {
       el = $(el);
-      const pickrate = el.find('.PickRate > div').text().trim().replace(/[^0-9.]/g, '');
-      const winrate = el.find('.WinRate').text().trim().replace(/[^0-9.]/g, '');
-      const skills = [];
-      el.find('.Row').each((idx, row) => {
-        const ability = skills_map[idx];
-        $(row).find('.LevelUP').map((idx, cell) => {
-          skills[Number($(cell).text().trim()) - 1] = ability;
-        });
-      });
-
+      const pickrate = el.find('.champion-stats__table__cell--pickrate').text().split('%')[0].replace(/[^0-9.]/g, '').trim() + '%';
+      const winrate = el.find('.champion-stats__table__cell--winrate').text().split('%')[0].replace(/[^0-9.]/g, '').trim() + '%';
+      const skills = el.find('tr').eq(1).text().replace(/[^A-Z]/g, '').split('');
       return {skills, pickrate, winrate};
     })
     .get();
@@ -147,7 +156,7 @@ function _makeRequest(url) {
 export function getVersion() {
   return request('https://www.op.gg/champion/ahri/statistics/mid')
     .then(cheerio.load)
-    .then($ => R.last($('span.Small').text().split(': ')))
+    .then($ => R.last($('.champion-stats-header-version').text().split(':')).trim())
     .tap(version => store.set('opgg_ver', version));
 }
 
@@ -156,8 +165,8 @@ export function getSr() {
 
   return _makeRequest('https://www.op.gg/champion/statistics')
     .then($ => {
-      return $('.ChampionIndexGrid')
-        .find('.Item')
+      return $('.champion-index__champion-list')
+        .find('.champion-index__champion-item')
         .map((idx, el) => {
           el = $(el);
           return {

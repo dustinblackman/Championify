@@ -5,11 +5,11 @@
   },
   "opgg": {
     "version": "body > div.LayoutWrap.CurrentMenu-champion > div.ContentWrap > div > div.PageHeaderWrap > div.PageDescription > span.Small",
-    "starter": "div.SideContent > div:nth-child(3) > div > table > tbody > tr",
-    "boots": "div.SideContent > div:nth-child(2) > div > table > tbody > tr",
-    "core": "div.SideContent > div:nth-child(1) > div > table > tbody > tr",
-    "items": "div.RealContent > div > div > table > tbody > tr",
-    "skills": "div > div > div > table > tbody > tr"
+    "starter": "div > div.l-champion-statistics-content__main > div:nth-child(3) > div > table > tbody > tr",
+    "boots": "div > div.l-champion-statistics-content__main > div:nth-child(2) > div > table > tbody > tr",
+    "core": "div > div.l-champion-statistics-content__main > div:nth-child(1) > div > table > tbody > tr",
+    "items": "div > div.l-champion-statistics-content__side > div > div > table > tbody > tr",
+    "skills": "div > div > div.tabItem.ChampionSkillPriorites-1 > table > tbody > tr"
   },
   "lolmasters": {
     "version": "span:contains('Patch:')"
