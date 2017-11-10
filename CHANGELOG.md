@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="2.1.1" />
+## 2.1.1 (November 10th, 2017)
+
+#### Bug Fixes
+- Fixed op.gg to work with updated website
+
 <a name="2.1.0" />
 ## 2.1.0 (October 31st, 2017)
 
