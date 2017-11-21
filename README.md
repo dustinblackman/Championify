@@ -5,7 +5,6 @@
 _Champion-If-Ayyy_
 
 [![Donate](https://img.shields.io/badge/Donate-Patreon-5cb85c.svg)](https://patreon.com/dustinblackman)
-[![Join the chat at https://gitter.im/dustinblackman/Championify](https://img.shields.io/badge/%E2%8A%AA%20GITTER%20-JOIN%20CHAT%20%E2%86%92-brightgreen.svg?style=flat)](https://gitter.im/dustinblackman/Championify?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![API Doc](https://doclets.io/dustinblackman/Championify/master.svg)](https://doclets.io/dustinblackman/Championify/master)
 [![Travis](https://img.shields.io/travis/dustinblackman/Championify/master.svg)](https://travis-ci.org/dustinblackman/Championify/builds)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/dt20uyoxt2skgneu/branch/master?svg=true)](https://ci.appveyor.com/project/dustinblackman/championify/branch/master)
@@ -32,7 +31,7 @@ There's also [Championify for Android](https://github.com/OmerValentine/Champion
 - Summoners Rift and ARAM Item Sets
 - 7 Sources (Champion.gg, LolFlavor, KoreanBuilds, op.gg, Lolalytics, Probuilds, and Lolmasters)
 - Skill Priorities lists (Q.W.E.Q.E.R) or Q>E>W
-- 39 Languages
+- 41 Languages
 - Bunch of preferences to display item sets in the way you prefer
 - Automation using command line preferences (simpler system coming soon)
 - Automatically save preference settings
@@ -49,7 +48,7 @@ Found [here](https://github.com/dustinblackman/Championify/releases/latest)
 I'm completely open to new ideas and suggestions! Put up an [Issue](https://github.com/dustinblackman/Championify/issues), hit me up on [Gitter](https://gitter.im/dustinblackman/Championify), or send me a message on reddit [/u/dustinheroin](https://www.reddit.com/user/dustinheroin) and I'll see what I can do.
 
 ## Contribute
-Please see [CONTRIBUTE.md](CONTRIBUTE.md)
+Please see [CONTRIBUTING.md](./.github/CONTRIBUTING.md)
 
 ## [FAQ](FAQ.md)
 See [FAQ.md](FAQ.md)
