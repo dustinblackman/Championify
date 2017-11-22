@@ -88,7 +88,7 @@ describe('src/path_manager', () => {
         should.not.exist(err);
         selected_path.should.equal(test_path);
         config_dir.should.equal('Game/Config/Champions/');
-        executable.should.equal('lol.exe');
+        executable.should.equal('lolex.exe');
         done();
       });
     });
