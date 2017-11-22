@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="2.1.2" />
+## 2.1.2 (November 22nd, 2017)
+
+#### Bug Fixes
+- Fixed garena path checking. [#367 @hollowsxd](https://github.com/dustinblackman/Championify/pull/367)
+
 <a name="2.1.1" />
 ## 2.1.1 (November 10th, 2017)
 
