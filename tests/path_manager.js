@@ -82,7 +82,7 @@ describe('src/path_manager', () => {
 
     it('should the correct path for garena check 1 installation', function(done) {
       fs.mkdirsSync('./tmp/2/');
-      fs.writeFileSync('./tmp/2/lol.exe', '123', 'utf8');
+      fs.writeFileSync('./tmp/2/lolex.exe', '123', 'utf8');
       const test_path = path.resolve('./tmp/2/');
       pathManager.checkInstallPath(test_path, function(err, selected_path, config_dir, executable) {
         should.not.exist(err);
