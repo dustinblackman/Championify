@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="2.1.3" />
+## 2.1.3 (November 22nd, 2017)
+
+#### Bug Fixes
+- Fixed windows builds not being signed correctly. Some users may be forced to reinstall. Fixes #366 and #370.
+
 <a name="2.1.2" />
 ## 2.1.2 (November 22nd, 2017)
 

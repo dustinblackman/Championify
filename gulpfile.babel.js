@@ -40,6 +40,10 @@ gulp.task('build:win-sign', function(cb) {
   return runSequence('package-asar', 'compile:win', 'sign:win', 'move:compiled-win:folder', cb);
 });
 
+gulp.task('pre-dist', function(cb) {
+  return runSequence('test', 'delete-releases', 'create-releases-folder', cb);
+});
+
 gulp.task('dist', function(cb) {
   return runSequence('test', 'delete-releases', 'create-releases-folder', 'package-asar', 'compile:all', 'sign:win', 'zip:all', cb);
 });
@@ -49,7 +53,7 @@ gulp.task('dist:win', function(cb) {
 });
 
 gulp.task('dist:osx', function(cb) {
-  return runSequence('test', 'package-asar', 'compile:osx', 'compile:dmg', 'zip:osx', cb);
+  return runSequence('package-asar', 'compile:osx', 'compile:dmg', 'zip:osx', cb);
 });
 
 gulp.task('release', function(cb) {

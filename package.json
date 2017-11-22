@@ -1,6 +1,6 @@
 {
   "name": "Championify",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Downloads all the recent builds from websites like Champion.gg and imports them in to League of Legends.",
   "main": "electron.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "lint": "gulp lint",
     "mocha": "gulp mocha",
     "postinstall": "gulp postinstall",
-    "release": "gulp release"
+    "release": "gulp pre-dist && gulp dist:win && gulp dist:osx && gulp upload"
   },
   "repository": {
     "type": "git",
