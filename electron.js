@@ -1,7 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import fs from 'fs';
 import path from 'path';
-import R from 'ramda';
 
 // Used for Squirrel install on Windows
 if (require('electron-squirrel-startup')) app.quit();
@@ -29,7 +28,7 @@ app.on('ready', () => {
   if (dev_enabled) main_window.openDevTools({detach: true});
 
   main_window.webContents.on('did-finish-load', () => {
-    if (!R.contains('--autorun', process.argv)) return main_window.show();
+    if (process.argv.includes('--autorun')) return main_window.show();
   });
 
   main_window.on('closed', () => {
