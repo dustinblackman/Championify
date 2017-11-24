@@ -4,7 +4,7 @@ import webpack = require("webpack");
 import WebpackDevServer = require("webpack-dev-server");
 
 const root = path.join(__dirname, "../../");
-const src = path.join(root, "client");
+const src = path.join(root, "app");
 const port = 3000;
 const ip = "0.0.0.0";
 
@@ -46,17 +46,13 @@ const config: webpack.Configuration = {
   module: {
     loaders: [
       {
-        test: /\.(png|j|jpeg|gif|svg|woff|woff2)$/,
+        test: /\.(png|j|jpeg|jpg|gif|svg|woff|woff2)$/,
         use: {
           loader: "url-loader",
           options: {
             limit: 10000
           }
         }
-      },
-      {
-        test: /\.tsx?$/,
-        loaders: ["react-hot-loader/webpack", "ts-loader"]
       },
       {
         test: /\.css$/,
@@ -77,9 +73,13 @@ const config: webpack.Configuration = {
         test: /\.scss$/,
         use: [
           {loader: "style-loader"},
-          {loader: "css-loader"},
+          {loader: "css-loader", options: {modules: true, localIdentName: "[local]_[hash:base64:5]"}},
           {loader: "sass-loader"}
         ]
+      },
+      {
+        test: /\.tsx?$/,
+        loaders: ["react-hot-loader/webpack", "ts-loader"]
       }
     ]
   }

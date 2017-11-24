@@ -22,7 +22,7 @@
     "node_modules"
   ],
   "include": [
-    "client/**/*.ts*",
+    "app/**/*.ts*",
     "scripts/**/*.ts",
     "typings/*.ts"
   ]
