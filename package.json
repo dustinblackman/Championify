@@ -51,6 +51,7 @@
     "react-dom": "^16.1.1",
     "react-hot-loader": "^3.1.3",
     "react-redux": "^5.0.6",
+    "react-select": "^1.0.1",
     "reactstrap": "^5.0.0-alpha.4",
     "redux": "^3.7.2",
     "request": "^2.83.0",
@@ -98,6 +99,7 @@
     "@types/react-dom": "^16.0.3",
     "@types/react-hot-loader": "^3.0.5",
     "@types/react-redux": "^5.0.13",
+    "@types/react-select": "^1.0.59",
     "@types/reactstrap": "^5.0.3",
     "@types/request": "^2.0.8",
     "@types/request-promise": "^4.1.39",
@@ -202,6 +204,11 @@
     }
   },
   "stylelint": {
-    "extends": "stylelint-config-standard"
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "selector-class-pattern": "^([a-z][a-z0-9]*)(_[a-z0-9]+)*$",
+      "string-quotes": "double",
+      "value-keyword-case": "lower"
+    }
   }
 }

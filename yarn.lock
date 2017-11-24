@@ -288,6 +288,12 @@
     "@types/react" "*"
     redux "^3.6.0"
 
+"@types/react-select@^1.0.59":
+  version "1.0.59"
+  resolved "https://registry.yarnpkg.com/@types/react-select/-/react-select-1.0.59.tgz#791022e5b2c7cd5c86301949ea5e4cc94a55bc66"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^16.0.25":
   version "16.0.25"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.25.tgz#bf696b83fe480c5e0eff4335ee39ebc95884a1ed"
@@ -1658,7 +1664,7 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-classnames@^2.2.3, classnames@^2.2.5:
+classnames@^2.2.3, classnames@^2.2.4, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -7476,6 +7482,12 @@ react-hot-loader@^3.1.3:
     redbox-react "^1.3.6"
     source-map "^0.6.1"
 
+react-input-autosize@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.1.0.tgz#90631c093d66d392ddc995903430ee238bb1f01f"
+  dependencies:
+    prop-types "^15.5.8"
+
 react-popper@^0.7.2:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.7.4.tgz#8649d539837e7c6f47bc9b24c9cf57a404e199a1"
@@ -7499,6 +7511,14 @@ react-redux@^5.0.6:
     lodash-es "^4.2.0"
     loose-envify "^1.1.0"
     prop-types "^15.5.10"
+
+react-select@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.1.tgz#27431bcd40c920b9d36a9282141bc245e47a43aa"
+  dependencies:
+    classnames "^2.2.4"
+    prop-types "^15.5.8"
+    react-input-autosize "^2.1.0"
 
 react-transition-group@^2.2.0:
   version "2.2.1"
