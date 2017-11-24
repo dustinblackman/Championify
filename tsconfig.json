@@ -22,6 +22,8 @@
     "node_modules"
   ],
   "include": [
-    "src/**/*.ts*"
+    "client/**/*.ts*",
+    "scripts/**/*.ts",
+    "typings/*.ts"
   ]
 }
