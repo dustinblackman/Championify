@@ -264,9 +264,9 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/open/-/open-0.0.29.tgz#3de910012674909db14d608d1fde44ffa7a9ecea"
 
-"@types/ramda@^0.25.6":
-  version "0.25.6"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.25.6.tgz#ae025d27f0df1f7993847db30fd84afe5b5b759e"
+"@types/ramda@0.25.3":
+  version "0.25.3"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.25.3.tgz#ae5d1714e1c8b1d2622deca3690bd3e2fd0446dd"
 
 "@types/react-dom@^16.0.3":
   version "16.0.3"
