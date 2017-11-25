@@ -1,3 +1,4 @@
+import autoprefixer = require("autoprefixer");
 import * as HtmlWebpackPlugin from "html-webpack-plugin";
 import * as path from "path";
 import webpack = require("webpack");
@@ -73,7 +74,14 @@ const config: webpack.Configuration = {
         test: /\.scss$/,
         use: [
           {loader: "style-loader"},
-          {loader: "css-loader", options: {modules: true, localIdentName: "[local]_[hash:base64:5]"}},
+          {loader: "css-loader", options: {
+            importLoaders: 1,
+            modules: true,
+            localIdentName: "[local]_[hash:base64:5]"
+          }},
+          {loader: "postcss-loader", options: {
+            plugins: [autoprefixer({})] // TODO Limit to only Electron as as browser.
+          }},
           {loader: "sass-loader"}
         ]
       },

@@ -67,6 +67,7 @@
     "winston-electron": "0.0.2"
   },
   "devDependencies": {
+    "@types/autoprefixer": "^6.7.3",
     "@types/babel-core": "^6.25.3",
     "@types/bluebird": "^3.5.18",
     "@types/bluebird-retry": "^0.11.0",
@@ -115,6 +116,7 @@
     "@types/webpack-hot-middleware": "^2.16.2",
     "@types/winston": "^2.3.7",
     "asar": "^0.14.0",
+    "autoprefixer": "^7.1.6",
     "aws-sdk": "^2.7.11",
     "babel-core": "6.18.2",
     "babel-istanbul": "0.7.0",
@@ -161,6 +163,7 @@
     "node-sass": "^4.7.2",
     "nyc": "^11.3.0",
     "plist": "1.1.0",
+    "postcss-loader": "^2.0.9",
     "prompt": "0.2.14",
     "rcedit": "0.7.0",
     "require-dir": "^0.3.2",

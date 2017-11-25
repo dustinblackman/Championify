@@ -2,3 +2,21 @@
   padding-top: 10px;
 }
 
+.input_box {
+  display: block;
+  border-radius: 0;
+  width: 250px;
+  height: 35px;
+  outline: none;
+  padding: 0 35px 0 30px;
+  background: #010913;
+  background-position: center left 7px;
+  background-size: 17px;
+  background-repeat: no-repeat;
+  border: 1px solid #5d471d
+
+  // &:focus {
+    // outline: none;
+    // border-color: #a09b8c
+  // }
+}

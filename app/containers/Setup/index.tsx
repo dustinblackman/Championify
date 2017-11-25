@@ -1,9 +1,10 @@
 import React = require("react");
 import { connect } from "react-redux";
 import Select from "react-select";
-import { Button, Col, Container, Input, InputGroup, InputGroupButton, Row } from "reactstrap";
+import { Col, Container, Input, InputGroup, InputGroupButton, Row } from "reactstrap";
 import { bindActionCreators } from "redux";
 
+import Button from "../../components/Button";
 import { ReducersState } from "../../store/reducers";
 import { sourceSelectActions, SourceSelectOption, SourceSelectProps } from "../../store/reducers/source-select";
 
@@ -28,7 +29,7 @@ class Setup extends React.Component<Props, {}> {
         <Row>
           <Col>
             <InputGroup>
-              <Input id="league_path" placeholder="Select League Of Legends.app" />
+              <Input className={styles.input_box} id="league_path" placeholder="Select League Of Legends.app" />
               <InputGroupButton><Button>Browse</Button></InputGroupButton>
             </InputGroup>
           </Col>
@@ -43,6 +44,13 @@ class Setup extends React.Component<Props, {}> {
               options={select_options}
             />
           </Col>
+        </Row>
+        <Row>
+          <Col />
+          <Col>
+            <h3 style={{color: "white"}}>Sources</h3>
+          </Col>
+          <Col />
         </Row>
       </Container>
     );
