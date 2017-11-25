@@ -18,9 +18,9 @@
   border: 1px solid #785b2c;
 
   &:hover {
-    // outline: none;
     border-image-source: linear-gradient(to bottom, #5d471d, #c7a96d);
     border-width: 0.1pt;
     border-image-slice: 1;
+    outline: none;
   }
 }

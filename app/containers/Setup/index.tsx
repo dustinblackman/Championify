@@ -1,7 +1,7 @@
 import React = require("react");
 import { connect } from "react-redux";
 // import Select from "react-select";
-import { Col, Container, Row } from "reactstrap";
+import { Col, Container, InputGroup, Row } from "reactstrap";
 import { bindActionCreators } from "redux";
 
 import Button from "../../components/Button";
@@ -28,13 +28,10 @@ class Setup extends React.Component<Props, {}> {
       <Container className={styles.top_padding}>
         <Row>
           <Col>
-            <input type="text" className={styles.input_box} placeholder={"Select League of Legends.app"}/>
-          </Col>
-        </Row>
-        <br />
-        <Row>
-          <Col>
-            <Button>Browse</Button>
+            <InputGroup>
+              <input type="text" className={styles.input_box} placeholder={"Select League of Legends.app"} />
+              <Button size="0.70">Browse</Button>
+            </InputGroup>
           </Col>
         </Row>
       </Container>
