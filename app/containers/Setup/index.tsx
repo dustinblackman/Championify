@@ -1,7 +1,7 @@
 import React = require("react");
 import { connect } from "react-redux";
-import Select from "react-select";
-import { Col, Container, Input, InputGroup, InputGroupButton, Row } from "reactstrap";
+// import Select from "react-select";
+import { Col, Container, Row } from "reactstrap";
 import { bindActionCreators } from "redux";
 
 import Button from "../../components/Button";
@@ -19,10 +19,10 @@ class Setup extends React.Component<Props, {}> {
 
   render() {
     // TODO Replace.
-    const select_options = [
-      { value: "one", label: "One" },
-      { value: "two", label: "Two" }
-    ];
+    // const select_options = [
+      // { value: "one", label: "One" },
+      // { value: "two", label: "Two" }
+    // ];
 
     return (
       <Container className={styles.top_padding}>
@@ -34,29 +34,8 @@ class Setup extends React.Component<Props, {}> {
         <br />
         <Row>
           <Col>
-            <InputGroup>
-              <Input className={styles.input_box} id="league_path" placeholder="Select League Of Legends.app" />
-              <InputGroupButton><Button>Browse</Button></InputGroupButton>
-            </InputGroup>
+            <Button>Browse</Button>
           </Col>
-        </Row>
-        <Row className={styles.top_padding}>
-          <Col>
-            <Select
-              name="source-selection"
-              value={this.props.sources}
-              multi={true}
-              onChange={this.handleSourceSelect}
-              options={select_options}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col />
-          <Col>
-            <h3 style={{color: "white"}}>Sources</h3>
-          </Col>
-          <Col />
         </Row>
       </Container>
     );

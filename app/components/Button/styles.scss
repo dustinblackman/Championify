@@ -1,31 +1,21 @@
 .button {
-  border: none;
-  border-radius: 0;
-  box-shadow: 0 0 28px #000;
+  background: #1e2328;
+  border-image-source: linear-gradient(to bottom, #c8aa71, #7a5d2c);
+  border-width: 0.1pt;
+  border-image-slice: 1;
+  box-shadow: inset 0.01px 0.01px 0.01px 1px #060f17;
+  color: #ccbe93;
   cursor: pointer;
-
-  &:hover,
-  &:focus {
-    animation: button_pulse 1.5s;
-    outline: none;
-    filter: brightness(1.3);
-  }
-}
-
-.button_outer {
-  background: #5d471d;
-  background: linear-gradient(to bottom, #decda1, #735821);
-  padding: 2px !important;
-}
-
-.button_inner {
-  background: #16181d;
-  color: #d8cfbd;
   display: block;
   font-family: "Beaufort", serif;
   font-size: 0.75em;
   font-weight: 400;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   padding: calc(0.625em + 1px) calc(1.4em + 1px);
-}
 
+  &:hover {
+    border-image-source: linear-gradient(to bottom, #efe4d5, #c89e46);
+    outline: none !important;
+  }
+}

@@ -3,6 +3,7 @@
 }
 
 .input_box {
+  color: #ece2cf;
   display: block;
   font-size: 0.75em;
   border-radius: 0;
@@ -14,9 +15,9 @@
   background-position: center left 7px;
   background-size: 17px;
   background-repeat: no-repeat;
-  border: 1px solid #5d471d;
+  border: 1px solid #785b2c;
 
-  &:focus {
+  &:hover {
     // outline: none;
     border-image-source: linear-gradient(to bottom, #5d471d, #c7a96d);
     border-width: 0.1pt;
