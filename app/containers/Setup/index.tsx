@@ -28,6 +28,12 @@ class Setup extends React.Component<Props, {}> {
       <Container className={styles.top_padding}>
         <Row>
           <Col>
+            <input type="text" className={styles.input_box} placeholder={"Select League of Legends.app"}/>
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col>
             <InputGroup>
               <Input className={styles.input_box} id="league_path" placeholder="Select League Of Legends.app" />
               <InputGroupButton><Button>Browse</Button></InputGroupButton>

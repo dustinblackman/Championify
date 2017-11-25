@@ -4,8 +4,9 @@
 
 .input_box {
   display: block;
+  font-size: 0.75em;
   border-radius: 0;
-  width: 250px;
+  width: 100%;
   height: 35px;
   outline: none;
   padding: 0 35px 0 30px;
@@ -13,10 +14,12 @@
   background-position: center left 7px;
   background-size: 17px;
   background-repeat: no-repeat;
-  border: 1px solid #5d471d
+  border: 1px solid #5d471d;
 
-  // &:focus {
+  &:focus {
     // outline: none;
-    // border-color: #a09b8c
-  // }
+    border-image-source: linear-gradient(to bottom, #5d471d, #c7a96d);
+    border-width: 0.1pt;
+    border-image-slice: 1;
+  }
 }
