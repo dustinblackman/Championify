@@ -30,9 +30,16 @@ class Setup extends React.Component<Props, {}> {
           <Col>
             <InputGroup>
               <input type="text" className={styles.input_box} placeholder={"Select League of Legends.app"} />
-              <Button size="0.70">Browse</Button>
+              <Button size="0.72">Browse</Button>
             </InputGroup>
           </Col>
+        </Row>
+        <Row>
+          <Col />
+          <Col className={styles.titlebar}>
+            <h2>Profile</h2>
+          </Col>
+          <Col />
         </Row>
       </Container>
     );
