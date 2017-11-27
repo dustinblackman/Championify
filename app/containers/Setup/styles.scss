@@ -1,0 +1,58 @@
+$text_color: #ccbe93;
+
+.top_padding {
+  padding-top: 10px;
+}
+
+.input_box {
+  color: #ece2cf;
+  display: block;
+  font-size: 0.75em;
+  border-radius: 0;
+  width: 100%;
+  height: 35px;
+  outline: none;
+  padding: 0 35px 0 30px;
+  background: #010913;
+  background-position: center left 7px;
+  background-size: 17px;
+  background-repeat: no-repeat;
+  border: 1px solid #785b2c;
+
+  &:hover {
+    border-image-source: linear-gradient(to bottom, #5d471d, #c7a96d);
+    border-width: 0.1pt;
+    border-image-slice: 1;
+    outline: none;
+  }
+}
+
+.titlebar {
+  color: $text_color;
+  font-family: "OPTITriplett", serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sources {
+  color: $text_color;
+  font-size: 0.6em;
+
+  // TODO Dedup
+  font-family: "OPTITriplett", serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  span {
+    top: 3px;
+    position: relative;
+  }
+
+  img {
+    top: 1.2px;
+    position: relative;
+    width: 12px;
+  }
+}

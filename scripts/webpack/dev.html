@@ -1,0 +1,22 @@
+<html>
+<body>
+  <span>Waiting for webpack...</span>
+  <script>
+    var url = "http://localhost:3000";
+    function loadWebpack() {
+      return fetch(url, {method: "GET", timeout: 30000})
+        .then(function(res) {
+          window.location.replace(url);
+        })
+        .catch(function(err) {
+          console.log(err);
+          setTimeout(function() {
+            loadWebpack();
+          }, 500);
+        });
+    }
+
+    loadWebpack();
+  </script>
+</body>
+</html>

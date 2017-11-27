@@ -1,23 +1,21 @@
-import Promise from 'bluebird';
-import glob from 'glob';
-import path from 'path';
-import R from 'ramda';
-import $ from './helpers/jquery';
+import Promise = require("bluebird");
+import glob = require("glob");
+import * as path from "path";
+import R = require("ramda");
 
-import { cl, elevate, request, spliceVersion } from './helpers';
+import { cl, elevate, request, spliceVersion } from "./helpers";
 
-import ChampionifyErrors from './errors';
-import Log from './logger';
-import optionsParser from './options_parser';
-import preferences from './preferences';
-import permissions from './permissions';
-import progressbar from './progressbar';
-import store from './store';
-import sources from './sources';
-import T from './translate';
+import ChampionifyErrors from "./errors";
+import Log from "./logger";
+import optionsParser from "./options_parser";
+import permissions from "./permissions";
+import preferences from "./preferences";
+import progressbar from "./progressbar";
+import sources from "./sources";
+import store from "./store";
+import T from "./translate";
 
-const fs = Promise.promisifyAll(require('fs-extra'));
-
+const fs = Promise.promisifyAll(require("fs-extra"));
 
 /**
  * Saves settings/options from the frontend.
@@ -32,12 +30,12 @@ function saveSettings() {
  * @returns {Promise.<String| ChampionifyErrors.RequestError>} Riot version.
 */
 function getRiotVer() {
-  if (store.get('importing')) cl(`${T.t('lol_version')}`);
-  return request({url: 'https://ddragon.leagueoflegends.com/realms/na.json', json: true})
-    .then(R.prop('v'))
-    .tap(version => store.set('riot_ver', version))
+  if (store.get("importing")) cl(`${T.t("lol_version")}`);
+  return request({url: "https://ddragon.leagueoflegends.com/realms/na.json", json: true})
+    .then(R.prop("v"))
+    .tap(version => store.set("riot_ver", version))
     .catch(err => {
-      throw new ChampionifyErrors.RequestError('Can\'t get Riot Version').causedBy(err);
+      throw new ChampionifyErrors.RequestError("Can't get Riot Version").causedBy(err);
     });
 }
 
@@ -46,43 +44,43 @@ function getRiotVer() {
  * @returns {Promise.<Array|ChampionifyErrors.RequestError>} Array of Champions in Riot's data schema.
 */
 function getChamps() {
-  cl(`${T.t('downloading_champs')}`);
+  cl(`${T.t("downloading_champs")}`);
   const params = {
-    url: `http://ddragon.leagueoflegends.com/cdn/${store.get('riot_ver')}/data/${T.riotLocale()}/champion.json`,
+    url: `http://ddragon.leagueoflegends.com/cdn/${store.get("riot_ver")}/data/${T.riotLocale()}/champion.json`,
     json: true
   };
 
   return request(params)
-    .then(R.prop('data'))
+    .then(R.prop("data"))
     .tap(data => {
-      if (!data) throw new ChampionifyErrors.RequestError('Can\'t get Champs');
-      let translations = R.zipObj(R.keys(data), R.pluck('name')(R.values(data)));
-      translations = R.zipObj(R.map(key => key.toLowerCase().replace(/ /g, ''), R.keys(translations)), R.values(translations));
+      if (!data) throw new ChampionifyErrors.RequestError("Can't get Champs");
+      let translations = R.zipObj(R.keys(data), R.pluck("name")(R.values(data)));
+      translations = R.zipObj(R.map(key => key.toLowerCase().replace(/ /g, ""), R.keys(translations)), R.values(translations));
       translations.wukong = translations.monkeyking;
       T.merge(translations);
 
       const champ_ids = R.fromPairs(R.map(champ_data => {
         return [champ_data.id.toLowerCase(), champ_data.key];
       }, R.values(data)));
-      store.set('champs', R.keys(data).sort());
-      store.set('champ_ids', champ_ids);
+      store.set("champs", R.keys(data).sort());
+      store.set("champ_ids", champ_ids);
     })
     .catch(err => {
       if (err instanceof ChampionifyErrors.ChampionifyError) throw err;
-      throw new ChampionifyErrors.RequestError('Can\'t get Champs').causedBy(err);
+      throw new ChampionifyErrors.RequestError("Can't get Champs").causedBy(err);
     });
 }
 
 // TODO: Write tests and docs
 function getSpecialItems() {
-  if (store.get('special_items')) return Promise.resolve(store.get('special_items'));
+  if (store.get("special_items")) return Promise.resolve(store.get("special_items"));
   const params = {
-    url: `http://ddragon.leagueoflegends.com/cdn/${store.get('riot_ver')}/data/en_US/item.json`,
+    url: `http://ddragon.leagueoflegends.com/cdn/${store.get("riot_ver")}/data/en_US/item.json`,
     json: true
   };
 
   return request(params)
-    .then(R.prop('data'))
+    .then(R.prop("data"))
     .then(items => {
       return R.keys(items).map(id => {
         const data = items[id];
@@ -92,7 +90,7 @@ function getSpecialItems() {
     })
     .filter(R.identity)
     .then(R.fromPairs)
-    .tap(items => store.set('special_items', items));
+    .tap(items => store.set("special_items", items));
 }
 
 /**
@@ -102,12 +100,12 @@ function getSpecialItems() {
  */
 
 function deleteOldBuilds(deletebtn) {
-  if (store.get('settings') && store.get('settings').dontdeleteold) return Promise.resolve();
+  if (store.get("settings") && store.get("settings").dontdeleteold) return Promise.resolve();
 
-  cl(T.t('deleting_old_builds'));
+  cl(T.t("deleting_old_builds"));
   const globbed = [
-    glob.sync(`${store.get('itemset_path')}**/CGG_*.json`),
-    glob.sync(`${store.get('itemset_path')}**/CIFY_*.json`)
+    glob.sync(`${store.get("itemset_path")}**/CGG_*.json`),
+    glob.sync(`${store.get("itemset_path")}**/CIFY_*.json`)
   ];
 
   return Promise.resolve(R.flatten(globbed))
@@ -118,20 +116,19 @@ function deleteOldBuilds(deletebtn) {
     });
 }
 
-
 /**
  * Fixes common issues between sources generated item sets, then saves all compiled item sets to file, creating paths included.
  * @returns {Promise}
  */
 
 function fixAndSaveToFile() {
-  const special_items = store.get('special_items');
+  const special_items = store.get("special_items");
 
-  return Promise.resolve([store.get('sr_itemsets'), store.get('aram_itemsets')])
+  return Promise.resolve([store.get("sr_itemsets"), store.get("aram_itemsets")])
     .then(R.flatten)
     .then(R.reject(R.isNil))
     .each(data => {
-      const champ = data.champ.toLowerCase() === 'wukong' ? 'monkeyking' : data.champ;
+      const champ = data.champ.toLowerCase() === "wukong" ? "monkeyking" : data.champ;
 
       // Replaces special items that are not available in store. (e.g. Ornn items)
       data.riot_json.blocks.map(block => {
@@ -143,14 +140,14 @@ function fixAndSaveToFile() {
       });
 
       const itemset_data = JSON.stringify(data.riot_json, null, 4);
-      const folder_path = path.join(store.get('itemset_path'), champ, 'Recommended');
+      const folder_path = path.join(store.get("itemset_path"), champ, "Recommended");
       const file_path = path.join(folder_path, `CIFY_${champ}_${data.source}_${data.file_prefix}.json`);
 
       return fs.mkdirsAsync(folder_path)
         .catch(err => Log.warn(err))
-        .then(() => fs.writeFileAsync(file_path, itemset_data, 'utf8'))
+        .then(() => fs.writeFileAsync(file_path, itemset_data, "utf8"))
         .catch(err => {
-          throw new ChampionifyErrors.FileWriteError('Failed to write item set json file').causedBy(err);
+          throw new ChampionifyErrors.FileWriteError("Failed to write item set json file").causedBy(err);
         });
     });
 }
@@ -162,10 +159,9 @@ function fixAndSaveToFile() {
 
 function resavePreferences() {
   const prefs = preferences.get();
-  prefs.local_is_version = spliceVersion(store.get('riot_ver'));
+  prefs.local_is_version = spliceVersion(store.get("riot_ver"));
   return preferences.save(prefs);
 }
-
 
 /**
  * Set windows permissions if required
@@ -173,9 +169,9 @@ function resavePreferences() {
  */
 
 function setWindowsPermissions() {
-  if (process.platform === 'win32' && optionsParser.runnedAsAdmin()) {
-    cl(T.t('resetting_file_permission'));
-    const champ_files = glob.sync(path.join(store.get('itemset_path'), '**'));
+  if (process.platform === "win32" && optionsParser.runnedAsAdmin()) {
+    cl(T.t("resetting_file_permission"));
+    const champ_files = glob.sync(path.join(store.get("itemset_path"), "**"));
     return permissions.setWindowsPermissions(champ_files);
   }
 }
@@ -186,15 +182,14 @@ function setWindowsPermissions() {
  */
 
 function verifySettings() {
-  store.set('settings', preferences.get().options);
-  if (!R.filter(R.identity, store.get('settings').sr_source).length) {
-    $('.rift_source').transition('jiggle');
+  store.set("settings", preferences.get().options);
+  if (!R.filter(R.identity, store.get("settings").sr_source).length) {
+    // $('.rift_source').transition('jiggle');
     return false;
   }
 
   return true;
 }
-
 
 /**
  * Main function that starts up all the magic.
@@ -202,15 +197,15 @@ function verifySettings() {
  */
 
 function downloadItemSets() {
-  store.set('importing', true);
-  store.remove('sr_itemsets');
-  store.remove('aram_itemsets');
-  store.remove('undefined_builds');
+  store.set("importing", true);
+  store.remove("sr_itemsets");
+  store.remove("aram_itemsets");
+  store.remove("undefined_builds");
   progressbar.reset();
 
   const to_process = [];
-  if (store.get('settings').aram) to_process.push({
-    name: 'lolflavor',
+  if (store.get("settings").aram) to_process.push({
+    name: "lolflavor",
     method: sources.lolflavor.getAram
   });
   R.forEach(source => {
@@ -218,7 +213,7 @@ function downloadItemSets() {
       name: source,
       method: sources[source].getSr
     });
-  }, store.get('settings').sr_source);
+  }, store.get("settings").sr_source);
 
   Log.info(`Locale: ${T.locale}`);
 
@@ -231,9 +226,9 @@ function downloadItemSets() {
       return source.method()
         .catch(err => {
           Log.error(err);
-          store.push('undefined_builds', {
-            champ: 'All',
-            position: 'All',
+          store.push("undefined_builds", {
+            champ: "All",
+            position: "All",
             source: source.name
           });
 
@@ -245,14 +240,14 @@ function downloadItemSets() {
     .then(resavePreferences)
     .then(setWindowsPermissions)
     .then(() => {
-      store.set('importing', false);
+      store.set("importing", false);
       progressbar.incr(100);
       return true;
     })
     .catch(err => {
-      if (err instanceof ChampionifyErrors.FileWriteError && process.platform === 'win32' && !optionsParser.runnedAsAdmin()) {
+      if (err instanceof ChampionifyErrors.FileWriteError && process.platform === "win32" && !optionsParser.runnedAsAdmin()) {
         Log.error(err);
-        return elevate(['--import']);
+        return elevate(["--import"]);
       }
 
       // If not a file write error, end session.

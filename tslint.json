@@ -1,0 +1,10 @@
+{
+  "extends": ["tslint-config-busbud", "tslint-react"],
+  "rulesDirectory": ["./node_modules/tslint/lib/rules", "node_modules/tslint-no-unused-expression-chai/rules"],
+  "rules": {
+    "quotemark": [true, "double", "jsx-double", "avoid-escape"],
+
+    "no-unused-expression": false,
+    "no-unused-expression-chai": [true, "allow-fast-null-checks", "allow-tagged-template" ]
+  }
+}

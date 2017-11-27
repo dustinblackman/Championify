@@ -1,0 +1,21 @@
+.button {
+  background: #1e2328;
+  border-image-source: linear-gradient(to bottom, #c8aa71, #7a5d2c);
+  border-width: 0.1pt;
+  border-image-slice: 1;
+  box-shadow: inset 0.01px 0.01px 0.01px 1px #060f17;
+  color: #ccbe93;
+  cursor: pointer;
+  display: block;
+  font-family: "OPTITriplett", serif;
+  // font-size: 0.75em;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: calc(0.625em + 1px) calc(1.4em + 1px);
+
+  &:hover {
+    border-image-source: linear-gradient(to bottom, #efe4d5, #c89e46);
+    outline: none !important;
+  }
+}
