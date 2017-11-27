@@ -54,7 +54,7 @@ const sources = [
 class Setup extends React.Component<Props, {}> {
   renderSources = () => {
     return sources.map(source => (
-      <Col xs="6">
+      <Col key={source.name} xs="6">
         <FormGroup check={true}>
           <Label check={true}>
             <Input type="checkbox" />
