@@ -1,3 +1,5 @@
+$text_color: #ccbe93;
+
 .top_padding {
   padding-top: 10px;
 }
@@ -26,9 +28,31 @@
 }
 
 .titlebar {
-  color: #ccbe93;
+  color: $text_color;
   font-family: "OPTITriplett", serif;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.sources {
+  color: $text_color;
+  font-size: 0.6em;
+
+  // TODO Dedup
+  font-family: "OPTITriplett", serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  span {
+    top: 3px;
+    position: relative;
+  }
+
+  img {
+    top: 1.2px;
+    position: relative;
+    width: 12px;
+  }
 }
