@@ -7,6 +7,7 @@ _- Config: C:/Users/YOURNAME/AppData/Roaming/Championify/prefs.json_
 
 __What operating system:__
 __What version of Championify:__
+__What distribution of the league client are you using (NA, EUW, KR, Garena, ect)?:__
 __Please explain the issue you're encountering:__
 __Screenshots:__
 __Logs:__
