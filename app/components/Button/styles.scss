@@ -1,3 +1,4 @@
+// TODO Need to make background gradient that changes on hover as well. See Login screen.
 .button {
   background: #1e2328;
   border-image-source: linear-gradient(to bottom, #c8aa71, #7a5d2c);
@@ -13,6 +14,7 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: calc(0.625em + 1px) calc(1.4em + 1px);
+  -webkit-font-smoothing: antialiased;
 
   &:hover {
     border-image-source: linear-gradient(to bottom, #efe4d5, #c89e46);

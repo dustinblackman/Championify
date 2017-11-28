@@ -1,0 +1,30 @@
+.checkbox {
+  display: inline-block;
+  margin-bottom: 0;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"] + label span {
+    cursor: pointer;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin: -2px 5px 0 0;
+    vertical-align: middle;
+    background: url("./spritesheet.png") left top no-repeat;
+  }
+
+  input[type="checkbox"]:hover + label span {
+    background: url("./spritesheet.png") left -14px no-repeat;
+  }
+
+  input[type="checkbox"]:checked + label span {
+    background: url("./spritesheet.png") left -28px no-repeat;
+  }
+
+  input[type="checkbox"]:checked + label:hover span {
+    background: url("./spritesheet.png") left -42px no-repeat;
+  }
+}

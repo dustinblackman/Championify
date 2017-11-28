@@ -31,8 +31,10 @@ $text_color: #ccbe93;
   color: $text_color;
   font-family: "OPTITriplett", serif;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.2em;
+  padding-top: 10px;
   text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
 }
 
 .sources {
@@ -40,9 +42,9 @@ $text_color: #ccbe93;
   font-size: 0.6em;
 
   // TODO Dedup
-  font-family: "OPTITriplett", serif;
+  font-family: "Roboto", serif;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 
   span {

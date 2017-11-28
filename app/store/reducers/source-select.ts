@@ -1,33 +1,37 @@
-const CHANGE_SOURCES = "source_select/change";
-
-export interface SourceSelectOption {
-  label: string;
-  value: string;
-}
+const CHANGE_ARAM = "source_select/change_aram";
+const CHANGE_SUMMONERS = "source_select/change_summoners";
 
 export interface SourceSelectActionObject {
   type: string;
-  data: SourceSelectOption[];
+  data: {
+    name: string;
+    active: boolean;
+  };
 }
 
 export interface SourceSelectState {
-  sources: SourceSelectOption[];
+  aram: {[k: string]: boolean};
+  summoners: {[k: string]: boolean};
 }
 
 export const default_state: SourceSelectState = {
-  sources: []
+  aram: {},
+  summoners: {}
 };
 
 export const sourceSelectActions = {
-  changeSources: (data: SourceSelectOption[]) => ({type: CHANGE_SOURCES, data})
+  changeAram: (name: string, active: boolean) => ({type: CHANGE_ARAM, data: {name, active}}),
+  changeSummoners: (name: string, active: boolean) => ({type: CHANGE_SUMMONERS, data: {name, active}})
 };
 
-export type SourceSelectProps = SourceSelectState & typeof sourceSelectActions;
+export type SourceSelectProps = {sources: SourceSelectState} & typeof sourceSelectActions;
 
 export default function sourceSelect(state: SourceSelectState = default_state, action: SourceSelectActionObject): SourceSelectState {
   switch (action.type) {
-    case CHANGE_SOURCES:
-      return {sources: action.data};
+    case CHANGE_ARAM:
+      return {...state, aram: {...state.aram, [action.data.name]: action.data.active}};
+    case CHANGE_SUMMONERS:
+      return {...state, summoners: {...state.summoners, [action.data.name]: action.data.active}};
     default:
       return state;
   }
