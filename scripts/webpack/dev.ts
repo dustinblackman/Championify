@@ -37,7 +37,8 @@ const config: webpack.Configuration = {
       "process.env.NODE_ENV": JSON.stringify("development")
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, "template.hbs")
+      template: path.join(__dirname, "template.hbs"),
+      title: "Championify"
     })
   ],
   resolve: {
