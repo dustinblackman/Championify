@@ -1,6 +1,5 @@
 import React = require("react");
 import { connect } from "react-redux";
-// import Select from "react-select";
 import { Col, Container, InputGroup, Row } from "reactstrap";
 import { bindActionCreators } from "redux";
 
@@ -100,6 +99,39 @@ const aram_sources = [
   }
 ];
 
+// TODO: What should happen is text will not be here, and it'll use the translate module with the key settings_* as the
+// translation key. Verify id names with existing settings
+interface Setting {
+  id: string;
+  text: string;
+}
+const settings: Setting[] = [
+  {
+    id: "split_items",
+    text: "Split Up Item Sets"
+  },
+  {
+    id: "shorthand",
+    text: "Use shorthand for skill order"
+  },
+  {
+    id: "consumables",
+    text: "Enable consumables"
+  },
+  {
+    id: "trinkets",
+    text: "Enable trickets"
+  },
+  {
+    id: "sr_only",
+    text: "Do not show SR items on other maps"
+  },
+  {
+    id: "old_item_sets",
+    text: "Don't delete old item sets"
+  }
+];
+
 class Setup extends React.Component<Props, {}> {
   handleSelectSource = (source_id: string, source_type: SourceType) => () => {
     const active = !(this.props.sources[source_type][source_id] || false);
@@ -124,6 +156,21 @@ class Setup extends React.Component<Props, {}> {
     ));
   }
 
+  renderSettings = (settings: Setting[]) => {
+    // TODO Replace onChange
+    return settings.map(setting => (
+      <Col key={setting.id} xs="8">
+        <Checkbox
+          onChange={this.handleSelectSource(setting.id, "aram")}
+          checked={false}
+          id={setting.id}
+        />
+        <span>{setting.text}</span>
+      </Col>
+    ));
+  }
+
+  // TODO Move titlebars in to component. Rename to something like "Header".
   render() {
     return (
       <Container className={styles.top_padding}>
@@ -136,7 +183,7 @@ class Setup extends React.Component<Props, {}> {
           </Col>
         </Row>
         <Row>
-          <Col xs={{size: 8, offset: 2}} className={styles.titlebar}>
+          <Col xs="8" className={styles.titlebar}>
             <h4>Summoners Rift</h4>
           </Col>
         </Row>
@@ -144,12 +191,20 @@ class Setup extends React.Component<Props, {}> {
           {this.renderSources(summoners_sources, "summoners")}
         </Row>
         <Row>
-          <Col xs={{size: 8, offset: 4}} className={styles.titlebar}>
+          <Col xs="8" className={styles.titlebar}>
             <h4>ARAM</h4>
           </Col>
         </Row>
         <Row className={styles.sources}>
           {this.renderSources(aram_sources, "aram")}
+        </Row>
+        <Row>
+          <Col xs="8" className={styles.titlebar}>
+            <h4>Settings</h4>
+          </Col>
+        </Row>
+        <Row className={styles.sources}>
+          {this.renderSettings(settings)}
         </Row>
       </Container>
     );

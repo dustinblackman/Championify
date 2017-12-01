@@ -1,4 +1,4 @@
-$text_color: #ccbe93;
+$text_color: #ccbe93; // TODO Move in to variables
 
 .top_padding {
   padding-top: 10px;
@@ -35,6 +35,12 @@ $text_color: #ccbe93;
   padding-top: 10px;
   text-transform: uppercase;
   -webkit-font-smoothing: antialiased;
+
+  // Bootstrap center
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .sources {
