@@ -87,6 +87,12 @@ footer
   width 100%
   z-index 10
 
+  > *
+    a
+      cursor pointer
+      &:hover
+        color $text_color
+
 
 .github
   text-align center
@@ -96,12 +102,6 @@ footer
   left $footer_side
   position inherit
 
-  a
-    cursor pointer
-
-  a:hover
-    color $text_color
-
   i.icon
     margin 0
 
@@ -110,3 +110,4 @@ footer
   right $footer_side
   position absolute
   color #989898
+  cursor default
