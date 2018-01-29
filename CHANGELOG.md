@@ -1,5 +1,12 @@
 # Changelog
 
+<a name="2.1.4" />
+## 2.1.4 (January 29th, 2018)
+
+#### Bug Fixes
+- Fixed Probuilds not downloading any item sets. [#382](https://github.com/dustinblackman/Championify/issues/382)
+- Fixed cursor type on footer links. [#383](https://github.com/dustinblackman/Championify/pull/383) (Thanks [mnlkrs](https://github.com/mnlkrs))
+
 <a name="2.1.3" />
 ## 2.1.3 (November 22nd, 2017)
 
