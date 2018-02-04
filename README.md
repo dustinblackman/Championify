@@ -5,7 +5,7 @@
 _Champion-If-Ayyy_
 
 [![Donate](https://img.shields.io/badge/Donate-Patreon-5cb85c.svg)](https://patreon.com/dustinblackman)
-[![API Doc](https://doclets.io/dustinblackman/Championify/master.svg)](https://doclets.io/dustinblackman/Championify/master)
+[![API Doc](https://img.shields.io/badge/API--Doc_master-ready-green.svg)](https://doclets.io/dustinblackman/Championify/master)
 [![Travis](https://img.shields.io/travis/dustinblackman/Championify/master.svg)](https://travis-ci.org/dustinblackman/Championify/builds)
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/dt20uyoxt2skgneu/branch/master?svg=true)](https://ci.appveyor.com/project/dustinblackman/championify/branch/master)
 [![Coverage Status](https://img.shields.io/coveralls/dustinblackman/Championify/master.svg)](https://coveralls.io/github/dustinblackman/Championify?branch=master)
