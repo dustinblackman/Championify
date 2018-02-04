@@ -25,7 +25,7 @@ Check out screenshots [here](https://imgur.com/a/vgS3I)!
 
 There's also [Championify for Android](https://github.com/OmerValentine/Championify-Android)!
 
-[![Code Sponsor](https://app.codesponsor.io/embed/owV5qUw9JoSRvTBFtixp6Xui/dustinblackman/Championify.svg)](https://app.codesponsor.io/link/owV5qUw9JoSRvTBFtixp6Xui/dustinblackman/Championify)
+[Code Sponsor](https://app.codesponsor.io/link/owV5qUw9JoSRvTBFtixp6Xui/dustinblackman/Championify)
 
 ---
 
