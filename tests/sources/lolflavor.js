@@ -23,13 +23,21 @@ R.forEach(fixture => {
 
 function nockSummonersRift() {
   nocked
-    .get('/data/statsLane.json')
+    .get('/data/statsMid.json')
+    .reply(200, RESPONSES_FIXTURES.stats)
+    .get('/data/statsADC.json')
+    .reply(200, RESPONSES_FIXTURES.stats)
+    .get('/data/statsTop.json')
     .reply(200, RESPONSES_FIXTURES.stats)
     .get('/data/statsJungle.json')
     .reply(200, RESPONSES_FIXTURES.stats)
     .get('/data/statsSupport.json')
     .reply(200, RESPONSES_FIXTURES.stats)
-    .get('/champions/Katarina/Recommended/Katarina_lane_scrape.json')
+    .get('/champions/Katarina/Recommended/Katarina_top_scrape.json')
+    .reply(200, RESPONSES_FIXTURES.katarina_lane_scrape)
+    .get('/champions/Katarina/Recommended/Katarina_adc_scrape.json')
+    .reply(200, RESPONSES_FIXTURES.katarina_lane_scrape)
+    .get('/champions/Katarina/Recommended/Katarina_mid_scrape.json')
     .reply(200, RESPONSES_FIXTURES.katarina_lane_scrape)
     .get('/champions/Katarina/Recommended/Katarina_jungle_scrape.json')
     .reply(200, RESPONSES_FIXTURES.katarina_jungle_scrape)
@@ -50,7 +58,7 @@ describe('src/sources/lolflavor', function() {
   describe('version', function() {
     it('should get the stubbed lolflavor version', () => {
       nocked
-        .get('/champions/Ahri/Recommended/Ahri_lane_scrape.json')
+        .get('/champions/Ahri/Recommended/Ahri_mid_scrape.json')
         .reply(200, RESPONSES_FIXTURES.ahri_lane_scrape);
 
       return lolflavor.getVersion().then(version => {

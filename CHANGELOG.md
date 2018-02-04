@@ -1,5 +1,40 @@
 # Changelog
 
+<a name="2.1.4" />
+## 2.1.4 (January 29th, 2018)
+
+#### Bug Fixes
+- Fixed Probuilds not downloading any item sets. [#382](https://github.com/dustinblackman/Championify/issues/382)
+- Fixed cursor type on footer links. [#383](https://github.com/dustinblackman/Championify/pull/383) (Thanks [mnlkrs](https://github.com/mnlkrs))
+
+<a name="2.1.3" />
+## 2.1.3 (November 22nd, 2017)
+
+#### Bug Fixes
+- Fixed windows builds not being signed correctly. Some users may be forced to reinstall. Fixes #366 and #370.
+
+<a name="2.1.2" />
+## 2.1.2 (November 22nd, 2017)
+
+#### Bug Fixes
+- Fixed garena path checking. [#367 @hollowsxd](https://github.com/dustinblackman/Championify/pull/367)
+
+<a name="2.1.1" />
+## 2.1.1 (November 10th, 2017)
+
+#### Bug Fixes
+- Fixed op.gg to work with updated website
+
+<a name="2.1.0" />
+## 2.1.0 (October 31st, 2017)
+
+#### Features
+- Added initial Hindi and Khmer translations
+
+#### Bug Fixes
+- Updated German translations
+- Fixed Lolflavor endpoints
+
 <a name="2.0.11" />
 ## 2.0.11 (October 17th, 2017)
 - Fixed parsing bug with Koreanbuilds. [#330](https://github.com/dustinblackman/Championify/issues/330)

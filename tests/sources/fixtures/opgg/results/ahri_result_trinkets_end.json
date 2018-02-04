@@ -29,7 +29,7 @@
                 "count": 1
               }
             ],
-            "type": "Most Frequent Starters - Pickrate: 61.02%"
+            "type": "Most Frequent Starters - Pickrate: 95.86%"
           },
           {
             "items": [
@@ -54,7 +54,7 @@
                 "count": 1
               }
             ],
-            "type": "Highest Win % Starters - Winrate: 64.29%"
+            "type": "Highest Win % Starters - Winrate: 59.68%"
           },
           {
             "items": [
@@ -63,11 +63,15 @@
                 "count": 1
               },
               {
+                "id": "blet",
+                "count": 2
+              },
+              {
                 "id": "3285",
                 "count": 1
               },
               {
-                "id": "3089",
+                "id": "3157",
                 "count": 1
               },
               {
@@ -75,7 +79,7 @@
                 "count": 1
               }
             ],
-            "type": "Most Frequent Core Build - Pickrate: 7.12%"
+            "type": "Most Frequent Core Build - Pickrate: 9.47%"
           },
           {
             "items": [
@@ -84,19 +88,23 @@
                 "count": 1
               },
               {
+                "id": "blet",
+                "count": 2
+              },
+              {
                 "id": "3285",
                 "count": 1
               },
               {
-                "id": "3089",
+                "id": "3151",
                 "count": 1
               },
               {
-                "id": "3158",
+                "id": "3020",
                 "count": 1
               }
             ],
-            "type": "Highest Win % Core Build - Winrate: 68.73%"
+            "type": "Highest Win % Core Build - Winrate: 68.81%"
           },
           {
             "items": [
@@ -117,11 +125,15 @@
                 "count": 1
               },
               {
-                "id": "3001",
+                "id": "3157",
+                "count": 1
+              },
+              {
+                "id": "1026",
                 "count": 1
               }
             ],
-            "type": "Most Frequent Items - Pickrate: 15.66-5.91%"
+            "type": "Most Frequent Items - Pickrate: 15.78-4.07%"
           },
           {
             "items": [
@@ -130,7 +142,11 @@
                 "count": 1
               },
               {
-                "id": "3100",
+                "id": "3151",
+                "count": 1
+              },
+              {
+                "id": "3116",
                 "count": 1
               },
               {
@@ -138,7 +154,7 @@
                 "count": 1
               },
               {
-                "id": "3152",
+                "id": "3135",
                 "count": 1
               },
               {
@@ -146,7 +162,7 @@
                 "count": 1
               }
             ],
-            "type": "Highest Win % Items - Winrate: 76.73-58.84%"
+            "type": "Highest Win % Items - Winrate: 76.63-55.33%"
           },
           {
             "items": [
@@ -159,10 +175,10 @@
                 "count": 1
               }
             ],
-            "type": "Trinkets | Wins: Q.E.W.Q.Q.R.Q.E.Q.E.R.E.E.W.W"
+            "type": "Trinkets | Wins: Q.W.E.Q.Q.R.Q.W.Q.W.R.W.W.E.E"
           }
         ],
-        "title": "OPGG Middle 6.22",
+        "title": "OPGG Middle 7.21",
         "priority": false,
         "mode": "any",
         "type": "custom",

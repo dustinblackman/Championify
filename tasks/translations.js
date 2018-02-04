@@ -11,6 +11,7 @@ const fs = Promise.promisifyAll(require('fs-extra'));
 const GT = Promise.promisify(require('google-translate')(process.env.GOOGLE_TRANSLATE_API).translate);
 const requester = Promise.promisify(request);
 
+// TODO: This should be pulled from transifex.
 const supported_languages = [
   'ar', // Arabic
   'bs', // Bosnian
@@ -25,12 +26,14 @@ const supported_languages = [
   'fi', // Finish
   'fr', // French
   'he', // Hebrew
+  'hi', // Hindi
   'hr', // Croatian
   'hu', // Hungarian
   'id', // Indonesian
   'it', // Italian
   'ja', // Japanese
   'ka', // Georgian
+  'km', // Khmer
   'ko', // Korean
   'ms', // Malay
   'no', // Norwegian

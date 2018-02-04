@@ -86,7 +86,7 @@ describe('src/sources/probuilds', () => {
         store.set('settings', {});
         nock.cleanAll();
         nocked
-          .get('/champions')
+          .get('/ajax/championListNew')
           .reply(200, RESPONSES_FIXTURES.champions)
           .get('/champions/details/Ahri')
           .reply(200, RESPONSES_FIXTURES.ahri)

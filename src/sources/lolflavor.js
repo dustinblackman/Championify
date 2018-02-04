@@ -102,7 +102,7 @@ function _requestData(champs_names, process_name) {
           if (process_name === 'ARAM') {
             progressbar.incrChamp();
           } else {
-            progressbar.incrChamp(3);
+            progressbar.incrChamp(5);
           }
 
           return {champ, file_prefix: process_name.toLowerCase(), riot_json, source: 'lolflavor'};
@@ -154,7 +154,9 @@ export function getAram() {
 
 export function getSr() {
   const stats_pages = [
-    {name: 'Lane', file: 'statsLane.json'},
+    {name: 'Top', file: 'statsTop.json'},
+    {name: 'Mid', file: 'statsMid.json'},
+    {name: 'ADC', file: 'statsADC.json'},
     {name: 'Jungle', file: 'statsJungle.json'},
     {name: 'Support', file: 'statsSupport.json'}
   ];
@@ -172,7 +174,7 @@ export function getSr() {
  */
 
 export function getVersion() {
-  return request({url: 'http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_lane_scrape.json', json: true})
+  return request({url: 'http://www.lolflavor.com/champions/Ahri/Recommended/Ahri_mid_scrape.json', json: true})
     .then(body => {
       if (!body || !body.title) return T.t('unknown');
       const version = moment(body.title.split(' ')[3]).format('YYYY-MM-DD');

@@ -1,30 +1,30 @@
 # Contribute
 
 ## Code
-I'm more then open to pull requests! Make sure to check out my [Zenhub board](https://github.com/dustinblackman/Championify#boards?repos=34264106) so we don't have any conflicts if I or someone else has already started on an issue.
 
-JSDocs for the majority of functions can be found [here](https://doclets.io/dustinblackman/Championify/master).
+Pull requests are more then welcome! JSDocs for the majority of functions can be found [here](https://doclets.io/dustinblackman/Championify/master) to get an idea of the structure of the code base. I'm aware that the code base can be a tad confusing, there are decisions made that I wouldn't make today. When the time for a restructing comes, those will be fixed.
 
 __Rules__
 
 - Everything is in ES6 Javascript with the Node 6 presets. That means `const` and `let`, everything for example.
 - New features must be discussed in an issue first before a PR, this prevents wasting anyones time incase it's already being worked on.
-- Reframe from adding new npm modules if there's already something that'll get the job done.
+- Reframe from adding new npm modules if there's already something that'll get the job done. E.g. don't add `lodash` as
+  `ramda` is already provided.
 - Must pass all tests. `npm test`
 - Must write tests for all new functions (look at current tests for examples, still a WIP).
 - Functions must be camel cased. `downloadStuff()`
 - Variables must be underscored. `my_champion = 'teemo'`
 - PR must be off and back to master branch.
+- Do not submit translation changes in a pull request, see [translations](#translations) below.
 
 I suggest making sure your linters are setup correctly, or run `npm run lint` every now and again so you're not making a crazy amount of commits.
 
-__Adding A Source__
+__Adding a source__
 
-You can find examples for adding sources in [src/sources](src/sources). Each source requires an object export of `source_info`, a function called `getSr()` for summoners rift item sets, and `getVerion()` for the current LoL patch version. Once finished, the app will automatically add the new source to sources list. Make sure to add a nice little 16x16 icon in the [app/img/sources](app/img/sources) folder. For an easy example check out [src/sources/koreanbuilds.js](src/sources/koreanbuilds.js).
+You can find examples for adding sources in [src/sources](src/sources). Each source requires an object export of `source_info`, a function named `getSr()` for summoners rift item sets, and `getVerion()` for the current LoL patch version. Once finished, the app will automatically add the new source to sources list. Make sure to add a nice little 16x16 icon in the [app/img/sources](app/img/sources) folder. For an easy example check out [src/sources/koreanbuilds.js](src/sources/koreanbuilds.js).
 
----
+## Translations
 
-### Translations
 I use [Transifex](https://www.transifex.com/dustinblackman/championify) to manage all my translations, it's super easy and lets everyone contribute! The initial translations were done with Google Translate, so just because a translation exists doesn't mean it's correct. You can also check out the language status list below to see which have been done by Google, and which has had attention from a native speaker.
 
 __Rules__
@@ -57,10 +57,12 @@ __Language Status__
 | Georgian | No |
 | Greek | Yes |
 | Hebrew | Yes |
+| Hindi | No |
 | Hungarian | Yes |
 | Indonesian | Yes |
 | Italian | Yes |
 | Japanese | Yes |
+| Khmer | No |
 | Korean | Yes |
 | Latvian | Yes |
 | Lithuanian | Yes |

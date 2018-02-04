@@ -9,7 +9,6 @@ import runSequence from 'run-sequence';
 import { spawnAsync } from './helpers';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
-const requestAsync = Promise.promisify(request);
 const yauzl = Promise.promisifyAll(require('yauzl'));
 
 const pkg = require('../package.json');
@@ -101,19 +100,20 @@ function download(url, download_path, overwrite = false) {
     throw err;
   }
 
-  return requestAsync({method: 'HEAD', url})
-    .then(res => {
-      if (res.statusCode >= 400) throw new Error(`Status ${res.statusCode}: ${url}`);
-      return new Promise((resolve, reject) => {
-        return request(url)
-          .pipe(file)
-          .on('error', reject)
-          .on('close', function() {
-            file.close();
-            return resolve();
-          });
+  const headers = {
+    referer: `https://github.com/electron/electron/releases/tag/v${pkg.devDependencies['electron']}`,
+    'user-agent': 'Championify Releases'
+  };
+
+  return new Promise((resolve, reject) => {
+    return request({url, headers})
+      .pipe(file)
+      .on('error', reject)
+      .on('close', function() {
+        file.close();
+        return resolve();
       });
-    });
+  });
 }
 
 function extract(download_path, os) {
@@ -133,7 +133,7 @@ function extract(download_path, os) {
 function cache(os, arch) {
   fs.mkdirsSync('./cache');
   const version = pkg.devDependencies['electron'];
-  const download_link = `https://github.com/atom/electron/releases/download/v${version}/electron-v${version}-${os}-${arch}.zip`;
+  const download_link = `https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-${os}-${arch}.zip`;
 
   const zip_name = path.basename(download_link);
   const download_path = path.join('./cache', zip_name);

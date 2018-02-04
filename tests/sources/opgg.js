@@ -48,9 +48,9 @@ describe('src/sources/opgg', () => {
   describe('version', () => {
     it('should get the stubbed opgg version', () => {
       nocked.get('/champion/ahri/statistics/mid')
-        .reply(200, RESPONSES_FIXTURES.statistics);
+        .reply(200, RESPONSES_FIXTURES.ahri_statistics);
       return opgg.getVersion().then(version => {
-        version.should.equal('6.22');
+        version.should.equal('7.21');
       });
     });
   });
@@ -62,7 +62,7 @@ describe('src/sources/opgg', () => {
         nock.cleanAll();
         nocked
           .get('/champion/statistics')
-          .reply(200, RESPONSES_FIXTURES.statistics)
+          .reply(200, RESPONSES_FIXTURES.stats)
           .get('/champion/ahri/statistics/mid/item')
           .reply(200, RESPONSES_FIXTURES.item)
           .get('/champion/ahri/statistics/mid/skill')
