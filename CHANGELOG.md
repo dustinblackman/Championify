@@ -1,5 +1,11 @@
 # Changelog
 
+<a name="2.1.5" />
+## 2.1.5 (February 12th, 2018)
+
+#### Bug Fixes
+- Handle when LolAlytics is missing skill orders [#386](https://github.com/dustinblackman/Championify/issues/386)
+
 <a name="2.1.4" />
 ## 2.1.4 (January 29th, 2018)
 

@@ -1,6 +1,6 @@
 {
   "name": "Championify",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "Downloads all the recent builds from websites like Champion.gg and imports them in to League of Legends.",
   "main": "electron.js",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "engines": {
     "node": "6.9.1",
-    "npm": "3.10.9"
+    "npm": "3.10.10"
   },
   "author": "Dustin Blackman",
   "license": "MIT",
@@ -38,7 +38,7 @@
     "express": "4.16.2",
     "fs-extra": "0.24.0",
     "glob": "5.0.15",
-    "ipaddr.js": "1.5.4",
+    "ipaddr.js": "1.6.0",
     "jquery": "3.1.1",
     "marko": "3.12.1",
     "moment": "^2.17.0",

@@ -212,6 +212,23 @@ gulp.task('sign:win', function(cb) {
     return cb(new Error('Cert env is missing'));
   }
 
-  const cmd = `wine ${path.join(__dirname, '../node_modules/electron-winstaller/vendor/signtool.exe')} /f ${process.env.SIGN_WIN_CERT_PATH} /p ${process.env.SIGN_WIN_CERT_PASSWORD} `;
-  execAsync(cmd + path.join(__dirname, '../tmp/Championify/championify.exe')).asCallback(cb);
+  const { SIGN_WIN_CERT_PATH, SIGN_WIN_CERT_PASSWORD } = process.env;
+
+  const file_path = path.join(__dirname, '../tmp/Championify/championify.exe');
+  const file_path_signed = file_path + '.signed';
+
+  Promise.each(['sha1', 'sha256'], hash => {
+    let cmd = `osslsigncode -in ${file_path} -out ${file_path_signed} -t http://timestamp.verisign.com/scripts/timstamp.dll -pkcs12 ${SIGN_WIN_CERT_PATH} -pass ${SIGN_WIN_CERT_PASSWORD}`;
+    if (hash === 'sha256') cmd += ' -nest';
+    cmd += ` -h ${hash}`;
+
+    return execAsync(cmd)
+      .then(() => fs.removeAsync(file_path))
+      .then(() => fs.moveAsync(file_path_signed, file_path));
+  })
+  .asCallback(cb);
+
+  // The previous route for signing through wine, which isn't really needed.
+  // const cmd = `wine ${path.join(__dirname, '../node_modules/electron-winstaller/vendor/signtool.exe')} /f ${process.env.SIGN_WIN_CERT_PATH} /p ${process.env.SIGN_WIN_CERT_PASSWORD} `;
+  // execAsync(cmd + path.join(__dirname, '../tmp/Championify/championify.exe')).asCallback(cb);
 });

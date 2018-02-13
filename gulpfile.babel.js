@@ -67,7 +67,7 @@ gulp.task('upload', function(cb) {
 gulp.task('postinstall', function() {
   if (process.platform === 'darwin') {
     console.log('Replacing signtool.exe');
-    execSync('curl -Ls "https://github.com/dustinblackman/mono-signtool/releases/download/0.0.1/mono-signtool.tar.gz" | tar xz -C ./node_modules/electron-winstaller/vendor/');
+    execSync('curl -Ls "https://github.com/dustinblackman/mono-signtool/releases/download/0.0.2/mono-signtool.tar.gz" | tar xz -C ./node_modules/electron-winstaller/vendor/');
   }
 
   if (process.platform === 'win32') {

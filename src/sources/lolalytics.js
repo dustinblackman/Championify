@@ -46,6 +46,8 @@ function objToItems(title, set_type, obj) {
 }
 
 function mapSkills(skills) {
+  if (!skills) return [];
+
   const skills_list = R.sortBy(R.prop('rate'), R.map(entry => ({
     skills: entry,
     rate: skills[entry]
