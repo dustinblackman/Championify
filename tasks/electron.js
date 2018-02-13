@@ -152,6 +152,13 @@ gulp.task('electron:deps', function(cb) {
   const download_url = `https://raw.githubusercontent.com/dustinblackman/electron-runas-builds/master/compiled/${pkg.devDependencies.electron}/win32/ia32/runas.node`;
   spawnAsync(npm, ['i', '--production', '--prefix', './dev'].concat(install_items))
     .then(() => download(download_url, path.join(__dirname, '../dev/node_modules/runas/build/Release/runas.node'), true))
+    .then(() => {
+      console.log('Adding main fix to ipaddr.js');
+      const pkg_path = path.join(__dirname, '../dev/node_modules/ipaddr.js/package.json');
+      const ipaddr_pkg = require(pkg_path);
+      ipaddr_pkg.main = './lib/ipaddr.js';
+      fs.writeFileSync(pkg_path, JSON.stringify(ipaddr_pkg), null, 2);
+    })
     .asCallback(cb);
 });
 
