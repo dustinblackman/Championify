@@ -33,8 +33,8 @@ function saveSettings() {
 */
 function getRiotVer() {
   if (store.get('importing')) cl(`${T.t('lol_version')}`);
-  return request({url: 'https://ddragon.leagueoflegends.com/realms/na.json', json: true})
-    .then(R.prop('v'))
+  return request({url: 'https://ddragon.leagueoflegends.com/api/versions.json', json: true})
+    .then(R.head)
     .tap(version => store.set('riot_ver', version))
     .catch(err => {
       throw new ChampionifyErrors.RequestError('Can\'t get Riot Version').causedBy(err);
