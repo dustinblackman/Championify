@@ -123,9 +123,10 @@ export function getSr() {
               }
             ];
 
+            let site_abbr = (store.get('settings').splititems) ? 'KRB' : 'KoreanBuilds';
             const riot_json = R.merge(R.clone(default_schema, true), {
               champion: champ_data.formatted_name,
-              title: `KRB ${role} ${store.get('koreanbuilds_ver')}`,
+              title: `${site_abbr} ${role} ${store.get('koreanbuilds_ver')}`,
               blocks: trinksCon(block, {highest_win: skills, most_freq: skills})
             });
 

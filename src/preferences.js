@@ -118,7 +118,8 @@ class Preferences {
         locksr: $('#options_locksr').is(':checked'),
         sr_source: $('#options_sr_source').val().split(','),
         dontdeleteold: $('#options_dontdeleteold').is(':checked'),
-        aram: $('#options_aram').is(':checked')
+        aram: $('#options_aram').is(':checked'),
+        aram_blitz_lolalytics: $('#options_aram_blitz_lolalytics').is(':checked')
       }
     };
   }

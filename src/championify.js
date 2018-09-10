@@ -127,7 +127,7 @@ function deleteOldBuilds(deletebtn) {
 function fixAndSaveToFile() {
   const special_items = store.get('special_items');
 
-  return Promise.resolve([store.get('sr_itemsets'), store.get('aram_itemsets')])
+  return Promise.resolve([store.get('sr_itemsets'), store.get('aram_itemsets'), store.get('blitz_itemsets')])
     .then(R.flatten)
     .then(R.reject(R.isNil))
     .each(data => {
@@ -205,14 +205,29 @@ function downloadItemSets() {
   store.set('importing', true);
   store.remove('sr_itemsets');
   store.remove('aram_itemsets');
+  store.remove('blitz_itemsets');
   store.remove('undefined_builds');
   progressbar.reset();
 
   const to_process = [];
-  if (store.get('settings').aram) to_process.push({
-    name: 'lolflavor',
-    method: sources.lolflavor.getAram
-  });
+
+  if (store.get('settings').aram) {
+    to_process.push({
+      name: 'lolflavor',
+      method: sources.lolflavor.getAram
+    });
+  }
+  if (store.get('settings').aram_blitz_lolalytics) {
+    to_process.push({
+      name: 'lolalytics',
+      method: sources.lolalytics.getAram
+    });
+    to_process.push({
+      name: 'lolalytics',
+      method: sources.lolalytics.getBlitz
+    });
+  }
+
   R.forEach(source => {
     if (sources[source]) to_process.push({
       name: source,

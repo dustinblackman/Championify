@@ -7,7 +7,7 @@ import T from '../translate.js';
 
 const default_schema = require('../../data/default.json');
 
-let cache;
+let cache, aram_cache, blitz_cache;
 const skills_map = {
   1: 'Q',
   2: 'W',
@@ -15,10 +15,22 @@ const skills_map = {
   4: 'R'
 };
 
-function getCache() {
+function getCache(queueType) {
   if (cache) return cache;
-  cache = request({url: 'http://championify.lolalytics.com/data/1.0/ranked.json', json: true});
+  cache = request({url: `http://championify.lolalytics.com/data/1.0/ranked.json`, json: true});
   return cache;
+}
+
+function getAramCache(queueType) {
+  if (aram_cache) return aram_cache;
+  aram_cache = request({url: `http://championify.lolalytics.com/data/1.0/aram.json`, json: true});
+  return aram_cache;
+}
+
+function getBlitzCache() {
+  if (blitz_cache) return blitz_cache;
+  blitz_cache = request({url: `http://championify.lolalytics.com/data/1.0/blitz.json`, json: true});
+  return blitz_cache;
 }
 
 export function getVersion() {
@@ -58,25 +70,47 @@ function mapSkills(skills) {
   return mapped_skills;
 }
 
-function createJSON(champ, skills, position, blocks, set_type) {
+function createJSON(champ, skills, position, blocks, set_type, map) {
+  let file_prefix = position;
   let title = position;
+  let mapCode = 'any';
+  let site_abbr = (store.get('settings').splititems) ? 'LAS' : 'Lolalytics';
+  if (map) {
+    file_prefix = map;
+    // If processing ARAM.
+    if (map === 'ARAM') {
+      // Oracles exlixir
+      // blocks[0].items.push({count: 1, id: '2047'});
+      title = `${site_abbr} (ARAM) ${store.get('lolalytics_ver')}`;
+      mapCode = 'HA';
+    } else if (map === 'Blitz') {
+      title = `${site_abbr} (Blitz) ${store.get('lolalytics_ver')}`;
+      mapCode = 'SL';
+    }
+  } else {
+    if (store.get('settings').locksr) mapCode = 'SR';
+    title = `${site_abbr} ${store.get('lolalytics_ver')} ${file_prefix}`;
+  }
+
   if (set_type) title += ` ${set_type}`;
+
   const riot_json = R.merge(default_schema, {
+    map: mapCode,
     champion: champ,
-    title: `LAS ${store.get('lolalytics_ver')} ${title}`,
+    title: title,
     blocks: trinksCon(blocks, skills)
   });
 
   return {
     champ,
     file_prefix:
-    title.replace(/ /g, '_').toLowerCase(),
+    file_prefix.replace(/ /g, '_').toLowerCase(),
     riot_json,
     source: 'lolalytics'
   };
 }
 
-function processSets(champ, position, sets) {
+function processSets(champ, position, sets, map) {
   const skills = {
     most_freq: mapSkills(sets.skillpick),
     highest_win: mapSkills(sets.skillwin)
@@ -104,12 +138,16 @@ function processSets(champ, position, sets) {
 
   if (store.get('settings').splititems) {
     return [
-      createJSON(champ, skills, position, R.values(mostfreq), T.t('most_freq', true)),
-      createJSON(champ, skills, position, R.values(highestwin), T.t('highest_win', true))
+      createJSON(champ, skills, position, R.values(mostfreq), T.t('most_freq', true), map),
+      createJSON(champ, skills, position, R.values(highestwin), T.t('highest_win', true), map)
     ];
   }
 
-  return createJSON(champ, skills, position, [
+  return createJSON(champ, skills, position, R.values(mostfreq).concat(R.values(highestwin)), '', map);
+   /* This is not very consumable, even for people okay with combined item sets, for Lolalytics
+   in particular, I think the above format would be easier to read.
+   [
+    R.values(mostfreq).concat(R.values(highestwin))
     mostfreq.starting,
     highestwin.starting,
     mostfreq.boots,
@@ -124,7 +162,7 @@ function processSets(champ, position, sets) {
     highestwin.fourth,
     mostfreq.fifth,
     highestwin.fifth
-  ]);
+  ]*/
 }
 
 export function getSr() {
@@ -144,6 +182,44 @@ export function getSr() {
     })
     .then(R.flatten)
     .then(data => store.push('sr_itemsets', data));
+}
+
+export function getAram() {
+  if (!store.get('lolalytics_ver')) return getVersion().then(getAram);
+
+  return getAramCache()
+    .then(R.prop('stats'))
+    .then(stats => {
+      return R.map(champ => {
+        cl(`${T.t('processing')} Lolalytics (ARAM): ${T.t(champ)}`);
+        // progressbar.incrChamp();
+
+        return R.map(position => {
+          return processSets(champ, 'ARAM', stats[champ][position], 'ARAM');
+        }, R.keys(stats[champ]));
+      }, R.keys(stats));
+    })
+    .then(R.flatten)
+    .then(data => store.push('aram_itemsets', data));
+}
+
+export function getBlitz() {
+  if (!store.get('lolalytics_ver')) return getVersion().then(getBlitz);
+
+  return getBlitzCache()
+    .then(R.prop('stats'))
+    .then(stats => {
+      return R.map(champ => {
+        cl(`${T.t('processing')} Lolalytics (Blitz): ${T.t(champ)}`);
+        // progressbar.incrChamp();
+
+        return R.map(position => {
+          return processSets(champ, 'Blitz', stats[champ][position], 'Blitz');
+        }, R.keys(stats[champ]));
+      }, R.keys(stats));
+    })
+    .then(R.flatten)
+    .then(data => store.push('blitz_itemsets', data));
 }
 
 export const source_info = {

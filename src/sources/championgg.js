@@ -34,10 +34,11 @@ function processSkills(skills) {
 
 function formatForStore(champ, position, set_type, file_prefix, build) {
   let title = T.t(position, true);
+  let site_abbr = (store.get('settings').splititems) ? 'CGG' : 'Champion.gg';
   if (set_type) title += ` ${set_type}`;
   const riot_json = R.merge(default_schema, {
     champion: champ,
-    title: `CGG ${title} ${store.get('championgg_ver')}`,
+    title: `${site_abbr} ${title} ${store.get('championgg_ver')}`,
     blocks: build
   });
 

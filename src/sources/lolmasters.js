@@ -48,9 +48,10 @@ function processChampData(champ, lm_position, data) {
     count: 1
   }), item_ids);
 
+  let site_abbr = (store.get('settings').splititems) ? 'LM' : 'LolMasters';
   const riot_json = R.merge(default_schema, {
     champion: champ,
-    title: `LM ${store.get('lolmasters_ver')} ${positions[lm_position]}`,
+    title: `${site_abbr} ${store.get('lolmasters_ver')} ${positions[lm_position]}`,
     blocks: trinksCon([{
       type: positions[lm_position],
       items

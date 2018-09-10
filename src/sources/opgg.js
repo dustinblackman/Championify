@@ -74,7 +74,7 @@ function formatForStore(champ, position, skills, set_type, file_prefix, blocks) 
   if (set_type) title += ` ${set_type}`;
   const riot_json = R.merge(default_schema, {
     champion: champ,
-    title: `OPGG ${title} ${store.get('opgg_ver')}`,
+    title: `OP.GG ${title} ${store.get('opgg_ver')}`,
     blocks: trinksCon(R.map(R.omit(['rate']), blocks), skills)
   });
 
