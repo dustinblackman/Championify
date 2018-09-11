@@ -92,7 +92,10 @@ function createJSON(champ, skills, position, blocks, set_type, map) {
     title = `${site_abbr} ${store.get('lolalytics_ver')} ${file_prefix}`;
   }
 
-  if (set_type) title += ` ${set_type}`;
+  if (set_type) {
+    title += ` ${set_type}`;
+    file_prefix += ` ${set_type}`;
+  }
 
   const riot_json = R.merge(default_schema, {
     map: mapCode,
@@ -146,7 +149,7 @@ function processSets(champ, position, sets, map) {
   return createJSON(champ, skills, position, R.values(mostfreq).concat(R.values(highestwin)), '', map);
    /* This is not very consumable, even for people okay with combined item sets, for Lolalytics
    in particular, I think the above format would be easier to read.
-   [
+   return createJSON(champ, skills, position,[
     R.values(mostfreq).concat(R.values(highestwin))
     mostfreq.starting,
     highestwin.starting,

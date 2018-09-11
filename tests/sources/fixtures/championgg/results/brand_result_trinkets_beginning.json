@@ -123,7 +123,7 @@
           "type": "Highest Win % Core Build (48.53% wins - 340 games)"
         }
       ],
-      "title": "CGG Support 5.16",
+      "title": "Champion.gg Support 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -256,7 +256,7 @@
           "type": "Highest Win % Core Build (65.63% wins - 64 games)"
         }
       ],
-      "title": "CGG Middle 5.16",
+      "title": "Champion.gg Middle 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",

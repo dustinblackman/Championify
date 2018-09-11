@@ -16,7 +16,6 @@ const prebuilts = require('../../data/prebuilts.json');
 
 // Windows Specific Dependencies
 let runas;
-if (process.platform === 'win32') runas = require('runas');
 
 /**
  * Function if error exists, enable error view and log error ending the session.
@@ -36,6 +35,7 @@ export function EndSession(c_error) {
  * @returns {Promise.Boolean|ChampionifyErrors.ElevateError}
  */
 export function elevate(params = []) {
+  if (!runas && process.platform === 'win32') runas = require('runas');
   if (!runas) return Promise.reject(new Error('runas does not work on non windows systems'));
 
   return new Promise((resolve, reject) => {

@@ -146,12 +146,16 @@
             {
               "id": "2139",
               "count": 1
+            },
+            {
+              "id": "2047",
+              "count": 1
             }
           ],
           "type": "Consumables | Frequent: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E.R.E.E"
         }
       ],
-      "title": "CGG Support 5.16",
+      "title": "Champion.gg Support 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -307,12 +311,16 @@
             {
               "id": "2139",
               "count": 1
+            },
+            {
+              "id": "2047",
+              "count": 1
             }
           ],
           "type": "Consumables | Frequent: W.Q.E.W.W.R.W.Q.W.Q.R.Q.Q.E.E.R.E.E"
         }
       ],
-      "title": "CGG Middle 5.16",
+      "title": "Champion.gg Middle 5.16",
       "priority": false,
       "mode": "any",
       "type": "custom",
