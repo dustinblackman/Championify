@@ -143,7 +143,7 @@ function _processLolflavor(process_name, stats_file) {
 
 export function getAram() {
   return _processLolflavor('ARAM', 'statsARAM.json')
-    .then(champs => store.set('aram_itemsets', champs));
+    .then(champs => store.push('aram_itemsets', champs));
 }
 
 
