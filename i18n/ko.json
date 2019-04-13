@@ -64,7 +64,7 @@
   "na": "사용 불가",
   "open_log": "로그 열기",
   "options_aram": "아람 항목 세트를 다운로드",
-  "options_aram_tooltip": "LolFlavor에서 아람 아이템 세트를 다운로드",
+  "options_aram_tooltip": "LolAlytics에서 아람 아이템 세트를 다운로드",
   "options_consumables": "소모품 적용",
   "options_consumables_tooltip": "소모품을 사용하지 않도록 설정하면 가장 자주 스킬 순서를 잃게됩니다",
   "options_dontdeleteold": "오래된 아이템 세트를 삭제하지 마세요",

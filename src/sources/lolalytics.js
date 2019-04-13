@@ -8,6 +8,7 @@ import T from '../translate.js';
 const default_schema = require('../../data/default.json');
 
 let cache;
+let cacheAram;
 const skills_map = {
   1: 'Q',
   2: 'W',
@@ -17,8 +18,13 @@ const skills_map = {
 
 function getCache() {
   if (cache) return cache;
-  cache = request({url: 'http://championify.lolalytics.com/data/1.0/ranked.json', json: true});
+  cache = request({ url: `http://championify.lolalytics.com/data/1.0/ranked.json`, json: true });
   return cache;
+}
+function getCacheAram() {
+  if (cacheAram) return cacheAram;
+  cacheAram = request({ url: `http://championify.lolalytics.com/data/1.0/aram.json`, json: true });
+  return cacheAram;
 }
 
 export function getVersion() {
@@ -70,7 +76,7 @@ function createJSON(champ, skills, position, blocks, set_type) {
   return {
     champ,
     file_prefix:
-    title.replace(/ /g, '_').toLowerCase(),
+      title.replace(/ /g, '_').toLowerCase(),
     riot_json,
     source: 'lolalytics'
   };
@@ -150,3 +156,22 @@ export const source_info = {
   name: 'Lolalytics',
   id: 'lolalytics'
 };
+
+export function getAram() {
+  if (!store.get('lolalytics_ver')) return getVersion().then(getSr);
+
+  return getCacheAram()
+    .then(R.prop('stats'))
+    .then(stats => {
+      return R.map(champ => {
+        cl(`${T.t('processing')} Lolalytics: ${T.t(champ)}`);
+        progressbar.incrChamp();
+
+        return R.map(position => {
+          return processSets(champ, position, stats[champ][position]);
+        }, R.keys(stats[champ]));
+      }, R.keys(stats));
+    })
+    .then(R.flatten)
+    .then(aramData => store.set('aram_itemsets', aramData));
+}

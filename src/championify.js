@@ -33,7 +33,7 @@ function saveSettings() {
 */
 function getRiotVer() {
   if (store.get('importing')) cl(`${T.t('lol_version')}`);
-  return request({url: 'https://ddragon.leagueoflegends.com/realms/na.json', json: true})
+  return request({ url: 'https://ddragon.leagueoflegends.com/realms/na.json', json: true })
     .then(R.prop('v'))
     .tap(version => store.set('riot_ver', version))
     .catch(err => {
@@ -210,8 +210,8 @@ function downloadItemSets() {
 
   const to_process = [];
   if (store.get('settings').aram) to_process.push({
-    name: 'lolflavor',
-    method: sources.lolflavor.getAram
+    name: 'lolalytics',
+    method: sources.lolalytics.getAram
   });
   R.forEach(source => {
     if (sources[source]) to_process.push({
