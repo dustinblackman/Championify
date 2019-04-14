@@ -103,7 +103,8 @@
     "yauzl": "2.3.1"
   },
   "optionalDependencies": {
-    "appdmg": "^0.4.5"
+    "appdmg": "^0.4.5",
+    "win-node-env": "^0.4.0"
   },
   "babel": {
     "presets": [
