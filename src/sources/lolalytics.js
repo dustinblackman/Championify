@@ -80,10 +80,12 @@ function mapSkills(skills) {
 function createJSON(champ, skills, position, blocks, set_type) {
 	let title = position;
 	if (set_type) title += ` ${set_type}`;
+	var map = (set_type === 'ARAM' ? 'HA' : 'SR');
 	const riot_json = R.merge(default_schema, {
 		champion: champ,
 		title: `LAS ${store.get('lolalytics_ver')} ${title}`,
-		blocks: trinksCon(blocks, skills)
+		blocks: trinksCon(blocks, skills),
+		map: map
 	});
 
 	return {
@@ -145,45 +147,53 @@ function processSets(champ, position, sets) {
 	]);
 }
 
+function trimItemSets(sets, count) {
+	var trimmedSets = {
+		startingitempick: {},
+		bootspick: {},
+		item1pick: {},
+		item2pick: {},
+		item3pick: {},
+		item4pick: {},
+		item5pick: {}
+	};
+	for (const setName in trimmedSets) {
+		try {
+			var counter = 0;
+			for (var key in sets[setName]) {
+				counter++;
+				trimmedSets[setName][`${key}`] = sets[setName][key];
+				if (counter === count) {
+					break;
+				}
+			}
+		} catch (error) {
+			cl(`${error}`);
+		}
+	}
+	return trimmedSets;
+}
+
 function processAramSets(champ, position, sets) {
 	const skills = {
 		most_freq: mapSkills(sets.skillpick),
 		highest_win: mapSkills(sets.skillwin)
 	};
-	const aramwin = {
-		starting: objToItems(T.t('starting_items', true), T.t('aram_win', true), sets.startingitempick),
-		boots: objToItems(T.t('boots', true), T.t('aram_win', true), sets.bootspick),
-		first: objToItems(T.t('first_item', true), T.t('aram_win', true), sets.item1pick),
-		second: objToItems(T.t('second_item', true), T.t('aram_win', true), sets.item2pick),
-		third: objToItems(T.t('third_item', true), T.t('aram_win', true), sets.item3pick),
-		fourth: objToItems(T.t('fourth_item', true), T.t('aram_win', true), sets.item4pick),
-		fifth: objToItems(T.t('fifth_item', true), T.t('aram_win', true), sets.item5pick)
-	};
-	// const mostfreq = {
-	// 	starting: objToItems(T.t('starting_items', true), T.t('most_freq', true), sets.startingitempick),
-	// 	boots: objToItems(T.t('boots', true), T.t('most_freq', true), sets.bootspick),
-	// 	first: objToItems(T.t('first_item', true), T.t('most_freq', true), sets.item1pick),
-	// 	second: objToItems(T.t('second_item', true), T.t('most_freq', true), sets.item2pick),
-	// 	third: objToItems(T.t('third_item', true), T.t('most_freq', true), sets.item3pick),
-	// 	fourth: objToItems(T.t('fourth_item', true), T.t('most_freq', true), sets.item4pick),
-	// 	fifth: objToItems(T.t('fifth_item', true), T.t('most_freq', true), sets.item5pick)
-	// };
 
-	// const highestwin = {
-	// 	starting: objToItems(T.t('starting_items', true), T.t('highest_win', true), sets.startingitemwin),
-	// 	boots: objToItems(T.t('boots', true), T.t('highest_win', true), sets.bootspick),
-	// 	first: objToItems(T.t('first_item', true), T.t('highest_win', true), sets.item1win),
-	// 	second: objToItems(T.t('second_item', true), T.t('highest_win', true), sets.item2win),
-	// 	third: objToItems(T.t('third_item', true), T.t('highest_win', true), sets.item3win),
-	// 	fourth: objToItems(T.t('fourth_item', true), T.t('highest_win', true), sets.item4win),
-	// 	fifth: objToItems(T.t('fifth_item', true), T.t('highest_win', true), sets.item5win)
-	// };
+	var trimmedSets = trimItemSets(sets, 6);
+	const aramwin = {
+		starting: objToItems(T.t('starting_items', true), T.t('aram', true), trimmedSets.startingitempick),
+		boots: objToItems(T.t('boots', true), T.t('aram', true), trimmedSets.bootspick),
+		first: objToItems(T.t('first_item', true), T.t('aram', true), trimmedSets.item1pick),
+		second: objToItems(T.t('second_item', true), T.t('aram', true), trimmedSets.item2pick),
+		third: objToItems(T.t('third_item', true), T.t('aram', true), trimmedSets.item3pick),
+		fourth: objToItems(T.t('fourth_item', true), T.t('aram', true), trimmedSets.item4pick),
+		fifth: objToItems(T.t('fifth_item', true), T.t('aram', true), trimmedSets.item5pick)
+	};
 
 	if (store.get('settings').splititems) {
 		return [
-			// createJSON(champ, skills, position, R.values(mostfreq), T.t('most_freq', true)),
-			// createJSON(champ, skills, position, R.values(highestwin), T.t('highest_win', true))
-			createJSON(champ, skills, position, R.values(aramwin), T.t('aram_win', true))
+			createJSON(champ, skills, position, R.values(aramwin), T.t('aram', true))
 		];
 	}
 
