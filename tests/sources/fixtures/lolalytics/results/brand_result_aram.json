@@ -1,0 +1,251 @@
+[{
+	"champ": "Brand",
+	"file_prefix": "middle",
+	"riot_json": {
+		"map": "HA",
+		"blocks": [{
+				"type": "ARAM Starting Items",
+				"items": [{
+						"id": "1056",
+						"count": 1
+					},
+					{
+						"id": "3340",
+						"count": 1
+					},
+					{
+						"id": "2010",
+						"count": 1
+					},
+					{
+						"id": "2003",
+						"count": 1
+					},
+					{
+						"id": "3303",
+						"count": 1
+					},
+					{
+						"id": "2033",
+						"count": 1
+					}
+				]
+			},
+			{
+				"type": "ARAM Boots",
+				"items": [{
+						"id": "3020",
+						"count": 1
+					},
+					{
+						"id": "3158",
+						"count": 1
+					},
+					{
+						"id": "3111",
+						"count": 1
+					}
+				]
+			},
+			{
+				"type": "ARAM First Item",
+				"items": [{
+						"id": "3027",
+						"count": 1
+					},
+					{
+						"id": "3165",
+						"count": 1
+					},
+					{
+						"id": "3116",
+						"count": 1
+					},
+					{
+						"id": "3151",
+						"count": 1
+					},
+					{
+						"id": "3001",
+						"count": 1
+					},
+					{
+						"id": "3157",
+						"count": 1
+					},
+					{
+						"id": "3285",
+						"count": 1
+					}
+				]
+			},
+			{
+				"type": "ARAM Second Item",
+				"items": [{
+						"id": "3116",
+						"count": 1
+					},
+					{
+						"id": "3151",
+						"count": 1
+					},
+					{
+						"id": "3165",
+						"count": 1
+					},
+					{
+						"id": "3157",
+						"count": 1
+					},
+					{
+						"id": "3089",
+						"count": 1
+					},
+					{
+						"id": "3001",
+						"count": 1
+					},
+					{
+						"id": "3285",
+						"count": 1
+					},
+					{
+						"id": "3027",
+						"count": 1
+					},
+					{
+						"id": "3135",
+						"count": 1
+					}
+				]
+			},
+			{
+				"type": "ARAM Third Item",
+				"items": [{
+						"id": "3151",
+						"count": 1
+					},
+					{
+						"id": "3116",
+						"count": 1
+					},
+					{
+						"id": "3089",
+						"count": 1
+					},
+					{
+						"id": "3157",
+						"count": 1
+					},
+					{
+						"id": "3135",
+						"count": 1
+					},
+					{
+						"id": "3165",
+						"count": 1
+					},
+					{
+						"id": "3285",
+						"count": 1
+					},
+					{
+						"id": "3001",
+						"count": 1
+					}
+				]
+			},
+			{
+				"type": "Highest Win Third Item",
+				"items": [{
+						"id": "3285",
+						"count": 1
+					},
+					{
+						"id": "3165",
+						"count": 1
+					},
+					{
+						"id": "3151",
+						"count": 1
+					},
+					{
+						"id": "3089",
+						"count": 1
+					},
+					{
+						"id": "3116",
+						"count": 1
+					},
+					{
+						"id": "3135",
+						"count": 1
+					},
+					{
+						"id": "3157",
+						"count": 1
+					},
+					{
+						"id": "3001",
+						"count": 1
+					}
+				]
+			},
+			{
+				"type": "ARAM Fourth Item",
+				"items": [{
+						"id": "3135",
+						"count": 1
+					},
+					{
+						"id": "3089",
+						"count": 1
+					},
+					{
+						"id": "3157",
+						"count": 1
+					},
+					{
+						"id": "3151",
+						"count": 1
+					},
+					{
+						"id": "3116",
+						"count": 1
+					},
+					{
+						"id": "3285",
+						"count": 1
+					},
+					{
+						"id": "3165",
+						"count": 1
+					}
+				]
+			},
+			{
+				"type": "ARAM Fifth Item",
+				"items": [{
+						"id": "3135",
+						"count": 1
+					},
+					{
+						"id": "3089",
+						"count": 1
+					},
+					{
+						"id": "3157",
+						"count": 1
+					}
+				]
+			}
+		],
+		"title": "LAS 6.24 Middle",
+		"priority": false,
+		"mode": "any",
+		"type": "custom",
+		"sortrank": 1,
+		"champion": "Brand"
+	},
+	"source": "lolalytics"
+}]
