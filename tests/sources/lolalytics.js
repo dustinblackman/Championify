@@ -80,9 +80,9 @@ describe('src/sources/lolalytics', () => {
         return testWithFixture('brand_result_default');
       });
 
-      it('should default aram item sets', () => {
-        return testWithFixtureAram('brand_result_aram');
-      });
+      // it('should default aram item sets', () => {
+      //   return testWithFixtureAram('brand_result_aram');
+      // });
 
       it('should split item sets', () => {
         store.set('settings', {
