@@ -22,19 +22,28 @@ R.forEach(fixture => {
   RESULTS_FIXTURES[path.basename(fixture).replace('.json', '')] = require(fixture);
 }, glob.sync(path.join(__dirname, 'fixtures/lolalytics/results/*.json')));
 
-function testWithFixture(fixture, isAram = false) {
+function testWithFixture(fixture) {
   return lolalytics.getSr()
     .then(() => {
       let results = R.flatten(store.get('sr_itemsets'));
-      if (isAram) {
-        results = R.flatten(store.get('aram_itemsets'));
-      }
       if (process.env.BUILD_FIXTURES === 'true') {
         fs.writeFileSync(path.join(__dirname, `fixtures/lolalytics/results/${fixture}.json`), JSON.stringify(results, null, 2), 'utf8');
       }
       should.exist(results);
       results.should.eql(RESULTS_FIXTURES[fixture]);
     });
+}
+
+function testWithFixtureAram(fixture) {
+  return lolalytics.getAram()
+  .then(() => {
+    let results = R.flatten(store.get('aram_itemsets'));
+    if (process.env.BUILD_FIXTURES === 'true') {
+      fs.writeFileSync(path.join(__dirname, `fixtures/lolalytics/results/${fixture}.json`), JSON.stringify(results, null, 2), 'utf8');
+    }
+    should.exist(results);
+    results.should.eql(RESULTS_FIXTURES[fixture]);
+  });
 }
 
 describe('src/sources/lolalytics', () => {
@@ -72,7 +81,7 @@ describe('src/sources/lolalytics', () => {
       });
 
       it('should default aram item sets', () => {
-        return testWithFixture('brand_result_aram', true);
+        return testWithFixtureAram('brand_result_aram');
       });
 
       it('should split item sets', () => {
