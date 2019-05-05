@@ -80,7 +80,7 @@ function mapSkills(skills) {
 function createJSON(champ, skills, position, blocks, set_type) {
 	let title = position;
 	if (set_type) title += ` ${set_type}`;
-	var map = (set_type === 'ARAM' ? 'HA' : 'SR');
+	let map = (set_type === 'ARAM' ? 'HA' : 'SR');
 	const riot_json = R.merge(default_schema, {
 		champion: champ,
 		title: `LAS ${store.get('lolalytics_ver')} ${title}`,
@@ -148,7 +148,7 @@ function processSets(champ, position, sets) {
 }
 
 function trimItemSets(sets, count) {
-	var trimmedSets = {
+	let trimmedSets = {
 		startingitempick: {},
 		bootspick: {},
 		item1pick: {},
@@ -159,8 +159,8 @@ function trimItemSets(sets, count) {
 	};
 	for (const setName in trimmedSets) {
 		try {
-			var counter = 0;
-			for (var key in sets[setName]) {
+			let counter = 0;
+			for (let key in sets[setName]) {
 				counter++;
 				trimmedSets[setName][`${key}`] = sets[setName][key];
 				if (counter === count) {
@@ -180,7 +180,7 @@ function processAramSets(champ, position, sets) {
 		highest_win: mapSkills(sets.skillwin)
 	};
 
-	var trimmedSets = trimItemSets(sets, 6);
+	let trimmedSets = trimItemSets(sets, 6);
 	const aramwin = {
 		starting: objToItems(T.t('starting_items', true), T.t('aram', true), trimmedSets.startingitempick),
 		boots: objToItems(T.t('boots', true), T.t('aram', true), trimmedSets.bootspick),
