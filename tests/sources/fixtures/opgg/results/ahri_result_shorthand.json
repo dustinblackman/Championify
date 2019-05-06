@@ -43,6 +43,10 @@
               {
                 "id": "2139",
                 "count": 1
+              },
+              {
+                "id": "2047",
+                "count": 1
               }
             ],
             "type": "Consumables | Frequent: Q.W.E.Q - Q>W>E"
@@ -206,7 +210,7 @@
             "type": "Highest Win % Items - Winrate: 76.63-55.33%"
           }
         ],
-        "title": "OPGG Middle 7.21",
+        "title": "OP.GG Middle 7.21",
         "priority": false,
         "mode": "any",
         "type": "custom",

@@ -97,7 +97,7 @@ function _requestData(champs_names, process_name) {
             riot_json.blocks.shift();
             riot_json.blocks = trinksCon(riot_json.blocks);
           }
-          riot_json.title = `LFV ${T.t(process_name.toLowerCase(), true)} ${spliceVersion(store.get('riot_ver'))}`;
+          riot_json.title = `LolFlavor ${T.t(process_name.toLowerCase(), true)} ${spliceVersion(store.get('riot_ver'))}`;
 
           if (process_name === 'ARAM') {
             progressbar.incrChamp();
@@ -143,7 +143,7 @@ function _processLolflavor(process_name, stats_file) {
 
 export function getAram() {
   return _processLolflavor('ARAM', 'statsARAM.json')
-    .then(champs => store.set('aram_itemsets', champs));
+    .then(champs => store.push('aram_itemsets', champs));
 }
 
 

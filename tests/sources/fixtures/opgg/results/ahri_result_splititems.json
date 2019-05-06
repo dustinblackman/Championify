@@ -86,7 +86,7 @@
             "type": "Most Frequent Items - Pickrate: 15.78-4.07%"
           }
         ],
-        "title": "OPGG Middle Most Frequent 7.21",
+        "title": "OP.GG Middle Most Frequent 7.21",
         "priority": false,
         "mode": "any",
         "type": "custom",
@@ -181,7 +181,7 @@
             "type": "Highest Win % Items - Winrate: 76.63-55.33%"
           }
         ],
-        "title": "OPGG Middle Highest Win 7.21",
+        "title": "OP.GG Middle Highest Win 7.21",
         "priority": false,
         "mode": "any",
         "type": "custom",

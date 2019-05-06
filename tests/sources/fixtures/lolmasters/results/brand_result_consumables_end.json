@@ -71,12 +71,16 @@
             {
               "id": "2139",
               "count": 1
+            },
+            {
+              "id": "2047",
+              "count": 1
             }
           ],
           "type": "Consumables"
         }
       ],
-      "title": "LM 6.24 Mid",
+      "title": "LolMasters 6.24 Mid",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -157,12 +161,16 @@
             {
               "id": "2139",
               "count": 1
+            },
+            {
+              "id": "2047",
+              "count": 1
             }
           ],
           "type": "Consumables"
         }
       ],
-      "title": "LM 6.24 Support",
+      "title": "LolMasters 6.24 Support",
       "priority": false,
       "mode": "any",
       "type": "custom",

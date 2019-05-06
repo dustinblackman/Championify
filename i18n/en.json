@@ -65,6 +65,8 @@
   "open_log": "Open Log",
   "options_aram": "Download ARAM Item Sets",
   "options_aram_tooltip": "Download ARAM item sets from LolFlavor",
+  "options_aram_blitz_lolalytics": "Download ARAM & Blitz Item Sets",
+  "options_aram_blitz_lolalytics_tooltip": "Download ARAM & Blitz item sets from Lolalytics",
   "options_consumables": "Enable Consumables",
   "options_consumables_tooltip": "By disabling consumables, you'll lose the Most Frequent skill order",
   "options_dontdeleteold": "Don't Delete Outdated Item Sets",

@@ -35,53 +35,7 @@
           ]
         },
         {
-          "type": "Highest Win Starting Items",
-          "items": [
-            {
-              "id": "2003",
-              "count": 1
-            },
-            {
-              "id": "1056",
-              "count": 1
-            },
-            {
-              "id": "3340",
-              "count": 1
-            },
-            {
-              "id": "2033",
-              "count": 1
-            },
-            {
-              "id": "2010",
-              "count": 1
-            },
-            {
-              "id": "3303",
-              "count": 1
-            }
-          ]
-        },
-        {
           "type": "Most Frequent Boots",
-          "items": [
-            {
-              "id": "3020",
-              "count": 1
-            },
-            {
-              "id": "3158",
-              "count": 1
-            },
-            {
-              "id": "3111",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "type": "Highest Win Boots",
           "items": [
             {
               "id": "3020",
@@ -131,39 +85,6 @@
           ]
         },
         {
-          "type": "Highest Win First Item",
-          "items": [
-            {
-              "id": "3116",
-              "count": 1
-            },
-            {
-              "id": "3151",
-              "count": 1
-            },
-            {
-              "id": "3285",
-              "count": 1
-            },
-            {
-              "id": "3027",
-              "count": 1
-            },
-            {
-              "id": "3165",
-              "count": 1
-            },
-            {
-              "id": "3157",
-              "count": 1
-            },
-            {
-              "id": "3001",
-              "count": 1
-            }
-          ]
-        },
-        {
           "type": "Most Frequent Second Item",
           "items": [
             {
@@ -200,6 +121,172 @@
             },
             {
               "id": "3135",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "Most Frequent Third Item",
+          "items": [
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3089",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            },
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
+            },
+            {
+              "id": "3285",
+              "count": 1
+            },
+            {
+              "id": "3001",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "Most Frequent Fourth Item",
+          "items": [
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3089",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3285",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "Most Frequent Fifth Item",
+          "items": [
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3089",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "Highest Win Starting Items",
+          "items": [
+            {
+              "id": "2003",
+              "count": 1
+            },
+            {
+              "id": "1056",
+              "count": 1
+            },
+            {
+              "id": "3340",
+              "count": 1
+            },
+            {
+              "id": "2033",
+              "count": 1
+            },
+            {
+              "id": "2010",
+              "count": 1
+            },
+            {
+              "id": "3303",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "Highest Win Boots",
+          "items": [
+            {
+              "id": "3020",
+              "count": 1
+            },
+            {
+              "id": "3158",
+              "count": 1
+            },
+            {
+              "id": "3111",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "Highest Win First Item",
+          "items": [
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3285",
+              "count": 1
+            },
+            {
+              "id": "3027",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            },
+            {
+              "id": "3001",
               "count": 1
             }
           ]
@@ -246,43 +333,6 @@
           ]
         },
         {
-          "type": "Most Frequent Third Item",
-          "items": [
-            {
-              "id": "3151",
-              "count": 1
-            },
-            {
-              "id": "3116",
-              "count": 1
-            },
-            {
-              "id": "3089",
-              "count": 1
-            },
-            {
-              "id": "3157",
-              "count": 1
-            },
-            {
-              "id": "3135",
-              "count": 1
-            },
-            {
-              "id": "3165",
-              "count": 1
-            },
-            {
-              "id": "3285",
-              "count": 1
-            },
-            {
-              "id": "3001",
-              "count": 1
-            }
-          ]
-        },
-        {
           "type": "Highest Win Third Item",
           "items": [
             {
@@ -320,39 +370,6 @@
           ]
         },
         {
-          "type": "Most Frequent Fourth Item",
-          "items": [
-            {
-              "id": "3135",
-              "count": 1
-            },
-            {
-              "id": "3089",
-              "count": 1
-            },
-            {
-              "id": "3157",
-              "count": 1
-            },
-            {
-              "id": "3151",
-              "count": 1
-            },
-            {
-              "id": "3116",
-              "count": 1
-            },
-            {
-              "id": "3285",
-              "count": 1
-            },
-            {
-              "id": "3165",
-              "count": 1
-            }
-          ]
-        },
-        {
           "type": "Highest Win Fourth Item",
           "items": [
             {
@@ -377,23 +394,6 @@
             },
             {
               "id": "3116",
-              "count": 1
-            },
-            {
-              "id": "3157",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "type": "Most Frequent Fifth Item",
-          "items": [
-            {
-              "id": "3135",
-              "count": 1
-            },
-            {
-              "id": "3089",
               "count": 1
             },
             {
@@ -456,12 +456,16 @@
             {
               "id": "2139",
               "count": 1
+            },
+            {
+              "id": "2047",
+              "count": 1
             }
           ],
           "type": "Consumables | Frequent: Q,E,W,Q,Q,R,Q,W,Q,W,R,W,W,E,E"
         }
       ],
-      "title": "LAS 6.24 Middle",
+      "title": "Lolalytics 6.24 Middle",
       "priority": false,
       "mode": "any",
       "type": "custom",
@@ -510,61 +514,7 @@
           ]
         },
         {
-          "type": "Highest Win Starting Items",
-          "items": [
-            {
-              "id": "2031",
-              "count": 1
-            },
-            {
-              "id": "3303",
-              "count": 1
-            },
-            {
-              "id": "2010",
-              "count": 1
-            },
-            {
-              "id": "3340",
-              "count": 1
-            },
-            {
-              "id": "2003",
-              "count": 1
-            },
-            {
-              "id": "2055",
-              "count": 1
-            },
-            {
-              "id": "1056",
-              "count": 1
-            }
-          ]
-        },
-        {
           "type": "Most Frequent Boots",
-          "items": [
-            {
-              "id": "3020",
-              "count": 1
-            },
-            {
-              "id": "3158",
-              "count": 1
-            },
-            {
-              "id": "3117",
-              "count": 1
-            },
-            {
-              "id": "3009",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "type": "Highest Win Boots",
           "items": [
             {
               "id": "3020",
@@ -618,39 +568,6 @@
           ]
         },
         {
-          "type": "Highest Win First Item",
-          "items": [
-            {
-              "id": "2301",
-              "count": 1
-            },
-            {
-              "id": "3151",
-              "count": 1
-            },
-            {
-              "id": "3116",
-              "count": 1
-            },
-            {
-              "id": "2049",
-              "count": 1
-            },
-            {
-              "id": "3027",
-              "count": 1
-            },
-            {
-              "id": "3092",
-              "count": 1
-            },
-            {
-              "id": "3165",
-              "count": 1
-            }
-          ]
-        },
-        {
           "type": "Most Frequent Second Item",
           "items": [
             {
@@ -679,39 +596,6 @@
             },
             {
               "id": "3165",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "type": "Highest Win Second Item",
-          "items": [
-            {
-              "id": "3151",
-              "count": 1
-            },
-            {
-              "id": "3116",
-              "count": 1
-            },
-            {
-              "id": "3165",
-              "count": 1
-            },
-            {
-              "id": "2049",
-              "count": 1
-            },
-            {
-              "id": "3027",
-              "count": 1
-            },
-            {
-              "id": "2301",
-              "count": 1
-            },
-            {
-              "id": "3092",
               "count": 1
             }
           ]
@@ -774,6 +658,200 @@
           ]
         },
         {
+          "type": "Most Frequent Fourth Item",
+          "items": [
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            },
+            {
+              "id": "3089",
+              "count": 1
+            },
+            {
+              "id": "2301",
+              "count": 1
+            },
+            {
+              "id": "2045",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
+            },
+            {
+              "id": "3285",
+              "count": 1
+            },
+            {
+              "id": "3107",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "Most Frequent Fifth Item",
+          "items": [
+            {
+              "id": "3135",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3157",
+              "count": 1
+            },
+            {
+              "id": "3089",
+              "count": 1
+            },
+            {
+              "id": "2045",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "Highest Win Starting Items",
+          "items": [
+            {
+              "id": "2031",
+              "count": 1
+            },
+            {
+              "id": "3303",
+              "count": 1
+            },
+            {
+              "id": "2010",
+              "count": 1
+            },
+            {
+              "id": "3340",
+              "count": 1
+            },
+            {
+              "id": "2003",
+              "count": 1
+            },
+            {
+              "id": "2055",
+              "count": 1
+            },
+            {
+              "id": "1056",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "Highest Win Boots",
+          "items": [
+            {
+              "id": "3020",
+              "count": 1
+            },
+            {
+              "id": "3158",
+              "count": 1
+            },
+            {
+              "id": "3117",
+              "count": 1
+            },
+            {
+              "id": "3009",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "Highest Win First Item",
+          "items": [
+            {
+              "id": "2301",
+              "count": 1
+            },
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "2049",
+              "count": 1
+            },
+            {
+              "id": "3027",
+              "count": 1
+            },
+            {
+              "id": "3092",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "Highest Win Second Item",
+          "items": [
+            {
+              "id": "3151",
+              "count": 1
+            },
+            {
+              "id": "3116",
+              "count": 1
+            },
+            {
+              "id": "3165",
+              "count": 1
+            },
+            {
+              "id": "2049",
+              "count": 1
+            },
+            {
+              "id": "3027",
+              "count": 1
+            },
+            {
+              "id": "2301",
+              "count": 1
+            },
+            {
+              "id": "3092",
+              "count": 1
+            }
+          ]
+        },
+        {
           "type": "Highest Win Third Item",
           "items": [
             {
@@ -831,51 +909,6 @@
           ]
         },
         {
-          "type": "Most Frequent Fourth Item",
-          "items": [
-            {
-              "id": "3151",
-              "count": 1
-            },
-            {
-              "id": "3116",
-              "count": 1
-            },
-            {
-              "id": "3135",
-              "count": 1
-            },
-            {
-              "id": "3157",
-              "count": 1
-            },
-            {
-              "id": "3089",
-              "count": 1
-            },
-            {
-              "id": "2301",
-              "count": 1
-            },
-            {
-              "id": "2045",
-              "count": 1
-            },
-            {
-              "id": "3165",
-              "count": 1
-            },
-            {
-              "id": "3285",
-              "count": 1
-            },
-            {
-              "id": "3107",
-              "count": 1
-            }
-          ]
-        },
-        {
           "type": "Highest Win Fourth Item",
           "items": [
             {
@@ -916,35 +949,6 @@
             },
             {
               "id": "3157",
-              "count": 1
-            }
-          ]
-        },
-        {
-          "type": "Most Frequent Fifth Item",
-          "items": [
-            {
-              "id": "3135",
-              "count": 1
-            },
-            {
-              "id": "3151",
-              "count": 1
-            },
-            {
-              "id": "3157",
-              "count": 1
-            },
-            {
-              "id": "3089",
-              "count": 1
-            },
-            {
-              "id": "2045",
-              "count": 1
-            },
-            {
-              "id": "3116",
               "count": 1
             }
           ]
@@ -1015,12 +1019,16 @@
             {
               "id": "2139",
               "count": 1
+            },
+            {
+              "id": "2047",
+              "count": 1
             }
           ],
           "type": "Consumables | Frequent: Q,E,W,Q,Q,R,Q,W,Q,W,R,W,W,E,E"
         }
       ],
-      "title": "LAS 6.24 Support",
+      "title": "Lolalytics 6.24 Support",
       "priority": false,
       "mode": "any",
       "type": "custom",

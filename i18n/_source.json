@@ -263,6 +263,14 @@
     "text": "Download ARAM item sets from LolFlavor",
     "done": true
   },
+  "options_aram_blitz_lolalytics": {
+    "text": "Download ARAM & Blitz Item Sets",
+    "done": true
+  },
+  "options_aram_blitz_lolalytics_tooltip": {
+    "text": "Download ARAM & Blitz item sets from Lolalytics",
+    "done": true
+  },
   "options_consumables": {
     "done": true,
     "text": "Enable Consumables"
