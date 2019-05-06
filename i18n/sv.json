@@ -64,7 +64,7 @@
   "na": "Inte tillgänglig",
   "open_log": "Öppna logg",
   "options_aram": "Hämta ARAM föremålsuppsättningar",
-  "options_aram_tooltip": "Hämta ARAM föremålsuppsättningar från LolFlavor",
+  "options_aram_tooltip": "Hämta ARAM föremålsuppsättningar från LolAlytics",
   "options_consumables": "Aktivera Förbruknings",
   "options_consumables_tooltip": "Genom att inaktivera förbrukningsmaterial, förlorar du den vanligaste skicklighet ordning",
   "options_dontdeleteold": "Inte bort Föråldrade föremålsuppsättningar",

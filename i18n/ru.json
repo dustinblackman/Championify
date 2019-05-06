@@ -64,7 +64,7 @@
   "na": "Недоступно",
   "open_log": "Открыть лог",
   "options_aram": "Скачивать наборы предметов для ARAM",
-  "options_aram_tooltip": "Скачивать наборы предметов для ARAM с LolFlavor",
+  "options_aram_tooltip": "Скачивать наборы предметов для ARAM с LolAlytics",
   "options_consumables": "Включить Расходуемые предметы",
   "options_consumables_tooltip": "Отключив Расходуемые предметы, вы не увидите самый популярный порядок изучения умений",
   "options_dontdeleteold": "Не удалять устаревшие наборы предметов",

@@ -3,7 +3,7 @@
     "champ": "Brand",
     "file_prefix": "middle",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "items": [
@@ -474,7 +474,7 @@
     "champ": "Brand",
     "file_prefix": "support",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "items": [

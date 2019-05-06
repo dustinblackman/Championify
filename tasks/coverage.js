@@ -19,9 +19,9 @@ aws.config.update({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
-const s3 = Promise.promisifyAll(new aws.S3({
-  params: {Bucket: 'dustinblackman-championify-coverage'}
-}));
+const s3 = new aws.S3({
+  params: { Bucket: 'dustinblackman-championify-coverage' }
+});
 
 
 function _istanbul(report_type) {
@@ -47,15 +47,15 @@ function getCoverage() {
   const commit = process.env.APPVEYOR_REPO_COMMIT || process.env.TRAVIS_COMMIT;
   fs.removeSync(path.join(__dirname, `../coverage/coverage.json`));
 
-  return s3.listObjectsAsync({Prefix: commit})
+  return s3.listObjectsAsync({ Prefix: commit })
     .then(data => {
       if (data.Contents.length < 2) throw new Error('Missing second coverage file, skipping');
       return Promise.map(data.Contents, entry => {
-        return s3.getObjectAsync({Key: entry.Key})
+        return s3.getObjectAsync({ Key: entry.Key })
           .then(R.prop('Body'))
           .then(R.toString)
           .then(JSON.parse)
-          .then(data => ({data, filename: path.basename(entry.Key)}));
+          .then(data => ({ data, filename: path.basename(entry.Key) }));
       });
     })
     .each(entry => {
@@ -69,7 +69,7 @@ function getCoverage() {
 
       return fs.writeFileAsync(path.join(__dirname, `../coverage/coverage-${entry.filename}`), JSON.stringify(converted_coverage), 'utf8');
     })
-    .then(() => s3.deleteObjectsAsync({Delete: {Objects: [{Key: commit}]}}));
+    .then(() => s3.deleteObjectsAsync({ Delete: { Objects: [{ Key: commit }] } }));
 }
 
 function checkIfSubmitted() {
@@ -101,7 +101,7 @@ function runCoveralls() {
   ];
 
   return fs.writeFileAsync('./coveralls.bat', cmds.join('\n'), 'utf8')
-   .then(() => execAsync('.\\coveralls.bat'));
+    .then(() => execAsync('.\\coveralls.bat'));
 }
 
 gulp.task('istanbul-coverage', function() {

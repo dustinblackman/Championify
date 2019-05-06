@@ -15,3 +15,5 @@ download.txt
 exit.code
 test.coffee
 test.sh
+
+.vscode

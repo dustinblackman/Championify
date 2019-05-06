@@ -3,7 +3,7 @@
     "champ": "Brand",
     "file_prefix": "middle_most_frequent",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "items": [
@@ -239,7 +239,7 @@
     "champ": "Brand",
     "file_prefix": "middle_highest_win",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "items": [
@@ -475,7 +475,7 @@
     "champ": "Brand",
     "file_prefix": "support_most_frequent",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "items": [
@@ -755,7 +755,7 @@
     "champ": "Brand",
     "file_prefix": "support_highest_win",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "items": [

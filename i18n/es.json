@@ -64,7 +64,7 @@
   "na": "No Disponible",
   "open_log": "Abrir Registro",
   "options_aram": "Descarga ARAM conjuntos de elementos",
-  "options_aram_tooltip": "Descarga los conjuntos de elementos ARAM de LolFlavor",
+  "options_aram_tooltip": "Descarga los conjuntos de elementos ARAM de LolAlytics",
   "options_consumables": "Habilitar Consumibles",
   "options_consumables_tooltip": "Mediante la desactivación de los consumibles, si no se pierden del orden de habilidad más frecuente",
   "options_dontdeleteold": "No Eliminar Conjuntos de Objetos Obsoletos",

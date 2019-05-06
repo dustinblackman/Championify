@@ -64,7 +64,7 @@
   "na": "利用不可",
   "open_log": "ログを開く",
   "options_aram": "ARAMのアイテムセットをダウンロード",
-  "options_aram_tooltip": "LolFlavorからARAMのアイテムセットをダウンロード",
+  "options_aram_tooltip": "LolAlyticsからARAMのアイテムセットをダウンロード",
   "options_consumables": "消耗品を有効にします",
   "options_consumables_tooltip": "消耗品を無効にすることにより、あなたは最多スキル順序を失います",
   "options_dontdeleteold": "古いアイテムセットを削除しない",

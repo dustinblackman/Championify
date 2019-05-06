@@ -64,7 +64,7 @@
   "na": "ไม่สามารถใช้งาน",
   "open_log": "เปิดบันทึกการทำงาน",
   "options_aram": "ดาวน์โหลดไอเทมเซ็ตสำหรับ ARAM",
-  "options_aram_tooltip": "ดาวน์โหลดไอเทมเซ็ตสำหรับ ARAM จาก LolFlavor",
+  "options_aram_tooltip": "ดาวน์โหลดไอเทมเซ็ตสำหรับ ARAM จาก LolAlytics",
   "options_consumables": "เปิดการใช้งานอุปกรณ์",
   "options_consumables_tooltip": "โดยการปิดเครื่องอุปโภคบริโภคที่คุณจะสูญเสียทักษะการสั่งซื้อเป็นประจำ",
   "options_dontdeleteold": "อย่าลบไอเทมเซ็ตที่ล้าสมัย",

@@ -3,7 +3,7 @@
     "champ": "Brand",
     "file_prefix": "middle_most_frequent",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "type": "Most Frequent Starting Items",
@@ -226,7 +226,7 @@
     "champ": "Brand",
     "file_prefix": "middle_highest_win",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "type": "Highest Win Starting Items",
@@ -449,7 +449,7 @@
     "champ": "Brand",
     "file_prefix": "support_most_frequent",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "type": "Most Frequent Starting Items",
@@ -716,7 +716,7 @@
     "champ": "Brand",
     "file_prefix": "support_highest_win",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "type": "Highest Win Starting Items",
