@@ -55,7 +55,7 @@ function checkInstallPath(selected_path, done) {
   } else {
     const default_path = path.join(selected_path, 'lol.launcher.exe');
     const new_launcher_path = path.join(selected_path, 'LeagueClient.exe');
-    const garena_check_one = path.join(selected_path, 'lolex.exe');
+    const garena_check_one = path.join(selected_path, 'League of Legends.exe');
     const garena_check_two = glob.sync(path.join(selected_path, 'LoL*Launcher.exe'))[0];
 
     if (fs.existsSync(new_launcher_path)) {
@@ -63,7 +63,7 @@ function checkInstallPath(selected_path, done) {
     } else if (fs.existsSync(default_path)) {
       done(null, selected_path, 'Config/Champions/', path.basename(default_path));
     } else if (fs.existsSync(garena_check_one)) {
-      done(null, selected_path, 'Game/Config/Champions/', path.basename(garena_check_one));
+      done(null, selected_path, 'Config/Champions/', path.basename(garena_check_one));
     } else if (garena_check_two) {
       let garena_version = path.basename(glob.sync(path.join(selected_path, 'GameData/Apps/*'))[0]);
       done(null, selected_path, `GameData/Apps/${garena_version}/Game/Config/Champions/`, path.basename(garena_check_two));
