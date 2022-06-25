@@ -64,7 +64,7 @@
   "na": "Nicht verfügbar",
   "open_log": "Log-Datei öffnen",
   "options_aram": "Herunterladen der ARAM Item-Sets",
-  "options_aram_tooltip": "ARAM-Item-Sets von LolFlavor herunterladen",
+  "options_aram_tooltip": "ARAM-Item-Sets von LolAlytics herunterladen",
   "options_consumables": "Verbrauchsgegenstände anzeigen",
   "options_consumables_tooltip": "Durch das Deaktivieren der Verbrauchsgegenstände wird die beliebteste Fähigkeitsreihenfolge nicht mehr angezeigt",
   "options_dontdeleteold": "Veraltete Item-Sets nicht löschen",

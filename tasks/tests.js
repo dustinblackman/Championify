@@ -5,7 +5,9 @@ import htmlhint from 'gulp-htmlhint';
 import jsonlint from 'gulp-jsonlint';
 import path from 'path';
 import runSequence from 'run-sequence';
-import { spawn } from 'child_process';
+import {
+  spawn
+} from 'child_process';
 import stylint from 'gulp-stylint';
 
 const fs = Promise.promisifyAll(require('fs-extra'));
@@ -36,14 +38,18 @@ gulp.task('stylint', function() {
       }
     }))
     .pipe(stylint.reporter())
-    .pipe(stylint.reporter('fail', {failOnWarning: true}));
+    .pipe(stylint.reporter('fail', {
+      failOnWarning: true
+    }));
 });
 
 gulp.task('htmlhint', function() {
   return gulp.src('app/**/*.html')
     .pipe(htmlhint('.htmlhintrc'))
     .pipe(htmlhint.reporter('htmlhint-stylish'))
-    .pipe(htmlhint.failReporter({suppress: true}));
+    .pipe(htmlhint.failReporter({
+      suppress: true
+    }));
 });
 
 gulp.task('jsonlint', function() {
@@ -54,10 +60,11 @@ gulp.task('jsonlint', function() {
     './.htmlhintrc',
     './.stylintrc',
     './package.json',
-    './bower.json'])
-      .pipe(jsonlint())
-      .pipe(jsonlint.reporter())
-      .pipe(jsonlint.failAfterError());
+    './bower.json'
+  ])
+    .pipe(jsonlint())
+    .pipe(jsonlint.reporter())
+    .pipe(jsonlint.failAfterError());
 });
 
 gulp.task('lint', function(cb) {

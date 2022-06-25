@@ -64,7 +64,7 @@
   "na": "Ikke tilgængelig",
   "open_log": "Åbent Log",
   "options_aram": "Hent ARAM Item Sets",
-  "options_aram_tooltip": "Hent ARAM item set fra LolFlavor",
+  "options_aram_tooltip": "Hent ARAM item set fra LolAlytics",
   "options_consumables": "Aktiver Consumables",
   "options_consumables_tooltip": "Ved at deaktivere hjælpematerialer, mister du de hyppigste dygtighed ordre",
   "options_dontdeleteold": "Slet ikke gamle Item Sets",

@@ -64,7 +64,7 @@
   "na": "无法使用",
   "open_log": "打开日志",
   "options_aram": "下载ARAM项目集",
-  "options_aram_tooltip": "从LolFlavor下载ARAM项目集",
+  "options_aram_tooltip": "从LolAlytics下载ARAM项目集",
   "options_consumables": "启用消耗品",
   "options_consumables_tooltip": "通过禁用消耗品，你会失去最频繁的技能顺序",
   "options_dontdeleteold": "不要删除过时的出装设定",

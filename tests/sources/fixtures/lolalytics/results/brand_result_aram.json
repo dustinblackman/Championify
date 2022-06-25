@@ -1,0 +1,192 @@
+{
+	"champ": "Zyra",
+	"file_prefix": "middle_aram",
+	"riot_json": {
+		"map": "HA",
+		"blocks": [{
+			"items": [{
+				"id": "3364",
+				"count": 1
+			}, {
+				"id": "3363",
+				"count": 1
+			}],
+			"type": "Trinkets | Wins: Q.W.E.Q - Q>W>E"
+		}, {
+			"items": [{
+				"id": "2003",
+				"count": 1
+			}, {
+				"id": "2004",
+				"count": 1
+			}, {
+				"id": "2055",
+				"count": 1
+			}, {
+				"id": "2031",
+				"count": 1
+			}, {
+				"id": "2032",
+				"count": 1
+			}, {
+				"id": "2033",
+				"count": 1
+			}, {
+				"id": "2138",
+				"count": 1
+			}, {
+				"id": "2140",
+				"count": 1
+			}, {
+				"id": "2139",
+				"count": 1
+			}],
+			"type": "Consumables | Frequent: Q.W.E.Q - Q>E>W"
+		}, {
+			"type": "ARAM Starting Items",
+			"items": [{
+				"id": "1052",
+				"count": 1
+			}, {
+				"id": "1026",
+				"count": 1
+			}, {
+				"id": "1001",
+				"count": 1
+			}, {
+				"id": "1028",
+				"count": 1
+			}, {
+				"id": "1027",
+				"count": 1
+			}, {
+				"id": "1004",
+				"count": 1
+			}]
+		}, {
+			"type": "ARAM Boots",
+			"items": [{
+				"id": "3020",
+				"count": 1
+			}, {
+				"id": "3111",
+				"count": 1
+			}, {
+				"id": "3158",
+				"count": 1
+			}]
+		}, {
+			"type": "ARAM First Item",
+			"items": [{
+				"id": "3151",
+				"count": 1
+			}, {
+				"id": "3116",
+				"count": 1
+			}, {
+				"id": "3007",
+				"count": 1
+			}, {
+				"id": "3030",
+				"count": 1
+			}, {
+				"id": "3029",
+				"count": 1
+			}, {
+				"id": "3089",
+				"count": 1
+			}]
+		}, {
+			"type": "ARAM Second Item",
+			"items": [{
+				"id": "3151",
+				"count": 1
+			}, {
+				"id": "3116",
+				"count": 1
+			}, {
+				"id": "3089",
+				"count": 1
+			}, {
+				"id": "3135",
+				"count": 1
+			}, {
+				"id": "3007",
+				"count": 1
+			}, {
+				"id": "3102",
+				"count": 1
+			}]
+		}, {
+			"type": "ARAM Third Item",
+			"items": [{
+				"id": "3116",
+				"count": 1
+			}, {
+				"id": "3151",
+				"count": 1
+			}, {
+				"id": "3089",
+				"count": 1
+			}, {
+				"id": "3157",
+				"count": 1
+			}, {
+				"id": "3135",
+				"count": 1
+			}, {
+				"id": "3102",
+				"count": 1
+			}]
+		}, {
+			"type": "ARAM Fourth Item",
+			"items": [{
+				"id": "3135",
+				"count": 1
+			}, {
+				"id": "3089",
+				"count": 1
+			}, {
+				"id": "3116",
+				"count": 1
+			}, {
+				"id": "3157",
+				"count": 1
+			}, {
+				"id": "3151",
+				"count": 1
+			}, {
+				"id": "3102",
+				"count": 1
+			}]
+		}, {
+			"type": "ARAM Fifth Item",
+			"items": [{
+				"id": "3135",
+				"count": 1
+			}, {
+				"id": "3089",
+				"count": 1
+			}, {
+				"id": "3165",
+				"count": 1
+			}, {
+				"id": "3116",
+				"count": 1
+			}, {
+				"id": "3157",
+				"count": 1
+			}, {
+				"id": "3151",
+				"count": 1
+			}]
+		}],
+		"title": "LAS 9.9 Middle ARAM",
+		"priority": false,
+		"mode": "any",
+		"type": "custom",
+		"sortrank": 1,
+		"champion": "Zyra"
+	},
+	"source": "lolalytics"
+}

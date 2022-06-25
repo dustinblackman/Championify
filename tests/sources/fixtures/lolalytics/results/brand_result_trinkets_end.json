@@ -3,7 +3,7 @@
     "champ": "Brand",
     "file_prefix": "middle",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "type": "Most Frequent Starting Items",
@@ -446,7 +446,7 @@
     "champ": "Brand",
     "file_prefix": "support",
     "riot_json": {
-      "map": "any",
+      "map": "SR",
       "blocks": [
         {
           "type": "Most Frequent Starting Items",
